@@ -37,6 +37,12 @@ h1,h2{font-family:'DM Serif Display','Georgia',serif}
 /* ══ SCREENS ══ */
 .screen{display:none;min-height:100vh}
 .screen.active{display:block}
+#loginScreen.active{display:flex!important}
+#studentDashboard.active{display:block!important}
+#teacherDashboard.active{display:block!important}
+#parentDashboard.active{display:block!important}
+#adminScreen{display:none}
+#adminScreen.active{display:block}
 
 /* ══════════════════════════
    LOGIN
@@ -136,7 +142,7 @@ h1,h2{font-family:'DM Serif Display','Georgia',serif}
 /* ══════════════════════════
    ADMIN SHELL
 ══════════════════════════ */
-#adminScreen.active{display:grid;grid-template-rows:58px 1fr;min-height:100vh}
+#adminScreen.active{display:block;min-height:100vh}
 
 /* TOP NAV */
 .topnav{
@@ -699,10 +705,10 @@ tbody tr:hover td{background:#EEF4FF}
             <table aria-label="Parent accounts">
               <thead><tr><th scope="col">Parent Name</th><th scope="col">Child</th><th scope="col">Grade</th><th scope="col">Contact</th><th scope="col">Actions</th></tr></thead>
               <tbody id="parentTable">
-                <tr><td><b>Mrs. Mokoena</b></td><td>James Mokoena</td><td>Grade 10</td><td>parent.mokoena@email.com</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete parent">🗑️</button> <button class="action-btn" aria-label="Edit parent">✏️</button></td></tr>
-                <tr><td><b>Mr. Dlamini Sr.</b></td><td>Lebo Dlamini</td><td>Grade 10</td><td>parent.dlamini@email.com</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete parent">🗑️</button> <button class="action-btn" aria-label="Edit parent">✏️</button></td></tr>
-                <tr><td><b>Mrs. Osei</b></td><td>Amara Osei</td><td>Grade 9</td><td>parent.osei@email.com</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete parent">🗑️</button> <button class="action-btn" aria-label="Edit parent">✏️</button></td></tr>
-                <tr><td><b>Mr. Nkosi Sr.</b></td><td>Thabo Nkosi</td><td>Grade 11</td><td>parent.nkosi@email.com</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete parent">🗑️</button> <button class="action-btn" aria-label="Edit parent">✏️</button></td></tr>
+                <tr><td><b>Mrs. Mokoena</b></td><td>James Mokoena</td><td>Grade 10</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="11617063747f653f7c7e7a7e747f7051747c70787d3f727e7c">[email&#160;protected]</a></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete parent">🗑️</button> <button class="action-btn" aria-label="Edit parent">✏️</button></td></tr>
+                <tr><td><b>Mr. Dlamini Sr.</b></td><td>Lebo Dlamini</td><td>Grade 10</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5c2c3d2e3932287238303d313532351c39313d3530723f3331">[email&#160;protected]</a></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete parent">🗑️</button> <button class="action-btn" aria-label="Edit parent">✏️</button></td></tr>
+                <tr><td><b>Mrs. Osei</b></td><td>Amara Osei</td><td>Grade 9</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="deaebfacbbb0aaf0b1adbbb79ebbb3bfb7b2f0bdb1b3">[email&#160;protected]</a></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete parent">🗑️</button> <button class="action-btn" aria-label="Edit parent">✏️</button></td></tr>
+                <tr><td><b>Mr. Nkosi Sr.</b></td><td>Thabo Nkosi</td><td>Grade 11</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e7978695828993c9898c88948ea7828a868e8bc984888a">[email&#160;protected]</a></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete parent">🗑️</button> <button class="action-btn" aria-label="Edit parent">✏️</button></td></tr>
               </tbody>
             </table>
           </div>
@@ -1050,17 +1056,20 @@ function doLogin(e) {
   const msg = document.getElementById('loginMsg');
   const cred = CREDS[currentRole];
 
+  const DASH_MAP = {
+    superadmin: 'adminScreen',
+    teacher:    'teacherDashboard',
+    student:    'studentDashboard',
+    parent:     'parentDashboard'
+  };
   if(u === cred.user && p === cred.pass) {
     msg.style.display='none';
+    document.getElementById('loginScreen').classList.remove('active');
+    const dashId = DASH_MAP[currentRole];
+    document.getElementById(dashId).classList.add('active');
     if(currentRole === 'superadmin') {
-      document.getElementById('loginScreen').classList.remove('active');
-      document.getElementById('adminScreen').classList.add('active');
       document.getElementById('main-content').focus();
       initReveal();
-    } else {
-      msg.className = 'login-msg success';
-      msg.style.display = 'block';
-      msg.textContent = '✅ Login successful! ' + currentRole[0].toUpperCase() + currentRole.slice(1) + ' dashboard coming soon.';
     }
   } else {
     msg.className = 'login-msg error';
@@ -1072,7 +1081,9 @@ function doLogin(e) {
 }
 
 function signOut() {
-  document.getElementById('adminScreen').classList.remove('active');
+  ['adminScreen','studentDashboard','teacherDashboard','parentDashboard'].forEach(id => {
+    document.getElementById(id).classList.remove('active');
+  });
   document.getElementById('loginScreen').classList.add('active');
   document.getElementById('loginUser').value = '';
   document.getElementById('loginPass').value = '';
@@ -1314,11 +1325,189 @@ function initReveal() {
 ══════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
   initReveal();
-  // Keyboard shortcut: Enter on login
   document.getElementById('loginUser').addEventListener('keydown', e => {
     if(e.key === 'Enter') document.getElementById('loginPass').focus();
   });
 });
 </script>
+
+<!-- ══════════════════════════════════════
+     STUDENT DASHBOARD
+══════════════════════════════════════ -->
+<div id="studentDashboard" class="screen" aria-label="Student Dashboard">
+  <nav class="topnav" role="navigation" aria-label="Student navigation">
+    <div class="topnav-brand"><b>Edu</b>Build Student</div>
+    <div class="topnav-right">
+      <div class="user-pill">
+        <div class="user-avatar" aria-hidden="true">S</div>
+        <div><div class="user-name">Student</div><div class="user-role">Student Portal</div></div>
+      </div>
+      <button class="signout-btn" onclick="signOut()">⬅ Sign Out</button>
+    </div>
+  </nav>
+  <div style="padding:2rem;max-width:1100px;margin:0 auto">
+    <div class="page-hd"><h2>Welcome back, Student! 👨‍🎓</h2><p>Here's your academic overview — Monday, 23 March 2026</p></div>
+    <div class="stat-grid" role="list" style="margin-bottom:2rem">
+      <div class="stat-card" role="listitem"><div class="sc-icon">📊</div><div class="sc-num">3.8</div><div class="sc-label">GPA</div></div>
+      <div class="stat-card" role="listitem"><div class="sc-icon">✅</div><div class="sc-num">94%</div><div class="sc-label">Attendance</div></div>
+      <div class="stat-card" role="listitem"><div class="sc-icon">📝</div><div class="sc-num">4</div><div class="sc-label">Pending Tasks</div></div>
+      <div class="stat-card" role="listitem"><div class="sc-icon">🏆</div><div class="sc-num">12th</div><div class="sc-label">Class Position</div></div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-head"><h3>📚 My Subjects</h3></div>
+        <div class="tbl-wrap">
+          <table aria-label="Subject grades">
+            <thead><tr><th>Subject</th><th>Score</th><th>Grade</th></tr></thead>
+            <tbody>
+              <tr><td>Science</td><td>84%</td><td><span class="badge bg-green">A</span></td></tr>
+              <tr><td>Mathematics</td><td>72%</td><td><span class="badge bg-blue">B</span></td></tr>
+              <tr><td>Research</td><td>90%</td><td><span class="badge bg-green">A</span></td></tr>
+              <tr><td>English</td><td>68%</td><td><span class="badge bg-blue">B</span></td></tr>
+              <tr><td>History</td><td>77%</td><td><span class="badge bg-blue">B</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>📅 Upcoming Tasks</h3></div>
+        <div class="tbl-wrap">
+          <table aria-label="Upcoming assignments">
+            <thead><tr><th>Task</th><th>Subject</th><th>Due</th></tr></thead>
+            <tbody>
+              <tr><td>Lab Report</td><td>Science</td><td><span class="badge bg-red">25 Mar</span></td></tr>
+              <tr><td>Essay Draft</td><td>English</td><td><span class="badge bg-amber">28 Mar</span></td></tr>
+              <tr><td>Problem Set 4</td><td>Math</td><td><span class="badge bg-blue">30 Mar</span></td></tr>
+              <tr><td>Research Outline</td><td>Research</td><td><span class="badge bg-green">2 Apr</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="callout cl-info" role="note">
+      <span aria-hidden="true">📢</span>
+      <p><strong>Reminder:</strong> Term 2 exams run 15–25 April 2026. Check your timetable and start revising early!</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     TEACHER DASHBOARD
+══════════════════════════════════════ -->
+<div id="teacherDashboard" class="screen" aria-label="Teacher Dashboard">
+  <nav class="topnav" role="navigation" aria-label="Teacher navigation">
+    <div class="topnav-brand"><b>Edu</b>Build Teacher</div>
+    <div class="topnav-right">
+      <div class="user-pill">
+        <div class="user-avatar" aria-hidden="true">T</div>
+        <div><div class="user-name">Teacher</div><div class="user-role">Teacher Portal</div></div>
+      </div>
+      <button class="signout-btn" onclick="signOut()">⬅ Sign Out</button>
+    </div>
+  </nav>
+  <div style="padding:2rem;max-width:1100px;margin:0 auto">
+    <div class="page-hd"><h2>Good morning, Teacher! 👩‍🏫</h2><p>Here's your class overview — Monday, 23 March 2026</p></div>
+    <div class="stat-grid" role="list" style="margin-bottom:2rem">
+      <div class="stat-card" role="listitem"><div class="sc-icon">👨‍🎓</div><div class="sc-num">87</div><div class="sc-label">My Students</div></div>
+      <div class="stat-card" role="listitem"><div class="sc-icon">🏫</div><div class="sc-num">3</div><div class="sc-label">Classes</div></div>
+      <div class="stat-card" role="listitem"><div class="sc-icon">📝</div><div class="sc-num">12</div><div class="sc-label">Pending Grades</div></div>
+      <div class="stat-card" role="listitem"><div class="sc-icon">📊</div><div class="sc-num">82%</div><div class="sc-label">Class Average</div></div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-head"><h3>🏫 My Classes</h3></div>
+        <div class="tbl-wrap">
+          <table aria-label="My classes">
+            <thead><tr><th>Class</th><th>Students</th><th>Avg Score</th><th>Attendance</th></tr></thead>
+            <tbody>
+              <tr><td><b>Grade 8A</b></td><td>22</td><td><span class="badge bg-green">79%</span></td><td>93%</td></tr>
+              <tr><td><b>Grade 9B</b></td><td>23</td><td><span class="badge bg-blue">74%</span></td><td>89%</td></tr>
+              <tr><td><b>Grade 10A</b></td><td>25</td><td><span class="badge bg-green">84%</span></td><td>95%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>📝 Recent Grades Submitted</h3></div>
+        <div class="tbl-wrap">
+          <table aria-label="Recently submitted grades">
+            <thead><tr><th>Student</th><th>Assignment</th><th>Score</th></tr></thead>
+            <tbody>
+              <tr><td>James Mokoena</td><td>Cell Biology Test</td><td><span class="badge bg-green">84%</span></td></tr>
+              <tr><td>Lebo Dlamini</td><td>Lab Report</td><td><span class="badge bg-green">88%</span></td></tr>
+              <tr><td>Zanele Moyo</td><td>Lab Report</td><td><span class="badge bg-red">55%</span></td></tr>
+              <tr><td>Amara Osei</td><td>Quiz 3</td><td><span class="badge bg-amber">63%</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="callout cl-tip" role="note">
+      <span aria-hidden="true">💡</span>
+      <p><strong>Tip:</strong> You have <strong>12 pending grades</strong> to submit before the end of term. Head to the grades section to enter them.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PARENT DASHBOARD
+══════════════════════════════════════ -->
+<div id="parentDashboard" class="screen" aria-label="Parent Dashboard">
+  <nav class="topnav" role="navigation" aria-label="Parent navigation">
+    <div class="topnav-brand"><b>Edu</b>Build Parent</div>
+    <div class="topnav-right">
+      <div class="user-pill">
+        <div class="user-avatar" aria-hidden="true">P</div>
+        <div><div class="user-name">Parent</div><div class="user-role">Parent Portal</div></div>
+      </div>
+      <button class="signout-btn" onclick="signOut()">⬅ Sign Out</button>
+    </div>
+  </nav>
+  <div style="padding:2rem;max-width:1100px;margin:0 auto">
+    <div class="page-hd"><h2>Hello, Parent! 👪</h2><p>Monitoring your child's progress — Monday, 23 March 2026</p></div>
+    <div class="stat-grid" role="list" style="margin-bottom:2rem">
+      <div class="stat-card" role="listitem"><div class="sc-icon">📊</div><div class="sc-num">78%</div><div class="sc-label">Child's Average</div></div>
+      <div class="stat-card" role="listitem"><div class="sc-icon">✅</div><div class="sc-num">92%</div><div class="sc-label">Attendance</div></div>
+      <div class="stat-card" role="listitem"><div class="sc-icon">🏆</div><div class="sc-num">12th</div><div class="sc-label">Class Position</div></div>
+      <div class="stat-card" role="listitem"><div class="sc-icon">📋</div><div class="sc-num">3</div><div class="sc-label">New Notices</div></div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-head"><h3>📚 James — Recent Grades</h3></div>
+        <div class="tbl-wrap">
+          <table aria-label="Child's recent grades">
+            <thead><tr><th>Subject</th><th>Assignment</th><th>Score</th></tr></thead>
+            <tbody>
+              <tr><td>Science</td><td>Cell Biology Test</td><td><span class="badge bg-green">84%</span></td></tr>
+              <tr><td>Mathematics</td><td>Algebra Quiz</td><td><span class="badge bg-blue">72%</span></td></tr>
+              <tr><td>Research</td><td>Research Paper 1</td><td><span class="badge bg-green">90%</span></td></tr>
+              <tr><td>English</td><td>Essay</td><td><span class="badge bg-blue">68%</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>🔔 School Announcements</h3></div>
+        <div style="padding:0.75rem 1rem">
+          <article class="announce-card" style="margin-bottom:0.75rem">
+            <div class="announce-title">Term 2 Exam Schedule Released</div>
+            <div class="announce-meta">22 Mar 2026</div>
+            <div class="announce-body">Term 2 exams run 15–25 April 2026.</div>
+          </article>
+          <article class="announce-card" style="border-left-color:var(--orange)">
+            <div class="announce-title">School Closure — Public Holiday</div>
+            <div class="announce-meta">18 Mar 2026</div>
+            <div class="announce-body">School closed Friday 27 March 2026.</div>
+          </article>
+        </div>
+      </div>
+    </div>
+    <div class="callout cl-warn" role="note">
+      <span aria-hidden="true">⚠️</span>
+      <p><strong>Attendance Notice:</strong> James has missed 4 days this term. Please ensure regular attendance as exams approach.</p>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
