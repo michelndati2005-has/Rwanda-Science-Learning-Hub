@@ -4,648 +4,897 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>EduBuild — School Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Merriweather:ital,wght@0,700;0,900;1,400&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#0D2B5E;--blue:#1565C0;--sky:#2196F3;--teal:#00838F;
-  --green:#2E7D32;--orange:#E65100;--purple:#6A1B9A;--red:#B71C1C;
-  --bg:#F0F4FF;--surface:#fff;--surface2:#F5F7FF;--border:#DDE3F0;
-  --text:#1A2340;--muted:#5A6B8A;--r:10px;
-  --shadow:0 4px 24px rgba(13,43,94,0.10);
+  --navy:#0A1628;--navy2:#122040;--blue:#1756F3;--blue2:#3B82F6;
+  --teal:#0D9488;--green:#16A34A;--orange:#EA580C;--purple:#7C3AED;
+  --red:#DC2626;--amber:#D97706;
+  --bg:#F0F3FA;--surface:#ffffff;--surface2:#F7F9FF;
+  --border:#E2E8F4;--border2:#CBD5E1;
+  --text:#0A1628;--muted:#64748B;--muted2:#94A3B8;
+  --r:12px;--r2:8px;
+  --shadow:0 1px 3px rgba(10,22,40,0.08),0 4px 16px rgba(10,22,40,0.06);
+  --shadow-lg:0 8px 32px rgba(10,22,40,0.14);
 }
-html{scroll-behavior:smooth}
-body{font-family:'Nunito','Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
-a{color:var(--blue);text-decoration:none}
-h1,h2,h3{font-family:'Merriweather','Georgia',serif}
+
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Plus Jakarta Sans','Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+a{color:var(--blue)}
+h1,h2{font-family:'DM Serif Display','Georgia',serif}
+
+/* Skip link for accessibility */
+.skip-link{
+  position:fixed;top:-100%;left:0;z-index:99999;
+  background:var(--blue);color:#fff;padding:0.75rem 1.5rem;
+  border-radius:0 0 var(--r) 0;font-weight:700;font-size:0.9rem;
+  transition:top 0.2s;text-decoration:none;
+}
+.skip-link:focus{top:0}
 
 /* ══ SCREENS ══ */
 .screen{display:none;min-height:100vh}
 .screen.active{display:block}
 
 /* ══════════════════════════
-   LOGIN SCREEN
+   LOGIN
 ══════════════════════════ */
 #loginScreen{
   min-height:100vh;
-  background:linear-gradient(135deg,#0D2B5E 0%,#1565C0 55%,#006064 100%);
+  background:linear-gradient(135deg,#0A1628 0%,#122040 40%,#1756F3 100%);
   display:flex;align-items:center;justify-content:center;padding:2rem;
+  position:relative;overflow:hidden;
+}
+#loginScreen::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 70% 30%,rgba(59,130,246,0.18) 0%,transparent 60%),
+             radial-gradient(circle at 20% 80%,rgba(13,148,136,0.12) 0%,transparent 50%);
 }
 #loginScreen.active{display:flex}
+
 .login-box{
-  background:#fff;border-radius:16px;padding:2.5rem 2rem;
-  width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,0.25);
-  animation:fadeUp 0.5s ease both;
+  background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);
+  border-radius:20px;padding:2.5rem 2.25rem;
+  width:100%;max-width:430px;
+  box-shadow:0 32px 80px rgba(0,0,0,0.35),0 0 0 1px rgba(255,255,255,0.08);
+  animation:slideUp 0.55s cubic-bezier(0.22,1,0.36,1) both;
+  position:relative;
 }
-.login-logo{text-align:center;margin-bottom:1.8rem}
-.login-logo h1{font-size:1.8rem;color:var(--navy);margin-bottom:0.3rem}
-.login-logo h1 b{color:var(--blue)}
-.login-logo p{font-size:0.82rem;color:var(--muted)}
-.login-tabs{display:flex;gap:0;background:var(--bg);border-radius:8px;padding:4px;margin-bottom:1.5rem}
-.ltab{
-  flex:1;padding:0.5rem;text-align:center;font-size:0.75rem;font-weight:700;
-  border-radius:6px;cursor:pointer;transition:all 0.2s;color:var(--muted);
+.login-logo{text-align:center;margin-bottom:2rem}
+.login-logo h1{font-size:2rem;color:var(--navy);letter-spacing:-0.02em;line-height:1}
+.login-logo h1 span{color:var(--blue)}
+.login-logo p{font-size:0.82rem;color:var(--muted);margin-top:0.4rem;font-weight:500}
+
+.role-tabs{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  background:var(--bg);border-radius:10px;padding:4px;
+  gap:3px;margin-bottom:1.75rem;
+  border:1px solid var(--border);
 }
-.ltab.on{background:#fff;color:var(--navy);box-shadow:var(--shadow)}
-.login-role-icon{text-align:center;font-size:2.2rem;margin-bottom:0.8rem}
-.login-form-title{font-size:1rem;font-weight:800;color:var(--navy);text-align:center;margin-bottom:1.2rem}
+.rtab{
+  padding:0.45rem 0.3rem;text-align:center;
+  font-size:0.7rem;font-weight:700;border-radius:7px;
+  cursor:pointer;transition:all 0.18s;color:var(--muted);
+  line-height:1.3;border:2px solid transparent;
+  background:transparent;font-family:inherit;
+}
+.rtab:hover{color:var(--navy);background:rgba(255,255,255,0.8)}
+.rtab.on{background:var(--surface);color:var(--navy);border-color:var(--border);box-shadow:var(--shadow)}
+.rtab:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.rtab .tab-icon{font-size:1.1rem;display:block;margin-bottom:2px}
+
+.role-header{text-align:center;margin-bottom:1.5rem}
+.role-header .role-icon{font-size:2.5rem;line-height:1;margin-bottom:0.5rem}
+.role-header h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.05rem;font-weight:800;color:var(--navy)}
+
 .field{margin-bottom:1rem}
-.field label{display:block;font-size:0.75rem;font-weight:700;color:var(--muted);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.05em}
+.field label{
+  display:block;font-size:0.72rem;font-weight:700;color:var(--muted);
+  margin-bottom:0.35rem;text-transform:uppercase;letter-spacing:0.07em;
+}
 .field input{
-  width:100%;padding:0.7rem 0.9rem;border:2px solid var(--border);
-  border-radius:8px;font-size:0.9rem;font-family:inherit;
-  outline:none;transition:border-color 0.2s;
+  width:100%;padding:0.72rem 1rem;border:2px solid var(--border);
+  border-radius:var(--r2);font-size:0.9rem;font-family:inherit;
+  outline:none;transition:border-color 0.2s,box-shadow 0.2s;
+  background:var(--surface2);color:var(--text);
 }
-.field input:focus{border-color:var(--blue)}
+.field input:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 4px rgba(23,86,243,0.12);
+  background:var(--surface);
+}
+.field input::placeholder{color:var(--muted2)}
+
 .login-btn{
-  width:100%;padding:0.85rem;background:var(--blue);color:#fff;
-  border:none;border-radius:8px;font-size:0.9rem;font-weight:800;
-  cursor:pointer;transition:background 0.2s,transform 0.1s;
-  font-family:inherit;margin-top:0.5rem;
+  width:100%;padding:0.88rem;background:var(--blue);color:#fff;
+  border:none;border-radius:var(--r2);font-size:0.92rem;font-weight:800;
+  cursor:pointer;transition:background 0.2s,transform 0.1s,box-shadow 0.2s;
+  font-family:inherit;margin-top:0.5rem;letter-spacing:0.01em;
+  box-shadow:0 4px 16px rgba(23,86,243,0.35);
 }
-.login-btn:hover{background:#0D47A1;transform:translateY(-1px)}
+.login-btn:hover{background:#1244CC;transform:translateY(-1px);box-shadow:0 6px 20px rgba(23,86,243,0.45)}
 .login-btn:active{transform:translateY(0)}
-.login-error{
-  background:#FFEBEE;color:var(--red);border:1px solid #FFCDD2;
-  border-radius:7px;padding:0.6rem 0.9rem;font-size:0.8rem;
-  font-weight:700;text-align:center;margin-top:0.8rem;display:none;
+.login-btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+.login-msg{
+  border-radius:var(--r2);padding:0.65rem 1rem;font-size:0.8rem;
+  font-weight:700;text-align:center;margin-top:0.9rem;display:none;
 }
+.login-msg.error{background:#FEF2F2;color:var(--red);border:1.5px solid #FECACA}
+.login-msg.success{background:#F0FDF4;color:var(--green);border:1.5px solid #BBF7D0}
+
 .login-hint{
-  background:var(--bg);border-radius:7px;padding:0.6rem 0.9rem;
-  font-size:0.72rem;color:var(--muted);margin-top:1rem;text-align:center;
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:var(--r2);padding:0.65rem 1rem;
+  font-size:0.73rem;color:var(--muted);margin-top:1rem;text-align:center;
+  line-height:1.6;
 }
 .login-hint b{color:var(--navy)}
 
 /* ══════════════════════════
-   SUPERADMIN DASHBOARD
+   ADMIN SHELL
 ══════════════════════════ */
-#adminScreen{background:var(--bg)}
-#adminScreen.active{display:block}
-.admin-nav{
-  background:var(--navy);padding:0 1.5rem;height:58px;
+#adminScreen.active{display:grid;grid-template-rows:58px 1fr;min-height:100vh}
+
+/* TOP NAV */
+.topnav{
+  grid-column:1/-1;background:var(--navy);height:58px;
   display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;z-index:999;
+  padding:0 1.5rem;position:sticky;top:0;z-index:900;
+  border-bottom:1px solid rgba(255,255,255,0.06);
 }
-.admin-nav-brand{font-family:'Merriweather',serif;color:#fff;font-size:1rem;font-style:italic}
-.admin-nav-brand b{font-style:normal;color:#64B5F6}
-.admin-nav-right{display:flex;align-items:center;gap:1rem}
-.admin-badge{
-  background:rgba(100,181,246,0.18);color:#90CAF9;
-  border:1px solid rgba(100,181,246,0.3);border-radius:100px;
-  padding:0.2rem 0.75rem;font-size:0.68rem;font-weight:700;
+.topnav-brand{
+  font-family:'DM Serif Display',serif;color:#fff;
+  font-size:1.15rem;font-style:italic;letter-spacing:0.01em;
 }
+.topnav-brand b{font-style:normal;color:#93C5FD}
+.topnav-right{display:flex;align-items:center;gap:0.75rem}
+.user-pill{
+  display:flex;align-items:center;gap:0.5rem;
+  background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);
+  border-radius:100px;padding:0.28rem 0.8rem 0.28rem 0.28rem;
+}
+.user-avatar{
+  width:26px;height:26px;background:var(--blue);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.75rem;font-weight:800;color:#fff;flex-shrink:0;
+}
+.user-name{font-size:0.72rem;color:#CBD5E1;font-weight:600}
+.user-role{font-size:0.64rem;color:#64748B;font-weight:500}
 .signout-btn{
-  background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);
-  border-radius:7px;padding:0.3rem 0.75rem;font-size:0.72rem;font-weight:700;
-  cursor:pointer;transition:background 0.2s;font-family:inherit;
+  background:rgba(255,255,255,0.08);color:#CBD5E1;
+  border:1px solid rgba(255,255,255,0.14);border-radius:var(--r2);
+  padding:0.32rem 0.85rem;font-size:0.72rem;font-weight:700;
+  cursor:pointer;transition:all 0.2s;font-family:inherit;
 }
-.signout-btn:hover{background:rgba(255,255,255,0.2)}
+.signout-btn:hover{background:rgba(255,255,255,0.15);color:#fff}
+.signout-btn:focus-visible{outline:2px solid #93C5FD;outline-offset:2px}
+
+/* LAYOUT */
 .admin-layout{display:flex;min-height:calc(100vh - 58px)}
-.admin-sidebar{
-  width:220px;background:#fff;border-right:1px solid var(--border);
-  padding:1rem 0;flex-shrink:0;position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto;
+
+/* SIDEBAR */
+.sidebar{
+  width:228px;background:var(--surface);border-right:1px solid var(--border);
+  padding:1.2rem 0 2rem;flex-shrink:0;
+  position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto;
 }
-.sidebar-section{padding:0.4rem 1rem 0.2rem;font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted)}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+.sidebar-group{padding:0.6rem 1rem 0.25rem;font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:var(--muted2)}
 .sidebar-item{
-  display:flex;align-items:center;gap:0.7rem;
-  padding:0.6rem 1rem;font-size:0.8rem;color:var(--muted);
-  cursor:pointer;transition:all 0.15s;border-left:3px solid transparent;
-  font-weight:600;
+  display:flex;align-items:center;gap:0.65rem;
+  padding:0.58rem 1rem;font-size:0.8rem;color:var(--muted);
+  cursor:pointer;transition:all 0.14s;
+  border-left:3px solid transparent;font-weight:600;
+  border:none;background:none;width:100%;text-align:left;
+  font-family:inherit;
 }
 .sidebar-item:hover{background:var(--bg);color:var(--navy)}
-.sidebar-item.on{background:var(--bg);color:var(--blue);border-left-color:var(--blue);font-weight:800}
-.admin-main{flex:1;padding:2rem;overflow-y:auto}
-.admin-page{display:none}
-.admin-page.on{display:block}
-.page-title{font-size:1.4rem;font-weight:900;color:var(--navy);margin-bottom:0.3rem}
-.page-sub{font-size:0.85rem;color:var(--muted);margin-bottom:1.8rem}
-
-/* stat cards */
-.stat-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;margin-bottom:2rem}
-.stat-card{
-  background:#fff;border:1px solid var(--border);border-radius:var(--r);
-  padding:1.2rem;display:flex;flex-direction:column;gap:0.3rem;
+.sidebar-item.on{
+  background:linear-gradient(90deg,#EFF6FF 0%,var(--bg) 100%);
+  color:var(--blue);border-left:3px solid var(--blue);font-weight:800;
 }
-.sc-icon{font-size:1.6rem}
-.sc-num{font-size:1.8rem;font-weight:900;color:var(--navy)}
-.sc-label{font-size:0.74rem;color:var(--muted);font-weight:600}
+.sidebar-item:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+.si-icon{font-size:1rem;width:22px;text-align:center;flex-shrink:0}
 
-/* tables */
-.tbl-wrap{background:#fff;border-radius:var(--r);border:1px solid var(--border);overflow:hidden;margin-bottom:1.5rem}
-.tbl-head{padding:1rem 1.2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
-.tbl-head h3{font-size:0.9rem;font-weight:800;color:var(--navy)}
-table{width:100%;border-collapse:collapse;font-size:0.8rem}
-th{background:var(--navy);color:#fff;padding:0.65rem 1rem;text-align:left;font-size:0.74rem;font-weight:700}
-td{padding:0.65rem 1rem;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle}
-tr:last-child td{border-bottom:none}
-tr:nth-child(even) td{background:var(--surface2)}
-tr:hover td{background:#EEF4FF}
+/* MAIN */
+.admin-main{flex:1;padding:2rem 2.25rem;overflow-y:auto;min-width:0}
+.admin-page{display:none;animation:fadeIn 0.25s ease}
+.admin-page.on{display:block}
 
-/* badges */
-.badge{display:inline-block;padding:0.18rem 0.55rem;border-radius:100px;font-size:0.68rem;font-weight:700}
-.badge-green{background:#E8F5E9;color:var(--green)}
-.badge-blue{background:#E3F2FD;color:var(--blue)}
-.badge-orange{background:#FFF3E0;color:var(--orange)}
-.badge-red{background:#FCE4EC;color:var(--red)}
-.badge-purple{background:#EDE7F6;color:var(--purple)}
+/* PAGE HEADER */
+.page-hd{margin-bottom:2rem}
+.page-hd h2{font-size:1.5rem;font-family:'DM Serif Display',serif;color:var(--navy);letter-spacing:-0.01em;line-height:1.2}
+.page-hd p{font-size:0.85rem;color:var(--muted);margin-top:0.3rem}
+.page-top{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 
-/* forms / modals */
+/* STAT CARDS */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:1rem;margin-bottom:2rem}
+.stat-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:1.2rem 1.1rem;
+  box-shadow:var(--shadow);transition:transform 0.2s,box-shadow 0.2s;
+}
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.sc-icon{font-size:1.5rem;margin-bottom:0.6rem;line-height:1}
+.sc-num{font-size:1.9rem;font-weight:900;color:var(--navy);line-height:1;letter-spacing:-0.02em}
+.sc-label{font-size:0.73rem;color:var(--muted);font-weight:600;margin-top:0.3rem}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;margin-bottom:1.25rem}
+.card-head{padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.card-head h3{font-size:0.9rem;font-weight:800;color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif}
+.card-body{padding:1.25rem}
+
+/* TABLES */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:0.79rem}
+thead th{
+  background:var(--navy);color:#fff;
+  padding:0.65rem 1rem;text-align:left;font-size:0.71rem;
+  font-weight:700;letter-spacing:0.04em;white-space:nowrap;
+}
+thead th:first-child{border-radius:0 0 0 0}
+tbody td{padding:0.65rem 1rem;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even) td{background:var(--surface2)}
+tbody tr:hover td{background:#EEF4FF}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:0.2rem;padding:0.18rem 0.6rem;border-radius:100px;font-size:0.67rem;font-weight:700;white-space:nowrap}
+.bg-green{background:#DCFCE7;color:#15803D}
+.bg-blue{background:#DBEAFE;color:#1D4ED8}
+.bg-orange{background:#FFEDD5;color:#C2410C}
+.bg-red{background:#FEE2E2;color:#B91C1C}
+.bg-purple{background:#EDE9FE;color:#6D28D9}
+.bg-teal{background:#CCFBF1;color:#0F766E}
+.bg-amber{background:#FEF3C7;color:#B45309}
+.bg-muted{background:var(--bg);color:var(--muted)}
+
+/* ACTION BUTTONS */
+.action-btn{
+  border:none;background:transparent;cursor:pointer;
+  padding:0.22rem 0.4rem;border-radius:6px;
+  font-size:0.85rem;transition:background 0.15s;
+  line-height:1;
+}
+.action-btn:hover{background:var(--bg)}
+.action-btn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+/* ADD BUTTON */
+.add-btn{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  background:var(--blue);color:#fff;border:none;
+  border-radius:var(--r2);padding:0.52rem 1.1rem;
+  font-size:0.78rem;font-weight:700;cursor:pointer;
+  font-family:inherit;transition:all 0.2s;
+  box-shadow:0 2px 8px rgba(23,86,243,0.3);
+}
+.add-btn:hover{background:#1244CC;transform:translateY(-1px)}
+.add-btn:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+
+/* PROGRESS BARS */
+.prog-item{display:flex;align-items:center;gap:0.85rem;padding:0.45rem 0}
+.prog-label{width:95px;font-size:0.78rem;color:var(--muted);font-weight:600;flex-shrink:0}
+.prog-track{flex:1;height:8px;background:var(--bg);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px;transition:width 1s ease}
+.prog-pct{width:38px;text-align:right;font-size:0.78rem;font-weight:800;color:var(--navy)}
+
+/* CALLOUTS */
+.callout{display:flex;gap:0.85rem;padding:1rem 1.15rem;border-radius:var(--r);margin-bottom:1.25rem;border-left:4px solid}
+.callout p{font-size:0.83rem;line-height:1.6;margin:0}
+.callout strong{font-weight:800}
+.cl-info{background:#EFF6FF;border-color:var(--blue2)}
+.cl-tip{background:#F0FDF4;border-color:var(--green)}
+.cl-warn{background:#FFFBEB;border-color:var(--amber)}
+
+/* ANNOUNCEMENTS */
+.announce-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:1.1rem 1.25rem;margin-bottom:0.75rem;
+  border-left:4px solid var(--blue);box-shadow:var(--shadow);
+}
+.announce-title{font-size:0.9rem;font-weight:800;color:var(--navy);margin-bottom:0.25rem}
+.announce-meta{font-size:0.7rem;color:var(--muted);font-weight:500}
+.announce-body{font-size:0.82rem;color:var(--text);margin-top:0.5rem;line-height:1.65}
+
+/* REPORT CARD */
+.report-card{
+  background:var(--surface);border:2px solid var(--border);
+  border-radius:var(--r);padding:1.75rem;margin-bottom:1.25rem;
+}
+.report-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:1rem}
+.report-school-name{font-size:1.05rem;font-weight:900;color:var(--navy);font-family:'DM Serif Display',serif}
+.report-term-label{font-size:0.72rem;color:var(--muted);margin-top:0.25rem}
+.report-student-info{text-align:right;font-size:0.82rem;line-height:1.8}
+.report-grades{width:100%;border-collapse:collapse;font-size:0.79rem;margin-bottom:1rem}
+.report-grades th{background:var(--navy);color:#fff;padding:0.6rem 0.9rem;text-align:left;font-size:0.71rem;font-weight:700}
+.report-grades td{padding:0.55rem 0.9rem;border-bottom:1px solid var(--border)}
+.report-summary{display:flex;flex-wrap:wrap;gap:1.5rem;font-size:0.82rem;padding:0.6rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:0.75rem}
+.report-comment{font-size:0.78rem;color:var(--muted);line-height:1.7}
+.report-comment strong{color:var(--text)}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+
+/* MODAL */
 .modal-overlay{
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);
-  z-index:9000;align-items:center;justify-content:center;padding:1rem;
+  display:none;position:fixed;inset:0;
+  background:rgba(10,22,40,0.6);backdrop-filter:blur(4px);
+  z-index:8000;align-items:center;justify-content:center;padding:1rem;
 }
 .modal-overlay.open{display:flex}
 .modal{
-  background:#fff;border-radius:14px;padding:2rem;width:100%;max-width:440px;
-  box-shadow:0 20px 60px rgba(0,0,0,0.2);animation:fadeUp 0.25s ease both;
+  background:var(--surface);border-radius:16px;padding:2rem 1.75rem;
+  width:100%;max-width:440px;
+  box-shadow:var(--shadow-lg);
+  animation:slideUp 0.25s cubic-bezier(0.22,1,0.36,1) both;
+  border:1px solid var(--border);
 }
-.modal h3{font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:1.2rem}
+.modal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.modal-hd h3{font-size:1.05rem;font-weight:800;color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif}
+.modal-close{
+  background:var(--bg);border:1px solid var(--border);
+  width:30px;height:30px;border-radius:50%;cursor:pointer;
+  font-size:1rem;display:flex;align-items:center;justify-content:center;
+  transition:background 0.2s;
+}
+.modal-close:hover{background:var(--border)}
+.modal-close:focus-visible{outline:2px solid var(--blue)}
 .mfield{margin-bottom:1rem}
-.mfield label{display:block;font-size:0.73rem;font-weight:700;color:var(--muted);margin-bottom:0.3rem;text-transform:uppercase}
-.mfield input,.mfield select{
-  width:100%;padding:0.62rem 0.85rem;border:2px solid var(--border);
-  border-radius:7px;font-size:0.85rem;font-family:inherit;outline:none;
-  transition:border-color 0.2s;
+.mfield label{display:block;font-size:0.71rem;font-weight:700;color:var(--muted);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.06em}
+.mfield input,.mfield select,.mfield textarea{
+  width:100%;padding:0.65rem 0.9rem;border:2px solid var(--border);
+  border-radius:var(--r2);font-size:0.85rem;font-family:inherit;
+  outline:none;transition:border-color 0.2s,box-shadow 0.2s;
+  background:var(--surface2);color:var(--text);
 }
-.mfield input:focus,.mfield select:focus{border-color:var(--blue)}
-.modal-btns{display:flex;gap:0.7rem;margin-top:1.2rem;justify-content:flex-end}
-.btn{padding:0.55rem 1.2rem;border-radius:7px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:all 0.2s}
-.btn-primary{background:var(--blue);color:#fff}
-.btn-primary:hover{background:#0D47A1}
+.mfield input:focus,.mfield select:focus,.mfield textarea:focus{
+  border-color:var(--blue);box-shadow:0 0 0 3px rgba(23,86,243,0.1);
+  background:var(--surface);
+}
+.mfield textarea{resize:vertical;min-height:80px}
+.modal-foot{display:flex;gap:0.65rem;justify-content:flex-end;margin-top:1.5rem}
+
+/* BUTTONS */
+.btn{padding:0.58rem 1.25rem;border-radius:var(--r2);font-size:0.8rem;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.btn:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(23,86,243,0.3)}
+.btn-primary:hover{background:#1244CC;transform:translateY(-1px)}
 .btn-danger{background:var(--red);color:#fff}
-.btn-danger:hover{background:#880E1B}
-.btn-ghost{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
-.btn-ghost:hover{color:var(--navy);border-color:var(--navy)}
-.add-btn{
-  background:var(--blue);color:#fff;border:none;border-radius:7px;
-  padding:0.45rem 1rem;font-size:0.76rem;font-weight:700;cursor:pointer;
-  font-family:inherit;transition:background 0.2s;
-}
-.add-btn:hover{background:#0D47A1}
-.action-ico{cursor:pointer;padding:0.2rem 0.4rem;border-radius:4px;transition:background 0.15s;font-size:0.9rem}
-.action-ico:hover{background:var(--bg)}
+.btn-danger:hover{background:#991B1B}
+.btn-ghost{background:var(--bg);color:var(--muted);border:1.5px solid var(--border)}
+.btn-ghost:hover{color:var(--navy);border-color:var(--border2)}
 
-/* callout */
-.callout{border-radius:var(--r);padding:1rem 1.2rem;margin-bottom:1.2rem;display:flex;gap:0.8rem;font-size:0.84rem;border-left:4px solid}
-.callout p{margin:0;line-height:1.6}
-.callout strong{font-weight:800}
-.c-tip{background:#E8F5E9;border-color:var(--green)}
-.c-info{background:#E3F2FD;border-color:var(--sky)}
-.c-warn{background:#FFF3E0;border-color:var(--orange)}
-
-/* progress bars */
-.prog-row{display:flex;align-items:center;gap:0.8rem;margin-bottom:0.6rem;font-size:0.78rem}
-.prog-lbl{width:100px;color:var(--muted);flex-shrink:0}
-.prog-track{flex:1;height:8px;background:#E0E0E0;border-radius:4px;overflow:hidden}
-.prog-fill{height:100%;border-radius:4px}
-.prog-pct{width:35px;text-align:right;font-weight:800;color:var(--navy)}
-
-/* report card */
-.report-card{
-  background:#fff;border:2px solid var(--border);border-radius:var(--r);
-  padding:1.5rem;margin-bottom:1rem;
-}
-.report-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
-.report-school{font-size:1rem;font-weight:900;color:var(--navy)}
-.report-term{font-size:0.75rem;color:var(--muted)}
-.report-student{font-size:0.85rem}
-.report-student b{color:var(--navy)}
-.report-grades{width:100%;border-collapse:collapse;font-size:0.8rem;margin-bottom:0.8rem}
-.report-grades th{background:var(--navy);color:#fff;padding:0.5rem 0.8rem;text-align:left;font-size:0.72rem}
-.report-grades td{padding:0.5rem 0.8rem;border-bottom:1px solid var(--border)}
-.report-footer{font-size:0.75rem;color:var(--muted);border-top:1px solid var(--border);padding-top:0.8rem;margin-top:0.5rem}
+/* PRINT BUTTON */
 .print-btn{
-  background:var(--navy);color:#fff;border:none;border-radius:7px;
-  padding:0.5rem 1.2rem;font-size:0.78rem;font-weight:700;cursor:pointer;
-  font-family:inherit;transition:background 0.2s;
+  background:var(--navy);color:#fff;border:none;border-radius:var(--r2);
+  padding:0.55rem 1.25rem;font-size:0.78rem;font-weight:700;
+  cursor:pointer;font-family:inherit;transition:background 0.2s;
+  display:inline-flex;align-items:center;gap:0.4rem;
 }
-.print-btn:hover{background:#1565C0}
+.print-btn:hover{background:var(--navy2)}
+.print-btn:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 
-/* section heading */
-.sec-h{font-size:1rem;font-weight:800;color:var(--navy);margin:1.5rem 0 0.8rem;display:flex;align-items:center;gap:0.5rem}
+/* SETTINGS */
+.settings-form{display:flex;flex-direction:column;gap:1rem;padding:1.25rem}
 
-/* grid 2 col */
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
-.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem}
+/* TOAST */
+#toast{
+  position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;
+  background:var(--navy);color:#fff;padding:0.75rem 1.25rem;
+  border-radius:var(--r2);font-size:0.82rem;font-weight:600;
+  box-shadow:var(--shadow-lg);transform:translateY(120%);opacity:0;
+  transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  display:flex;align-items:center;gap:0.5rem;max-width:320px;
+}
+#toast.show{transform:translateY(0);opacity:1}
 
-/* announcement */
-.announce{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.2rem;margin-bottom:0.75rem;border-left:4px solid var(--blue)}
-.announce-title{font-size:0.88rem;font-weight:800;color:var(--navy);margin-bottom:0.2rem}
-.announce-meta{font-size:0.72rem;color:var(--muted)}
-.announce-body{font-size:0.82rem;color:var(--text);margin-top:0.4rem}
-
-/* ══ ANIMATIONS ══ */
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-.reveal{opacity:0;transform:translateY(12px);transition:opacity 0.45s,transform 0.45s}
+/* ANIMATIONS */
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.reveal{opacity:0;transform:translateY(10px);transition:opacity 0.4s ease,transform 0.4s ease}
 .reveal.vis{opacity:1;transform:none}
 
 /* ══ RESPONSIVE ══ */
-@media(max-width:768px){
-  .admin-sidebar{display:none}
-  .g2,.g3{grid-template-columns:1fr}
-  .stat-cards{grid-template-columns:1fr 1fr}
+@media(max-width:900px){
+  .g2{grid-template-columns:1fr}
+  .g3{grid-template-columns:1fr 1fr}
 }
+@media(max-width:768px){
+  .sidebar{
+    position:fixed;left:-228px;top:58px;z-index:800;
+    transition:left 0.3s ease;height:calc(100vh - 58px);
+    box-shadow:var(--shadow-lg);
+  }
+  .sidebar.open{left:0}
+  .hamburger{display:flex}
+  .admin-main{padding:1.25rem}
+  .stat-grid{grid-template-columns:1fr 1fr}
+}
+@media(min-width:769px){.hamburger{display:none}}
+
+.hamburger{
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);
+  border-radius:7px;width:36px;height:36px;
+  align-items:center;justify-content:center;
+  cursor:pointer;color:#CBD5E1;font-size:1.1rem;
+}
+.hamburger:focus-visible{outline:2px solid #93C5FD}
+.sidebar-backdrop{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);
+  z-index:799;
+}
+.sidebar-backdrop.open{display:block}
+
 @media print{
-  .admin-nav,.admin-sidebar,.add-btn,.print-btn,.action-ico,
-  .sidebar-item,.modal-overlay{display:none!important}
+  .topnav,.sidebar,.add-btn,.print-btn,.action-btn,.modal-overlay,#toast{display:none!important}
   .admin-main{padding:0}
-  .report-card{border:2px solid #000}
+  .report-card{border:1.5px solid #000;page-break-inside:avoid}
 }
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════
-     SCREEN 1: LOGIN
-══════════════════════════════════════ -->
-<div id="loginScreen" class="screen active">
+<!-- Skip navigation for screen readers -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- Toast notification -->
+<div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+<!-- ══════════════════════
+     LOGIN SCREEN
+══════════════════════ -->
+<div id="loginScreen" class="screen active" role="main">
   <div class="login-box">
     <div class="login-logo">
-      <h1><b>Edu</b>Build</h1>
+      <h1><span>Edu</span>Build</h1>
       <p>School Management Platform</p>
     </div>
 
-    <!-- Role tabs -->
-    <div class="login-tabs">
-      <div class="ltab on" onclick="setRole('superadmin')">👑 SuperAdmin</div>
-      <div class="ltab" onclick="setRole('teacher')">👩‍🏫 Teacher</div>
-      <div class="ltab" onclick="setRole('student')">👨‍🎓 Student</div>
-      <div class="ltab" onclick="setRole('parent')">👪 Parent</div>
+    <div role="tablist" aria-label="Select your role" class="role-tabs">
+      <button role="tab" aria-selected="true" class="rtab on" onclick="setRole('superadmin',this)" id="tab-superadmin" aria-controls="role-form">
+        <span class="tab-icon" aria-hidden="true">👑</span>SuperAdmin
+      </button>
+      <button role="tab" aria-selected="false" class="rtab" onclick="setRole('teacher',this)" id="tab-teacher" aria-controls="role-form">
+        <span class="tab-icon" aria-hidden="true">👩‍🏫</span>Teacher
+      </button>
+      <button role="tab" aria-selected="false" class="rtab" onclick="setRole('student',this)" id="tab-student" aria-controls="role-form">
+        <span class="tab-icon" aria-hidden="true">👨‍🎓</span>Student
+      </button>
+      <button role="tab" aria-selected="false" class="rtab" onclick="setRole('parent',this)" id="tab-parent" aria-controls="role-form">
+        <span class="tab-icon" aria-hidden="true">👪</span>Parent
+      </button>
     </div>
 
-    <div class="login-role-icon" id="roleIcon">👑</div>
-    <div class="login-form-title" id="roleTitle">SuperAdmin Sign In</div>
-
-    <div class="field">
-      <label>Username / Email</label>
-      <input type="text" id="loginUser" placeholder="Enter your username" autocomplete="username"/>
-    </div>
-    <div class="field">
-      <label>Password</label>
-      <input type="password" id="loginPass" placeholder="Enter your password" autocomplete="current-password"/>
+    <div class="role-header">
+      <div class="role-icon" id="roleIcon" aria-hidden="true">👑</div>
+      <h2 id="roleTitle">SuperAdmin Sign In</h2>
     </div>
 
-    <button class="login-btn" onclick="doLogin()">Sign In →</button>
-    <div class="login-error" id="loginError">❌ Incorrect username or password. Please try again.</div>
+    <form id="role-form" onsubmit="doLogin(event)" novalidate>
+      <div class="field">
+        <label for="loginUser">Username / Email</label>
+        <input type="text" id="loginUser" autocomplete="username" placeholder="Enter your username" aria-required="true"/>
+      </div>
+      <div class="field">
+        <label for="loginPass">Password</label>
+        <input type="password" id="loginPass" autocomplete="current-password" placeholder="Enter your password" aria-required="true"/>
+      </div>
+      <button type="submit" class="login-btn">Sign In →</button>
+    </form>
 
-    <div class="login-hint" id="loginHint">
-      SuperAdmin: <b>Michel@2005</b> / <b>Michel@4321</b>
+    <div class="login-msg" id="loginMsg" role="alert" aria-live="polite"></div>
+    <div class="login-hint" id="loginHint" aria-label="Demo credentials">
+      Username: <b>Michel@2005</b> &nbsp;·&nbsp; Password: <b>Michel@4321</b>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     SCREEN 2: SUPERADMIN DASHBOARD
-══════════════════════════════════════ -->
-<div id="adminScreen" class="screen">
+<!-- ══════════════════════
+     ADMIN SCREEN
+══════════════════════ -->
+<div id="adminScreen" class="screen" aria-label="Admin Dashboard">
 
   <!-- Top Nav -->
-  <nav class="admin-nav">
-    <div class="admin-nav-brand"><b>Edu</b>Build Admin</div>
-    <div class="admin-nav-right">
-      <span class="admin-badge">👑 SuperAdmin — Michel</span>
-      <button class="signout-btn" onclick="signOut()">⬅ Sign Out</button>
+  <nav class="topnav" role="navigation" aria-label="Main navigation">
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Toggle menu" aria-expanded="false" aria-controls="sidebar">
+      ☰
+    </button>
+    <div class="topnav-brand" aria-label="EduBuild Admin"><b>Edu</b>Build Admin</div>
+    <div class="topnav-right">
+      <div class="user-pill" role="status" aria-label="Logged in as Michel, SuperAdmin">
+        <div class="user-avatar" aria-hidden="true">M</div>
+        <div>
+          <div class="user-name">Michel</div>
+          <div class="user-role">SuperAdmin</div>
+        </div>
+      </div>
+      <button class="signout-btn" onclick="signOut()" aria-label="Sign out">⬅ Sign Out</button>
     </div>
   </nav>
+
+  <!-- Sidebar backdrop (mobile) -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()" aria-hidden="true"></div>
 
   <div class="admin-layout">
 
     <!-- Sidebar -->
-    <aside class="admin-sidebar">
-      <div class="sidebar-section">Overview</div>
-      <div class="sidebar-item on" onclick="showPage('dashboard',this)">📊 Dashboard</div>
-      <div class="sidebar-item" onclick="showPage('announcements',this)">📢 Announcements</div>
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Dashboard sections">
+      <div class="sidebar-group">Overview</div>
+      <button class="sidebar-item on" onclick="showPage('dashboard',this)" aria-current="page"><span class="si-icon" aria-hidden="true">📊</span> Dashboard</button>
+      <button class="sidebar-item" onclick="showPage('announcements',this)"><span class="si-icon" aria-hidden="true">📢</span> Announcements</button>
 
-      <div class="sidebar-section" style="margin-top:0.5rem">Users</div>
-      <div class="sidebar-item" onclick="showPage('users',this)">👥 All Users</div>
-      <div class="sidebar-item" onclick="showPage('teachers',this)">👩‍🏫 Teachers</div>
-      <div class="sidebar-item" onclick="showPage('students',this)">👨‍🎓 Students</div>
-      <div class="sidebar-item" onclick="showPage('parents',this)">👪 Parents</div>
+      <div class="sidebar-group" style="margin-top:0.4rem">Users</div>
+      <button class="sidebar-item" onclick="showPage('users',this)"><span class="si-icon" aria-hidden="true">👥</span> All Users</button>
+      <button class="sidebar-item" onclick="showPage('teachers',this)"><span class="si-icon" aria-hidden="true">👩‍🏫</span> Teachers</button>
+      <button class="sidebar-item" onclick="showPage('students',this)"><span class="si-icon" aria-hidden="true">👨‍🎓</span> Students</button>
+      <button class="sidebar-item" onclick="showPage('parents',this)"><span class="si-icon" aria-hidden="true">👪</span> Parents</button>
 
-      <div class="sidebar-section" style="margin-top:0.5rem">Academics</div>
-      <div class="sidebar-item" onclick="showPage('subjects',this)">📚 Subjects</div>
-      <div class="sidebar-item" onclick="showPage('classes',this)">🏫 Classes</div>
-      <div class="sidebar-item" onclick="showPage('lessons',this)">📖 Lessons</div>
-      <div class="sidebar-section" style="margin-top:0.5rem">Progress</div>
-      <div class="sidebar-item" onclick="showPage('grades',this)">📝 Grades</div>
-      <div class="sidebar-item" onclick="showPage('attendance',this)">✅ Attendance</div>
-      <div class="sidebar-item" onclick="showPage('reports',this)">📋 Reports</div>
-      <div class="sidebar-section" style="margin-top:0.5rem">Settings</div>
-      <div class="sidebar-item" onclick="showPage('settings',this)">⚙️ Settings</div>
+      <div class="sidebar-group" style="margin-top:0.4rem">Academics</div>
+      <button class="sidebar-item" onclick="showPage('subjects',this)"><span class="si-icon" aria-hidden="true">📚</span> Subjects</button>
+      <button class="sidebar-item" onclick="showPage('classes',this)"><span class="si-icon" aria-hidden="true">🏫</span> Classes</button>
+      <button class="sidebar-item" onclick="showPage('lessons',this)"><span class="si-icon" aria-hidden="true">📖</span> Lessons</button>
+
+      <div class="sidebar-group" style="margin-top:0.4rem">Progress</div>
+      <button class="sidebar-item" onclick="showPage('grades',this)"><span class="si-icon" aria-hidden="true">📝</span> Grades</button>
+      <button class="sidebar-item" onclick="showPage('attendance',this)"><span class="si-icon" aria-hidden="true">✅</span> Attendance</button>
+      <button class="sidebar-item" onclick="showPage('reports',this)"><span class="si-icon" aria-hidden="true">📋</span> Reports</button>
+
+      <div class="sidebar-group" style="margin-top:0.4rem">Account</div>
+      <button class="sidebar-item" onclick="showPage('settings',this)"><span class="si-icon" aria-hidden="true">⚙️</span> Settings</button>
     </aside>
 
     <!-- Main Content -->
-    <main class="admin-main">
+    <main class="admin-main" id="main-content" tabindex="-1">
 
       <!-- ── DASHBOARD ── -->
-      <div class="admin-page on" id="page-dashboard">
-        <div class="page-title">Welcome back, Michel 👑</div>
-        <div class="page-sub">Here's what's happening at your school today — Monday, 23 March 2026</div>
+      <div class="admin-page on" id="page-dashboard" role="region" aria-label="Dashboard overview">
+        <div class="page-hd">
+          <h2>Welcome back, Michel 👑</h2>
+          <p>Here's what's happening at your school today — Monday, 23 March 2026</p>
+        </div>
 
-        <div class="stat-cards">
-          <div class="stat-card reveal"><div class="sc-icon">👨‍🎓</div><div class="sc-num" id="totalStudents">247</div><div class="sc-label">Total Students</div></div>
-          <div class="stat-card reveal"><div class="sc-icon">👩‍🏫</div><div class="sc-num" id="totalTeachers">18</div><div class="sc-label">Teachers</div></div>
-          <div class="stat-card reveal"><div class="sc-icon">📚</div><div class="sc-num">8</div><div class="sc-label">Subjects</div></div>
-          <div class="stat-card reveal"><div class="sc-icon">🏫</div><div class="sc-num">12</div><div class="sc-label">Classes</div></div>
-          <div class="stat-card reveal"><div class="sc-icon">✅</div><div class="sc-num">91%</div><div class="sc-label">Attendance Today</div></div>
-          <div class="stat-card reveal"><div class="sc-icon">📋</div><div class="sc-num">43</div><div class="sc-label">Reports Generated</div></div>
+        <div class="stat-grid" role="list" aria-label="School statistics">
+          <div class="stat-card reveal" role="listitem"><div class="sc-icon" aria-hidden="true">👨‍🎓</div><div class="sc-num" id="totalStudents" aria-label="247 students">247</div><div class="sc-label">Total Students</div></div>
+          <div class="stat-card reveal" role="listitem"><div class="sc-icon" aria-hidden="true">👩‍🏫</div><div class="sc-num" id="totalTeachers" aria-label="18 teachers">18</div><div class="sc-label">Teachers</div></div>
+          <div class="stat-card reveal" role="listitem"><div class="sc-icon" aria-hidden="true">📚</div><div class="sc-num">8</div><div class="sc-label">Subjects</div></div>
+          <div class="stat-card reveal" role="listitem"><div class="sc-icon" aria-hidden="true">🏫</div><div class="sc-num">12</div><div class="sc-label">Classes</div></div>
+          <div class="stat-card reveal" role="listitem"><div class="sc-icon" aria-hidden="true">✅</div><div class="sc-num">91%</div><div class="sc-label">Attendance Today</div></div>
+          <div class="stat-card reveal" role="listitem"><div class="sc-icon" aria-hidden="true">📋</div><div class="sc-num">43</div><div class="sc-label">Reports Generated</div></div>
         </div>
 
         <div class="g2">
-          <div class="tbl-wrap reveal">
-            <div class="tbl-head"><h3>📊 School Average by Subject</h3></div>
-            <div style="padding:1.2rem">
-              <div class="prog-row"><div class="prog-lbl">Science</div><div class="prog-track"><div class="prog-fill" style="width:82%;background:#1565C0"></div></div><div class="prog-pct">82%</div></div>
-              <div class="prog-row"><div class="prog-lbl">Mathematics</div><div class="prog-track"><div class="prog-fill" style="width:74%;background:#2E7D32"></div></div><div class="prog-pct">74%</div></div>
-              <div class="prog-row"><div class="prog-lbl">Research</div><div class="prog-track"><div class="prog-fill" style="width:88%;background:#6A1B9A"></div></div><div class="prog-pct">88%</div></div>
-              <div class="prog-row"><div class="prog-lbl">English</div><div class="prog-track"><div class="prog-fill" style="width:70%;background:#E65100"></div></div><div class="prog-pct">70%</div></div>
-              <div class="prog-row"><div class="prog-lbl">History</div><div class="prog-track"><div class="prog-fill" style="width:77%;background:#00838F"></div></div><div class="prog-pct">77%</div></div>
-              <div class="prog-row"><div class="prog-lbl">Geography</div><div class="prog-track"><div class="prog-fill" style="width:65%;background:#F57F17"></div></div><div class="prog-pct">65%</div></div>
+          <div class="card reveal">
+            <div class="card-head"><h3>📊 School Average by Subject</h3></div>
+            <div class="card-body" role="list" aria-label="Subject averages">
+              <div class="prog-item reveal" role="listitem"><div class="prog-label">Science</div><div class="prog-track" role="progressbar" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100" aria-label="Science 82%"><div class="prog-fill" style="width:82%;background:#1756F3"></div></div><div class="prog-pct">82%</div></div>
+              <div class="prog-item reveal" role="listitem"><div class="prog-label">Mathematics</div><div class="prog-track" role="progressbar" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100" aria-label="Mathematics 74%"><div class="prog-fill" style="width:74%;background:#16A34A"></div></div><div class="prog-pct">74%</div></div>
+              <div class="prog-item reveal" role="listitem"><div class="prog-label">Research</div><div class="prog-track" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="Research 88%"><div class="prog-fill" style="width:88%;background:#7C3AED"></div></div><div class="prog-pct">88%</div></div>
+              <div class="prog-item reveal" role="listitem"><div class="prog-label">English</div><div class="prog-track" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" aria-label="English 70%"><div class="prog-fill" style="width:70%;background:#EA580C"></div></div><div class="prog-pct">70%</div></div>
+              <div class="prog-item reveal" role="listitem"><div class="prog-label">History</div><div class="prog-track" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" aria-label="History 77%"><div class="prog-fill" style="width:77%;background:#0D9488"></div></div><div class="prog-pct">77%</div></div>
+              <div class="prog-item reveal" role="listitem"><div class="prog-label">Geography</div><div class="prog-track" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" aria-label="Geography 65%"><div class="prog-fill" style="width:65%;background:#D97706"></div></div><div class="prog-pct">65%</div></div>
             </div>
           </div>
-          <div class="tbl-wrap reveal">
-            <div class="tbl-head"><h3>🔔 Recent Activity</h3></div>
-            <table>
-              <thead><tr><th>Action</th><th>User</th><th>Time</th></tr></thead>
-              <tbody>
-                <tr><td>Grade submitted</td><td>Mrs. Okonkwo</td><td>9:12 AM</td></tr>
-                <tr><td>New student registered</td><td>Admin</td><td>8:55 AM</td></tr>
-                <tr><td>Report generated</td><td>Mr. Dlamini</td><td>8:40 AM</td></tr>
-                <tr><td>Lesson uploaded</td><td>Ms. Patel</td><td>8:22 AM</td></tr>
-                <tr><td>Attendance marked</td><td>Mrs. Okonkwo</td><td>7:58 AM</td></tr>
-              </tbody>
-            </table>
+          <div class="card reveal">
+            <div class="card-head"><h3>🔔 Recent Activity</h3></div>
+            <div class="tbl-wrap">
+              <table aria-label="Recent activity log">
+                <thead><tr><th scope="col">Action</th><th scope="col">User</th><th scope="col">Time</th></tr></thead>
+                <tbody>
+                  <tr><td>Grade submitted</td><td>Mrs. Okonkwo</td><td>9:12 AM</td></tr>
+                  <tr><td>Student registered</td><td>Admin</td><td>8:55 AM</td></tr>
+                  <tr><td>Report generated</td><td>Mr. Dlamini</td><td>8:40 AM</td></tr>
+                  <tr><td>Lesson uploaded</td><td>Ms. Patel</td><td>8:22 AM</td></tr>
+                  <tr><td>Attendance marked</td><td>Mrs. Okonkwo</td><td>7:58 AM</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
-        <div class="callout c-tip reveal">
-          <span style="font-size:1.2rem">💡</span>
+        <div class="callout cl-tip reveal" role="note">
+          <span aria-hidden="true" style="font-size:1.2rem">💡</span>
           <p><strong>Quick Tip:</strong> Use the sidebar to manage users, view grades, generate reports, and post announcements. As SuperAdmin you have full access to every feature.</p>
         </div>
       </div>
 
       <!-- ── ANNOUNCEMENTS ── -->
-      <div class="admin-page" id="page-announcements">
-        <div class="page-title">📢 Announcements</div>
-        <div class="page-sub">Post school-wide news visible to all users</div>
-        <button class="add-btn" onclick="openModal('addAnnounce')">+ New Announcement</button>
-        <div style="margin-top:1.2rem" id="announceList">
-          <div class="announce"><div class="announce-title">Term 2 Exam Schedule Released</div><div class="announce-meta">Posted by Michel · 22 Mar 2026 · 📌 Pinned</div><div class="announce-body">Term 2 examinations will run from 15–25 April 2026. Please check the school calendar for your specific timetable. All students must arrive 15 minutes before their exam.</div></div>
-          <div class="announce" style="border-left-color:var(--green)"><div class="announce-title">Science Fair Registration Open</div><div class="announce-meta">Posted by Michel · 20 Mar 2026</div><div class="announce-body">Students in Grades 8–12 are invited to register for the Annual Science Fair. Submissions close 5 April 2026. Contact your Science teacher for more details.</div></div>
-          <div class="announce" style="border-left-color:var(--orange)"><div class="announce-title">School Closure — Public Holiday</div><div class="announce-meta">Posted by Michel · 18 Mar 2026</div><div class="announce-body">The school will be closed on Friday 27 March 2026 for a public holiday. Normal classes resume Monday 30 March 2026.</div></div>
+      <div class="admin-page" id="page-announcements" role="region" aria-label="Announcements">
+        <div class="page-top">
+          <div class="page-hd">
+            <h2>📢 Announcements</h2>
+            <p>Post school-wide news visible to all users</p>
+          </div>
+          <button class="add-btn" onclick="openModal('addAnnounce')" aria-label="Create new announcement">+ New Announcement</button>
+        </div>
+        <div id="announceList" aria-live="polite" aria-label="Announcement list" style="margin-top:1.25rem">
+          <article class="announce-card"><div class="announce-title">Term 2 Exam Schedule Released</div><div class="announce-meta">Posted by Michel · 22 Mar 2026 · 📌 Pinned</div><div class="announce-body">Term 2 examinations will run from 15–25 April 2026. Please check the school calendar for your specific timetable. All students must arrive 15 minutes before their exam.</div></article>
+          <article class="announce-card" style="border-left-color:var(--green)"><div class="announce-title">Science Fair Registration Open</div><div class="announce-meta">Posted by Michel · 20 Mar 2026</div><div class="announce-body">Students in Grades 8–12 are invited to register for the Annual Science Fair. Submissions close 5 April 2026. Contact your Science teacher for more details.</div></article>
+          <article class="announce-card" style="border-left-color:var(--orange)"><div class="announce-title">School Closure — Public Holiday</div><div class="announce-meta">Posted by Michel · 18 Mar 2026</div><div class="announce-body">The school will be closed on Friday 27 March 2026 for a public holiday. Normal classes resume Monday 30 March 2026.</div></article>
         </div>
       </div>
 
       <!-- ── ALL USERS ── -->
-      <div class="admin-page" id="page-users">
-        <div class="page-title">👥 All Users</div>
-        <div class="page-sub">View and manage every account on the platform</div>
-        <div class="tbl-wrap reveal">
-          <div class="tbl-head"><h3>User Accounts</h3><button class="add-btn" onclick="openModal('addUser')">+ Add User</button></div>
-          <table>
-            <thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
-            <tbody id="userTable">
-              <tr><td><b>Michel</b></td><td>Michel@2005</td><td><span class="badge badge-purple">👑 SuperAdmin</span></td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" title="Edit">✏️</span></td></tr>
-              <tr><td>Sarah Okonkwo</td><td>s.okonkwo</td><td><span class="badge badge-blue">👩‍🏫 Teacher</span></td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)" title="Delete">🗑️</span> <span class="action-ico" title="Edit">✏️</span></td></tr>
-              <tr><td>James Mokoena</td><td>j.mokoena</td><td><span class="badge" style="background:#E8F5E9;color:#1B5E20">👨‍🎓 Student</span></td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)" title="Delete">🗑️</span> <span class="action-ico" title="Edit">✏️</span></td></tr>
-              <tr><td>Priya Patel</td><td>p.patel</td><td><span class="badge badge-blue">👩‍🏫 Teacher</span></td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)" title="Delete">🗑️</span> <span class="action-ico" title="Edit">✏️</span></td></tr>
-              <tr><td>Lebo Dlamini</td><td>l.dlamini</td><td><span class="badge" style="background:#E8F5E9;color:#1B5E20">👨‍🎓 Student</span></td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)" title="Delete">🗑️</span> <span class="action-ico" title="Edit">✏️</span></td></tr>
-              <tr><td>Mrs. Dlamini</td><td>parent.dlamini</td><td><span class="badge badge-orange">👪 Parent</span></td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)" title="Delete">🗑️</span> <span class="action-ico" title="Edit">✏️</span></td></tr>
-            </tbody>
-          </table>
+      <div class="admin-page" id="page-users" role="region" aria-label="User management">
+        <div class="page-top">
+          <div class="page-hd"><h2>👥 All Users</h2><p>View and manage every account on the platform</p></div>
+          <button class="add-btn" onclick="openModal('addUser')" aria-label="Add new user">+ Add User</button>
+        </div>
+        <div class="card reveal">
+          <div class="tbl-wrap">
+            <table aria-label="User accounts">
+              <thead><tr><th scope="col">Name</th><th scope="col">Username</th><th scope="col">Role</th><th scope="col">Status</th><th scope="col">Actions</th></tr></thead>
+              <tbody id="userTable">
+                <tr><td><b>Michel</b></td><td>Michel@2005</td><td><span class="badge bg-purple">👑 SuperAdmin</span></td><td><span class="badge bg-green">Active</span></td><td>—</td></tr>
+                <tr><td>Sarah Okonkwo</td><td>s.okonkwo</td><td><span class="badge bg-blue">👩‍🏫 Teacher</span></td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete Sarah Okonkwo">🗑️</button> <button class="action-btn" aria-label="Edit Sarah Okonkwo">✏️</button></td></tr>
+                <tr><td>James Mokoena</td><td>j.mokoena</td><td><span class="badge bg-teal">👨‍🎓 Student</span></td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete James Mokoena">🗑️</button> <button class="action-btn" aria-label="Edit James Mokoena">✏️</button></td></tr>
+                <tr><td>Priya Patel</td><td>p.patel</td><td><span class="badge bg-blue">👩‍🏫 Teacher</span></td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete Priya Patel">🗑️</button> <button class="action-btn" aria-label="Edit Priya Patel">✏️</button></td></tr>
+                <tr><td>Lebo Dlamini</td><td>l.dlamini</td><td><span class="badge bg-teal">👨‍🎓 Student</span></td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete Lebo Dlamini">🗑️</button> <button class="action-btn" aria-label="Edit Lebo Dlamini">✏️</button></td></tr>
+                <tr><td>Mrs. Dlamini</td><td>parent.dlamini</td><td><span class="badge bg-orange">👪 Parent</span></td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete Mrs. Dlamini">🗑️</button> <button class="action-btn" aria-label="Edit Mrs. Dlamini">✏️</button></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       <!-- ── TEACHERS ── -->
-      <div class="admin-page" id="page-teachers">
-        <div class="page-title">👩‍🏫 Teachers</div>
-        <div class="page-sub">Manage teacher accounts and subject assignments</div>
-        <div class="tbl-wrap reveal">
-          <div class="tbl-head"><h3>Teaching Staff</h3><button class="add-btn" onclick="openModal('addTeacher')">+ Add Teacher</button></div>
-          <table>
-            <thead><tr><th>Name</th><th>Subject</th><th>Classes</th><th>Students</th><th>Status</th><th>Actions</th></tr></thead>
-            <tbody id="teacherTable">
-              <tr><td><b>Mrs. Sarah Okonkwo</b></td><td>Science</td><td>Gr 8A, 9B, 10A</td><td>87</td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Mr. David Nkosi</b></td><td>Mathematics</td><td>Gr 8B, 9A, 11A</td><td>92</td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Ms. Priya Patel</b></td><td>Research</td><td>Gr 10B, 11B, 12A</td><td>68</td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Mr. John Dlamini</b></td><td>English</td><td>Gr 8A, 9A, 10A</td><td>84</td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Mrs. Grace Moyo</b></td><td>History</td><td>Gr 9B, 10B</td><td>52</td><td><span class="badge badge-orange">On Leave</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-            </tbody>
-          </table>
+      <div class="admin-page" id="page-teachers" role="region" aria-label="Teachers management">
+        <div class="page-top">
+          <div class="page-hd"><h2>👩‍🏫 Teachers</h2><p>Manage teacher accounts and subject assignments</p></div>
+          <button class="add-btn" onclick="openModal('addTeacher')" aria-label="Add new teacher">+ Add Teacher</button>
+        </div>
+        <div class="card reveal">
+          <div class="tbl-wrap">
+            <table aria-label="Teaching staff">
+              <thead><tr><th scope="col">Name</th><th scope="col">Subject</th><th scope="col">Classes</th><th scope="col">Students</th><th scope="col">Status</th><th scope="col">Actions</th></tr></thead>
+              <tbody id="teacherTable">
+                <tr><td><b>Mrs. Sarah Okonkwo</b></td><td>Science</td><td>Gr 8A, 9B, 10A</td><td>87</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete teacher">🗑️</button> <button class="action-btn" aria-label="Edit teacher">✏️</button></td></tr>
+                <tr><td><b>Mr. David Nkosi</b></td><td>Mathematics</td><td>Gr 8B, 9A, 11A</td><td>92</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete teacher">🗑️</button> <button class="action-btn" aria-label="Edit teacher">✏️</button></td></tr>
+                <tr><td><b>Ms. Priya Patel</b></td><td>Research</td><td>Gr 10B, 11B, 12A</td><td>68</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete teacher">🗑️</button> <button class="action-btn" aria-label="Edit teacher">✏️</button></td></tr>
+                <tr><td><b>Mr. John Dlamini</b></td><td>English</td><td>Gr 8A, 9A, 10A</td><td>84</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete teacher">🗑️</button> <button class="action-btn" aria-label="Edit teacher">✏️</button></td></tr>
+                <tr><td><b>Mrs. Grace Moyo</b></td><td>History</td><td>Gr 9B, 10B</td><td>52</td><td><span class="badge bg-amber">On Leave</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete teacher">🗑️</button> <button class="action-btn" aria-label="Edit teacher">✏️</button></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       <!-- ── STUDENTS ── -->
-      <div class="admin-page" id="page-students">
-        <div class="page-title">👨‍🎓 Students</div>
-        <div class="page-sub">Manage student enrolment and progress</div>
-        <div class="tbl-wrap reveal">
-          <div class="tbl-head"><h3>Student Register</h3><button class="add-btn" onclick="openModal('addStudent')">+ Enrol Student</button></div>
-          <table>
-            <thead><tr><th>Name</th><th>Grade</th><th>Class</th><th>Avg Score</th><th>Attendance</th><th>Actions</th></tr></thead>
-            <tbody id="studentTable">
-              <tr><td><b>James Mokoena</b></td><td>Grade 10</td><td>10A</td><td><span class="badge badge-green">78%</span></td><td>92%</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Lebo Dlamini</b></td><td>Grade 10</td><td>10B</td><td><span class="badge badge-blue">85%</span></td><td>96%</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Amara Osei</b></td><td>Grade 9</td><td>9A</td><td><span class="badge badge-orange">61%</span></td><td>78%</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Thabo Nkosi</b></td><td>Grade 11</td><td>11A</td><td><span class="badge badge-green">90%</span></td><td>98%</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Zanele Moyo</b></td><td>Grade 8</td><td>8B</td><td><span class="badge badge-red">55%</span></td><td>72%</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Sipho Ndlovu</b></td><td>Grade 12</td><td>12A</td><td><span class="badge badge-green">82%</span></td><td>94%</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-            </tbody>
-          </table>
+      <div class="admin-page" id="page-students" role="region" aria-label="Students management">
+        <div class="page-top">
+          <div class="page-hd"><h2>👨‍🎓 Students</h2><p>Manage student enrolment and progress</p></div>
+          <button class="add-btn" onclick="openModal('addStudent')" aria-label="Enrol new student">+ Enrol Student</button>
+        </div>
+        <div class="card reveal">
+          <div class="tbl-wrap">
+            <table aria-label="Student register">
+              <thead><tr><th scope="col">Name</th><th scope="col">Grade</th><th scope="col">Class</th><th scope="col">Avg Score</th><th scope="col">Attendance</th><th scope="col">Actions</th></tr></thead>
+              <tbody id="studentTable">
+                <tr><td><b>James Mokoena</b></td><td>Grade 10</td><td>10A</td><td><span class="badge bg-green">78%</span></td><td>92%</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete student">🗑️</button> <button class="action-btn" aria-label="Edit student">✏️</button></td></tr>
+                <tr><td><b>Lebo Dlamini</b></td><td>Grade 10</td><td>10B</td><td><span class="badge bg-blue">85%</span></td><td>96%</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete student">🗑️</button> <button class="action-btn" aria-label="Edit student">✏️</button></td></tr>
+                <tr><td><b>Amara Osei</b></td><td>Grade 9</td><td>9A</td><td><span class="badge bg-amber">61%</span></td><td>78%</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete student">🗑️</button> <button class="action-btn" aria-label="Edit student">✏️</button></td></tr>
+                <tr><td><b>Thabo Nkosi</b></td><td>Grade 11</td><td>11A</td><td><span class="badge bg-green">90%</span></td><td>98%</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete student">🗑️</button> <button class="action-btn" aria-label="Edit student">✏️</button></td></tr>
+                <tr><td><b>Zanele Moyo</b></td><td>Grade 8</td><td>8B</td><td><span class="badge bg-red">55%</span></td><td>72%</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete student">🗑️</button> <button class="action-btn" aria-label="Edit student">✏️</button></td></tr>
+                <tr><td><b>Sipho Ndlovu</b></td><td>Grade 12</td><td>12A</td><td><span class="badge bg-green">82%</span></td><td>94%</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete student">🗑️</button> <button class="action-btn" aria-label="Edit student">✏️</button></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       <!-- ── PARENTS ── -->
-      <div class="admin-page" id="page-parents">
-        <div class="page-title">👪 Parents</div>
-        <div class="page-sub">Manage parent accounts linked to students</div>
-        <div class="tbl-wrap reveal">
-          <div class="tbl-head"><h3>Parent Accounts</h3><button class="add-btn" onclick="openModal('addParent')">+ Add Parent</button></div>
-          <table>
-            <thead><tr><th>Parent Name</th><th>Child</th><th>Child Grade</th><th>Contact</th><th>Actions</th></tr></thead>
-            <tbody>
-              <tr><td><b>Mrs. Mokoena</b></td><td>James Mokoena</td><td>Grade 10</td><td>parent.mokoena@email.com</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Mr. Dlamini Sr.</b></td><td>Lebo Dlamini</td><td>Grade 10</td><td>parent.dlamini@email.com</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Mrs. Osei</b></td><td>Amara Osei</td><td>Grade 9</td><td>parent.osei@email.com</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Mr. Nkosi Sr.</b></td><td>Thabo Nkosi</td><td>Grade 11</td><td>parent.nkosi@email.com</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-            </tbody>
-          </table>
+      <div class="admin-page" id="page-parents" role="region" aria-label="Parents management">
+        <div class="page-top">
+          <div class="page-hd"><h2>👪 Parents</h2><p>Manage parent accounts linked to students</p></div>
+          <button class="add-btn" onclick="openModal('addParent')" aria-label="Add new parent">+ Add Parent</button>
+        </div>
+        <div class="card reveal">
+          <div class="tbl-wrap">
+            <table aria-label="Parent accounts">
+              <thead><tr><th scope="col">Parent Name</th><th scope="col">Child</th><th scope="col">Grade</th><th scope="col">Contact</th><th scope="col">Actions</th></tr></thead>
+              <tbody id="parentTable">
+                <tr><td><b>Mrs. Mokoena</b></td><td>James Mokoena</td><td>Grade 10</td><td>parent.mokoena@email.com</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete parent">🗑️</button> <button class="action-btn" aria-label="Edit parent">✏️</button></td></tr>
+                <tr><td><b>Mr. Dlamini Sr.</b></td><td>Lebo Dlamini</td><td>Grade 10</td><td>parent.dlamini@email.com</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete parent">🗑️</button> <button class="action-btn" aria-label="Edit parent">✏️</button></td></tr>
+                <tr><td><b>Mrs. Osei</b></td><td>Amara Osei</td><td>Grade 9</td><td>parent.osei@email.com</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete parent">🗑️</button> <button class="action-btn" aria-label="Edit parent">✏️</button></td></tr>
+                <tr><td><b>Mr. Nkosi Sr.</b></td><td>Thabo Nkosi</td><td>Grade 11</td><td>parent.nkosi@email.com</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete parent">🗑️</button> <button class="action-btn" aria-label="Edit parent">✏️</button></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       <!-- ── SUBJECTS ── -->
-      <div class="admin-page" id="page-subjects">
-        <div class="page-title">📚 Subjects</div>
-        <div class="page-sub">All subjects offered at the school</div>
-        <button class="add-btn" onclick="openModal('addSubject')">+ Add Subject</button>
-        <div class="tbl-wrap reveal" style="margin-top:1rem">
-          <table>
-            <thead><tr><th>Subject</th><th>Teacher</th><th>Classes</th><th>Students</th><th>Avg Score</th><th>Actions</th></tr></thead>
-            <tbody id="subjectTable">
-              <tr><td><b>🔬 Science</b></td><td>Mrs. Okonkwo</td><td>6</td><td>87</td><td><span class="badge badge-green">82%</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>➕ Mathematics</b></td><td>Mr. Nkosi</td><td>6</td><td>92</td><td><span class="badge badge-blue">74%</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>🔍 Research</b></td><td>Ms. Patel</td><td>4</td><td>68</td><td><span class="badge badge-green">88%</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>📖 English</b></td><td>Mr. Dlamini</td><td>6</td><td>84</td><td><span class="badge badge-orange">70%</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>🌍 History</b></td><td>Mrs. Moyo</td><td>4</td><td>52</td><td><span class="badge badge-blue">77%</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>🗺️ Geography</b></td><td>TBA</td><td>3</td><td>44</td><td><span class="badge badge-orange">65%</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-            </tbody>
-          </table>
+      <div class="admin-page" id="page-subjects" role="region" aria-label="Subjects management">
+        <div class="page-top">
+          <div class="page-hd"><h2>📚 Subjects</h2><p>All subjects offered at the school</p></div>
+          <button class="add-btn" onclick="openModal('addSubject')" aria-label="Add new subject">+ Add Subject</button>
+        </div>
+        <div class="card reveal">
+          <div class="tbl-wrap">
+            <table aria-label="School subjects">
+              <thead><tr><th scope="col">Subject</th><th scope="col">Teacher</th><th scope="col">Classes</th><th scope="col">Students</th><th scope="col">Avg Score</th><th scope="col">Actions</th></tr></thead>
+              <tbody id="subjectTable">
+                <tr><td><b>🔬 Science</b></td><td>Mrs. Okonkwo</td><td>6</td><td>87</td><td><span class="badge bg-green">82%</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete subject">🗑️</button></td></tr>
+                <tr><td><b>➕ Mathematics</b></td><td>Mr. Nkosi</td><td>6</td><td>92</td><td><span class="badge bg-blue">74%</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete subject">🗑️</button></td></tr>
+                <tr><td><b>🔍 Research</b></td><td>Ms. Patel</td><td>4</td><td>68</td><td><span class="badge bg-green">88%</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete subject">🗑️</button></td></tr>
+                <tr><td><b>📖 English</b></td><td>Mr. Dlamini</td><td>6</td><td>84</td><td><span class="badge bg-amber">70%</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete subject">🗑️</button></td></tr>
+                <tr><td><b>🌍 History</b></td><td>Mrs. Moyo</td><td>4</td><td>52</td><td><span class="badge bg-blue">77%</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete subject">🗑️</button></td></tr>
+                <tr><td><b>🗺️ Geography</b></td><td><span class="badge bg-muted">TBA</span></td><td>3</td><td>44</td><td><span class="badge bg-amber">65%</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete subject">🗑️</button></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       <!-- ── CLASSES ── -->
-      <div class="admin-page" id="page-classes">
-        <div class="page-title">🏫 Classes</div>
-        <div class="page-sub">Manage class groups and enrolments</div>
-        <button class="add-btn" onclick="openModal('addClass')">+ Add Class</button>
-        <div class="tbl-wrap reveal" style="margin-top:1rem">
-          <table>
-            <thead><tr><th>Class</th><th>Grade</th><th>Teacher</th><th>Students</th><th>Actions</th></tr></thead>
-            <tbody id="classTable">
-              <tr><td><b>Class 8A</b></td><td>Grade 8</td><td>Mr. Dlamini</td><td>22</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Class 8B</b></td><td>Grade 8</td><td>Mr. Nkosi</td><td>21</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Class 9A</b></td><td>Grade 9</td><td>Mr. Nkosi</td><td>24</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Class 9B</b></td><td>Grade 9</td><td>Mrs. Okonkwo</td><td>23</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Class 10A</b></td><td>Grade 10</td><td>Mrs. Okonkwo</td><td>25</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Class 10B</b></td><td>Grade 10</td><td>Ms. Patel</td><td>24</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Class 11A</b></td><td>Grade 11</td><td>Mr. Nkosi</td><td>22</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Class 12A</b></td><td>Grade 12</td><td>Ms. Patel</td><td>20</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-            </tbody>
-          </table>
+      <div class="admin-page" id="page-classes" role="region" aria-label="Classes management">
+        <div class="page-top">
+          <div class="page-hd"><h2>🏫 Classes</h2><p>Manage class groups and enrolments</p></div>
+          <button class="add-btn" onclick="openModal('addClass')" aria-label="Add new class">+ Add Class</button>
+        </div>
+        <div class="card reveal">
+          <div class="tbl-wrap">
+            <table aria-label="School classes">
+              <thead><tr><th scope="col">Class</th><th scope="col">Grade</th><th scope="col">Teacher</th><th scope="col">Students</th><th scope="col">Actions</th></tr></thead>
+              <tbody id="classTable">
+                <tr><td><b>Class 8A</b></td><td>Grade 8</td><td>Mr. Dlamini</td><td>22</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete class">🗑️</button> <button class="action-btn" aria-label="Edit class">✏️</button></td></tr>
+                <tr><td><b>Class 8B</b></td><td>Grade 8</td><td>Mr. Nkosi</td><td>21</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete class">🗑️</button> <button class="action-btn" aria-label="Edit class">✏️</button></td></tr>
+                <tr><td><b>Class 9A</b></td><td>Grade 9</td><td>Mr. Nkosi</td><td>24</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete class">🗑️</button> <button class="action-btn" aria-label="Edit class">✏️</button></td></tr>
+                <tr><td><b>Class 9B</b></td><td>Grade 9</td><td>Mrs. Okonkwo</td><td>23</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete class">🗑️</button> <button class="action-btn" aria-label="Edit class">✏️</button></td></tr>
+                <tr><td><b>Class 10A</b></td><td>Grade 10</td><td>Mrs. Okonkwo</td><td>25</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete class">🗑️</button> <button class="action-btn" aria-label="Edit class">✏️</button></td></tr>
+                <tr><td><b>Class 10B</b></td><td>Grade 10</td><td>Ms. Patel</td><td>24</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete class">🗑️</button> <button class="action-btn" aria-label="Edit class">✏️</button></td></tr>
+                <tr><td><b>Class 11A</b></td><td>Grade 11</td><td>Mr. Nkosi</td><td>22</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete class">🗑️</button> <button class="action-btn" aria-label="Edit class">✏️</button></td></tr>
+                <tr><td><b>Class 12A</b></td><td>Grade 12</td><td>Ms. Patel</td><td>20</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete class">🗑️</button> <button class="action-btn" aria-label="Edit class">✏️</button></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       <!-- ── LESSONS ── -->
-      <div class="admin-page" id="page-lessons">
-        <div class="page-title">📖 Lessons</div>
-        <div class="page-sub">All uploaded lessons and learning materials</div>
-        <button class="add-btn" onclick="openModal('addLesson')">+ Upload Lesson</button>
-        <div class="tbl-wrap reveal" style="margin-top:1rem">
-          <table>
-            <thead><tr><th>Lesson Title</th><th>Subject</th><th>Grade</th><th>Teacher</th><th>Date</th><th>Actions</th></tr></thead>
-            <tbody id="lessonTable">
-              <tr><td><b>Introduction to Cell Biology</b></td><td>Science</td><td>Grade 10</td><td>Mrs. Okonkwo</td><td>20 Mar 2026</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>Quadratic Equations</b></td><td>Mathematics</td><td>Grade 11</td><td>Mr. Nkosi</td><td>19 Mar 2026</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>Research Methodology — Part 2</b></td><td>Research</td><td>Grade 12</td><td>Ms. Patel</td><td>18 Mar 2026</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>Shakespeare — Hamlet Overview</b></td><td>English</td><td>Grade 10</td><td>Mr. Dlamini</td><td>17 Mar 2026</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>World War II Causes</b></td><td>History</td><td>Grade 9</td><td>Mrs. Moyo</td><td>16 Mar 2026</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>Photosynthesis Lab Report</b></td><td>Science</td><td>Grade 9</td><td>Mrs. Okonkwo</td><td>15 Mar 2026</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-            </tbody>
-          </table>
+      <div class="admin-page" id="page-lessons" role="region" aria-label="Lessons management">
+        <div class="page-top">
+          <div class="page-hd"><h2>📖 Lessons</h2><p>All uploaded lessons and learning materials</p></div>
+          <button class="add-btn" onclick="openModal('addLesson')" aria-label="Upload new lesson">+ Upload Lesson</button>
+        </div>
+        <div class="card reveal">
+          <div class="tbl-wrap">
+            <table aria-label="Uploaded lessons">
+              <thead><tr><th scope="col">Lesson Title</th><th scope="col">Subject</th><th scope="col">Grade</th><th scope="col">Teacher</th><th scope="col">Date</th><th scope="col">Actions</th></tr></thead>
+              <tbody id="lessonTable">
+                <tr><td><b>Introduction to Cell Biology</b></td><td>Science</td><td>Grade 10</td><td>Mrs. Okonkwo</td><td>20 Mar 2026</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete lesson">🗑️</button></td></tr>
+                <tr><td><b>Quadratic Equations</b></td><td>Mathematics</td><td>Grade 11</td><td>Mr. Nkosi</td><td>19 Mar 2026</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete lesson">🗑️</button></td></tr>
+                <tr><td><b>Research Methodology — Part 2</b></td><td>Research</td><td>Grade 12</td><td>Ms. Patel</td><td>18 Mar 2026</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete lesson">🗑️</button></td></tr>
+                <tr><td><b>Shakespeare — Hamlet Overview</b></td><td>English</td><td>Grade 10</td><td>Mr. Dlamini</td><td>17 Mar 2026</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete lesson">🗑️</button></td></tr>
+                <tr><td><b>World War II Causes</b></td><td>History</td><td>Grade 9</td><td>Mrs. Moyo</td><td>16 Mar 2026</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete lesson">🗑️</button></td></tr>
+                <tr><td><b>Photosynthesis Lab Report</b></td><td>Science</td><td>Grade 9</td><td>Mrs. Okonkwo</td><td>15 Mar 2026</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete lesson">🗑️</button></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       <!-- ── GRADES ── -->
-      <div class="admin-page" id="page-grades">
-        <div class="page-title">📝 Grades</div>
-        <div class="page-sub">View and manage student grades across all subjects</div>
-        <button class="add-btn" onclick="openModal('addGrade')">+ Enter Grade</button>
-        <div class="tbl-wrap reveal" style="margin-top:1rem">
-          <table>
-            <thead><tr><th>Student</th><th>Subject</th><th>Grade</th><th>Assignment</th><th>Score</th><th>Teacher</th></tr></thead>
-            <tbody id="gradeTable">
-              <tr><td>James Mokoena</td><td>Science</td><td>10A</td><td>Cell Biology Test</td><td><span class="badge badge-green">84%</span></td><td>Mrs. Okonkwo</td></tr>
-              <tr><td>James Mokoena</td><td>Mathematics</td><td>10A</td><td>Algebra Quiz</td><td><span class="badge badge-blue">72%</span></td><td>Mr. Nkosi</td></tr>
-              <tr><td>Lebo Dlamini</td><td>Research</td><td>10B</td><td>Research Paper 1</td><td><span class="badge badge-green">90%</span></td><td>Ms. Patel</td></tr>
-              <tr><td>Amara Osei</td><td>English</td><td>9A</td><td>Essay Assignment</td><td><span class="badge badge-orange">61%</span></td><td>Mr. Dlamini</td></tr>
-              <tr><td>Thabo Nkosi</td><td>Mathematics</td><td>11A</td><td>Calculus Test</td><td><span class="badge badge-green">93%</span></td><td>Mr. Nkosi</td></tr>
-              <tr><td>Zanele Moyo</td><td>Science</td><td>8B</td><td>Lab Report</td><td><span class="badge badge-red">55%</span></td><td>Mrs. Okonkwo</td></tr>
-            </tbody>
-          </table>
+      <div class="admin-page" id="page-grades" role="region" aria-label="Grades management">
+        <div class="page-top">
+          <div class="page-hd"><h2>📝 Grades</h2><p>View and manage student grades across all subjects</p></div>
+          <button class="add-btn" onclick="openModal('addGrade')" aria-label="Enter new grade">+ Enter Grade</button>
+        </div>
+        <div class="card reveal">
+          <div class="tbl-wrap">
+            <table aria-label="Student grades">
+              <thead><tr><th scope="col">Student</th><th scope="col">Subject</th><th scope="col">Class</th><th scope="col">Assignment</th><th scope="col">Score</th><th scope="col">Teacher</th></tr></thead>
+              <tbody id="gradeTable">
+                <tr><td>James Mokoena</td><td>Science</td><td>10A</td><td>Cell Biology Test</td><td><span class="badge bg-green">84%</span></td><td>Mrs. Okonkwo</td></tr>
+                <tr><td>James Mokoena</td><td>Mathematics</td><td>10A</td><td>Algebra Quiz</td><td><span class="badge bg-blue">72%</span></td><td>Mr. Nkosi</td></tr>
+                <tr><td>Lebo Dlamini</td><td>Research</td><td>10B</td><td>Research Paper 1</td><td><span class="badge bg-green">90%</span></td><td>Ms. Patel</td></tr>
+                <tr><td>Amara Osei</td><td>English</td><td>9A</td><td>Essay Assignment</td><td><span class="badge bg-amber">61%</span></td><td>Mr. Dlamini</td></tr>
+                <tr><td>Thabo Nkosi</td><td>Mathematics</td><td>11A</td><td>Calculus Test</td><td><span class="badge bg-green">93%</span></td><td>Mr. Nkosi</td></tr>
+                <tr><td>Zanele Moyo</td><td>Science</td><td>8B</td><td>Lab Report</td><td><span class="badge bg-red">55%</span></td><td>Mrs. Okonkwo</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       <!-- ── ATTENDANCE ── -->
-      <div class="admin-page" id="page-attendance">
-        <div class="page-title">✅ Attendance</div>
-        <div class="page-sub">Daily attendance records for all students</div>
-        <div class="callout c-info" style="margin-bottom:1.2rem">
-          <span style="font-size:1.1rem">ℹ️</span>
+      <div class="admin-page" id="page-attendance" role="region" aria-label="Attendance records">
+        <div class="page-hd"><h2>✅ Attendance</h2><p>Daily attendance records for all students</p></div>
+        <div class="callout cl-info" role="status">
+          <span aria-hidden="true" style="font-size:1.1rem">ℹ️</span>
           <p><strong>Today's attendance rate: 91%</strong> — 225 of 247 students present. 22 absences recorded. 3 parents have been notified automatically.</p>
         </div>
-        <div class="tbl-wrap reveal">
-          <div class="tbl-head"><h3>Attendance Register — 23 Mar 2026</h3></div>
-          <table>
-            <thead><tr><th>Student</th><th>Class</th><th>Status</th><th>Days Present</th><th>Attendance %</th></tr></thead>
-            <tbody>
-              <tr><td>James Mokoena</td><td>10A</td><td><span class="badge badge-green">✓ Present</span></td><td>42/46</td><td>91%</td></tr>
-              <tr><td>Lebo Dlamini</td><td>10B</td><td><span class="badge badge-green">✓ Present</span></td><td>44/46</td><td>96%</td></tr>
-              <tr><td>Amara Osei</td><td>9A</td><td><span class="badge badge-red">✗ Absent</span></td><td>36/46</td><td>78%</td></tr>
-              <tr><td>Thabo Nkosi</td><td>11A</td><td><span class="badge badge-green">✓ Present</span></td><td>45/46</td><td>98%</td></tr>
-              <tr><td>Zanele Moyo</td><td>8B</td><td><span class="badge badge-orange">⚠ Late</span></td><td>33/46</td><td>72%</td></tr>
-              <tr><td>Sipho Ndlovu</td><td>12A</td><td><span class="badge badge-green">✓ Present</span></td><td>43/46</td><td>93%</td></tr>
-            </tbody>
-          </table>
+        <div class="card reveal">
+          <div class="card-head"><h3>Attendance Register — 23 Mar 2026</h3></div>
+          <div class="tbl-wrap">
+            <table aria-label="Today's attendance">
+              <thead><tr><th scope="col">Student</th><th scope="col">Class</th><th scope="col">Status</th><th scope="col">Days Present</th><th scope="col">Attendance %</th></tr></thead>
+              <tbody>
+                <tr><td>James Mokoena</td><td>10A</td><td><span class="badge bg-green">✓ Present</span></td><td>42/46</td><td>91%</td></tr>
+                <tr><td>Lebo Dlamini</td><td>10B</td><td><span class="badge bg-green">✓ Present</span></td><td>44/46</td><td>96%</td></tr>
+                <tr><td>Amara Osei</td><td>9A</td><td><span class="badge bg-red">✗ Absent</span></td><td>36/46</td><td>78%</td></tr>
+                <tr><td>Thabo Nkosi</td><td>11A</td><td><span class="badge bg-green">✓ Present</span></td><td>45/46</td><td>98%</td></tr>
+                <tr><td>Zanele Moyo</td><td>8B</td><td><span class="badge bg-amber">⚠ Late</span></td><td>33/46</td><td>72%</td></tr>
+                <tr><td>Sipho Ndlovu</td><td>12A</td><td><span class="badge bg-green">✓ Present</span></td><td>43/46</td><td>93%</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       <!-- ── REPORTS ── -->
-      <div class="admin-page" id="page-reports">
-        <div class="page-title">📋 Reports</div>
-        <div class="page-sub">Generate and view student term reports</div>
-        <button class="print-btn" onclick="window.print()">🖨️ Print This Report</button>
-
-        <div class="report-card reveal" style="margin-top:1.2rem">
-          <div class="report-header">
+      <div class="admin-page" id="page-reports" role="region" aria-label="Student reports">
+        <div class="page-top">
+          <div class="page-hd"><h2>📋 Reports</h2><p>Generate and view student term reports</p></div>
+          <button class="print-btn" onclick="window.print()" aria-label="Print this report">🖨️ Print Report</button>
+        </div>
+        <div class="report-card reveal" style="margin-top:1.25rem">
+          <div class="report-hd">
             <div>
-              <div class="report-school">🏫 EduBuild Academy</div>
-              <div class="report-term">Term 1 · January – March 2026</div>
+              <div class="report-school-name">🏫 EduBuild Academy</div>
+              <div class="report-term-label">Term 1 · January – March 2026</div>
             </div>
-            <div style="text-align:right" class="report-student">
-              <b>James Mokoena</b><br>
+            <div class="report-student-info">
+              <strong>James Mokoena</strong><br>
               Grade 10A · Student ID: EB-2026-047<br>
               <span style="font-size:0.72rem;color:var(--muted)">DOB: 14 Jun 2010</span>
             </div>
           </div>
-          <table class="report-grades">
-            <thead><tr><th>Subject</th><th>Teacher</th><th>Term Mark</th><th>Exam</th><th>Final %</th><th>Grade</th></tr></thead>
-            <tbody>
-              <tr><td>Science</td><td>Mrs. Okonkwo</td><td>82%</td><td>86%</td><td><b>84%</b></td><td><span class="badge badge-green">A</span></td></tr>
-              <tr><td>Mathematics</td><td>Mr. Nkosi</td><td>70%</td><td>74%</td><td><b>72%</b></td><td><span class="badge badge-blue">B</span></td></tr>
-              <tr><td>Research</td><td>Ms. Patel</td><td>88%</td><td>92%</td><td><b>90%</b></td><td><span class="badge badge-green">A</span></td></tr>
-              <tr><td>English</td><td>Mr. Dlamini</td><td>66%</td><td>70%</td><td><b>68%</b></td><td><span class="badge badge-blue">B</span></td></tr>
-              <tr><td>History</td><td>Mrs. Moyo</td><td>75%</td><td>79%</td><td><b>77%</b></td><td><span class="badge badge-blue">B</span></td></tr>
-            </tbody>
-          </table>
-          <div style="display:flex;gap:2rem;font-size:0.82rem;padding:0.5rem 0">
+          <div class="tbl-wrap">
+            <table class="report-grades" aria-label="Student grades by subject">
+              <thead><tr><th scope="col">Subject</th><th scope="col">Teacher</th><th scope="col">Term Mark</th><th scope="col">Exam</th><th scope="col">Final %</th><th scope="col">Grade</th></tr></thead>
+              <tbody>
+                <tr><td>Science</td><td>Mrs. Okonkwo</td><td>82%</td><td>86%</td><td><b>84%</b></td><td><span class="badge bg-green">A</span></td></tr>
+                <tr><td>Mathematics</td><td>Mr. Nkosi</td><td>70%</td><td>74%</td><td><b>72%</b></td><td><span class="badge bg-blue">B</span></td></tr>
+                <tr><td>Research</td><td>Ms. Patel</td><td>88%</td><td>92%</td><td><b>90%</b></td><td><span class="badge bg-green">A</span></td></tr>
+                <tr><td>English</td><td>Mr. Dlamini</td><td>66%</td><td>70%</td><td><b>68%</b></td><td><span class="badge bg-blue">B</span></td></tr>
+                <tr><td>History</td><td>Mrs. Moyo</td><td>75%</td><td>79%</td><td><b>77%</b></td><td><span class="badge bg-blue">B</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="report-summary">
             <div><strong>Overall Average:</strong> 78.2%</div>
             <div><strong>Attendance:</strong> 92%</div>
-            <div><strong>Conduct:</strong> <span class="badge badge-green">Excellent</span></div>
+            <div><strong>Conduct:</strong> <span class="badge bg-green">Excellent</span></div>
             <div><strong>Position:</strong> 12 of 25</div>
           </div>
-          <div class="report-footer">
+          <div class="report-comment">
             <strong>Teacher Comment:</strong> James has shown excellent progress this term, particularly in Research and Science. Mathematics needs more focused practice. Keep up the good work.<br>
-            <strong>Principal:</strong> Michel (SuperAdmin) &nbsp;&nbsp; <strong>Date:</strong> 23 March 2026
+            <strong>Principal:</strong> Michel &nbsp;&nbsp; <strong>Date:</strong> 23 March 2026
           </div>
         </div>
       </div>
 
       <!-- ── SETTINGS ── -->
-      <div class="admin-page" id="page-settings">
-        <div class="page-title">⚙️ Settings</div>
-        <div class="page-sub">Configure your school platform</div>
-
+      <div class="admin-page" id="page-settings" role="region" aria-label="Platform settings">
+        <div class="page-hd"><h2>⚙️ Settings</h2><p>Configure your school platform</p></div>
         <div class="g2">
-          <div class="tbl-wrap reveal">
-            <div class="tbl-head"><h3>School Information</h3></div>
-            <div style="padding:1.2rem;display:flex;flex-direction:column;gap:0.9rem">
-              <div class="mfield"><label>School Name</label><input type="text" value="EduBuild Academy"/></div>
-              <div class="mfield"><label>School Address</label><input type="text" value="123 Education Street, Johannesburg"/></div>
-              <div class="mfield"><label>Principal / SuperAdmin</label><input type="text" value="Michel" readonly/></div>
-              <div class="mfield"><label>Contact Email</label><input type="text" value="admin@edubuild.school"/></div>
-              <div class="mfield"><label>Current Term</label><input type="text" value="Term 1 · Jan – Mar 2026"/></div>
-              <button class="btn btn-primary" style="align-self:flex-start" onclick="alert('Settings saved successfully!')">Save Changes</button>
+          <div class="card reveal">
+            <div class="card-head"><h3>School Information</h3></div>
+            <div class="settings-form">
+              <div class="mfield"><label for="s-school">School Name</label><input type="text" id="s-school" value="EduBuild Academy"/></div>
+              <div class="mfield"><label for="s-addr">School Address</label><input type="text" id="s-addr" value="123 Education Street, Johannesburg"/></div>
+              <div class="mfield"><label for="s-principal">Principal</label><input type="text" id="s-principal" value="Michel" readonly aria-readonly="true"/></div>
+              <div class="mfield"><label for="s-email">Contact Email</label><input type="email" id="s-email" value="admin@edubuild.school"/></div>
+              <div class="mfield"><label for="s-term">Current Term</label><input type="text" id="s-term" value="Term 1 · Jan – Mar 2026"/></div>
+              <button class="btn btn-primary" style="align-self:flex-start" onclick="toast('Settings saved successfully ✓')">Save Changes</button>
             </div>
           </div>
-          <div class="tbl-wrap reveal">
-            <div class="tbl-head"><h3>SuperAdmin Account</h3></div>
-            <div style="padding:1.2rem;display:flex;flex-direction:column;gap:0.9rem">
-              <div class="mfield"><label>Username</label><input type="text" value="Michel@2005" readonly/></div>
-              <div class="mfield"><label>Display Name</label><input type="text" value="Michel"/></div>
-              <div class="mfield"><label>Email</label><input type="text" value="michel@edubuild.school"/></div>
-              <div class="mfield"><label>New Password</label><input type="password" placeholder="Leave blank to keep current"/></div>
-              <div class="callout c-warn" style="margin:0"><span>⚠️</span><p style="font-size:0.76rem">Changing your password will require you to sign in again.</p></div>
-              <button class="btn btn-primary" style="align-self:flex-start" onclick="alert('Account updated successfully!')">Update Account</button>
+          <div class="card reveal">
+            <div class="card-head"><h3>SuperAdmin Account</h3></div>
+            <div class="settings-form">
+              <div class="mfield"><label for="s-user">Username</label><input type="text" id="s-user" value="Michel@2005" readonly aria-readonly="true"/></div>
+              <div class="mfield"><label for="s-display">Display Name</label><input type="text" id="s-display" value="Michel"/></div>
+              <div class="mfield"><label for="s-aemail">Email</label><input type="email" id="s-aemail" value="michel@edubuild.school"/></div>
+              <div class="mfield"><label for="s-pw">New Password</label><input type="password" id="s-pw" placeholder="Leave blank to keep current"/></div>
+              <div class="callout cl-warn" style="margin:0"><span aria-hidden="true">⚠️</span><p style="font-size:0.76rem">Changing your password will require you to sign in again.</p></div>
+              <button class="btn btn-primary" style="align-self:flex-start" onclick="toast('Account updated successfully ✓')">Update Account</button>
             </div>
           </div>
         </div>
@@ -655,332 +904,356 @@ tr:hover td{background:#EEF4FF}
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
+<!-- ══════════════════════
      MODALS
-══════════════════════════════════════ -->
+══════════════════════ -->
 
-<!-- Add User Modal -->
-<div class="modal-overlay" id="modal-addUser">
+<!-- Add User -->
+<div class="modal-overlay" id="modal-addUser" role="dialog" aria-modal="true" aria-labelledby="modal-addUser-title">
   <div class="modal">
-    <h3>➕ Add New User</h3>
-    <div class="mfield"><label>Full Name</label><input type="text" id="nu-name" placeholder="e.g. John Smith"/></div>
-    <div class="mfield"><label>Username</label><input type="text" id="nu-user" placeholder="e.g. j.smith"/></div>
-    <div class="mfield"><label>Role</label><select id="nu-role"><option>👩‍🏫 Teacher</option><option>👨‍🎓 Student</option><option>👪 Parent</option></select></div>
-    <div class="mfield"><label>Password</label><input type="password" id="nu-pass" placeholder="Set initial password"/></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('addUser')">Cancel</button>
-      <button class="btn btn-primary" onclick="addUser()">Add User</button>
-    </div>
+    <div class="modal-hd"><h3 id="modal-addUser-title">➕ Add New User</h3><button class="modal-close" onclick="closeModal('addUser')" aria-label="Close dialog">✕</button></div>
+    <div class="mfield"><label for="nu-name">Full Name</label><input type="text" id="nu-name" placeholder="e.g. John Smith" autocomplete="off"/></div>
+    <div class="mfield"><label for="nu-user">Username</label><input type="text" id="nu-user" placeholder="e.g. j.smith" autocomplete="off"/></div>
+    <div class="mfield"><label for="nu-role">Role</label><select id="nu-role"><option>👩‍🏫 Teacher</option><option>👨‍🎓 Student</option><option>👪 Parent</option></select></div>
+    <div class="mfield"><label for="nu-pass">Password</label><input type="password" id="nu-pass" placeholder="Set initial password"/></div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('addUser')">Cancel</button><button class="btn btn-primary" onclick="addUser()">Add User</button></div>
   </div>
 </div>
 
-<!-- Add Teacher Modal -->
-<div class="modal-overlay" id="modal-addTeacher">
+<!-- Add Teacher -->
+<div class="modal-overlay" id="modal-addTeacher" role="dialog" aria-modal="true" aria-labelledby="modal-addTeacher-title">
   <div class="modal">
-    <h3>👩‍🏫 Add Teacher</h3>
-    <div class="mfield"><label>Full Name</label><input type="text" id="nt-name" placeholder="e.g. Mr. John Smith"/></div>
-    <div class="mfield"><label>Subject</label><input type="text" id="nt-subject" placeholder="e.g. Mathematics"/></div>
-    <div class="mfield"><label>Classes</label><input type="text" id="nt-classes" placeholder="e.g. Gr 9A, 10B"/></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('addTeacher')">Cancel</button>
-      <button class="btn btn-primary" onclick="addTeacher()">Add Teacher</button>
-    </div>
+    <div class="modal-hd"><h3 id="modal-addTeacher-title">👩‍🏫 Add Teacher</h3><button class="modal-close" onclick="closeModal('addTeacher')" aria-label="Close dialog">✕</button></div>
+    <div class="mfield"><label for="nt-name">Full Name</label><input type="text" id="nt-name" placeholder="e.g. Mr. John Smith"/></div>
+    <div class="mfield"><label for="nt-subject">Subject</label><input type="text" id="nt-subject" placeholder="e.g. Mathematics"/></div>
+    <div class="mfield"><label for="nt-classes">Classes</label><input type="text" id="nt-classes" placeholder="e.g. Gr 9A, 10B"/></div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('addTeacher')">Cancel</button><button class="btn btn-primary" onclick="addTeacher()">Add Teacher</button></div>
   </div>
 </div>
 
-<!-- Add Student Modal -->
-<div class="modal-overlay" id="modal-addStudent">
+<!-- Add Student -->
+<div class="modal-overlay" id="modal-addStudent" role="dialog" aria-modal="true" aria-labelledby="modal-addStudent-title">
   <div class="modal">
-    <h3>👨‍🎓 Enrol Student</h3>
-    <div class="mfield"><label>Full Name</label><input type="text" id="ns-name" placeholder="e.g. Sipho Dlamini"/></div>
-    <div class="mfield"><label>Grade</label><select id="ns-grade"><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option></select></div>
-    <div class="mfield"><label>Class</label><input type="text" id="ns-class" placeholder="e.g. 10A"/></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('addStudent')">Cancel</button>
-      <button class="btn btn-primary" onclick="addStudent()">Enrol Student</button>
-    </div>
+    <div class="modal-hd"><h3 id="modal-addStudent-title">👨‍🎓 Enrol Student</h3><button class="modal-close" onclick="closeModal('addStudent')" aria-label="Close dialog">✕</button></div>
+    <div class="mfield"><label for="ns-name">Full Name</label><input type="text" id="ns-name" placeholder="e.g. Sipho Dlamini"/></div>
+    <div class="mfield"><label for="ns-grade">Grade</label><select id="ns-grade"><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option></select></div>
+    <div class="mfield"><label for="ns-class">Class</label><input type="text" id="ns-class" placeholder="e.g. 10A"/></div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('addStudent')">Cancel</button><button class="btn btn-primary" onclick="addStudent()">Enrol Student</button></div>
   </div>
 </div>
 
-<!-- Add Parent Modal -->
-<div class="modal-overlay" id="modal-addParent">
+<!-- Add Parent -->
+<div class="modal-overlay" id="modal-addParent" role="dialog" aria-modal="true" aria-labelledby="modal-addParent-title">
   <div class="modal">
-    <h3>👪 Add Parent</h3>
-    <div class="mfield"><label>Parent Name</label><input type="text" id="np-name" placeholder="e.g. Mrs. Dlamini"/></div>
-    <div class="mfield"><label>Child's Name</label><input type="text" id="np-child" placeholder="e.g. Lebo Dlamini"/></div>
-    <div class="mfield"><label>Email</label><input type="text" id="np-email" placeholder="e.g. parent@email.com"/></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('addParent')">Cancel</button>
-      <button class="btn btn-primary" onclick="addParent()">Add Parent</button>
-    </div>
+    <div class="modal-hd"><h3 id="modal-addParent-title">👪 Add Parent</h3><button class="modal-close" onclick="closeModal('addParent')" aria-label="Close dialog">✕</button></div>
+    <div class="mfield"><label for="np-name">Parent Name</label><input type="text" id="np-name" placeholder="e.g. Mrs. Dlamini"/></div>
+    <div class="mfield"><label for="np-child">Child's Name</label><input type="text" id="np-child" placeholder="e.g. Lebo Dlamini"/></div>
+    <div class="mfield"><label for="np-email">Email</label><input type="email" id="np-email" placeholder="e.g. parent@email.com"/></div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('addParent')">Cancel</button><button class="btn btn-primary" onclick="addParent()">Add Parent</button></div>
   </div>
 </div>
 
-<!-- Add Subject Modal -->
-<div class="modal-overlay" id="modal-addSubject">
+<!-- Add Subject -->
+<div class="modal-overlay" id="modal-addSubject" role="dialog" aria-modal="true" aria-labelledby="modal-addSubject-title">
   <div class="modal">
-    <h3>📚 Add Subject</h3>
-    <div class="mfield"><label>Subject Name</label><input type="text" id="nsub-name" placeholder="e.g. Physical Science"/></div>
-    <div class="mfield"><label>Assigned Teacher</label><input type="text" id="nsub-teacher" placeholder="e.g. Mrs. Okonkwo"/></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('addSubject')">Cancel</button>
-      <button class="btn btn-primary" onclick="addSubject()">Add Subject</button>
-    </div>
+    <div class="modal-hd"><h3 id="modal-addSubject-title">📚 Add Subject</h3><button class="modal-close" onclick="closeModal('addSubject')" aria-label="Close dialog">✕</button></div>
+    <div class="mfield"><label for="nsub-name">Subject Name</label><input type="text" id="nsub-name" placeholder="e.g. Physical Science"/></div>
+    <div class="mfield"><label for="nsub-teacher">Assigned Teacher</label><input type="text" id="nsub-teacher" placeholder="e.g. Mrs. Okonkwo"/></div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('addSubject')">Cancel</button><button class="btn btn-primary" onclick="addSubject()">Add Subject</button></div>
   </div>
 </div>
 
-<!-- Add Class Modal -->
-<div class="modal-overlay" id="modal-addClass">
+<!-- Add Class -->
+<div class="modal-overlay" id="modal-addClass" role="dialog" aria-modal="true" aria-labelledby="modal-addClass-title">
   <div class="modal">
-    <h3>🏫 Add Class</h3>
-    <div class="mfield"><label>Class Name</label><input type="text" id="ncl-name" placeholder="e.g. Class 12B"/></div>
-    <div class="mfield"><label>Grade</label><select id="ncl-grade"><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option></select></div>
-    <div class="mfield"><label>Teacher</label><input type="text" id="ncl-teacher" placeholder="e.g. Mr. Nkosi"/></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('addClass')">Cancel</button>
-      <button class="btn btn-primary" onclick="addClass()">Add Class</button>
-    </div>
+    <div class="modal-hd"><h3 id="modal-addClass-title">🏫 Add Class</h3><button class="modal-close" onclick="closeModal('addClass')" aria-label="Close dialog">✕</button></div>
+    <div class="mfield"><label for="ncl-name">Class Name</label><input type="text" id="ncl-name" placeholder="e.g. Class 12B"/></div>
+    <div class="mfield"><label for="ncl-grade">Grade</label><select id="ncl-grade"><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option></select></div>
+    <div class="mfield"><label for="ncl-teacher">Teacher</label><input type="text" id="ncl-teacher" placeholder="e.g. Mr. Nkosi"/></div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('addClass')">Cancel</button><button class="btn btn-primary" onclick="addClass()">Add Class</button></div>
   </div>
 </div>
 
-<!-- Add Lesson Modal -->
-<div class="modal-overlay" id="modal-addLesson">
+<!-- Add Lesson -->
+<div class="modal-overlay" id="modal-addLesson" role="dialog" aria-modal="true" aria-labelledby="modal-addLesson-title">
   <div class="modal">
-    <h3>📖 Upload Lesson</h3>
-    <div class="mfield"><label>Lesson Title</label><input type="text" id="nl-title" placeholder="e.g. Introduction to Genetics"/></div>
-    <div class="mfield"><label>Subject</label><input type="text" id="nl-sub" placeholder="e.g. Science"/></div>
-    <div class="mfield"><label>Grade</label><select id="nl-grade"><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option></select></div>
-    <div class="mfield"><label>Teacher</label><input type="text" id="nl-teacher" placeholder="e.g. Mrs. Okonkwo"/></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('addLesson')">Cancel</button>
-      <button class="btn btn-primary" onclick="addLesson()">Upload Lesson</button>
-    </div>
+    <div class="modal-hd"><h3 id="modal-addLesson-title">📖 Upload Lesson</h3><button class="modal-close" onclick="closeModal('addLesson')" aria-label="Close dialog">✕</button></div>
+    <div class="mfield"><label for="nl-title">Lesson Title</label><input type="text" id="nl-title" placeholder="e.g. Introduction to Genetics"/></div>
+    <div class="mfield"><label for="nl-sub">Subject</label><input type="text" id="nl-sub" placeholder="e.g. Science"/></div>
+    <div class="mfield"><label for="nl-grade">Grade</label><select id="nl-grade"><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option></select></div>
+    <div class="mfield"><label for="nl-teacher">Teacher</label><input type="text" id="nl-teacher" placeholder="e.g. Mrs. Okonkwo"/></div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('addLesson')">Cancel</button><button class="btn btn-primary" onclick="addLesson()">Upload Lesson</button></div>
   </div>
 </div>
 
-<!-- Add Grade Modal -->
-<div class="modal-overlay" id="modal-addGrade">
+<!-- Add Grade -->
+<div class="modal-overlay" id="modal-addGrade" role="dialog" aria-modal="true" aria-labelledby="modal-addGrade-title">
   <div class="modal">
-    <h3>📝 Enter Grade</h3>
-    <div class="mfield"><label>Student Name</label><input type="text" id="ng-student" placeholder="e.g. James Mokoena"/></div>
-    <div class="mfield"><label>Subject</label><input type="text" id="ng-sub" placeholder="e.g. Science"/></div>
-    <div class="mfield"><label>Assignment</label><input type="text" id="ng-assign" placeholder="e.g. Chapter 3 Test"/></div>
-    <div class="mfield"><label>Score (%)</label><input type="number" id="ng-score" placeholder="e.g. 85" min="0" max="100"/></div>
-    <div class="mfield"><label>Teacher</label><input type="text" id="ng-teacher" placeholder="e.g. Mrs. Okonkwo"/></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('addGrade')">Cancel</button>
-      <button class="btn btn-primary" onclick="addGrade()">Save Grade</button>
-    </div>
+    <div class="modal-hd"><h3 id="modal-addGrade-title">📝 Enter Grade</h3><button class="modal-close" onclick="closeModal('addGrade')" aria-label="Close dialog">✕</button></div>
+    <div class="mfield"><label for="ng-student">Student Name</label><input type="text" id="ng-student" placeholder="e.g. James Mokoena"/></div>
+    <div class="mfield"><label for="ng-sub">Subject</label><input type="text" id="ng-sub" placeholder="e.g. Science"/></div>
+    <div class="mfield"><label for="ng-assign">Assignment</label><input type="text" id="ng-assign" placeholder="e.g. Chapter 3 Test"/></div>
+    <div class="mfield"><label for="ng-score">Score (%)</label><input type="number" id="ng-score" placeholder="e.g. 85" min="0" max="100"/></div>
+    <div class="mfield"><label for="ng-teacher">Teacher</label><input type="text" id="ng-teacher" placeholder="e.g. Mrs. Okonkwo"/></div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('addGrade')">Cancel</button><button class="btn btn-primary" onclick="addGrade()">Save Grade</button></div>
   </div>
 </div>
 
-<!-- Add Announcement Modal -->
-<div class="modal-overlay" id="modal-addAnnounce">
+<!-- Add Announcement -->
+<div class="modal-overlay" id="modal-addAnnounce" role="dialog" aria-modal="true" aria-labelledby="modal-addAnnounce-title">
   <div class="modal">
-    <h3>📢 New Announcement</h3>
-    <div class="mfield"><label>Title</label><input type="text" id="na-title" placeholder="Announcement title"/></div>
-    <div class="mfield"><label>Message</label><input type="text" id="na-body" placeholder="Write your announcement here..."/></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('addAnnounce')">Cancel</button>
-      <button class="btn btn-primary" onclick="addAnnounce()">Post Announcement</button>
-    </div>
+    <div class="modal-hd"><h3 id="modal-addAnnounce-title">📢 New Announcement</h3><button class="modal-close" onclick="closeModal('addAnnounce')" aria-label="Close dialog">✕</button></div>
+    <div class="mfield"><label for="na-title">Title</label><input type="text" id="na-title" placeholder="Announcement title"/></div>
+    <div class="mfield"><label for="na-body">Message</label><textarea id="na-body" placeholder="Write your announcement here..."></textarea></div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('addAnnounce')">Cancel</button><button class="btn btn-primary" onclick="addAnnounce()">Post Announcement</button></div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════ -->
 <script>
-/* ──────────────────────────────────────
-   AUTH — CREDENTIALS
-   SuperAdmin: Michel@2005 / Michel@4321
-────────────────────────────────────── */
-const CREDENTIALS = {
-  superadmin: { user: 'Michel@2005', pass: 'Michel@4321', role: 'superadmin' },
-  teacher:    { user: 'teacher',     pass: 'teacher123',  role: 'teacher' },
-  student:    { user: 'student',     pass: 'student123',  role: 'student' },
-  parent:     { user: 'parent',      pass: 'parent123',   role: 'parent' }
+/* ══════════════════════════════════════
+   CREDENTIALS & ROLES
+══════════════════════════════════════ */
+const CREDS = {
+  superadmin:{user:'Michel@2005',pass:'Michel@4321'},
+  teacher:   {user:'teacher',    pass:'teacher123'},
+  student:   {user:'student',    pass:'student123'},
+  parent:    {user:'parent',     pass:'parent123'}
 };
-
 const ROLE_META = {
-  superadmin: { icon:'👑', title:'SuperAdmin Sign In', hint:'Username: <b>Michel@2005</b> &nbsp;|&nbsp; Password: <b>Michel@4321</b>' },
-  teacher:    { icon:'👩‍🏫', title:'Teacher Sign In',    hint:'Username: <b>teacher</b> &nbsp;|&nbsp; Password: <b>teacher123</b>' },
-  student:    { icon:'👨‍🎓', title:'Student Sign In',    hint:'Username: <b>student</b> &nbsp;|&nbsp; Password: <b>student123</b>' },
-  parent:     { icon:'👪',  title:'Parent Sign In',     hint:'Username: <b>parent</b> &nbsp;|&nbsp; Password: <b>parent123</b>' }
+  superadmin:{icon:'👑',title:'SuperAdmin Sign In',hint:'Username: <b>Michel@2005</b> &nbsp;·&nbsp; Password: <b>Michel@4321</b>'},
+  teacher:   {icon:'👩‍🏫',title:'Teacher Sign In',    hint:'Username: <b>teacher</b> &nbsp;·&nbsp; Password: <b>teacher123</b>'},
+  student:   {icon:'👨‍🎓',title:'Student Sign In',    hint:'Username: <b>student</b> &nbsp;·&nbsp; Password: <b>student123</b>'},
+  parent:    {icon:'👪', title:'Parent Sign In',     hint:'Username: <b>parent</b> &nbsp;·&nbsp; Password: <b>parent123</b>'}
 };
-
 let currentRole = 'superadmin';
 
-function setRole(role) {
+function setRole(role, el) {
   currentRole = role;
-  document.querySelectorAll('.ltab').forEach(t => t.classList.remove('on'));
-  const idx = {superadmin:0,teacher:1,student:2,parent:3}[role];
-  document.querySelectorAll('.ltab')[idx].classList.add('on');
-  document.getElementById('roleIcon').textContent = ROLE_META[role].icon;
-  document.getElementById('roleTitle').textContent = ROLE_META[role].title;
-  document.getElementById('loginHint').innerHTML = ROLE_META[role].hint;
-  document.getElementById('loginError').style.display = 'none';
+  document.querySelectorAll('.rtab').forEach(t => { t.classList.remove('on'); t.setAttribute('aria-selected','false'); });
+  el.classList.add('on');
+  el.setAttribute('aria-selected','true');
+  const m = ROLE_META[role];
+  document.getElementById('roleIcon').textContent = m.icon;
+  document.getElementById('roleTitle').textContent = m.title;
+  document.getElementById('loginHint').innerHTML = m.hint;
+  const msg = document.getElementById('loginMsg');
+  msg.style.display = 'none';
   document.getElementById('loginUser').value = '';
   document.getElementById('loginPass').value = '';
+  document.getElementById('loginUser').focus();
 }
 
-function doLogin() {
+function doLogin(e) {
+  if(e) e.preventDefault();
   const u = document.getElementById('loginUser').value.trim();
   const p = document.getElementById('loginPass').value;
-  const cred = CREDENTIALS[currentRole];
-  const err = document.getElementById('loginError');
+  const msg = document.getElementById('loginMsg');
+  const cred = CREDS[currentRole];
 
-  if (u === cred.user && p === cred.pass) {
-    err.style.display = 'none';
-    if (currentRole === 'superadmin') {
+  if(u === cred.user && p === cred.pass) {
+    msg.style.display='none';
+    if(currentRole === 'superadmin') {
       document.getElementById('loginScreen').classList.remove('active');
       document.getElementById('adminScreen').classList.add('active');
+      document.getElementById('main-content').focus();
       initReveal();
     } else {
-      // Other roles — show coming soon message
-      err.style.display = 'block';
-      err.style.background = '#E8F5E9';
-      err.style.color = '#2E7D32';
-      err.style.border = '1px solid #C8E6C9';
-      err.textContent = '✅ Login successful! ' + currentRole.charAt(0).toUpperCase() + currentRole.slice(1) + ' dashboard coming soon.';
+      msg.className = 'login-msg success';
+      msg.style.display = 'block';
+      msg.textContent = '✅ Login successful! ' + currentRole[0].toUpperCase() + currentRole.slice(1) + ' dashboard coming soon.';
     }
   } else {
-    err.style.display = 'block';
-    err.style.background = '#FFEBEE';
-    err.style.color = '#B71C1C';
-    err.style.border = '1px solid #FFCDD2';
-    err.textContent = '❌ Incorrect username or password. Please try again.';
+    msg.className = 'login-msg error';
+    msg.style.display = 'block';
+    msg.textContent = '❌ Incorrect username or password. Please try again.';
     document.getElementById('loginPass').value = '';
     document.getElementById('loginPass').focus();
   }
 }
 
-// Allow Enter key on password field
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('loginPass').addEventListener('keydown', e => {
-    if (e.key === 'Enter') doLogin();
-  });
-  document.getElementById('loginUser').addEventListener('keydown', e => {
-    if (e.key === 'Enter') document.getElementById('loginPass').focus();
-  });
-});
-
 function signOut() {
   document.getElementById('adminScreen').classList.remove('active');
   document.getElementById('loginScreen').classList.add('active');
-  setRole('superadmin');
   document.getElementById('loginUser').value = '';
   document.getElementById('loginPass').value = '';
+  document.getElementById('loginMsg').style.display = 'none';
+  document.getElementById('loginUser').focus();
 }
 
-/* ──────────────────────────────────────
+/* ══════════════════════════════════════
    SIDEBAR NAVIGATION
-────────────────────────────────────── */
+══════════════════════════════════════ */
 function showPage(name, el) {
   document.querySelectorAll('.admin-page').forEach(p => p.classList.remove('on'));
-  document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('on'));
+  document.querySelectorAll('.sidebar-item').forEach(s => { s.classList.remove('on'); s.removeAttribute('aria-current'); });
   document.getElementById('page-' + name).classList.add('on');
-  if (el) el.classList.add('on');
+  if(el) { el.classList.add('on'); el.setAttribute('aria-current','page'); }
   initReveal();
+  // Close mobile sidebar
+  if(window.innerWidth < 769) toggleSidebar(true);
 }
 
-/* ──────────────────────────────────────
+/* ══════════════════════════════════════
+   MOBILE SIDEBAR TOGGLE
+══════════════════════════════════════ */
+function toggleSidebar(forceClose) {
+  const sidebar = document.getElementById('sidebar');
+  const backdrop = document.getElementById('sidebarBackdrop');
+  const btn = document.getElementById('hamburgerBtn');
+  const isOpen = sidebar.classList.contains('open');
+  if(forceClose || isOpen) {
+    sidebar.classList.remove('open');
+    backdrop.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+  } else {
+    sidebar.classList.add('open');
+    backdrop.classList.add('open');
+    btn.setAttribute('aria-expanded','true');
+    sidebar.querySelector('.sidebar-item.on').focus();
+  }
+}
+
+/* ══════════════════════════════════════
    MODALS
-────────────────────────────────────── */
+══════════════════════════════════════ */
+let lastFocused;
 function openModal(id) {
-  document.getElementById('modal-' + id).classList.add('open');
+  lastFocused = document.activeElement;
+  const overlay = document.getElementById('modal-' + id);
+  overlay.classList.add('open');
+  const firstInput = overlay.querySelector('input,select,textarea,button');
+  if(firstInput) setTimeout(() => firstInput.focus(), 50);
+
+  // Trap focus
+  overlay.addEventListener('keydown', trapFocus);
 }
 function closeModal(id) {
   document.getElementById('modal-' + id).classList.remove('open');
+  document.getElementById('modal-' + id).removeEventListener('keydown', trapFocus);
+  if(lastFocused) lastFocused.focus();
 }
-// Close modal on overlay click
+function trapFocus(e) {
+  if(e.key !== 'Tab') return;
+  const focusable = e.currentTarget.querySelectorAll('input,select,textarea,button,[tabindex]:not([tabindex="-1"])');
+  const first = focusable[0], last = focusable[focusable.length-1];
+  if(e.shiftKey ? document.activeElement === first : document.activeElement === last) {
+    e.preventDefault();
+    (e.shiftKey ? last : first).focus();
+  }
+}
+// Close on Escape or backdrop click
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(o => {
+    closeModal(o.id.replace('modal-',''));
+  });
+});
 document.querySelectorAll('.modal-overlay').forEach(o => {
-  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+  o.addEventListener('click', e => { if(e.target === o) closeModal(o.id.replace('modal-','')); });
 });
 
-/* ──────────────────────────────────────
-   ADD FUNCTIONS — insert rows into tables
-────────────────────────────────────── */
-function todayStr() {
-  const d = new Date();
-  return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+/* ══════════════════════════════════════
+   TOAST
+══════════════════════════════════════ */
+let toastTimer;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3200);
 }
 
+/* ══════════════════════════════════════
+   HELPERS
+══════════════════════════════════════ */
+function todayStr() {
+  return new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+}
+function updateCount(id, delta) {
+  const el = document.getElementById(id);
+  if(el && delta) el.textContent = parseInt(el.textContent) + delta;
+}
+function delRow(el) {
+  if(confirm('Delete this record?')) { el.closest('tr').remove(); toast('Record deleted.'); }
+}
+
+/* ══════════════════════════════════════
+   ADD FUNCTIONS
+══════════════════════════════════════ */
 function addUser() {
   const n = document.getElementById('nu-name').value.trim();
   const u = document.getElementById('nu-user').value.trim();
   const r = document.getElementById('nu-role').value;
-  if (!n || !u) { alert('Please fill in all fields.'); return; }
-  const roleMap = {'👩‍🏫 Teacher':'badge-blue','👨‍🎓 Student':'badge-green','👪 Parent':'badge-orange'};
-  const tbody = document.getElementById('userTable');
-  const row = tbody.insertRow();
-  row.innerHTML = `<td><b>${n}</b></td><td>${u}</td><td><span class="badge ${roleMap[r]}">${r}</span></td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td>`;
+  if(!n || !u) { toast('Please fill in all required fields.'); return; }
+  const cls = r.includes('Teacher') ? 'bg-blue' : r.includes('Student') ? 'bg-teal' : 'bg-orange';
+  const row = document.getElementById('userTable').insertRow();
+  row.innerHTML = `<td><b>${n}</b></td><td>${u}</td><td><span class="badge ${cls}">${r}</span></td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete ${n}">🗑️</button> <button class="action-btn" aria-label="Edit ${n}">✏️</button></td>`;
   closeModal('addUser');
-  document.getElementById('nu-name').value=''; document.getElementById('nu-user').value='';
+  ['nu-name','nu-user','nu-pass'].forEach(id => document.getElementById(id).value = '');
   updateCount('totalStudents', r.includes('Student') ? 1 : 0);
   updateCount('totalTeachers', r.includes('Teacher') ? 1 : 0);
+  toast(`User "${n}" added successfully.`);
 }
 
 function addTeacher() {
   const n = document.getElementById('nt-name').value.trim();
   const s = document.getElementById('nt-subject').value.trim();
   const c = document.getElementById('nt-classes').value.trim();
-  if (!n || !s) { alert('Please fill name and subject.'); return; }
-  const tbody = document.getElementById('teacherTable');
-  const row = tbody.insertRow();
-  row.innerHTML = `<td><b>${n}</b></td><td>${s}</td><td>${c||'TBA'}</td><td>0</td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td>`;
+  if(!n || !s) { toast('Please enter name and subject.'); return; }
+  const row = document.getElementById('teacherTable').insertRow();
+  row.innerHTML = `<td><b>${n}</b></td><td>${s}</td><td>${c||'TBA'}</td><td>0</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete ${n}">🗑️</button> <button class="action-btn" aria-label="Edit ${n}">✏️</button></td>`;
   closeModal('addTeacher');
-  document.getElementById('nt-name').value=''; document.getElementById('nt-subject').value=''; document.getElementById('nt-classes').value='';
+  ['nt-name','nt-subject','nt-classes'].forEach(id => document.getElementById(id).value = '');
   updateCount('totalTeachers', 1);
+  toast(`Teacher "${n}" added.`);
 }
 
 function addStudent() {
   const n = document.getElementById('ns-name').value.trim();
   const g = document.getElementById('ns-grade').value;
   const c = document.getElementById('ns-class').value.trim();
-  if (!n) { alert('Please enter student name.'); return; }
-  const tbody = document.getElementById('studentTable');
-  const row = tbody.insertRow();
-  row.innerHTML = `<td><b>${n}</b></td><td>${g}</td><td>${c||'TBA'}</td><td><span class="badge badge-blue">N/A</span></td><td>N/A</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td>`;
+  if(!n) { toast('Please enter the student name.'); return; }
+  const row = document.getElementById('studentTable').insertRow();
+  row.innerHTML = `<td><b>${n}</b></td><td>${g}</td><td>${c||'TBA'}</td><td><span class="badge bg-muted">N/A</span></td><td>N/A</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete ${n}">🗑️</button> <button class="action-btn" aria-label="Edit ${n}">✏️</button></td>`;
   closeModal('addStudent');
-  document.getElementById('ns-name').value=''; document.getElementById('ns-class').value='';
+  ['ns-name','ns-class'].forEach(id => document.getElementById(id).value = '');
   updateCount('totalStudents', 1);
+  toast(`Student "${n}" enrolled.`);
 }
 
 function addParent() {
   const n = document.getElementById('np-name').value.trim();
   const ch = document.getElementById('np-child').value.trim();
   const em = document.getElementById('np-email').value.trim();
-  if (!n || !ch) { alert('Please fill parent name and child name.'); return; }
-  const rows = document.querySelectorAll('#page-parents tbody tr');
-  const tbody = document.querySelector('#page-parents tbody');
-  const row = tbody.insertRow();
-  row.innerHTML = `<td><b>${n}</b></td><td>${ch}</td><td>—</td><td>${em||'—'}</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td>`;
+  if(!n || !ch) { toast('Please fill parent name and child name.'); return; }
+  const row = document.getElementById('parentTable').insertRow();
+  row.innerHTML = `<td><b>${n}</b></td><td>${ch}</td><td>—</td><td>${em||'—'}</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete ${n}">🗑️</button> <button class="action-btn" aria-label="Edit ${n}">✏️</button></td>`;
   closeModal('addParent');
-  document.getElementById('np-name').value=''; document.getElementById('np-child').value=''; document.getElementById('np-email').value='';
+  ['np-name','np-child','np-email'].forEach(id => document.getElementById(id).value = '');
+  toast(`Parent "${n}" added.`);
 }
 
 function addSubject() {
   const n = document.getElementById('nsub-name').value.trim();
   const t = document.getElementById('nsub-teacher').value.trim();
-  if (!n) { alert('Please enter subject name.'); return; }
-  const tbody = document.getElementById('subjectTable');
-  const row = tbody.insertRow();
-  row.innerHTML = `<td><b>📘 ${n}</b></td><td>${t||'TBA'}</td><td>0</td><td>0</td><td><span class="badge badge-blue">N/A</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td>`;
+  if(!n) { toast('Please enter a subject name.'); return; }
+  const row = document.getElementById('subjectTable').insertRow();
+  row.innerHTML = `<td><b>📘 ${n}</b></td><td>${t||'TBA'}</td><td>0</td><td>0</td><td><span class="badge bg-muted">N/A</span></td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete ${n}">🗑️</button></td>`;
   closeModal('addSubject');
-  document.getElementById('nsub-name').value=''; document.getElementById('nsub-teacher').value='';
+  ['nsub-name','nsub-teacher'].forEach(id => document.getElementById(id).value = '');
+  toast(`Subject "${n}" added.`);
 }
 
 function addClass() {
   const n = document.getElementById('ncl-name').value.trim();
   const g = document.getElementById('ncl-grade').value;
   const t = document.getElementById('ncl-teacher').value.trim();
-  if (!n) { alert('Please enter class name.'); return; }
-  const tbody = document.getElementById('classTable');
-  const row = tbody.insertRow();
-  row.innerHTML = `<td><b>${n}</b></td><td>${g}</td><td>${t||'TBA'}</td><td>0</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td>`;
+  if(!n) { toast('Please enter a class name.'); return; }
+  const row = document.getElementById('classTable').insertRow();
+  row.innerHTML = `<td><b>${n}</b></td><td>${g}</td><td>${t||'TBA'}</td><td>0</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete ${n}">🗑️</button> <button class="action-btn" aria-label="Edit ${n}">✏️</button></td>`;
   closeModal('addClass');
-  document.getElementById('ncl-name').value=''; document.getElementById('ncl-teacher').value='';
+  ['ncl-name','ncl-teacher'].forEach(id => document.getElementById(id).value = '');
+  toast(`Class "${n}" added.`);
 }
 
 function addLesson() {
@@ -988,12 +1261,12 @@ function addLesson() {
   const sub = document.getElementById('nl-sub').value.trim();
   const gr = document.getElementById('nl-grade').value;
   const t = document.getElementById('nl-teacher').value.trim();
-  if (!title) { alert('Please enter a lesson title.'); return; }
-  const tbody = document.getElementById('lessonTable');
-  const row = tbody.insertRow(0);
-  row.innerHTML = `<td><b>${title}</b></td><td>${sub||'—'}</td><td>${gr}</td><td>${t||'—'}</td><td>${todayStr()}</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td>`;
+  if(!title) { toast('Please enter a lesson title.'); return; }
+  const row = document.getElementById('lessonTable').insertRow(0);
+  row.innerHTML = `<td><b>${title}</b></td><td>${sub||'—'}</td><td>${gr}</td><td>${t||'—'}</td><td>${todayStr()}</td><td><button class="action-btn" onclick="delRow(this)" aria-label="Delete lesson">🗑️</button></td>`;
   closeModal('addLesson');
-  document.getElementById('nl-title').value=''; document.getElementById('nl-sub').value=''; document.getElementById('nl-teacher').value='';
+  ['nl-title','nl-sub','nl-teacher'].forEach(id => document.getElementById(id).value = '');
+  toast(`Lesson "${title}" uploaded.`);
 }
 
 function addGrade() {
@@ -1002,61 +1275,50 @@ function addGrade() {
   const as = document.getElementById('ng-assign').value.trim();
   const sc = document.getElementById('ng-score').value;
   const t = document.getElementById('ng-teacher').value.trim();
-  if (!st || !sc) { alert('Please enter student name and score.'); return; }
-  const grade = parseInt(sc);
-  const cls = grade >= 80 ? 'badge-green' : grade >= 60 ? 'badge-blue' : grade >= 50 ? 'badge-orange' : 'badge-red';
-  const tbody = document.getElementById('gradeTable');
-  const row = tbody.insertRow(0);
+  if(!st || !sc) { toast('Please enter student name and score.'); return; }
+  const g = parseInt(sc);
+  const cls = g >= 80 ? 'bg-green' : g >= 60 ? 'bg-blue' : g >= 50 ? 'bg-amber' : 'bg-red';
+  const row = document.getElementById('gradeTable').insertRow(0);
   row.innerHTML = `<td>${st}</td><td>${sb||'—'}</td><td>—</td><td>${as||'Assessment'}</td><td><span class="badge ${cls}">${sc}%</span></td><td>${t||'—'}</td>`;
   closeModal('addGrade');
-  document.getElementById('ng-student').value=''; document.getElementById('ng-sub').value=''; document.getElementById('ng-assign').value=''; document.getElementById('ng-score').value=''; document.getElementById('ng-teacher').value='';
+  ['ng-student','ng-sub','ng-assign','ng-score','ng-teacher'].forEach(id => document.getElementById(id).value = '');
+  toast(`Grade saved for ${st}.`);
 }
 
 function addAnnounce() {
   const ti = document.getElementById('na-title').value.trim();
   const bo = document.getElementById('na-body').value.trim();
-  if (!ti) { alert('Please enter an announcement title.'); return; }
-  const colors = [
-    'var(--blue)','var(--green)','var(--orange)','var(--purple)','var(--teal)'
-  ];
+  if(!ti) { toast('Please enter an announcement title.'); return; }
+  const colors = ['var(--blue)','var(--green)','var(--orange)','var(--purple)','var(--teal)'];
   const col = colors[Math.floor(Math.random()*colors.length)];
-  const list = document.getElementById('announceList');
-  const div = document.createElement('div');
-  div.className = 'announce';
-  div.style.borderLeftColor = col;
-  div.innerHTML = `<div class="announce-title">${ti}</div><div class="announce-meta">Posted by Michel · ${todayStr()} · 📌 New</div><div class="announce-body">${bo||''}</div>`;
-  list.insertBefore(div, list.firstChild);
+  const art = document.createElement('article');
+  art.className = 'announce-card';
+  art.style.borderLeftColor = col;
+  art.innerHTML = `<div class="announce-title">${ti}</div><div class="announce-meta">Posted by Michel · ${todayStr()} · 📌 New</div><div class="announce-body">${bo||''}</div>`;
+  document.getElementById('announceList').prepend(art);
   closeModal('addAnnounce');
-  document.getElementById('na-title').value=''; document.getElementById('na-body').value='';
+  document.getElementById('na-title').value = '';
+  document.getElementById('na-body').value = '';
+  toast(`Announcement posted.`);
 }
 
-/* ──────────────────────────────────────
-   DELETE ROW
-────────────────────────────────────── */
-function delRow(el) {
-  if (confirm('Are you sure you want to delete this record?')) {
-    el.closest('tr').remove();
-  }
-}
-
-/* ──────────────────────────────────────
-   UPDATE STAT COUNTERS
-────────────────────────────────────── */
-function updateCount(id, delta) {
-  const el = document.getElementById(id);
-  if (el && delta !== 0) el.textContent = parseInt(el.textContent) + delta;
-}
-
-/* ──────────────────────────────────────
+/* ══════════════════════════════════════
    SCROLL REVEAL
-────────────────────────────────────── */
+══════════════════════════════════════ */
 function initReveal() {
-  setTimeout(() => {
-    document.querySelectorAll('.reveal').forEach(el => {
-      el.classList.add('vis');
-    });
-  }, 50);
+  setTimeout(() => document.querySelectorAll('.reveal').forEach(el => el.classList.add('vis')), 60);
 }
+
+/* ══════════════════════════════════════
+   INIT
+══════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  initReveal();
+  // Keyboard shortcut: Enter on login
+  document.getElementById('loginUser').addEventListener('keydown', e => {
+    if(e.key === 'Enter') document.getElementById('loginPass').focus();
+  });
+});
 </script>
 </body>
 </html>
