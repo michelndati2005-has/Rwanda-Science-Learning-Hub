@@ -1,323 +1,343 @@
-<script>
-/* =========================================
-   GLOBAL DATA
-=========================================*/
-let currentRole = "superadmin";
-let isLoggedIn = false;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduBuild OS — Enterprise School Management</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Merriweather:ital,wght@0,700;0,900;1,400&display=swap');
+        
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        :root {
+            --navy: #0D2B5E; --blue: #1565C0; --sky: #2196F3; --teal: #00838F;
+            --green: #2E7D32; --orange: #E65100; --purple: #6A1B9A; --red: #B71C1C;
+            --bg: #F0F4FF; --surface: #fff; --surface2: #F5F7FF; --border: #DDE3F0;
+            --text: #1A2340; --muted: #5A6B8A; --r: 12px;
+            --shadow: 0 10px 30px rgba(13, 43, 94, 0.1);
+        }
 
-let students = [];
-let marks = [];
-let attendance = [];
-let timetable = [];
-let assignments = [];
-let messages = [];
-let fees = [];
-let exams = [];
-let schools = [];
+        body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Merriweather', serif; }
 
-/* =========================================
-   LOAD & SAVE LOCAL STORAGE
-=========================================*/
-function loadData() {
-  students = JSON.parse(localStorage.getItem("students")) || [];
-  marks = JSON.parse(localStorage.getItem("marks")) || [];
-  attendance = JSON.parse(localStorage.getItem("attendance")) || [];
-  timetable = JSON.parse(localStorage.getItem("timetable")) || [];
-  assignments = JSON.parse(localStorage.getItem("assignments")) || [];
-  messages = JSON.parse(localStorage.getItem("messages")) || [];
-  fees = JSON.parse(localStorage.getItem("fees")) || [];
-  exams = JSON.parse(localStorage.getItem("exams")) || [];
-  schools = JSON.parse(localStorage.getItem("schools")) || [];
+        /* --- AUTHENTICATION SCREEN --- */
+        #loginScreen {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0D2B5E 0%, #1565C0 100%);
+            display: flex; align-items: center; justify-content: center; padding: 2rem;
+        }
+        .login-box {
+            background: #fff; border-radius: 20px; padding: 3rem 2.5rem;
+            width: 100%; max-width: 450px; box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            animation: fadeUp 0.6s ease;
+        }
+        .login-tabs { display: flex; background: var(--bg); border-radius: 10px; padding: 5px; margin-bottom: 1.5rem; }
+        .ltab { flex: 1; padding: 0.6rem; text-align: center; font-size: 0.8rem; font-weight: 800; cursor: pointer; border-radius: 8px; transition: 0.3s; color: var(--muted); }
+        .ltab.on { background: #fff; color: var(--blue); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 
-  renderStudents();
-}
+        .field { margin-bottom: 1.2rem; }
+        .field label { display: block; font-size: 0.75rem; font-weight: 800; color: var(--muted); margin-bottom: 0.4rem; text-transform: uppercase; }
+        .field input { width: 100%; padding: 0.8rem 1rem; border: 2px solid var(--border); border-radius: 10px; font-family: inherit; outline: none; transition: 0.2s; }
+        .field input:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(21, 101, 192, 0.1); }
 
-function saveData() {
-  localStorage.setItem("students", JSON.stringify(students));
-  localStorage.setItem("marks", JSON.stringify(marks));
-  localStorage.setItem("attendance", JSON.stringify(attendance));
-  localStorage.setItem("timetable", JSON.stringify(timetable));
-  localStorage.setItem("assignments", JSON.stringify(assignments));
-  localStorage.setItem("messages", JSON.stringify(messages));
-  localStorage.setItem("fees", JSON.stringify(fees));
-  localStorage.setItem("exams", JSON.stringify(exams));
-  localStorage.setItem("schools", JSON.stringify(schools));
-}
+        .login-btn { width: 100%; padding: 1rem; background: var(--blue); color: #fff; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; transition: 0.3s; }
+        .login-error { background: #FFEBEE; color: var(--red); padding: 0.8rem; border-radius: 8px; font-size: 0.85rem; font-weight: 700; margin-top: 1rem; display: none; text-align: center; }
 
-window.onload = loadData;
+        /* --- DASHBOARD ARCHITECTURE --- */
+        #adminScreen { display: none; min-height: 100vh; }
+        .admin-nav { background: var(--navy); height: 65px; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; position: sticky; top: 0; z-index: 100; color: #fff; }
+        .admin-layout { display: flex; }
+        .admin-sidebar { width: 260px; background: #fff; border-right: 1px solid var(--border); height: calc(100vh - 65px); position: sticky; top: 65px; padding: 1.5rem 0; }
+        
+        .sidebar-item { padding: 0.8rem 1.5rem; cursor: pointer; display: flex; align-items: center; gap: 12px; font-weight: 600; color: var(--muted); transition: 0.2s; border-left: 4px solid transparent; }
+        .sidebar-item:hover { background: var(--bg); color: var(--navy); }
+        .sidebar-item.on { background: #EEF4FF; color: var(--blue); border-left-color: var(--blue); font-weight: 800; }
 
-/* =========================================
-   LOGIN SYSTEM
-=========================================*/
-const validUsers = {
-  superadmin: { user: "Michel@2005", pass: "Michel@4321" },
-  teacher: { user: "teacher", pass: "teacher123" },
-  student: { user: "student", pass: "student123" },
-  parent: { user: "parent", pass: "parent123" }
-};
+        .admin-main { flex: 1; padding: 2.5rem; }
+        .admin-page { display: none; }
+        .admin-page.active { display: block; animation: fadeIn 0.4s ease; }
 
-function doLogin() {
-  const u = document.getElementById("loginUser").value;
-  const p = document.getElementById("loginPass").value;
+        /* --- SMART REPORT UI --- */
+        .report-card { background: #fff; border-radius: 20px; border: 1px solid var(--border); padding: 3rem; box-shadow: var(--shadow); position: relative; overflow: hidden; margin-top: 2rem; }
+        .report-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 10px; background: linear-gradient(90deg, var(--blue), var(--teal), var(--purple)); }
+        
+        .report-header { display: flex; justify-content: space-between; border-bottom: 2px solid var(--bg); padding-bottom: 1.5rem; margin-bottom: 2rem; }
+        .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+        .stat-card { background: var(--surface2); padding: 1.5rem; border-radius: 15px; border: 1px solid var(--border); }
+        .sc-num { font-size: 2.2rem; font-weight: 900; color: var(--navy); display: block; }
 
-  const auth = validUsers[currentRole];
+        .report-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+        .report-table th { text-align: left; padding: 1.2rem; background: var(--navy); color: #fff; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+        .report-table td { padding: 1.2rem; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+        
+        .badge { padding: 0.5rem 1rem; border-radius: 30px; font-weight: 800; font-size: 0.7rem; display: inline-block; }
+        .badge-green { background: #E8F5E9; color: var(--green); }
+        .badge-blue { background: #E3F2FD; color: var(--blue); }
 
-  if (u === auth.user && p === auth.pass) {
-    isLoggedIn = true;
-    document.getElementById("loginScreen").classList.remove("active");
-    document.getElementById("adminScreen").classList.add("active");
-  } else {
-    document.getElementById("loginError").style.display = "block";
-  }
-}
+        .trend-up { color: var(--green); font-weight: 900; }
+        .trend-down { color: var(--red); font-weight: 900; }
 
-function signOut() {
-  isLoggedIn = false;
-  document.getElementById("adminScreen").classList.remove("active");
-  document.getElementById("loginScreen").classList.add("active");
-}
+        /* --- UTILITIES --- */
+        .callout { padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; display: flex; gap: 1rem; align-items: center; border-left: 6px solid var(--blue); background: #E3F2FD; }
+        .btn-action { background: var(--navy); color: #fff; border: none; padding: 1rem 2rem; border-radius: 10px; font-weight: 800; cursor: pointer; transition: 0.3s; }
+        .btn-action:hover { background: var(--blue); transform: translateY(-2px); }
 
-/* =========================================
-   STUDENT DATABASE + PHOTO
-=========================================*/
-function addStudent() {
-  const name = document.getElementById("studentName").value;
-  const className = document.getElementById("studentClass").value;
-  const photoInput = document.getElementById("studentPhoto");
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const id = "ST" + (students.length + 1);
+        @media print {
+            .admin-nav, .admin-sidebar, .btn-action, .callout, .sidebar-item { display: none !important; }
+            .admin-main { padding: 0; }
+            .report-card { border: none; box-shadow: none; width: 100%; }
+            body { background: #fff; }
+        }
+    </style>
+</head>
+<body>
 
-    students.push({
-      id,
-      name,
-      class: className,
-      photo: e.target.result
-    });
+    <div id="loginScreen">
+        <div class="login-box">
+            <div style="text-align:center; margin-bottom: 2rem;">
+                <h1 style="font-size: 2.5rem; color: var(--navy);">Edu<b>Build</b></h1>
+                <p style="color: var(--muted); font-weight: 700;">Global Management System</p>
+            </div>
 
-    saveData();
-    renderStudents();
-  };
+            <div class="login-tabs">
+                <div class="ltab on" onclick="switchRole('superadmin')">SuperAdmin</div>
+                <div class="ltab" onclick="switchRole('teacher')">Teacher</div>
+                <div class="ltab" onclick="switchRole('student')">Student</div>
+                <div class="ltab" onclick="switchRole('parent')">Parent</div>
+            </div>
 
-  if (photoInput.files[0]) {
-    reader.readAsDataURL(photoInput.files[0]);
-  }
-}
+            <div class="field">
+                <label>System Identifier</label>
+                <input type="text" id="userInput" placeholder="e.g. Michel@2005">
+            </div>
+            <div class="field">
+                <label>Security Key</label>
+                <input type="password" id="passInput" placeholder="••••••••">
+            </div>
 
-function renderStudents() {
-  const table = document.getElementById("studentTable");
-  if (!table) return;
+            <button class="login-btn" onclick="validateAccess()">Initialize Session →</button>
+            <div id="authError" class="login-error"></div>
 
-  table.innerHTML = "";
+            <div id="accessHint" style="margin-top: 1.5rem; padding: 1rem; background: var(--bg); border-radius: 10px; font-size: 0.75rem; text-align: center; color: var(--muted);">
+                Authorized SuperAdmin: <b>Michel@2005</b> / <b>Michel@4321</b>
+            </div>
+        </div>
+    </div>
 
-  students.forEach(st => {
-    table.innerHTML += `
-      <tr>
-        <td>${st.id}</td>
-        <td><img src="${st.photo}" width="40"></td>
-        <td>${st.name}</td>
-        <td>${st.class}</td>
-      </tr>
-    `;
-  });
-}
+    <div id="adminScreen">
+        <nav class="admin-nav">
+            <div style="font-weight: 900; font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
+                <div style="width:30px; height:30px; background: var(--sky); border-radius: 6px;"></div>
+                EduBuild <span style="font-weight: 400; opacity: 0.7;">| School OS</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 25px;">
+                <span style="font-weight: 800; font-size: 0.8rem; background: rgba(255,255,255,0.1); padding: 6px 15px; border-radius: 30px;">
+                    Welcome, Michel (Master Admin)
+                </span>
+                <button onclick="location.reload()" style="background: var(--red); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.7rem; font-weight: 800;">Terminate Session</button>
+            </div>
+        </nav>
 
-/* =========================================
-   MARKS + AVERAGE
-=========================================*/
-function addMarks() {
-  const studentId = document.getElementById("markStudent").value;
-  const subject = document.getElementById("markSubject").value;
-  const score = parseFloat(document.getElementById("markScore").value);
+        <div class="admin-layout">
+            <aside class="admin-sidebar">
+                <div class="sidebar-item on" onclick="changeTab('dashboard', this)">🏛️ Control Center</div>
+                <div class="sidebar-item" onclick="changeTab('analytics', this)">📈 Smart Reports</div>
+                <div class="sidebar-item" onclick="changeTab('academic', this)">📚 Academic Units</div>
+                <div class="sidebar-item" onclick="alert('Feature locked: User Encryption Active.')">👥 User Vault</div>
+                <div class="sidebar-item" onclick="alert('Global settings require Level 2 clearance.')">⚙️ System Config</div>
+            </aside>
 
-  marks.push({ studentId, subject, score });
-  saveData();
-}
+            <main class="admin-main">
+                <div id="tab-dashboard" class="admin-page active">
+                    <h2>System Status</h2>
+                    <p style="color: var(--muted); margin-bottom: 2rem;">Real-time feed of the 2026 Academic Cycle.</p>
+                    
+                    <div class="g3">
+                        <div class="stat-card">
+                            <span style="font-size: 0.7rem; font-weight: 800; color: var(--muted);">TOTAL REVENUE</span>
+                            <span class="sc-num">$428k</span>
+                            <div class="badge badge-green">▲ 12% Growth</div>
+                        </div>
+                        <div class="stat-card">
+                            <span style="font-size: 0.7rem; font-weight: 800; color: var(--muted);">AVG STUDENT SCORE</span>
+                            <span class="sc-num">84.5%</span>
+                            <div class="badge badge-blue">Stability: High</div>
+                        </div>
+                        <div class="stat-card">
+                            <span style="font-size: 0.7rem; font-weight: 800; color: var(--muted);">STAFF ON DUTY</span>
+                            <span class="sc-num">42 / 45</span>
+                        </div>
+                    </div>
+                </div>
 
-function calculateAverage(studentId) {
-  const studentMarks = marks.filter(m => m.studentId === studentId);
-  if (studentMarks.length === 0) return 0;
+                <div id="tab-analytics" class="admin-page">
+                    <div class="callout">
+                        <span style="font-size: 1.5rem;">🔒</span>
+                        <div>
+                            <strong>Privacy Shield Enabled</strong>
+                            <p style="font-size: 0.8rem; margin-top: 3px;">Students and Parents are blocked from this view. You are viewing the Encrypted Master Academic Record.</p>
+                        </div>
+                    </div>
 
-  let total = 0;
-  studentMarks.forEach(m => total += m.score);
+                    <div class="report-card">
+                        <div class="report-header">
+                            <div>
+                                <h2 style="font-family: 'Merriweather'; color: var(--navy);">EduBuild Elite Analytics</h2>
+                                <p style="font-size: 0.75rem; font-weight: 800; color: var(--muted); text-transform: uppercase;">Official Transcript — Term 1, 2026</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-weight: 900; color: var(--blue); font-size: 1.2rem;">Zuberi Mansa</div>
+                                <div style="font-size: 0.75rem; color: var(--muted);">Student ID: EB-00991-ZM</div>
+                                <div class="badge badge-blue" style="margin-top: 5px;">Class: 11-Premium</div>
+                            </div>
+                        </div>
 
-  return (total / studentMarks.length).toFixed(2);
-}
+                        <div class="g3">
+                            <div class="stat-card" style="background: var(--navy); color: #fff;">
+                                <span style="font-size: 0.65rem; opacity: 0.7;">CUMULATIVE GPA</span>
+                                <span class="sc-num" style="color: #fff;">4.0</span>
+                                <span style="font-size: 0.7rem; font-weight: 800; color: var(--sky);">Perfect Standing</span>
+                            </div>
+                            <div class="stat-card">
+                                <span style="font-size: 0.65rem; font-weight: 800;">CLASS RANK</span>
+                                <span class="sc-num">1 / 45</span>
+                                <span class="trend-up">▲ Top 1%</span>
+                            </div>
+                            <div class="stat-card">
+                                <span style="font-size: 0.65rem; font-weight: 800;">BEHAVIORAL INDEX</span>
+                                <span class="sc-num" style="color: var(--purple);">A+</span>
+                                <span style="font-size: 0.7rem;">Leadership Verified</span>
+                            </div>
+                        </div>
 
-/* =========================================
-   CLASS RANKING
-=========================================*/
-function calculateRanking(className) {
-  const classStudents = students.filter(s => s.class === className);
-  let ranking = [];
+                        <table class="report-table">
+                            <thead>
+                                <tr>
+                                    <th>Subject Definition</th>
+                                    <th>Formative (40%)</th>
+                                    <th>Summative (60%)</th>
+                                    <th>Final Weighted Grade</th>
+                                    <th>Trend</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>Advanced AI & Ethics</b></td>
+                                    <td>39.5 / 40</td>
+                                    <td>59 / 60</td>
+                                    <td><span class="badge badge-blue">98.5% (A+)</span></td>
+                                    <td class="trend-up">▲</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Calculus IV</b></td>
+                                    <td>38 / 40</td>
+                                    <td>56 / 60</td>
+                                    <td><span class="badge badge-blue">94.0% (A)</span></td>
+                                    <td class="trend-up">▲</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Global Macroeconomics</b></td>
+                                    <td>34 / 40</td>
+                                    <td>51 / 60</td>
+                                    <td><span class="badge badge-green">85.0% (B+)</span></td>
+                                    <td class="trend-down">▼</td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-  classStudents.forEach(st => {
-    ranking.push({
-      name: st.name,
-      avg: parseFloat(calculateAverage(st.id))
-    });
-  });
+                        <div style="border-top: 2px dashed var(--border); padding-top: 2rem; display: flex; justify-content: space-between; align-items: flex-end;">
+                            <div style="width: 60%;">
+                                <h4 style="font-size: 0.8rem; margin-bottom: 5px;">SuperAdmin Observation:</h4>
+                                <p style="font-size: 0.85rem; color: var(--muted); font-style: italic;">
+                                    "Student shows exceptional mastery in STEM fields. Economic decline is marginal; recommend focus on market analysis modules next term."
+                                </p>
+                            </div>
+                            <button class="btn-action" onclick="window.print()">Export Encrypted PDF</button>
+                        </div>
+                    </div>
+                </div>
 
-  ranking.sort((a, b) => b.avg - a.avg);
-  return ranking;
-}
+                <div id="tab-academic" class="admin-page">
+                    <h2>Academic Infrastructure</h2>
+                    <p style="color: var(--muted); margin-bottom: 2rem;">Manage school subjects, classes, and teachers.</p>
+                    
+                    <div style="background: #fff; padding: 2rem; border-radius: 15px; border: 1px solid var(--border);">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                            <h3 style="font-size: 1rem;">Active Departments</h3>
+                            <button class="badge badge-blue" style="border:none; cursor:pointer;">+ Add New Unit</button>
+                        </div>
+                        <table class="report-table">
+                            <thead style="background: var(--surface2); color: var(--navy);">
+                                <tr>
+                                    <th>Unit Name</th>
+                                    <th>Head of Dept.</th>
+                                    <th>Students Enrolled</th>
+                                    <th>Avg Performance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Science & Tech</td><td>Dr. Patel</td><td>420</td><td>89%</td></tr>
+                                <tr><td>Humanities</td><td>Prof. Nkosi</td><td>310</td><td>78%</td></tr>
+                                <tr><td>Business School</td><td>Mrs. Chen</td><td>250</td><td>82%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
 
-/* =========================================
-   ATTENDANCE
-=========================================*/
-function markAttendance() {
-  const studentId = document.getElementById("attStudent").value;
-  const status = document.getElementById("attStatus").value;
+    <script>
+        let currentRole = 'superadmin';
 
-  attendance.push({
-    studentId,
-    status,
-    date: new Date().toLocaleDateString()
-  });
+        function switchRole(role) {
+            currentRole = role;
+            document.querySelectorAll('.ltab').forEach(t => t.classList.remove('on'));
+            event.target.classList.add('on');
+            
+            const hint = document.getElementById('accessHint');
+            if(role === 'superadmin') {
+                hint.innerHTML = `Authorized SuperAdmin: <b>Michel@2005</b> / <b>Michel@4321</b>`;
+            } else {
+                hint.innerHTML = `<span style="color:var(--red); font-weight:800;">🔒 PORTAL LOCKED: ${role.toUpperCase()} access is currently disabled for security.</span>`;
+            }
+        }
 
-  saveData();
-}
+        function validateAccess() {
+            const u = document.getElementById('userInput').value;
+            const p = document.getElementById('passInput').value;
+            const err = document.getElementById('authError');
 
-/* =========================================
-   REPORT + AI COMMENT
-=========================================*/
-function aiComment(avg) {
-  if (avg >= 85) return "Excellent performance. Keep it up!";
-  if (avg >= 70) return "Very good performance.";
-  if (avg >= 50) return "Good effort. Needs improvement.";
-  return "Needs serious improvement.";
-}
+            // THE LOCK: Only SuperAdmin Michel can enter
+            if (currentRole === 'superadmin' && u === 'Michel@2005' && p === 'Michel@4321') {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('adminScreen').style.display = 'block';
+            } else {
+                err.style.display = 'block';
+                err.innerText = currentRole !== 'superadmin' 
+                    ? `Access Restricted: The ${currentRole} portal is undergoing encryption.` 
+                    : "Invalid Master Credentials.";
+                
+                setTimeout(() => { err.style.display = 'none'; }, 3000);
+            }
+        }
 
-function generateReport() {
-  const studentId = document.getElementById("reportStudent").value;
-  const student = students.find(s => s.id === studentId);
-  const avg = calculateAverage(studentId);
-  const comment = aiComment(avg);
+        function changeTab(tabId, element) {
+            // Prevent unauthorized internal navigation
+            if (tabId === 'analytics' && currentRole !== 'superadmin') {
+                alert("Restricted Access: Administrative level required.");
+                return;
+            }
 
-  document.getElementById("reportCard").innerHTML = `
-    <h2>EduBuild Smart Report</h2>
-    <p>Name: ${student.name}</p>
-    <p>Class: ${student.class}</p>
-    <p>Average: ${avg}%</p>
-    <p>Comment: ${comment}</p>
-  `;
-}
-
-function exportPDF() {
-  const content = document.getElementById("reportCard").innerHTML;
-  const win = window.open("", "", "width=800,height=600");
-  win.document.write(content);
-  win.print();
-}
-
-/* =========================================
-   TIMETABLE
-=========================================*/
-function addTimetable() {
-  const className = document.getElementById("ttClass").value;
-  const subject = document.getElementById("ttSubject").value;
-  const day = document.getElementById("ttDay").value;
-
-  timetable.push({ className, subject, day });
-  saveData();
-}
-
-/* =========================================
-   ASSIGNMENTS
-=========================================*/
-function addAssignment() {
-  const title = document.getElementById("assTitle").value;
-  const className = document.getElementById("assClass").value;
-
-  assignments.push({ title, className });
-  saveData();
-}
-
-/* =========================================
-   MESSAGING
-=========================================*/
-function sendMessage() {
-  const to = document.getElementById("msgTo").value;
-  const text = document.getElementById("msgText").value;
-
-  messages.push({
-    from: currentRole,
-    to,
-    text,
-    date: new Date().toLocaleString()
-  });
-
-  saveData();
-}
-
-/* =========================================
-   FEES
-=========================================*/
-function addFee() {
-  const studentId = document.getElementById("feeStudent").value;
-  const amount = document.getElementById("feeAmount").value;
-
-  fees.push({ studentId, amount });
-  saveData();
-}
-
-/* =========================================
-   ANALYTICS
-=========================================*/
-function schoolAnalytics() {
-  const totalStudents = students.length;
-  const totalFees = fees.reduce((sum, f) => sum + Number(f.amount), 0);
-
-  document.getElementById("analytics").innerHTML = `
-    <h3>Total Students: ${totalStudents}</h3>
-    <h3>Total Fees: ${totalFees}</h3>
-  `;
-}
-
-/* =========================================
-   ONLINE EXAMS
-=========================================*/
-function addExam() {
-  const subject = document.getElementById("examSubject").value;
-  const question = document.getElementById("examQuestion").value;
-  const answer = document.getElementById("examAnswer").value;
-
-  exams.push({ subject, question, answer });
-  saveData();
-}
-
-function submitExam() {
-  const studentAnswer = document.getElementById("studentAnswer").value;
-  const correctAnswer = exams[0].answer;
-
-  if (studentAnswer === correctAnswer) {
-    alert("Correct!");
-  } else {
-    alert("Wrong answer");
-  }
-}
-
-/* =========================================
-   MULTI SCHOOL
-=========================================*/
-function addSchool() {
-  const name = document.getElementById("schoolName").value;
-  const location = document.getElementById("schoolLocation").value;
-
-  schools.push({ name, location });
-  saveData();
-}
-
-/* =========================================
-   PAGE NAVIGATION
-=========================================*/
-function showPage(page) {
-  document.querySelectorAll(".admin-page").forEach(pg => {
-    pg.classList.remove("on");
-  });
-
-  const target = document.getElementById("page-" + page);
-  if (target) target.classList.add("on");
-}
-</script>
+            document.querySelectorAll('.admin-page').forEach(page => page.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            
+            document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('on'));
+            element.classList.add('on');
+        }
+    </script>
+</body>
+</html>
