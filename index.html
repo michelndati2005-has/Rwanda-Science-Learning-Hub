@@ -35,30 +35,18 @@ h1,h2{font-family:'DM Serif Display','Georgia',serif}
 .skip-link:focus{top:0}
 
 /* ══ SCREENS ══ */
-.screen{display:none;min-height:100vh}
-.screen.active{display:block}
-#loginScreen.active{display:flex!important}
-#studentDashboard.active{display:block!important}
-#teacherDashboard.active{display:block!important}
-#parentDashboard.active{display:block!important}
-#adminScreen{display:none}
-#adminScreen.active{display:block}
+.screen{min-height:100vh}
+#loginScreen,#adminScreen,#studentDashboard,#teacherDashboard,#parentDashboard{display:none}
+#loginScreen{background:linear-gradient(135deg,#0A1628 0%,#122040 40%,#1756F3 100%);display:flex;align-items:center;justify-content:center;padding:2rem;position:relative;overflow:hidden}
 
 /* ══════════════════════════
    LOGIN
 ══════════════════════════ */
-#loginScreen{
-  min-height:100vh;
-  background:linear-gradient(135deg,#0A1628 0%,#122040 40%,#1756F3 100%);
-  display:flex;align-items:center;justify-content:center;padding:2rem;
-  position:relative;overflow:hidden;
-}
 #loginScreen::before{
   content:'';position:absolute;inset:0;
   background:radial-gradient(circle at 70% 30%,rgba(59,130,246,0.18) 0%,transparent 60%),
              radial-gradient(circle at 20% 80%,rgba(13,148,136,0.12) 0%,transparent 50%);
 }
-#loginScreen.active{display:flex}
 
 .login-box{
   background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);
@@ -456,7 +444,7 @@ tbody tr:hover td{background:#EEF4FF}
 <!-- ══════════════════════
      LOGIN SCREEN
 ══════════════════════ -->
-<div id="loginScreen" class="screen active" role="main">
+<div id="loginScreen" class="screen" role="main">
   <div class="login-box">
     <div class="login-logo">
       <h1><span>Edu</span>Build</h1>
@@ -544,6 +532,7 @@ tbody tr:hover td{background:#EEF4FF}
 
       <div class="sidebar-group" style="margin-top:0.4rem">Academics</div>
       <button class="sidebar-item" onclick="showPage('subjects',this)"><span class="si-icon" aria-hidden="true">📚</span> Subjects</button>
+      <button class="sidebar-item" onclick="showPage('research',this)"><span class="si-icon" aria-hidden="true">🔍</span> Research</button>
       <button class="sidebar-item" onclick="showPage('classes',this)"><span class="si-icon" aria-hidden="true">🏫</span> Classes</button>
       <button class="sidebar-item" onclick="showPage('lessons',this)"><span class="si-icon" aria-hidden="true">📖</span> Lessons</button>
 
@@ -735,6 +724,75 @@ tbody tr:hover td{background:#EEF4FF}
               </tbody>
             </table>
           </div>
+        </div>
+      </div>
+
+      <!-- ── RESEARCH ── -->
+      <div class="admin-page" id="page-research" role="region" aria-label="Research subject">
+        <div class="page-top">
+          <div class="page-hd"><h2>🔍 Research</h2><p>Research subject overview — assignments, grades and materials</p></div>
+          <button class="add-btn" onclick="openModal('addLesson')" aria-label="Upload research material">+ Upload Material</button>
+        </div>
+
+        <div class="stat-grid reveal" style="margin-bottom:2rem" role="list">
+          <div class="stat-card" role="listitem"><div class="sc-icon">👩‍🏫</div><div class="sc-num">Ms. Patel</div><div class="sc-label">Subject Teacher</div></div>
+          <div class="stat-card" role="listitem"><div class="sc-icon">👨‍🎓</div><div class="sc-num">68</div><div class="sc-label">Enrolled Students</div></div>
+          <div class="stat-card" role="listitem"><div class="sc-icon">🏫</div><div class="sc-num">4</div><div class="sc-label">Classes</div></div>
+          <div class="stat-card" role="listitem"><div class="sc-icon">📊</div><div class="sc-num">88%</div><div class="sc-label">Subject Average</div></div>
+        </div>
+
+        <div class="g2">
+          <div class="card reveal">
+            <div class="card-head"><h3>📋 Research Assignments</h3></div>
+            <div class="tbl-wrap">
+              <table aria-label="Research assignments">
+                <thead><tr><th scope="col">Assignment</th><th scope="col">Class</th><th scope="col">Due Date</th><th scope="col">Avg Score</th></tr></thead>
+                <tbody>
+                  <tr><td><b>Research Paper 1</b></td><td>Grade 10B</td><td>10 Mar 2026</td><td><span class="badge bg-green">90%</span></td></tr>
+                  <tr><td><b>Literature Review</b></td><td>Grade 11B</td><td>14 Mar 2026</td><td><span class="badge bg-green">85%</span></td></tr>
+                  <tr><td><b>Data Collection Report</b></td><td>Grade 12A</td><td>18 Mar 2026</td><td><span class="badge bg-blue">79%</span></td></tr>
+                  <tr><td><b>Methodology — Part 2</b></td><td>Grade 12A</td><td>25 Mar 2026</td><td><span class="badge bg-amber">Pending</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card reveal">
+            <div class="card-head"><h3>📈 Student Performance</h3></div>
+            <div class="tbl-wrap">
+              <table aria-label="Student research scores">
+                <thead><tr><th scope="col">Student</th><th scope="col">Class</th><th scope="col">Score</th><th scope="col">Grade</th></tr></thead>
+                <tbody>
+                  <tr><td>Lebo Dlamini</td><td>10B</td><td><span class="badge bg-green">90%</span></td><td>A</td></tr>
+                  <tr><td>Thabo Nkosi</td><td>11B</td><td><span class="badge bg-green">87%</span></td><td>A</td></tr>
+                  <tr><td>Sipho Ndlovu</td><td>12A</td><td><span class="badge bg-green">82%</span></td><td>A</td></tr>
+                  <tr><td>James Mokoena</td><td>10B</td><td><span class="badge bg-blue">76%</span></td><td>B</td></tr>
+                  <tr><td>Amara Osei</td><td>11B</td><td><span class="badge bg-blue">71%</span></td><td>B</td></tr>
+                  <tr><td>Zanele Moyo</td><td>12A</td><td><span class="badge bg-amber">63%</span></td><td>C</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-head"><h3>📖 Research Learning Materials</h3></div>
+          <div class="tbl-wrap">
+            <table aria-label="Research materials">
+              <thead><tr><th scope="col">Title</th><th scope="col">Grade</th><th scope="col">Type</th><th scope="col">Uploaded</th><th scope="col">Actions</th></tr></thead>
+              <tbody>
+                <tr><td><b>Research Methodology — Part 1</b></td><td>Grade 12</td><td><span class="badge bg-blue">Lesson</span></td><td>10 Mar 2026</td><td><button class="action-btn" aria-label="Delete material" onclick="delRow(this)">🗑️</button></td></tr>
+                <tr><td><b>Research Methodology — Part 2</b></td><td>Grade 12</td><td><span class="badge bg-blue">Lesson</span></td><td>18 Mar 2026</td><td><button class="action-btn" aria-label="Delete material" onclick="delRow(this)">🗑️</button></td></tr>
+                <tr><td><b>How to Write a Literature Review</b></td><td>Grade 11</td><td><span class="badge bg-purple">Guide</span></td><td>5 Mar 2026</td><td><button class="action-btn" aria-label="Delete material" onclick="delRow(this)">🗑️</button></td></tr>
+                <tr><td><b>Data Collection Techniques</b></td><td>Grade 11</td><td><span class="badge bg-teal">Workshop</span></td><td>1 Mar 2026</td><td><button class="action-btn" aria-label="Delete material" onclick="delRow(this)">🗑️</button></td></tr>
+                <tr><td><b>APA Referencing Guide</b></td><td>All Grades</td><td><span class="badge bg-green">Reference</span></td><td>20 Feb 2026</td><td><button class="action-btn" aria-label="Delete material" onclick="delRow(this)">🗑️</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="callout cl-tip reveal" role="note">
+          <span aria-hidden="true">💡</span>
+          <p><strong>Research Subject:</strong> Taught by Ms. Priya Patel across Grades 10–12. This subject covers methodology, data analysis, literature reviews, and academic writing. Current school average is <strong>88%</strong> — the highest of all subjects.</p>
         </div>
       </div>
 
@@ -1049,6 +1107,19 @@ function setRole(role, el) {
   document.getElementById('loginUser').focus();
 }
 
+/* ══ SCREEN SWITCHER — uses direct style, not CSS classes ══ */
+const SCREENS = ['loginScreen','adminScreen','studentDashboard','teacherDashboard','parentDashboard'];
+function showScreen(id) {
+  SCREENS.forEach(s => {
+    const el = document.getElementById(s);
+    if(el) el.style.display = 'none';
+  });
+  const target = document.getElementById(id);
+  if(!target) return;
+  if(id === 'loginScreen') target.style.display = 'flex';
+  else target.style.display = 'block';
+}
+
 function doLogin(e) {
   if(e) e.preventDefault();
   const u = document.getElementById('loginUser').value.trim();
@@ -1063,12 +1134,11 @@ function doLogin(e) {
     parent:     'parentDashboard'
   };
   if(u === cred.user && p === cred.pass) {
-    msg.style.display='none';
-    document.getElementById('loginScreen').classList.remove('active');
-    const dashId = DASH_MAP[currentRole];
-    document.getElementById(dashId).classList.add('active');
+    msg.style.display = 'none';
+    showScreen(DASH_MAP[currentRole]);
     if(currentRole === 'superadmin') {
-      document.getElementById('main-content').focus();
+      const mc = document.getElementById('main-content');
+      if(mc) mc.focus();
       initReveal();
     }
   } else {
@@ -1081,10 +1151,7 @@ function doLogin(e) {
 }
 
 function signOut() {
-  ['adminScreen','studentDashboard','teacherDashboard','parentDashboard'].forEach(id => {
-    document.getElementById(id).classList.remove('active');
-  });
-  document.getElementById('loginScreen').classList.add('active');
+  showScreen('loginScreen');
   document.getElementById('loginUser').value = '';
   document.getElementById('loginPass').value = '';
   document.getElementById('loginMsg').style.display = 'none';
@@ -1324,6 +1391,7 @@ function initReveal() {
    INIT
 ══════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
+  showScreen('loginScreen');
   initReveal();
   document.getElementById('loginUser').addEventListener('keydown', e => {
     if(e.key === 'Enter') document.getElementById('loginPass').focus();
