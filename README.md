@@ -4,648 +4,629 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>EduBuild — School Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Merriweather:ital,wght@0,700;0,900;1,400&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#0D2B5E;--blue:#1565C0;--sky:#2196F3;--teal:#00838F;
-  --green:#2E7D32;--orange:#E65100;--purple:#6A1B9A;--red:#B71C1C;
-  --bg:#F0F4FF;--surface:#fff;--surface2:#F5F7FF;--border:#DDE3F0;
-  --text:#1A2340;--muted:#5A6B8A;--r:10px;
-  --shadow:0 4px 24px rgba(13,43,94,0.10);
+  --navy:#0A1628;--navy2:#122040;--blue:#1756F3;--blue2:#3B82F6;
+  --teal:#0D9488;--green:#16A34A;--orange:#EA580C;--purple:#7C3AED;
+  --red:#DC2626;--amber:#D97706;
+  --bg:#F0F3FA;--surface:#fff;--surface2:#F7F9FF;
+  --border:#E2E8F4;--border2:#CBD5E1;
+  --text:#0A1628;--muted:#64748B;--muted2:#94A3B8;
+  --r:12px;--r2:8px;
+  --shadow:0 1px 3px rgba(10,22,40,.08),0 4px 16px rgba(10,22,40,.06);
+  --shadow-lg:0 8px 32px rgba(10,22,40,.14);
 }
 html{scroll-behavior:smooth}
-body{font-family:'Nunito','Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
-a{color:var(--blue);text-decoration:none}
-h1,h2,h3{font-family:'Merriweather','Georgia',serif}
+body{font-family:'Plus Jakarta Sans','Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+h1,h2{font-family:'DM Serif Display','Georgia',serif}
 
-/* ══ SCREENS ══ */
-.screen{display:none;min-height:100vh}
-.screen.active{display:block}
-
-/* ══════════════════════════
-   LOGIN SCREEN
-══════════════════════════ */
+/* SCREENS — all hidden, JS controls display */
+.screen{min-height:100vh}
+#loginScreen,#adminScreen,#headteacherScreen,#teacherScreen,#studentScreen,#parentScreen{display:none}
 #loginScreen{
-  min-height:100vh;
-  background:linear-gradient(135deg,#0D2B5E 0%,#1565C0 55%,#006064 100%);
-  display:flex;align-items:center;justify-content:center;padding:2rem;
+  background:linear-gradient(135deg,#0A1628 0%,#122040 40%,#1756F3 100%);
+  display:flex;align-items:center;justify-content:center;padding:2rem;position:relative;overflow:hidden;
 }
-#loginScreen.active{display:flex}
+#loginScreen::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 70% 30%,rgba(59,130,246,.18) 0%,transparent 60%),
+             radial-gradient(circle at 20% 80%,rgba(13,148,136,.12) 0%,transparent 50%);
+}
+
+/* LOGIN */
 .login-box{
-  background:#fff;border-radius:16px;padding:2.5rem 2rem;
-  width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,0.25);
-  animation:fadeUp 0.5s ease both;
+  background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-radius:20px;
+  padding:2.5rem 2.25rem;width:100%;max-width:440px;
+  box-shadow:0 32px 80px rgba(0,0,0,.3);animation:slideUp .5s cubic-bezier(.22,1,.36,1) both;position:relative;
 }
-.login-logo{text-align:center;margin-bottom:1.8rem}
-.login-logo h1{font-size:1.8rem;color:var(--navy);margin-bottom:0.3rem}
-.login-logo h1 b{color:var(--blue)}
-.login-logo p{font-size:0.82rem;color:var(--muted)}
-.login-tabs{display:flex;gap:0;background:var(--bg);border-radius:8px;padding:4px;margin-bottom:1.5rem}
-.ltab{
-  flex:1;padding:0.5rem;text-align:center;font-size:0.75rem;font-weight:700;
-  border-radius:6px;cursor:pointer;transition:all 0.2s;color:var(--muted);
-}
-.ltab.on{background:#fff;color:var(--navy);box-shadow:var(--shadow)}
-.login-role-icon{text-align:center;font-size:2.2rem;margin-bottom:0.8rem}
-.login-form-title{font-size:1rem;font-weight:800;color:var(--navy);text-align:center;margin-bottom:1.2rem}
-.field{margin-bottom:1rem}
-.field label{display:block;font-size:0.75rem;font-weight:700;color:var(--muted);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.05em}
-.field input{
-  width:100%;padding:0.7rem 0.9rem;border:2px solid var(--border);
-  border-radius:8px;font-size:0.9rem;font-family:inherit;
-  outline:none;transition:border-color 0.2s;
-}
-.field input:focus{border-color:var(--blue)}
-.login-btn{
-  width:100%;padding:0.85rem;background:var(--blue);color:#fff;
-  border:none;border-radius:8px;font-size:0.9rem;font-weight:800;
-  cursor:pointer;transition:background 0.2s,transform 0.1s;
-  font-family:inherit;margin-top:0.5rem;
-}
-.login-btn:hover{background:#0D47A1;transform:translateY(-1px)}
-.login-btn:active{transform:translateY(0)}
-.login-error{
-  background:#FFEBEE;color:var(--red);border:1px solid #FFCDD2;
-  border-radius:7px;padding:0.6rem 0.9rem;font-size:0.8rem;
-  font-weight:700;text-align:center;margin-top:0.8rem;display:none;
-}
-.login-hint{
-  background:var(--bg);border-radius:7px;padding:0.6rem 0.9rem;
-  font-size:0.72rem;color:var(--muted);margin-top:1rem;text-align:center;
-}
+.login-logo{text-align:center;margin-bottom:1.75rem}
+.login-logo h1{font-size:2rem;color:var(--navy);letter-spacing:-.02em}
+.login-logo h1 span{color:var(--blue)}
+.login-logo p{font-size:.82rem;color:var(--muted);margin-top:.3rem}
+.role-tabs{display:grid;grid-template-columns:repeat(5,1fr);background:var(--bg);border-radius:10px;padding:4px;gap:3px;margin-bottom:1.5rem;border:1px solid var(--border)}
+.rtab{padding:.42rem .2rem;text-align:center;font-size:.62rem;font-weight:700;border-radius:7px;cursor:pointer;transition:all .18s;color:var(--muted);line-height:1.3;border:2px solid transparent;background:transparent;font-family:inherit}
+.rtab:hover{color:var(--navy);background:rgba(255,255,255,.8)}
+.rtab.on{background:var(--surface);color:var(--navy);border-color:var(--border);box-shadow:var(--shadow)}
+.rtab .tab-icon{font-size:1rem;display:block;margin-bottom:2px}
+.role-hd{text-align:center;margin-bottom:1.4rem}
+.role-hd .ri{font-size:2.2rem;line-height:1;margin-bottom:.4rem}
+.role-hd h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:800;color:var(--navy)}
+.field{margin-bottom:.9rem}
+.field label{display:block;font-size:.72rem;font-weight:700;color:var(--muted);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.07em}
+.field input,.field select{width:100%;padding:.72rem 1rem;border:2px solid var(--border);border-radius:var(--r2);font-size:.9rem;font-family:inherit;outline:none;transition:border-color .2s,box-shadow .2s;background:var(--surface2);color:var(--text)}
+.field input:focus,.field select:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(23,86,243,.1);background:var(--surface)}
+.login-btn{width:100%;padding:.88rem;background:var(--blue);color:#fff;border:none;border-radius:var(--r2);font-size:.92rem;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(23,86,243,.35);transition:all .2s;margin-top:.4rem}
+.login-btn:hover{background:#1244CC;transform:translateY(-1px)}
+.login-msg{border-radius:var(--r2);padding:.65rem 1rem;font-size:.8rem;font-weight:700;text-align:center;margin-top:.9rem;display:none}
+.login-msg.error{background:#FEF2F2;color:var(--red);border:1.5px solid #FECACA}
+.login-msg.success{background:#F0FDF4;color:var(--green);border:1.5px solid #BBF7D0}
+.login-hint{background:var(--bg);border:1px solid var(--border);border-radius:var(--r2);padding:.65rem 1rem;font-size:.72rem;color:var(--muted);margin-top:1rem;text-align:center;line-height:1.8}
 .login-hint b{color:var(--navy)}
 
-/* ══════════════════════════
-   SUPERADMIN DASHBOARD
-══════════════════════════ */
-#adminScreen{background:var(--bg)}
-#adminScreen.active{display:block}
-.admin-nav{
-  background:var(--navy);padding:0 1.5rem;height:58px;
-  display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;z-index:999;
-}
-.admin-nav-brand{font-family:'Merriweather',serif;color:#fff;font-size:1rem;font-style:italic}
-.admin-nav-brand b{font-style:normal;color:#64B5F6}
-.admin-nav-right{display:flex;align-items:center;gap:1rem}
-.admin-badge{
-  background:rgba(100,181,246,0.18);color:#90CAF9;
-  border:1px solid rgba(100,181,246,0.3);border-radius:100px;
-  padding:0.2rem 0.75rem;font-size:0.68rem;font-weight:700;
-}
-.signout-btn{
-  background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);
-  border-radius:7px;padding:0.3rem 0.75rem;font-size:0.72rem;font-weight:700;
-  cursor:pointer;transition:background 0.2s;font-family:inherit;
-}
-.signout-btn:hover{background:rgba(255,255,255,0.2)}
-.admin-layout{display:flex;min-height:calc(100vh - 58px)}
-.admin-sidebar{
-  width:220px;background:#fff;border-right:1px solid var(--border);
-  padding:1rem 0;flex-shrink:0;position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto;
-}
-.sidebar-section{padding:0.4rem 1rem 0.2rem;font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted)}
-.sidebar-item{
-  display:flex;align-items:center;gap:0.7rem;
-  padding:0.6rem 1rem;font-size:0.8rem;color:var(--muted);
-  cursor:pointer;transition:all 0.15s;border-left:3px solid transparent;
-  font-weight:600;
-}
-.sidebar-item:hover{background:var(--bg);color:var(--navy)}
-.sidebar-item.on{background:var(--bg);color:var(--blue);border-left-color:var(--blue);font-weight:800}
-.admin-main{flex:1;padding:2rem;overflow-y:auto}
-.admin-page{display:none}
-.admin-page.on{display:block}
-.page-title{font-size:1.4rem;font-weight:900;color:var(--navy);margin-bottom:0.3rem}
-.page-sub{font-size:0.85rem;color:var(--muted);margin-bottom:1.8rem}
+/* NAV */
+.topnav{background:var(--navy);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;position:sticky;top:0;z-index:900}
+.topnav-brand{font-family:'DM Serif Display',serif;color:#fff;font-size:1.1rem;font-style:italic}
+.topnav-brand b{font-style:normal;color:#93C5FD}
+.topnav-right{display:flex;align-items:center;gap:.75rem}
+.user-pill{display:flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:.28rem .8rem .28rem .28rem}
+.user-avatar{width:26px;height:26px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:#fff;flex-shrink:0}
+.user-name{font-size:.72rem;color:#CBD5E1;font-weight:600}
+.user-role{font-size:.64rem;color:#64748B}
+.signout-btn{background:rgba(255,255,255,.08);color:#CBD5E1;border:1px solid rgba(255,255,255,.14);border-radius:var(--r2);padding:.32rem .85rem;font-size:.72rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.signout-btn:hover{background:rgba(255,255,255,.18);color:#fff}
 
-/* stat cards */
-.stat-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;margin-bottom:2rem}
-.stat-card{
-  background:#fff;border:1px solid var(--border);border-radius:var(--r);
-  padding:1.2rem;display:flex;flex-direction:column;gap:0.3rem;
-}
-.sc-icon{font-size:1.6rem}
-.sc-num{font-size:1.8rem;font-weight:900;color:var(--navy)}
-.sc-label{font-size:0.74rem;color:var(--muted);font-weight:600}
+/* SCHOOL BADGE in nav */
+.school-badge{background:rgba(147,197,253,.15);border:1px solid rgba(147,197,253,.25);border-radius:100px;padding:.2rem .75rem;font-size:.68rem;color:#93C5FD;font-weight:700;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
-/* tables */
-.tbl-wrap{background:#fff;border-radius:var(--r);border:1px solid var(--border);overflow:hidden;margin-bottom:1.5rem}
-.tbl-head{padding:1rem 1.2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
-.tbl-head h3{font-size:0.9rem;font-weight:800;color:var(--navy)}
-table{width:100%;border-collapse:collapse;font-size:0.8rem}
-th{background:var(--navy);color:#fff;padding:0.65rem 1rem;text-align:left;font-size:0.74rem;font-weight:700}
-td{padding:0.65rem 1rem;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle}
-tr:last-child td{border-bottom:none}
-tr:nth-child(even) td{background:var(--surface2)}
-tr:hover td{background:#EEF4FF}
+/* LAYOUT */
+.shell{display:flex;min-height:calc(100vh - 58px)}
+.sidebar{width:224px;background:var(--surface);border-right:1px solid var(--border);padding:1.2rem 0 2rem;flex-shrink:0;position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.sgroup{padding:.6rem 1rem .2rem;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--muted2)}
+.sitem{display:flex;align-items:center;gap:.65rem;padding:.58rem 1rem;font-size:.8rem;color:var(--muted);cursor:pointer;transition:all .14s;border-left:3px solid transparent;font-weight:600;border:none;background:none;width:100%;text-align:left;font-family:inherit}
+.sitem:hover{background:var(--bg);color:var(--navy)}
+.sitem.on{background:linear-gradient(90deg,#EFF6FF 0%,var(--bg) 100%);color:var(--blue);border-left:3px solid var(--blue);font-weight:800}
+.si{font-size:1rem;width:22px;text-align:center;flex-shrink:0}
+.main{flex:1;padding:2rem 2.25rem;overflow-y:auto;min-width:0}
+.page{display:none;animation:fadeIn .25s ease}
+.page.on{display:block}
 
-/* badges */
-.badge{display:inline-block;padding:0.18rem 0.55rem;border-radius:100px;font-size:0.68rem;font-weight:700}
-.badge-green{background:#E8F5E9;color:var(--green)}
-.badge-blue{background:#E3F2FD;color:var(--blue)}
-.badge-orange{background:#FFF3E0;color:var(--orange)}
-.badge-red{background:#FCE4EC;color:var(--red)}
-.badge-purple{background:#EDE7F6;color:var(--purple)}
+/* PAGE HEADER */
+.phd{margin-bottom:1.75rem}
+.phd h2{font-size:1.4rem;font-family:'DM Serif Display',serif;color:var(--navy);letter-spacing:-.01em;line-height:1.2}
+.phd p{font-size:.85rem;color:var(--muted);margin-top:.3rem}
+.ptop{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.75rem}
 
-/* forms / modals */
-.modal-overlay{
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);
-  z-index:9000;align-items:center;justify-content:center;padding:1rem;
-}
-.modal-overlay.open{display:flex}
-.modal{
-  background:#fff;border-radius:14px;padding:2rem;width:100%;max-width:440px;
-  box-shadow:0 20px 60px rgba(0,0,0,0.2);animation:fadeUp 0.25s ease both;
-}
-.modal h3{font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:1.2rem}
-.mfield{margin-bottom:1rem}
-.mfield label{display:block;font-size:0.73rem;font-weight:700;color:var(--muted);margin-bottom:0.3rem;text-transform:uppercase}
-.mfield input,.mfield select{
-  width:100%;padding:0.62rem 0.85rem;border:2px solid var(--border);
-  border-radius:7px;font-size:0.85rem;font-family:inherit;outline:none;
-  transition:border-color 0.2s;
-}
-.mfield input:focus,.mfield select:focus{border-color:var(--blue)}
-.modal-btns{display:flex;gap:0.7rem;margin-top:1.2rem;justify-content:flex-end}
-.btn{padding:0.55rem 1.2rem;border-radius:7px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:all 0.2s}
-.btn-primary{background:var(--blue);color:#fff}
-.btn-primary:hover{background:#0D47A1}
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;margin-bottom:1.25rem}
+.card-head{padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.card-head h3{font-size:.9rem;font-weight:800;color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif}
+.card-body{padding:1.25rem}
+
+/* STAT CARDS */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:1rem;margin-bottom:2rem}
+.scard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s}
+.scard:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.sc-icon{font-size:1.5rem;margin-bottom:.5rem}
+.sc-num{font-size:1.85rem;font-weight:900;color:var(--navy);line-height:1;letter-spacing:-.02em}
+.sc-lbl{font-size:.72rem;color:var(--muted);font-weight:600;margin-top:.25rem}
+
+/* TABLES */
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.79rem}
+thead th{background:var(--navy);color:#fff;padding:.65rem 1rem;text-align:left;font-size:.71rem;font-weight:700;letter-spacing:.04em;white-space:nowrap}
+tbody td{padding:.65rem 1rem;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even) td{background:var(--surface2)}
+tbody tr:hover td{background:#EEF4FF}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:.2rem;padding:.18rem .6rem;border-radius:100px;font-size:.67rem;font-weight:700;white-space:nowrap}
+.bg-green{background:#DCFCE7;color:#15803D}
+.bg-blue{background:#DBEAFE;color:#1D4ED8}
+.bg-orange{background:#FFEDD5;color:#C2410C}
+.bg-red{background:#FEE2E2;color:#B91C1C}
+.bg-purple{background:#EDE9FE;color:#6D28D9}
+.bg-teal{background:#CCFBF1;color:#0F766E}
+.bg-amber{background:#FEF3C7;color:#B45309}
+.bg-muted{background:var(--bg);color:var(--muted)}
+.bg-navy{background:#1E3A5F;color:#93C5FD}
+
+/* BUTTONS */
+.btn{padding:.55rem 1.2rem;border-radius:var(--r2);font-size:.8rem;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:all .2s;display:inline-flex;align-items:center;gap:.4rem}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(23,86,243,.3)}
+.btn-primary:hover{background:#1244CC;transform:translateY(-1px)}
 .btn-danger{background:var(--red);color:#fff}
-.btn-danger:hover{background:#880E1B}
-.btn-ghost{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
-.btn-ghost:hover{color:var(--navy);border-color:var(--navy)}
-.add-btn{
-  background:var(--blue);color:#fff;border:none;border-radius:7px;
-  padding:0.45rem 1rem;font-size:0.76rem;font-weight:700;cursor:pointer;
-  font-family:inherit;transition:background 0.2s;
-}
-.add-btn:hover{background:#0D47A1}
-.action-ico{cursor:pointer;padding:0.2rem 0.4rem;border-radius:4px;transition:background 0.15s;font-size:0.9rem}
-.action-ico:hover{background:var(--bg)}
+.btn-danger:hover{background:#991B1B}
+.btn-ghost{background:var(--bg);color:var(--muted);border:1.5px solid var(--border)}
+.btn-ghost:hover{color:var(--navy);border-color:var(--border2)}
+.btn-success{background:var(--green);color:#fff}
+.btn-success:hover{background:#15803D}
+.btn-warn{background:var(--amber);color:#fff}
+.add-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--blue);color:#fff;border:none;border-radius:var(--r2);padding:.52rem 1.1rem;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 2px 8px rgba(23,86,243,.3)}
+.add-btn:hover{background:#1244CC;transform:translateY(-1px)}
+.action-btn{border:none;background:transparent;cursor:pointer;padding:.22rem .4rem;border-radius:6px;font-size:.85rem;transition:background .15s;line-height:1}
+.action-btn:hover{background:var(--bg)}
 
-/* callout */
-.callout{border-radius:var(--r);padding:1rem 1.2rem;margin-bottom:1.2rem;display:flex;gap:0.8rem;font-size:0.84rem;border-left:4px solid}
-.callout p{margin:0;line-height:1.6}
-.callout strong{font-weight:800}
-.c-tip{background:#E8F5E9;border-color:var(--green)}
-.c-info{background:#E3F2FD;border-color:var(--sky)}
-.c-warn{background:#FFF3E0;border-color:var(--orange)}
+/* CALLOUTS */
+.callout{display:flex;gap:.85rem;padding:1rem 1.15rem;border-radius:var(--r);margin-bottom:1.25rem;border-left:4px solid}
+.callout p{font-size:.83rem;line-height:1.6;margin:0}
+.cl-info{background:#EFF6FF;border-color:var(--blue2)}
+.cl-tip{background:#F0FDF4;border-color:var(--green)}
+.cl-warn{background:#FFFBEB;border-color:var(--amber)}
+.cl-red{background:#FEF2F2;border-color:var(--red)}
 
-/* progress bars */
-.prog-row{display:flex;align-items:center;gap:0.8rem;margin-bottom:0.6rem;font-size:0.78rem}
-.prog-lbl{width:100px;color:var(--muted);flex-shrink:0}
-.prog-track{flex:1;height:8px;background:#E0E0E0;border-radius:4px;overflow:hidden}
+/* PROGRESS BARS */
+.prog-item{display:flex;align-items:center;gap:.85rem;padding:.4rem 0}
+.prog-label{width:95px;font-size:.78rem;color:var(--muted);font-weight:600;flex-shrink:0}
+.prog-track{flex:1;height:8px;background:var(--bg);border-radius:4px;overflow:hidden}
 .prog-fill{height:100%;border-radius:4px}
-.prog-pct{width:35px;text-align:right;font-weight:800;color:var(--navy)}
+.prog-pct{width:38px;text-align:right;font-size:.78rem;font-weight:800;color:var(--navy)}
 
-/* report card */
-.report-card{
-  background:#fff;border:2px solid var(--border);border-radius:var(--r);
-  padding:1.5rem;margin-bottom:1rem;
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,22,40,.6);backdrop-filter:blur(4px);z-index:8000;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border-radius:16px;padding:2rem 1.75rem;width:100%;max-width:480px;box-shadow:var(--shadow-lg);animation:slideUp .25s cubic-bezier(.22,1,.36,1) both;border:1px solid var(--border);max-height:90vh;overflow-y:auto}
+.modal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.modal-hd h3{font-size:1.05rem;font-weight:800;color:var(--navy)}
+.modal-close{background:var(--bg);border:1px solid var(--border);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:var(--border)}
+.mfield{margin-bottom:1rem}
+.mfield label{display:block;font-size:.71rem;font-weight:700;color:var(--muted);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.06em}
+.mfield input,.mfield select,.mfield textarea{width:100%;padding:.65rem .9rem;border:2px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;outline:none;transition:border-color .2s,box-shadow .2s;background:var(--surface2);color:var(--text)}
+.mfield input:focus,.mfield select:focus,.mfield textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(23,86,243,.1);background:var(--surface)}
+.mfield textarea{resize:vertical;min-height:80px}
+.modal-foot{display:flex;gap:.65rem;justify-content:flex-end;margin-top:1.5rem}
+.mrow{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+
+/* ATTENDANCE TABLE special */
+.att-select{padding:.3rem .5rem;border:1.5px solid var(--border);border-radius:6px;font-size:.75rem;font-family:inherit;outline:none;background:var(--surface);cursor:pointer;transition:border-color .2s}
+.att-select:focus{border-color:var(--blue)}
+.att-select.present{background:#F0FDF4;color:#15803D;border-color:#BBF7D0}
+.att-select.absent{background:#FEF2F2;color:#B91C1C;border-color:#FECACA}
+.att-select.late{background:#FFFBEB;color:#B45309;border-color:#FDE68A}
+
+/* SCHOOL STATUS TOGGLE */
+.toggle-wrap{display:flex;align-items:center;gap:.6rem}
+.toggle{position:relative;width:44px;height:24px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;cursor:pointer;inset:0;background:#CBD5E1;border-radius:12px;transition:.3s}
+.toggle-slider:before{content:'';position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.3s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle input:checked+.toggle-slider{background:var(--green)}
+.toggle input:checked+.toggle-slider:before{transform:translateX(20px)}
+.toggle-lbl{font-size:.78rem;font-weight:600;color:var(--muted)}
+
+/* SCHOOL CARD */
+.school-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;box-shadow:var(--shadow);transition:all .2s;position:relative}
+.school-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.school-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.8rem}
+.school-card-name{font-size:1rem;font-weight:800;color:var(--navy)}
+.school-card-id{font-size:.68rem;color:var(--muted2);margin-top:.15rem}
+.school-card-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:.9rem}
+.school-stat{text-align:center;background:var(--bg);border-radius:8px;padding:.5rem .3rem}
+.school-stat-num{font-size:1.1rem;font-weight:900;color:var(--navy)}
+.school-stat-lbl{font-size:.62rem;color:var(--muted);font-weight:600}
+.school-card-foot{display:flex;align-items:center;justify-content:space-between;padding-top:.8rem;border-top:1px solid var(--border)}
+.school-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;margin-bottom:1.5rem}
+
+/* REPORT CARD */
+.report-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--r);padding:1.75rem;margin-bottom:1.25rem}
+.report-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:1rem}
+.report-summary{display:flex;flex-wrap:wrap;gap:1.5rem;font-size:.82rem;padding:.6rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:.75rem}
+.report-comment{font-size:.78rem;color:var(--muted);line-height:1.7}
+
+/* ANNOUNCEMENTS */
+.announce-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:.75rem;border-left:4px solid var(--blue);box-shadow:var(--shadow)}
+.announce-title{font-size:.9rem;font-weight:800;color:var(--navy);margin-bottom:.2rem}
+.announce-meta{font-size:.7rem;color:var(--muted)}
+.announce-body{font-size:.82rem;color:var(--text);margin-top:.45rem;line-height:1.65}
+
+/* PRINT BUTTON */
+.print-btn{background:var(--navy);color:#fff;border:none;border-radius:var(--r2);padding:.55rem 1.25rem;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;display:inline-flex;align-items:center;gap:.4rem}
+.print-btn:hover{background:var(--navy2)}
+
+/* SETTINGS FORM */
+.settings-form{display:flex;flex-direction:column;gap:1rem;padding:1.25rem}
+
+/* TOAST */
+#toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;background:var(--navy);color:#fff;padding:.75rem 1.25rem;border-radius:var(--r2);font-size:.82rem;font-weight:600;box-shadow:var(--shadow-lg);transform:translateY(120%);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;gap:.5rem;max-width:320px}
+#toast.show{transform:translateY(0);opacity:1}
+
+/* HAMBURGER */
+.hamburger{display:none;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:7px;width:36px;height:36px;align-items:center;justify-content:center;cursor:pointer;color:#CBD5E1;font-size:1.1rem}
+.sidebar-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:799}
+.sidebar-backdrop.open{display:block}
+
+/* MATERIAL CARDS (notes & assignments) */
+.material-card{
+  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);
+  padding:1.1rem 1.25rem;display:flex;align-items:flex-start;gap:1rem;
+  box-shadow:var(--shadow);transition:box-shadow .2s,border-color .2s;
 }
-.report-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
-.report-school{font-size:1rem;font-weight:900;color:var(--navy)}
-.report-term{font-size:0.75rem;color:var(--muted)}
-.report-student{font-size:0.85rem}
-.report-student b{color:var(--navy)}
-.report-grades{width:100%;border-collapse:collapse;font-size:0.8rem;margin-bottom:0.8rem}
-.report-grades th{background:var(--navy);color:#fff;padding:0.5rem 0.8rem;text-align:left;font-size:0.72rem}
-.report-grades td{padding:0.5rem 0.8rem;border-bottom:1px solid var(--border)}
-.report-footer{font-size:0.75rem;color:var(--muted);border-top:1px solid var(--border);padding-top:0.8rem;margin-top:0.5rem}
-.print-btn{
-  background:var(--navy);color:#fff;border:none;border-radius:7px;
-  padding:0.5rem 1.2rem;font-size:0.78rem;font-weight:700;cursor:pointer;
-  font-family:inherit;transition:background 0.2s;
+.material-card:hover{box-shadow:var(--shadow-lg)}
+.note-card{border-left:4px solid var(--blue)}
+.assign-card{border-left:4px solid var(--orange)}
+.mat-icon{font-size:1.6rem;flex-shrink:0;width:40px;text-align:center;padding-top:.1rem}
+.mat-info{flex:1;min-width:0}
+.mat-title{font-size:.92rem;font-weight:800;color:var(--navy);margin-bottom:.2rem}
+.mat-meta{font-size:.72rem;color:var(--muted);margin-bottom:.35rem}
+.mat-desc{font-size:.8rem;color:var(--text);line-height:1.55}
+.mat-actions{display:flex;align-items:center;gap:.5rem;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+
+/* NOTE VIEWER */
+.note-viewer{
+  background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r2);
+  padding:1.1rem 1.25rem;font-size:.84rem;line-height:1.75;color:var(--text);
+  white-space:pre-wrap;max-height:320px;overflow-y:auto;margin-top:.75rem;
+  font-family:'Plus Jakarta Sans',sans-serif;
 }
-.print-btn:hover{background:#1565C0}
 
-/* section heading */
-.sec-h{font-size:1rem;font-weight:800;color:var(--navy);margin:1.5rem 0 0.8rem;display:flex;align-items:center;gap:0.5rem}
+/* SUBMISSION TEXT AREA */
+.submit-area{
+  width:100%;min-height:200px;padding:.8rem 1rem;border:2px solid var(--border);
+  border-radius:var(--r2);font-size:.85rem;font-family:inherit;outline:none;
+  transition:border-color .2s,box-shadow .2s;resize:vertical;background:var(--surface2);color:var(--text);
+  line-height:1.65;
+}
+.submit-area:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(23,86,243,.1);background:var(--surface)}
 
-/* grid 2 col */
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
-.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem}
+/* FILE UPLOAD DROP ZONE */
+.file-drop{
+  border:2px dashed var(--border2);border-radius:var(--r2);padding:1.5rem;
+  text-align:center;cursor:pointer;transition:all .2s;background:var(--bg);margin-top:.75rem;
+}
+.file-drop:hover,.file-drop.dragover{border-color:var(--blue);background:#EFF6FF}
+.file-drop p{font-size:.8rem;color:var(--muted);margin-top:.4rem}
+.file-drop input[type=file]{display:none}
+.file-name{font-size:.78rem;color:var(--green);font-weight:700;margin-top:.5rem;display:none}
 
-/* announcement */
-.announce{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.2rem;margin-bottom:0.75rem;border-left:4px solid var(--blue)}
-.announce-title{font-size:0.88rem;font-weight:800;color:var(--navy);margin-bottom:0.2rem}
-.announce-meta{font-size:0.72rem;color:var(--muted)}
-.announce-body{font-size:0.82rem;color:var(--text);margin-top:0.4rem}
+/* CHAR COUNTER */
+.char-count{font-size:.7rem;color:var(--muted2);text-align:right;margin-top:.3rem}
 
-/* ══ ANIMATIONS ══ */
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-.reveal{opacity:0;transform:translateY(12px);transition:opacity 0.45s,transform 0.45s}
+
+.portal-btn{
+  display:flex;align-items:center;gap:.85rem;width:100%;
+  padding:.9rem 1rem;background:var(--surface2);border:2px solid var(--border);
+  border-radius:var(--r);cursor:pointer;transition:all .18s;font-family:inherit;
+  text-align:left;
+}
+.portal-btn:hover{border-color:var(--blue);background:#EFF6FF;transform:translateX(3px)}
+.portal-icon{font-size:1.5rem;flex-shrink:0;width:36px;text-align:center}
+.portal-info{flex:1}
+.portal-name{font-size:.88rem;font-weight:800;color:var(--navy)}
+.portal-desc{font-size:.72rem;color:var(--muted);margin-top:.1rem}
+.portal-arrow{font-size:1.4rem;color:var(--muted2);font-weight:300}
+.portal-btn.restricted{opacity:.55;cursor:not-allowed}
+.portal-btn.restricted:hover{transform:none;border-color:var(--border);background:var(--surface2)}
+
+/* BACK BUTTON */
+.back-btn{
+  display:inline-flex;align-items:center;gap:.3rem;
+  background:none;border:none;color:var(--blue);font-size:.78rem;
+  font-weight:700;cursor:pointer;font-family:inherit;
+  padding:.2rem .1rem;margin-bottom:1rem;transition:color .15s;
+}
+.back-btn:hover{color:var(--navy)}
+
+
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.reveal{opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease}
 .reveal.vis{opacity:1;transform:none}
 
-/* ══ RESPONSIVE ══ */
+/* SECTION TABS (attendance class tabs) */
+.tab-bar{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.tab-btn{padding:.4rem .9rem;border-radius:100px;font-size:.75rem;font-weight:700;cursor:pointer;border:1.5px solid var(--border);background:var(--surface);color:var(--muted);transition:all .15s;font-family:inherit}
+.tab-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* RESPONSIVE */
+@media(max-width:900px){.g2,.g3{grid-template-columns:1fr}}
 @media(max-width:768px){
-  .admin-sidebar{display:none}
-  .g2,.g3{grid-template-columns:1fr}
-  .stat-cards{grid-template-columns:1fr 1fr}
+  .sidebar{position:fixed;left:-224px;top:58px;z-index:800;transition:left .3s ease;height:calc(100vh - 58px);box-shadow:var(--shadow-lg)}
+  .sidebar.open{left:0}
+  .hamburger{display:flex}
+  .main{padding:1.25rem}
+  .sgrid{grid-template-columns:1fr 1fr}
+  .school-grid{grid-template-columns:1fr}
 }
 @media print{
-  .admin-nav,.admin-sidebar,.add-btn,.print-btn,.action-ico,
-  .sidebar-item,.modal-overlay{display:none!important}
-  .admin-main{padding:0}
-  .report-card{border:2px solid #000}
+  .topnav,.sidebar,.add-btn,.print-btn,.action-btn,.modal-overlay,#toast,.hamburger{display:none!important}
+  .main{padding:0}
 }
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════
-     SCREEN 1: LOGIN
-══════════════════════════════════════ -->
-<div id="loginScreen" class="screen active">
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- ══════════════════════════════
+     LOGIN SCREEN
+══════════════════════════════ -->
+<div id="loginScreen" class="screen">
   <div class="login-box">
     <div class="login-logo">
-      <h1><b>Edu</b>Build</h1>
-      <p>School Management Platform</p>
+      <h1><span>Edu</span>Build</h1>
+      <p>Multi-School Management Platform</p>
     </div>
 
-    <!-- Role tabs -->
-    <div class="login-tabs">
-      <div class="ltab on" onclick="setRole('superadmin')">👑 SuperAdmin</div>
-      <div class="ltab" onclick="setRole('teacher')">👩‍🏫 Teacher</div>
-      <div class="ltab" onclick="setRole('student')">👨‍🎓 Student</div>
-      <div class="ltab" onclick="setRole('parent')">👪 Parent</div>
+    <!-- ── STEP 1: Admin or School ── -->
+    <div id="step1">
+      <p style="text-align:center;font-size:.82rem;color:var(--muted);margin-bottom:1.2rem;font-weight:600">Who are you signing in as?</p>
+      <div style="display:flex;flex-direction:column;gap:.75rem">
+
+        <!-- Admin button -->
+        <button class="portal-btn" onclick="choosePortal('admin')">
+          <span class="portal-icon">👑</span>
+          <div class="portal-info">
+            <div class="portal-name">Super Admin</div>
+            <div class="portal-desc">Full platform control — all schools</div>
+          </div>
+          <span class="portal-arrow">›</span>
+        </button>
+
+        <!-- School buttons — one per school, generated by JS -->
+        <div id="schoolPortalList"></div>
+
+      </div>
     </div>
 
-    <div class="login-role-icon" id="roleIcon">👑</div>
-    <div class="login-form-title" id="roleTitle">SuperAdmin Sign In</div>
-
-    <div class="field">
-      <label>Username / Email</label>
-      <input type="text" id="loginUser" placeholder="Enter your username" autocomplete="username"/>
+    <!-- ── STEP 2a: Admin login ── -->
+    <div id="step2Admin" style="display:none">
+      <button class="back-btn" onclick="goBack()">‹ Back</button>
+      <div class="role-hd">
+        <div class="ri">👑</div>
+        <h2>Super Admin Sign In</h2>
+      </div>
+      <form onsubmit="loginAdmin(event)" novalidate>
+        <div class="field"><label>Username</label><input type="text" id="adminUser" placeholder="Enter username" autocomplete="username"/></div>
+        <div class="field"><label>Password</label><input type="password" id="adminPass" placeholder="Enter password" autocomplete="current-password"/></div>
+        <button type="submit" class="login-btn">Sign In →</button>
+      </form>
+      <div class="login-msg" id="adminMsg" role="alert"></div>
+      <div class="login-hint">Username: <b>Michel@2005</b> &nbsp;·&nbsp; Password: <b>Michel@4321</b></div>
     </div>
-    <div class="field">
-      <label>Password</label>
-      <input type="password" id="loginPass" placeholder="Enter your password" autocomplete="current-password"/>
+
+    <!-- ── STEP 2b: School password ── -->
+    <div id="step2School" style="display:none">
+      <button class="back-btn" onclick="goBack()">‹ Back</button>
+      <div class="role-hd">
+        <div class="ri">🏫</div>
+        <h2 id="schoolLoginName">School Name</h2>
+        <p style="font-size:.78rem;color:var(--muted);margin-top:.3rem">Enter the school access password to continue</p>
+      </div>
+      <form onsubmit="loginSchool(event)" novalidate>
+        <div class="field"><label>School Password</label><input type="password" id="schoolPass" placeholder="Enter school password" autocomplete="current-password"/></div>
+        <button type="submit" class="login-btn">Enter School →</button>
+      </form>
+      <div class="login-msg" id="schoolMsg" role="alert"></div>
+      <div class="login-hint" id="schoolHint">Password: <b>head1234</b></div>
     </div>
 
-    <button class="login-btn" onclick="doLogin()">Sign In →</button>
-    <div class="login-error" id="loginError">❌ Incorrect username or password. Please try again.</div>
+    <!-- ── STEP 3: Role inside school ── -->
+    <div id="step3Role" style="display:none">
+      <button class="back-btn" onclick="goBack()">‹ Back</button>
+      <div style="text-align:center;margin-bottom:1.2rem">
+        <div style="font-size:1.4rem;margin-bottom:.4rem">🏫</div>
+        <div style="font-size:.95rem;font-weight:800;color:var(--navy)" id="step3SchoolName">School Name</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:.2rem">Select your role to continue</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.65rem" id="schoolRoleList">
 
-    <div class="login-hint" id="loginHint">
-      SuperAdmin: <b>Michel@2005</b> / <b>Michel@4321</b>
+        <button class="portal-btn" onclick="chooseSchoolRole('headteacher')">
+          <span class="portal-icon">🏫</span>
+          <div class="portal-info"><div class="portal-name">Head Teacher</div><div class="portal-desc">Manage staff, students & reports</div></div>
+          <span class="portal-arrow">›</span>
+        </button>
+
+        <button class="portal-btn" onclick="chooseSchoolRole('student')">
+          <span class="portal-icon">👨‍🎓</span>
+          <div class="portal-info"><div class="portal-name">Student</div><div class="portal-desc">View grades, attendance & lessons</div></div>
+          <span class="portal-arrow">›</span>
+        </button>
+
+        <button class="portal-btn" onclick="chooseSchoolRole('parent')">
+          <span class="portal-icon">👪</span>
+          <div class="portal-info"><div class="portal-name">Parent</div><div class="portal-desc">Monitor your child's progress</div></div>
+          <span class="portal-arrow">›</span>
+        </button>
+
+        <button class="portal-btn" onclick="chooseSchoolRole('teacher')">
+          <span class="portal-icon">👩‍🏫</span>
+          <div class="portal-info"><div class="portal-name">Teacher</div><div class="portal-desc">Grades, attendance & lessons</div></div>
+          <span class="portal-arrow">›</span>
+        </button>
+
+      </div>
     </div>
+
+    <!-- ── STEP 4: Role login inside school ── -->
+    <div id="step4Login" style="display:none">
+      <button class="back-btn" onclick="goToStep3()">‹ Back</button>
+      <div class="role-hd">
+        <div class="ri" id="step4Icon">👩‍🏫</div>
+        <h2 id="step4Title">Teacher Sign In</h2>
+      </div>
+      <form onsubmit="loginSchoolRole(event)" novalidate>
+        <div class="field"><label>Username</label><input type="text" id="roleUser" placeholder="Enter username" autocomplete="username"/></div>
+        <div class="field"><label>Password</label><input type="password" id="rolePass" placeholder="Enter password" autocomplete="current-password"/></div>
+        <button type="submit" class="login-btn">Sign In →</button>
+      </form>
+      <div class="login-msg" id="roleMsg" role="alert"></div>
+      <div class="login-hint" id="roleHint">—</div>
+    </div>
+
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     SCREEN 2: SUPERADMIN DASHBOARD
-══════════════════════════════════════ -->
+<!-- ══════════════════════════════
+     SUPERADMIN SCREEN
+══════════════════════════════ -->
 <div id="adminScreen" class="screen">
-
-  <!-- Top Nav -->
-  <nav class="admin-nav">
-    <div class="admin-nav-brand"><b>Edu</b>Build Admin</div>
-    <div class="admin-nav-right">
-      <span class="admin-badge">👑 SuperAdmin — Michel</span>
-      <button class="signout-btn" onclick="signOut()">⬅ Sign Out</button>
+  <nav class="topnav">
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <button class="hamburger" id="adminHamburger" onclick="toggleSidebar('adminSidebar','adminHamburger')">☰</button>
+      <div class="topnav-brand"><b>Edu</b>Build SuperAdmin</div>
+    </div>
+    <div class="topnav-right">
+      <div class="user-pill">
+        <div class="user-avatar">M</div>
+        <div><div class="user-name">Michel</div><div class="user-role">SuperAdmin</div></div>
+      </div>
+      <button class="signout-btn" onclick="doSignOut()">⬅ Sign Out</button>
     </div>
   </nav>
-
-  <div class="admin-layout">
-
-    <!-- Sidebar -->
-    <aside class="admin-sidebar">
-      <div class="sidebar-section">Overview</div>
-      <div class="sidebar-item on" onclick="showPage('dashboard',this)">📊 Dashboard</div>
-      <div class="sidebar-item" onclick="showPage('announcements',this)">📢 Announcements</div>
-
-      <div class="sidebar-section" style="margin-top:0.5rem">Users</div>
-      <div class="sidebar-item" onclick="showPage('users',this)">👥 All Users</div>
-      <div class="sidebar-item" onclick="showPage('teachers',this)">👩‍🏫 Teachers</div>
-      <div class="sidebar-item" onclick="showPage('students',this)">👨‍🎓 Students</div>
-      <div class="sidebar-item" onclick="showPage('parents',this)">👪 Parents</div>
-
-      <div class="sidebar-section" style="margin-top:0.5rem">Academics</div>
-      <div class="sidebar-item" onclick="showPage('subjects',this)">📚 Subjects</div>
-      <div class="sidebar-item" onclick="showPage('classes',this)">🏫 Classes</div>
-      <div class="sidebar-item" onclick="showPage('lessons',this)">📖 Lessons</div>
-      <div class="sidebar-section" style="margin-top:0.5rem">Progress</div>
-      <div class="sidebar-item" onclick="showPage('grades',this)">📝 Grades</div>
-      <div class="sidebar-item" onclick="showPage('attendance',this)">✅ Attendance</div>
-      <div class="sidebar-item" onclick="showPage('reports',this)">📋 Reports</div>
-      <div class="sidebar-section" style="margin-top:0.5rem">Settings</div>
-      <div class="sidebar-item" onclick="showPage('settings',this)">⚙️ Settings</div>
+  <div class="shell">
+    <div class="sidebar-backdrop" id="adminBackdrop" onclick="toggleSidebar('adminSidebar','adminHamburger')"></div>
+    <aside class="sidebar" id="adminSidebar">
+      <div class="sgroup">Overview</div>
+      <button class="sitem on" onclick="adminPage('dashboard',this)"><span class="si">📊</span> Dashboard</button>
+      <button class="sitem" onclick="adminPage('announcements',this)"><span class="si">📢</span> Announcements</button>
+      <div class="sgroup">Schools</div>
+      <button class="sitem" onclick="adminPage('schools',this)"><span class="si">🏫</span> Manage Schools</button>
+      <div class="sgroup">Platform Users</div>
+      <button class="sitem" onclick="adminPage('allusers',this)"><span class="si">👥</span> All Users</button>
+      <div class="sgroup">Reports</div>
+      <button class="sitem" onclick="adminPage('platformreports',this)"><span class="si">📋</span> Platform Reports</button>
+      <div class="sgroup">Settings</div>
+      <button class="sitem" onclick="adminPage('settings',this)"><span class="si">⚙️</span> Settings</button>
     </aside>
+    <main class="main" id="adminMain">
 
-    <!-- Main Content -->
-    <main class="admin-main">
-
-      <!-- ── DASHBOARD ── -->
-      <div class="admin-page on" id="page-dashboard">
-        <div class="page-title">Welcome back, Michel 👑</div>
-        <div class="page-sub">Here's what's happening at your school today — Monday, 23 March 2026</div>
-
-        <div class="stat-cards">
-          <div class="stat-card reveal"><div class="sc-icon">👨‍🎓</div><div class="sc-num" id="totalStudents">247</div><div class="sc-label">Total Students</div></div>
-          <div class="stat-card reveal"><div class="sc-icon">👩‍🏫</div><div class="sc-num" id="totalTeachers">18</div><div class="sc-label">Teachers</div></div>
-          <div class="stat-card reveal"><div class="sc-icon">📚</div><div class="sc-num">8</div><div class="sc-label">Subjects</div></div>
-          <div class="stat-card reveal"><div class="sc-icon">🏫</div><div class="sc-num">12</div><div class="sc-label">Classes</div></div>
-          <div class="stat-card reveal"><div class="sc-icon">✅</div><div class="sc-num">91%</div><div class="sc-label">Attendance Today</div></div>
-          <div class="stat-card reveal"><div class="sc-icon">📋</div><div class="sc-num">43</div><div class="sc-label">Reports Generated</div></div>
+      <!-- DASHBOARD -->
+      <div class="page on" id="admin-page-dashboard">
+        <div class="phd"><h2>Welcome back, Michel 👑</h2><p>Platform overview — all schools combined · Monday, 23 March 2026</p></div>
+        <div class="sgrid">
+          <div class="scard reveal"><div class="sc-icon">🏫</div><div class="sc-num" id="totalSchools">3</div><div class="sc-lbl">Active Schools</div></div>
+          <div class="scard reveal"><div class="sc-icon">👨‍🎓</div><div class="sc-num">741</div><div class="sc-lbl">Total Students</div></div>
+          <div class="scard reveal"><div class="sc-icon">👩‍🏫</div><div class="sc-num">54</div><div class="sc-lbl">Total Teachers</div></div>
+          <div class="scard reveal"><div class="sc-icon">✅</div><div class="sc-num">89%</div><div class="sc-lbl">Avg Attendance</div></div>
+          <div class="scard reveal"><div class="sc-icon">📋</div><div class="sc-num">129</div><div class="sc-lbl">Reports Generated</div></div>
+          <div class="scard reveal"><div class="sc-icon">📢</div><div class="sc-num">7</div><div class="sc-lbl">Announcements</div></div>
         </div>
-
         <div class="g2">
-          <div class="tbl-wrap reveal">
-            <div class="tbl-head"><h3>📊 School Average by Subject</h3></div>
-            <div style="padding:1.2rem">
-              <div class="prog-row"><div class="prog-lbl">Science</div><div class="prog-track"><div class="prog-fill" style="width:82%;background:#1565C0"></div></div><div class="prog-pct">82%</div></div>
-              <div class="prog-row"><div class="prog-lbl">Mathematics</div><div class="prog-track"><div class="prog-fill" style="width:74%;background:#2E7D32"></div></div><div class="prog-pct">74%</div></div>
-              <div class="prog-row"><div class="prog-lbl">Research</div><div class="prog-track"><div class="prog-fill" style="width:88%;background:#6A1B9A"></div></div><div class="prog-pct">88%</div></div>
-              <div class="prog-row"><div class="prog-lbl">English</div><div class="prog-track"><div class="prog-fill" style="width:70%;background:#E65100"></div></div><div class="prog-pct">70%</div></div>
-              <div class="prog-row"><div class="prog-lbl">History</div><div class="prog-track"><div class="prog-fill" style="width:77%;background:#00838F"></div></div><div class="prog-pct">77%</div></div>
-              <div class="prog-row"><div class="prog-lbl">Geography</div><div class="prog-track"><div class="prog-fill" style="width:65%;background:#F57F17"></div></div><div class="prog-pct">65%</div></div>
-            </div>
-          </div>
-          <div class="tbl-wrap reveal">
-            <div class="tbl-head"><h3>🔔 Recent Activity</h3></div>
-            <table>
-              <thead><tr><th>Action</th><th>User</th><th>Time</th></tr></thead>
+          <div class="card reveal">
+            <div class="card-head"><h3>🏫 Schools at a Glance</h3></div>
+            <div class="tbl"><table>
+              <thead><tr><th>School</th><th>Students</th><th>Teachers</th><th>Attendance</th><th>Status</th></tr></thead>
               <tbody>
-                <tr><td>Grade submitted</td><td>Mrs. Okonkwo</td><td>9:12 AM</td></tr>
-                <tr><td>New student registered</td><td>Admin</td><td>8:55 AM</td></tr>
-                <tr><td>Report generated</td><td>Mr. Dlamini</td><td>8:40 AM</td></tr>
-                <tr><td>Lesson uploaded</td><td>Ms. Patel</td><td>8:22 AM</td></tr>
-                <tr><td>Attendance marked</td><td>Mrs. Okonkwo</td><td>7:58 AM</td></tr>
+                <tr><td><b>EduBuild Academy</b></td><td>247</td><td>18</td><td>91%</td><td><span class="badge bg-green">● Active</span></td></tr>
+                <tr><td><b>Sunrise High School</b></td><td>312</td><td>22</td><td>88%</td><td><span class="badge bg-green">● Active</span></td></tr>
+                <tr><td><b>Valley Institute</b></td><td>182</td><td>14</td><td>86%</td><td><span class="badge bg-amber">● Restricted</span></td></tr>
               </tbody>
-            </table>
+            </table></div>
+          </div>
+          <div class="card reveal">
+            <div class="card-head"><h3>🔔 Recent Platform Activity</h3></div>
+            <div class="tbl"><table>
+              <thead><tr><th>Action</th><th>School</th><th>Time</th></tr></thead>
+              <tbody>
+                <tr><td>Grade submitted</td><td>EduBuild</td><td>9:12 AM</td></tr>
+                <tr><td>New student enrolled</td><td>Sunrise High</td><td>8:55 AM</td></tr>
+                <tr><td>Attendance marked</td><td>Valley Inst.</td><td>8:40 AM</td></tr>
+                <tr><td>Report generated</td><td>EduBuild</td><td>8:22 AM</td></tr>
+                <tr><td>School restricted</td><td>Valley Inst.</td><td>8:00 AM</td></tr>
+              </tbody>
+            </table></div>
           </div>
         </div>
-
-        <div class="callout c-tip reveal">
-          <span style="font-size:1.2rem">💡</span>
-          <p><strong>Quick Tip:</strong> Use the sidebar to manage users, view grades, generate reports, and post announcements. As SuperAdmin you have full access to every feature.</p>
+        <div class="callout cl-tip reveal">
+          <span>💡</span>
+          <p><strong>Multi-School Admin:</strong> You can add new schools, rename them, restrict or re-enable their access, and assign Head Teachers per school. Each school operates independently with its own staff, students, and data.</p>
         </div>
       </div>
 
-      <!-- ── ANNOUNCEMENTS ── -->
-      <div class="admin-page" id="page-announcements">
-        <div class="page-title">📢 Announcements</div>
-        <div class="page-sub">Post school-wide news visible to all users</div>
-        <button class="add-btn" onclick="openModal('addAnnounce')">+ New Announcement</button>
-        <div style="margin-top:1.2rem" id="announceList">
-          <div class="announce"><div class="announce-title">Term 2 Exam Schedule Released</div><div class="announce-meta">Posted by Michel · 22 Mar 2026 · 📌 Pinned</div><div class="announce-body">Term 2 examinations will run from 15–25 April 2026. Please check the school calendar for your specific timetable. All students must arrive 15 minutes before their exam.</div></div>
-          <div class="announce" style="border-left-color:var(--green)"><div class="announce-title">Science Fair Registration Open</div><div class="announce-meta">Posted by Michel · 20 Mar 2026</div><div class="announce-body">Students in Grades 8–12 are invited to register for the Annual Science Fair. Submissions close 5 April 2026. Contact your Science teacher for more details.</div></div>
-          <div class="announce" style="border-left-color:var(--orange)"><div class="announce-title">School Closure — Public Holiday</div><div class="announce-meta">Posted by Michel · 18 Mar 2026</div><div class="announce-body">The school will be closed on Friday 27 March 2026 for a public holiday. Normal classes resume Monday 30 March 2026.</div></div>
+      <!-- MANAGE SCHOOLS -->
+      <div class="page" id="admin-page-schools">
+        <div class="ptop">
+          <div class="phd"><h2>🏫 Manage Schools</h2><p>Add schools, rename them, assign head teachers and control access</p></div>
+          <button class="add-btn" onclick="openModal('addSchool')">+ Add School</button>
+        </div>
+        <div class="school-grid" id="schoolGrid">
+          <!-- populated by JS -->
         </div>
       </div>
 
-      <!-- ── ALL USERS ── -->
-      <div class="admin-page" id="page-users">
-        <div class="page-title">👥 All Users</div>
-        <div class="page-sub">View and manage every account on the platform</div>
-        <div class="tbl-wrap reveal">
-          <div class="tbl-head"><h3>User Accounts</h3><button class="add-btn" onclick="openModal('addUser')">+ Add User</button></div>
-          <table>
-            <thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
-            <tbody id="userTable">
-              <tr><td><b>Michel</b></td><td>Michel@2005</td><td><span class="badge badge-purple">👑 SuperAdmin</span></td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" title="Edit">✏️</span></td></tr>
-              <tr><td>Sarah Okonkwo</td><td>s.okonkwo</td><td><span class="badge badge-blue">👩‍🏫 Teacher</span></td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)" title="Delete">🗑️</span> <span class="action-ico" title="Edit">✏️</span></td></tr>
-              <tr><td>James Mokoena</td><td>j.mokoena</td><td><span class="badge" style="background:#E8F5E9;color:#1B5E20">👨‍🎓 Student</span></td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)" title="Delete">🗑️</span> <span class="action-ico" title="Edit">✏️</span></td></tr>
-              <tr><td>Priya Patel</td><td>p.patel</td><td><span class="badge badge-blue">👩‍🏫 Teacher</span></td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)" title="Delete">🗑️</span> <span class="action-ico" title="Edit">✏️</span></td></tr>
-              <tr><td>Lebo Dlamini</td><td>l.dlamini</td><td><span class="badge" style="background:#E8F5E9;color:#1B5E20">👨‍🎓 Student</span></td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)" title="Delete">🗑️</span> <span class="action-ico" title="Edit">✏️</span></td></tr>
-              <tr><td>Mrs. Dlamini</td><td>parent.dlamini</td><td><span class="badge badge-orange">👪 Parent</span></td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)" title="Delete">🗑️</span> <span class="action-ico" title="Edit">✏️</span></td></tr>
+      <!-- ALL USERS -->
+      <div class="page" id="admin-page-allusers">
+        <div class="ptop">
+          <div class="phd"><h2>👥 All Platform Users</h2><p>All accounts across all schools</p></div>
+          <button class="add-btn" onclick="openModal('addPlatformUser')">+ Add User</button>
+        </div>
+        <div class="card reveal">
+          <div class="tbl"><table id="allUsersTable">
+            <thead><tr><th>Name</th><th>Role</th><th>School</th><th>Username</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="allUsersTbody">
+              <tr><td><b>Michel</b></td><td><span class="badge bg-purple">👑 SuperAdmin</span></td><td>Platform</td><td>Michel@2005</td><td><span class="badge bg-green">Active</span></td><td>—</td></tr>
+              <tr><td>Dr. Adams</td><td><span class="badge bg-navy">🏫 Head Teacher</span></td><td>EduBuild Academy</td><td>head.edubuild</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
+              <tr><td>Mrs. Okonkwo</td><td><span class="badge bg-blue">👩‍🏫 Teacher</span></td><td>EduBuild Academy</td><td>s.okonkwo</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
+              <tr><td>Mr. Nkosi</td><td><span class="badge bg-blue">👩‍🏫 Teacher</span></td><td>Sunrise High</td><td>d.nkosi</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
+              <tr><td>James Mokoena</td><td><span class="badge bg-teal">👨‍🎓 Student</span></td><td>EduBuild Academy</td><td>j.mokoena</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
+              <tr><td>Mrs. Mokoena</td><td><span class="badge bg-orange">👪 Parent</span></td><td>EduBuild Academy</td><td>parent.mokoena</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
             </tbody>
-          </table>
+          </table></div>
         </div>
       </div>
 
-      <!-- ── TEACHERS ── -->
-      <div class="admin-page" id="page-teachers">
-        <div class="page-title">👩‍🏫 Teachers</div>
-        <div class="page-sub">Manage teacher accounts and subject assignments</div>
-        <div class="tbl-wrap reveal">
-          <div class="tbl-head"><h3>Teaching Staff</h3><button class="add-btn" onclick="openModal('addTeacher')">+ Add Teacher</button></div>
-          <table>
-            <thead><tr><th>Name</th><th>Subject</th><th>Classes</th><th>Students</th><th>Status</th><th>Actions</th></tr></thead>
-            <tbody id="teacherTable">
-              <tr><td><b>Mrs. Sarah Okonkwo</b></td><td>Science</td><td>Gr 8A, 9B, 10A</td><td>87</td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Mr. David Nkosi</b></td><td>Mathematics</td><td>Gr 8B, 9A, 11A</td><td>92</td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Ms. Priya Patel</b></td><td>Research</td><td>Gr 10B, 11B, 12A</td><td>68</td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Mr. John Dlamini</b></td><td>English</td><td>Gr 8A, 9A, 10A</td><td>84</td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Mrs. Grace Moyo</b></td><td>History</td><td>Gr 9B, 10B</td><td>52</td><td><span class="badge badge-orange">On Leave</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-            </tbody>
-          </table>
+      <!-- ANNOUNCEMENTS -->
+      <div class="page" id="admin-page-announcements">
+        <div class="ptop">
+          <div class="phd"><h2>📢 Announcements</h2><p>Post platform-wide notices visible to all schools</p></div>
+          <button class="add-btn" onclick="openModal('addAnnounce')">+ New Announcement</button>
+        </div>
+        <div id="announceList" style="margin-top:.5rem">
+          <article class="announce-card"><div class="announce-title">Platform Maintenance — 28 March 2026</div><div class="announce-meta">Posted by Michel · 22 Mar 2026 · 📌 Pinned · All Schools</div><div class="announce-body">The EduBuild platform will undergo scheduled maintenance on Saturday 28 March from 11 PM – 2 AM. Services may be temporarily unavailable.</div></article>
+          <article class="announce-card" style="border-left-color:var(--green)"><div class="announce-title">New Feature: Per-Class Attendance</div><div class="announce-meta">Posted by Michel · 20 Mar 2026 · All Schools</div><div class="announce-body">Teachers can now record attendance independently per class and generate a consolidated school-wide attendance summary.</div></article>
         </div>
       </div>
 
-      <!-- ── STUDENTS ── -->
-      <div class="admin-page" id="page-students">
-        <div class="page-title">👨‍🎓 Students</div>
-        <div class="page-sub">Manage student enrolment and progress</div>
-        <div class="tbl-wrap reveal">
-          <div class="tbl-head"><h3>Student Register</h3><button class="add-btn" onclick="openModal('addStudent')">+ Enrol Student</button></div>
-          <table>
-            <thead><tr><th>Name</th><th>Grade</th><th>Class</th><th>Avg Score</th><th>Attendance</th><th>Actions</th></tr></thead>
-            <tbody id="studentTable">
-              <tr><td><b>James Mokoena</b></td><td>Grade 10</td><td>10A</td><td><span class="badge badge-green">78%</span></td><td>92%</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Lebo Dlamini</b></td><td>Grade 10</td><td>10B</td><td><span class="badge badge-blue">85%</span></td><td>96%</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Amara Osei</b></td><td>Grade 9</td><td>9A</td><td><span class="badge badge-orange">61%</span></td><td>78%</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Thabo Nkosi</b></td><td>Grade 11</td><td>11A</td><td><span class="badge badge-green">90%</span></td><td>98%</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Zanele Moyo</b></td><td>Grade 8</td><td>8B</td><td><span class="badge badge-red">55%</span></td><td>72%</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Sipho Ndlovu</b></td><td>Grade 12</td><td>12A</td><td><span class="badge badge-green">82%</span></td><td>94%</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-            </tbody>
-          </table>
+      <!-- PLATFORM REPORTS -->
+      <div class="page" id="admin-page-platformreports">
+        <div class="phd"><h2>📋 Platform Reports</h2><p>Attendance and academic summaries across all schools</p></div>
+        <div class="g3" style="margin-bottom:1.5rem">
+          <div class="card reveal"><div class="card-body" style="text-align:center"><div style="font-size:2rem">91%</div><div style="font-size:.8rem;color:var(--muted);margin-top:.3rem">EduBuild Academy Attendance</div></div></div>
+          <div class="card reveal"><div class="card-body" style="text-align:center"><div style="font-size:2rem">88%</div><div style="font-size:.8rem;color:var(--muted);margin-top:.3rem">Sunrise High Attendance</div></div></div>
+          <div class="card reveal"><div class="card-body" style="text-align:center"><div style="font-size:2rem">86%</div><div style="font-size:.8rem;color:var(--muted);margin-top:.3rem">Valley Institute Attendance</div></div></div>
         </div>
-      </div>
-
-      <!-- ── PARENTS ── -->
-      <div class="admin-page" id="page-parents">
-        <div class="page-title">👪 Parents</div>
-        <div class="page-sub">Manage parent accounts linked to students</div>
-        <div class="tbl-wrap reveal">
-          <div class="tbl-head"><h3>Parent Accounts</h3><button class="add-btn" onclick="openModal('addParent')">+ Add Parent</button></div>
-          <table>
-            <thead><tr><th>Parent Name</th><th>Child</th><th>Child Grade</th><th>Contact</th><th>Actions</th></tr></thead>
-            <tbody>
-              <tr><td><b>Mrs. Mokoena</b></td><td>James Mokoena</td><td>Grade 10</td><td>parent.mokoena@email.com</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Mr. Dlamini Sr.</b></td><td>Lebo Dlamini</td><td>Grade 10</td><td>parent.dlamini@email.com</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Mrs. Osei</b></td><td>Amara Osei</td><td>Grade 9</td><td>parent.osei@email.com</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Mr. Nkosi Sr.</b></td><td>Thabo Nkosi</td><td>Grade 11</td><td>parent.nkosi@email.com</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- ── SUBJECTS ── -->
-      <div class="admin-page" id="page-subjects">
-        <div class="page-title">📚 Subjects</div>
-        <div class="page-sub">All subjects offered at the school</div>
-        <button class="add-btn" onclick="openModal('addSubject')">+ Add Subject</button>
-        <div class="tbl-wrap reveal" style="margin-top:1rem">
-          <table>
-            <thead><tr><th>Subject</th><th>Teacher</th><th>Classes</th><th>Students</th><th>Avg Score</th><th>Actions</th></tr></thead>
-            <tbody id="subjectTable">
-              <tr><td><b>🔬 Science</b></td><td>Mrs. Okonkwo</td><td>6</td><td>87</td><td><span class="badge badge-green">82%</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>➕ Mathematics</b></td><td>Mr. Nkosi</td><td>6</td><td>92</td><td><span class="badge badge-blue">74%</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>🔍 Research</b></td><td>Ms. Patel</td><td>4</td><td>68</td><td><span class="badge badge-green">88%</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>📖 English</b></td><td>Mr. Dlamini</td><td>6</td><td>84</td><td><span class="badge badge-orange">70%</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>🌍 History</b></td><td>Mrs. Moyo</td><td>4</td><td>52</td><td><span class="badge badge-blue">77%</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>🗺️ Geography</b></td><td>TBA</td><td>3</td><td>44</td><td><span class="badge badge-orange">65%</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- ── CLASSES ── -->
-      <div class="admin-page" id="page-classes">
-        <div class="page-title">🏫 Classes</div>
-        <div class="page-sub">Manage class groups and enrolments</div>
-        <button class="add-btn" onclick="openModal('addClass')">+ Add Class</button>
-        <div class="tbl-wrap reveal" style="margin-top:1rem">
-          <table>
-            <thead><tr><th>Class</th><th>Grade</th><th>Teacher</th><th>Students</th><th>Actions</th></tr></thead>
-            <tbody id="classTable">
-              <tr><td><b>Class 8A</b></td><td>Grade 8</td><td>Mr. Dlamini</td><td>22</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Class 8B</b></td><td>Grade 8</td><td>Mr. Nkosi</td><td>21</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Class 9A</b></td><td>Grade 9</td><td>Mr. Nkosi</td><td>24</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Class 9B</b></td><td>Grade 9</td><td>Mrs. Okonkwo</td><td>23</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Class 10A</b></td><td>Grade 10</td><td>Mrs. Okonkwo</td><td>25</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Class 10B</b></td><td>Grade 10</td><td>Ms. Patel</td><td>24</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Class 11A</b></td><td>Grade 11</td><td>Mr. Nkosi</td><td>22</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-              <tr><td><b>Class 12A</b></td><td>Grade 12</td><td>Ms. Patel</td><td>20</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- ── LESSONS ── -->
-      <div class="admin-page" id="page-lessons">
-        <div class="page-title">📖 Lessons</div>
-        <div class="page-sub">All uploaded lessons and learning materials</div>
-        <button class="add-btn" onclick="openModal('addLesson')">+ Upload Lesson</button>
-        <div class="tbl-wrap reveal" style="margin-top:1rem">
-          <table>
-            <thead><tr><th>Lesson Title</th><th>Subject</th><th>Grade</th><th>Teacher</th><th>Date</th><th>Actions</th></tr></thead>
-            <tbody id="lessonTable">
-              <tr><td><b>Introduction to Cell Biology</b></td><td>Science</td><td>Grade 10</td><td>Mrs. Okonkwo</td><td>20 Mar 2026</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>Quadratic Equations</b></td><td>Mathematics</td><td>Grade 11</td><td>Mr. Nkosi</td><td>19 Mar 2026</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>Research Methodology — Part 2</b></td><td>Research</td><td>Grade 12</td><td>Ms. Patel</td><td>18 Mar 2026</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>Shakespeare — Hamlet Overview</b></td><td>English</td><td>Grade 10</td><td>Mr. Dlamini</td><td>17 Mar 2026</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>World War II Causes</b></td><td>History</td><td>Grade 9</td><td>Mrs. Moyo</td><td>16 Mar 2026</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-              <tr><td><b>Photosynthesis Lab Report</b></td><td>Science</td><td>Grade 9</td><td>Mrs. Okonkwo</td><td>15 Mar 2026</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- ── GRADES ── -->
-      <div class="admin-page" id="page-grades">
-        <div class="page-title">📝 Grades</div>
-        <div class="page-sub">View and manage student grades across all subjects</div>
-        <button class="add-btn" onclick="openModal('addGrade')">+ Enter Grade</button>
-        <div class="tbl-wrap reveal" style="margin-top:1rem">
-          <table>
-            <thead><tr><th>Student</th><th>Subject</th><th>Grade</th><th>Assignment</th><th>Score</th><th>Teacher</th></tr></thead>
-            <tbody id="gradeTable">
-              <tr><td>James Mokoena</td><td>Science</td><td>10A</td><td>Cell Biology Test</td><td><span class="badge badge-green">84%</span></td><td>Mrs. Okonkwo</td></tr>
-              <tr><td>James Mokoena</td><td>Mathematics</td><td>10A</td><td>Algebra Quiz</td><td><span class="badge badge-blue">72%</span></td><td>Mr. Nkosi</td></tr>
-              <tr><td>Lebo Dlamini</td><td>Research</td><td>10B</td><td>Research Paper 1</td><td><span class="badge badge-green">90%</span></td><td>Ms. Patel</td></tr>
-              <tr><td>Amara Osei</td><td>English</td><td>9A</td><td>Essay Assignment</td><td><span class="badge badge-orange">61%</span></td><td>Mr. Dlamini</td></tr>
-              <tr><td>Thabo Nkosi</td><td>Mathematics</td><td>11A</td><td>Calculus Test</td><td><span class="badge badge-green">93%</span></td><td>Mr. Nkosi</td></tr>
-              <tr><td>Zanele Moyo</td><td>Science</td><td>8B</td><td>Lab Report</td><td><span class="badge badge-red">55%</span></td><td>Mrs. Okonkwo</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- ── ATTENDANCE ── -->
-      <div class="admin-page" id="page-attendance">
-        <div class="page-title">✅ Attendance</div>
-        <div class="page-sub">Daily attendance records for all students</div>
-        <div class="callout c-info" style="margin-bottom:1.2rem">
-          <span style="font-size:1.1rem">ℹ️</span>
-          <p><strong>Today's attendance rate: 91%</strong> — 225 of 247 students present. 22 absences recorded. 3 parents have been notified automatically.</p>
-        </div>
-        <div class="tbl-wrap reveal">
-          <div class="tbl-head"><h3>Attendance Register — 23 Mar 2026</h3></div>
-          <table>
-            <thead><tr><th>Student</th><th>Class</th><th>Status</th><th>Days Present</th><th>Attendance %</th></tr></thead>
-            <tbody>
-              <tr><td>James Mokoena</td><td>10A</td><td><span class="badge badge-green">✓ Present</span></td><td>42/46</td><td>91%</td></tr>
-              <tr><td>Lebo Dlamini</td><td>10B</td><td><span class="badge badge-green">✓ Present</span></td><td>44/46</td><td>96%</td></tr>
-              <tr><td>Amara Osei</td><td>9A</td><td><span class="badge badge-red">✗ Absent</span></td><td>36/46</td><td>78%</td></tr>
-              <tr><td>Thabo Nkosi</td><td>11A</td><td><span class="badge badge-green">✓ Present</span></td><td>45/46</td><td>98%</td></tr>
-              <tr><td>Zanele Moyo</td><td>8B</td><td><span class="badge badge-orange">⚠ Late</span></td><td>33/46</td><td>72%</td></tr>
-              <tr><td>Sipho Ndlovu</td><td>12A</td><td><span class="badge badge-green">✓ Present</span></td><td>43/46</td><td>93%</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- ── REPORTS ── -->
-      <div class="admin-page" id="page-reports">
-        <div class="page-title">📋 Reports</div>
-        <div class="page-sub">Generate and view student term reports</div>
-        <button class="print-btn" onclick="window.print()">🖨️ Print This Report</button>
-
-        <div class="report-card reveal" style="margin-top:1.2rem">
-          <div class="report-header">
-            <div>
-              <div class="report-school">🏫 EduBuild Academy</div>
-              <div class="report-term">Term 1 · January – March 2026</div>
-            </div>
-            <div style="text-align:right" class="report-student">
-              <b>James Mokoena</b><br>
-              Grade 10A · Student ID: EB-2026-047<br>
-              <span style="font-size:0.72rem;color:var(--muted)">DOB: 14 Jun 2010</span>
-            </div>
-          </div>
-          <table class="report-grades">
-            <thead><tr><th>Subject</th><th>Teacher</th><th>Term Mark</th><th>Exam</th><th>Final %</th><th>Grade</th></tr></thead>
-            <tbody>
-              <tr><td>Science</td><td>Mrs. Okonkwo</td><td>82%</td><td>86%</td><td><b>84%</b></td><td><span class="badge badge-green">A</span></td></tr>
-              <tr><td>Mathematics</td><td>Mr. Nkosi</td><td>70%</td><td>74%</td><td><b>72%</b></td><td><span class="badge badge-blue">B</span></td></tr>
-              <tr><td>Research</td><td>Ms. Patel</td><td>88%</td><td>92%</td><td><b>90%</b></td><td><span class="badge badge-green">A</span></td></tr>
-              <tr><td>English</td><td>Mr. Dlamini</td><td>66%</td><td>70%</td><td><b>68%</b></td><td><span class="badge badge-blue">B</span></td></tr>
-              <tr><td>History</td><td>Mrs. Moyo</td><td>75%</td><td>79%</td><td><b>77%</b></td><td><span class="badge badge-blue">B</span></td></tr>
-            </tbody>
-          </table>
-          <div style="display:flex;gap:2rem;font-size:0.82rem;padding:0.5rem 0">
-            <div><strong>Overall Average:</strong> 78.2%</div>
-            <div><strong>Attendance:</strong> 92%</div>
-            <div><strong>Conduct:</strong> <span class="badge badge-green">Excellent</span></div>
-            <div><strong>Position:</strong> 12 of 25</div>
-          </div>
-          <div class="report-footer">
-            <strong>Teacher Comment:</strong> James has shown excellent progress this term, particularly in Research and Science. Mathematics needs more focused practice. Keep up the good work.<br>
-            <strong>Principal:</strong> Michel (SuperAdmin) &nbsp;&nbsp; <strong>Date:</strong> 23 March 2026
+        <div class="card reveal">
+          <div class="card-head"><h3>📊 School Performance Comparison</h3></div>
+          <div class="card-body">
+            <div class="prog-item"><div class="prog-label">EduBuild</div><div class="prog-track"><div class="prog-fill" style="width:82%;background:var(--blue)"></div></div><div class="prog-pct">82%</div></div>
+            <div class="prog-item"><div class="prog-label">Sunrise High</div><div class="prog-track"><div class="prog-fill" style="width:76%;background:var(--green)"></div></div><div class="prog-pct">76%</div></div>
+            <div class="prog-item"><div class="prog-label">Valley Inst.</div><div class="prog-track"><div class="prog-fill" style="width:71%;background:var(--amber)"></div></div><div class="prog-pct">71%</div></div>
           </div>
         </div>
       </div>
 
-      <!-- ── SETTINGS ── -->
-      <div class="admin-page" id="page-settings">
-        <div class="page-title">⚙️ Settings</div>
-        <div class="page-sub">Configure your school platform</div>
-
+      <!-- SETTINGS -->
+      <div class="page" id="admin-page-settings">
+        <div class="phd"><h2>⚙️ Settings</h2><p>Platform configuration and SuperAdmin account</p></div>
         <div class="g2">
-          <div class="tbl-wrap reveal">
-            <div class="tbl-head"><h3>School Information</h3></div>
-            <div style="padding:1.2rem;display:flex;flex-direction:column;gap:0.9rem">
-              <div class="mfield"><label>School Name</label><input type="text" value="EduBuild Academy"/></div>
-              <div class="mfield"><label>School Address</label><input type="text" value="123 Education Street, Johannesburg"/></div>
-              <div class="mfield"><label>Principal / SuperAdmin</label><input type="text" value="Michel" readonly/></div>
-              <div class="mfield"><label>Contact Email</label><input type="text" value="admin@edubuild.school"/></div>
-              <div class="mfield"><label>Current Term</label><input type="text" value="Term 1 · Jan – Mar 2026"/></div>
-              <button class="btn btn-primary" style="align-self:flex-start" onclick="alert('Settings saved successfully!')">Save Changes</button>
+          <div class="card reveal">
+            <div class="card-head"><h3>Platform Settings</h3></div>
+            <div class="settings-form">
+              <div class="mfield"><label>Platform Name</label><input type="text" value="EduBuild Platform"/></div>
+              <div class="mfield"><label>SuperAdmin Email</label><input type="email" value="michel@edubuild.school"/></div>
+              <div class="mfield"><label>Default Term</label><input type="text" value="Term 1 · Jan – Mar 2026"/></div>
+              <button class="btn btn-primary" style="align-self:flex-start" onclick="toast('Settings saved ✓')">Save Changes</button>
             </div>
           </div>
-          <div class="tbl-wrap reveal">
-            <div class="tbl-head"><h3>SuperAdmin Account</h3></div>
-            <div style="padding:1.2rem;display:flex;flex-direction:column;gap:0.9rem">
+          <div class="card reveal">
+            <div class="card-head"><h3>SuperAdmin Account</h3></div>
+            <div class="settings-form">
               <div class="mfield"><label>Username</label><input type="text" value="Michel@2005" readonly/></div>
               <div class="mfield"><label>Display Name</label><input type="text" value="Michel"/></div>
-              <div class="mfield"><label>Email</label><input type="text" value="michel@edubuild.school"/></div>
               <div class="mfield"><label>New Password</label><input type="password" placeholder="Leave blank to keep current"/></div>
-              <div class="callout c-warn" style="margin:0"><span>⚠️</span><p style="font-size:0.76rem">Changing your password will require you to sign in again.</p></div>
-              <button class="btn btn-primary" style="align-self:flex-start" onclick="alert('Account updated successfully!')">Update Account</button>
+              <button class="btn btn-primary" style="align-self:flex-start" onclick="toast('Account updated ✓')">Update Account</button>
             </div>
           </div>
         </div>
@@ -655,408 +636,2230 @@ tr:hover td{background:#EEF4FF}
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
+<!-- ══════════════════════════════
+     HEAD TEACHER SCREEN
+══════════════════════════════ -->
+<div id="headteacherScreen" class="screen">
+  <nav class="topnav">
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <button class="hamburger" id="htHamburger" onclick="toggleSidebar('htSidebar','htHamburger')">☰</button>
+      <div class="topnav-brand"><b>Edu</b>Build</div>
+    </div>
+    <div class="topnav-right">
+      <span class="school-badge" id="htSchoolBadge">🏫 EduBuild Academy</span>
+      <div class="user-pill">
+        <div class="user-avatar">H</div>
+        <div><div class="user-name" id="htUserName">Dr. Adams</div><div class="user-role">Head Teacher</div></div>
+      </div>
+      <button class="signout-btn" onclick="doSignOut()">⬅ Sign Out</button>
+    </div>
+  </nav>
+  <div class="shell">
+    <div class="sidebar-backdrop" id="htBackdrop" onclick="toggleSidebar('htSidebar','htHamburger')"></div>
+    <aside class="sidebar" id="htSidebar">
+      <div class="sgroup">Overview</div>
+      <button class="sitem on" onclick="htPage('dashboard',this)"><span class="si">📊</span> Dashboard</button>
+      <button class="sitem" onclick="htPage('announcements',this)"><span class="si">📢</span> Announcements</button>
+      <div class="sgroup">My School</div>
+      <button class="sitem" onclick="htPage('teachers',this)"><span class="si">👩‍🏫</span> Teachers</button>
+      <button class="sitem" onclick="htPage('students',this)"><span class="si">👨‍🎓</span> Students</button>
+      <button class="sitem" onclick="htPage('parents',this)"><span class="si">👪</span> Parents</button>
+      <div class="sgroup">Academics</div>
+      <button class="sitem" onclick="htPage('subjects',this)"><span class="si">📚</span> Subjects</button>
+      <button class="sitem" onclick="htPage('classes',this)"><span class="si">🏫</span> Classes</button>
+      <button class="sitem" onclick="htPage('research',this)"><span class="si">🔍</span> Research</button>
+      <div class="sgroup">Progress</div>
+      <button class="sitem" onclick="htPage('grades',this)"><span class="si">📝</span> Grades</button>
+      <button class="sitem" onclick="htPage('attendance',this)"><span class="si">✅</span> Attendance</button>
+      <button class="sitem" onclick="htPage('reports',this)"><span class="si">📋</span> Reports</button>
+      <div class="sgroup">Settings</div>
+      <button class="sitem" onclick="htPage('schoolsettings',this)"><span class="si">⚙️</span> School Settings</button>
+    </aside>
+    <main class="main" id="htMain">
+      <!-- Shared school content rendered by renderSchoolPages() -->
+    </main>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     TEACHER SCREEN
+══════════════════════════════ -->
+<div id="teacherScreen" class="screen">
+  <nav class="topnav">
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <button class="hamburger" id="tHamburger" onclick="toggleSidebar('tSidebar','tHamburger')">☰</button>
+      <div class="topnav-brand"><b>Edu</b>Build Teacher</div>
+    </div>
+    <div class="topnav-right">
+      <span class="school-badge" id="tSchoolBadge">🏫 EduBuild Academy</span>
+      <div class="user-pill">
+        <div class="user-avatar">T</div>
+        <div><div class="user-name">Mrs. Okonkwo</div><div class="user-role">Teacher</div></div>
+      </div>
+      <button class="signout-btn" onclick="doSignOut()">⬅ Sign Out</button>
+    </div>
+  </nav>
+  <div class="shell">
+    <div class="sidebar-backdrop" id="tBackdrop" onclick="toggleSidebar('tSidebar','tHamburger')"></div>
+    <aside class="sidebar" id="tSidebar">
+      <div class="sgroup">Overview</div>
+      <button class="sitem on" onclick="tPage('dashboard',this)"><span class="si">📊</span> Dashboard</button>
+      <div class="sgroup">My Classes</div>
+      <button class="sitem" onclick="tPage('myclasses',this)"><span class="si">🏫</span> My Classes</button>
+      <button class="sitem" onclick="tPage('grades',this)"><span class="si">📝</span> Enter Grades</button>
+      <button class="sitem" onclick="tPage('attendance',this)"><span class="si">✅</span> Take Attendance</button>
+      <button class="sitem" onclick="tPage('lessons',this)"><span class="si">📚</span> Notes & Assignments</button>
+      <div class="sgroup">Reports</div>
+      <button class="sitem" onclick="tPage('reports',this)"><span class="si">📋</span> Class Reports</button>
+    </aside>
+    <main class="main" id="teacherMain">
+
+      <!-- TEACHER DASHBOARD -->
+      <div class="page on" id="t-page-dashboard">
+        <div class="phd"><h2>Good morning, Mrs. Okonkwo! 👩‍🏫</h2><p>Your class overview — Monday, 23 March 2026</p></div>
+        <div class="sgrid">
+          <div class="scard reveal"><div class="sc-icon">👨‍🎓</div><div class="sc-num">87</div><div class="sc-lbl">My Students</div></div>
+          <div class="scard reveal"><div class="sc-icon">🏫</div><div class="sc-num">3</div><div class="sc-lbl">Classes</div></div>
+          <div class="scard reveal"><div class="sc-icon">📝</div><div class="sc-num">12</div><div class="sc-lbl">Pending Grades</div></div>
+          <div class="scard reveal"><div class="sc-icon">📊</div><div class="sc-num">82%</div><div class="sc-lbl">Class Average</div></div>
+          <div class="scard reveal"><div class="sc-icon">✅</div><div class="sc-num">91%</div><div class="sc-lbl">Today's Attendance</div></div>
+          <div class="scard reveal"><div class="sc-icon">📖</div><div class="sc-num">6</div><div class="sc-lbl">Lessons Uploaded</div></div>
+        </div>
+        <div class="g2">
+          <div class="card reveal">
+            <div class="card-head"><h3>🏫 My Classes</h3></div>
+            <div class="tbl"><table>
+              <thead><tr><th>Class</th><th>Students</th><th>Avg</th><th>Attendance</th></tr></thead>
+              <tbody>
+                <tr><td><b>Grade 8A</b></td><td>22</td><td><span class="badge bg-green">79%</span></td><td>93%</td></tr>
+                <tr><td><b>Grade 9B</b></td><td>23</td><td><span class="badge bg-blue">74%</span></td><td>89%</td></tr>
+                <tr><td><b>Grade 10A</b></td><td>25</td><td><span class="badge bg-green">84%</span></td><td>95%</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+          <div class="card reveal">
+            <div class="card-head"><h3>📝 Recently Submitted Grades</h3></div>
+            <div class="tbl"><table>
+              <thead><tr><th>Student</th><th>Assignment</th><th>Score</th></tr></thead>
+              <tbody>
+                <tr><td>James Mokoena</td><td>Cell Biology Test</td><td><span class="badge bg-green">84%</span></td></tr>
+                <tr><td>Lebo Dlamini</td><td>Lab Report</td><td><span class="badge bg-green">88%</span></td></tr>
+                <tr><td>Zanele Moyo</td><td>Lab Report</td><td><span class="badge bg-red">55%</span></td></tr>
+                <tr><td>Amara Osei</td><td>Quiz 3</td><td><span class="badge bg-amber">63%</span></td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+        <div class="callout cl-tip reveal"><span>💡</span><p><strong>Quick Tip:</strong> Use <em>Take Attendance</em> to record per-class attendance. Each class is tracked independently and feeds into the school-wide report.</p></div>
+      </div>
+
+      <!-- MY CLASSES -->
+      <div class="page" id="t-page-myclasses">
+        <div class="ptop">
+          <div class="phd"><h2>🏫 My Classes</h2><p>Classes assigned to you this term</p></div>
+        </div>
+        <div class="card reveal">
+          <div class="tbl"><table>
+            <thead><tr><th>Class</th><th>Grade</th><th>Subject</th><th>Students</th><th>Avg Score</th><th>Attendance</th></tr></thead>
+            <tbody>
+              <tr><td><b>Grade 8A</b></td><td>8</td><td>Science</td><td>22</td><td><span class="badge bg-green">79%</span></td><td>93%</td></tr>
+              <tr><td><b>Grade 9B</b></td><td>9</td><td>Science</td><td>23</td><td><span class="badge bg-blue">74%</span></td><td>89%</td></tr>
+              <tr><td><b>Grade 10A</b></td><td>10</td><td>Science</td><td>25</td><td><span class="badge bg-green">84%</span></td><td>95%</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- TEACHER GRADES -->
+      <div class="page" id="t-page-grades">
+        <div class="ptop">
+          <div class="phd"><h2>📝 Enter Grades</h2><p>Record grades per student and assignment</p></div>
+          <button class="add-btn" onclick="openModal('tAddGrade')">+ Enter Grade</button>
+        </div>
+        <div class="card reveal">
+          <div class="tbl"><table>
+            <thead><tr><th>Student</th><th>Class</th><th>Assignment</th><th>Score</th><th>Date</th></tr></thead>
+            <tbody id="tGradeTable">
+              <tr><td>James Mokoena</td><td>10A</td><td>Cell Biology Test</td><td><span class="badge bg-green">84%</span></td><td>20 Mar 2026</td></tr>
+              <tr><td>Lebo Dlamini</td><td>10A</td><td>Cell Biology Test</td><td><span class="badge bg-green">88%</span></td><td>20 Mar 2026</td></tr>
+              <tr><td>Zanele Moyo</td><td>8A</td><td>Lab Report</td><td><span class="badge bg-red">55%</span></td><td>18 Mar 2026</td></tr>
+              <tr><td>Amara Osei</td><td>9B</td><td>Quiz 3</td><td><span class="badge bg-amber">63%</span></td><td>17 Mar 2026</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- TEACHER ATTENDANCE — PER CLASS -->
+      <div class="page" id="t-page-attendance">
+        <div class="phd"><h2>✅ Take Attendance</h2><p>Record attendance per class independently — feeds into school-wide totals</p></div>
+        <div class="callout cl-info"><span>ℹ️</span><p>Select a class tab below to record or edit attendance for that class. Each class is tracked separately. The <strong>School Summary</strong> tab shows the combined attendance for the whole school.</p></div>
+
+        <div class="tab-bar" id="attTabBar">
+          <button class="tab-btn active" onclick="switchAttTab('8A',this)">Grade 8A</button>
+          <button class="tab-btn" onclick="switchAttTab('9B',this)">Grade 9B</button>
+          <button class="tab-btn" onclick="switchAttTab('10A',this)">Grade 10A</button>
+          <button class="tab-btn" onclick="switchAttTab('summary',this)" style="background:var(--navy);color:#fff;border-color:var(--navy)">📊 School Summary</button>
+        </div>
+
+        <!-- CLASS 8A -->
+        <div class="tab-pane active" id="att-8A">
+          <div class="card">
+            <div class="card-head">
+              <h3>Grade 8A — Attendance · 23 Mar 2026</h3>
+              <button class="btn btn-success" onclick="saveAttendance('8A')">💾 Save 8A Attendance</button>
+            </div>
+            <div class="tbl"><table>
+              <thead><tr><th>Student</th><th>Status</th><th>Days Present</th><th>Total Days</th><th>% Attendance</th></tr></thead>
+              <tbody id="att-tbody-8A">
+                <tr><td>Zanele Moyo</td><td><select class="att-select present" onchange="updateAttStyle(this)" data-student="Zanele Moyo" data-class="8A"><option value="present" selected>✓ Present</option><option value="absent">✗ Absent</option><option value="late">⚠ Late</option></select></td><td><input type="number" class="att-days" value="33" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
+                <tr><td>Sipho Sithole</td><td><select class="att-select present" onchange="updateAttStyle(this)" data-student="Sipho Sithole" data-class="8A"><option value="present" selected>✓ Present</option><option value="absent">✗ Absent</option><option value="late">⚠ Late</option></select></td><td><input type="number" class="att-days" value="42" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
+                <tr><td>Nomsa Dube</td><td><select class="att-select late" onchange="updateAttStyle(this)" data-student="Nomsa Dube" data-class="8A"><option value="present">✓ Present</option><option value="absent">✗ Absent</option><option value="late" selected>⚠ Late</option></select></td><td><input type="number" class="att-days" value="38" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
+                <tr><td>Thandeka Zulu</td><td><select class="att-select absent" onchange="updateAttStyle(this)" data-student="Thandeka Zulu" data-class="8A"><option value="present">✓ Present</option><option value="absent" selected>✗ Absent</option><option value="late">⚠ Late</option></select></td><td><input type="number" class="att-days" value="29" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+
+        <!-- CLASS 9B -->
+        <div class="tab-pane" id="att-9B">
+          <div class="card">
+            <div class="card-head">
+              <h3>Grade 9B — Attendance · 23 Mar 2026</h3>
+              <button class="btn btn-success" onclick="saveAttendance('9B')">💾 Save 9B Attendance</button>
+            </div>
+            <div class="tbl"><table>
+              <thead><tr><th>Student</th><th>Status</th><th>Days Present</th><th>Total Days</th><th>% Attendance</th></tr></thead>
+              <tbody id="att-tbody-9B">
+                <tr><td>Amara Osei</td><td><select class="att-select absent" onchange="updateAttStyle(this)"><option value="present">✓ Present</option><option value="absent" selected>✗ Absent</option><option value="late">⚠ Late</option></select></td><td><input type="number" class="att-days" value="36" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
+                <tr><td>Kwame Asante</td><td><select class="att-select present" onchange="updateAttStyle(this)"><option value="present" selected>✓ Present</option><option value="absent">✗ Absent</option><option value="late">⚠ Late</option></select></td><td><input type="number" class="att-days" value="44" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
+                <tr><td>Fatima Diallo</td><td><select class="att-select present" onchange="updateAttStyle(this)"><option value="present" selected>✓ Present</option><option value="absent">✗ Absent</option><option value="late">⚠ Late</option></select></td><td><input type="number" class="att-days" value="41" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+
+        <!-- CLASS 10A -->
+        <div class="tab-pane" id="att-10A">
+          <div class="card">
+            <div class="card-head">
+              <h3>Grade 10A — Attendance · 23 Mar 2026</h3>
+              <button class="btn btn-success" onclick="saveAttendance('10A')">💾 Save 10A Attendance</button>
+            </div>
+            <div class="tbl"><table>
+              <thead><tr><th>Student</th><th>Status</th><th>Days Present</th><th>Total Days</th><th>% Attendance</th></tr></thead>
+              <tbody id="att-tbody-10A">
+                <tr><td>James Mokoena</td><td><select class="att-select present" onchange="updateAttStyle(this)"><option value="present" selected>✓ Present</option><option value="absent">✗ Absent</option><option value="late">⚠ Late</option></select></td><td><input type="number" class="att-days" value="42" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
+                <tr><td>Lebo Dlamini</td><td><select class="att-select present" onchange="updateAttStyle(this)"><option value="present" selected>✓ Present</option><option value="absent">✗ Absent</option><option value="late">⚠ Late</option></select></td><td><input type="number" class="att-days" value="44" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
+                <tr><td>Thabo Nkosi</td><td><select class="att-select present" onchange="updateAttStyle(this)"><option value="present" selected>✓ Present</option><option value="absent">✗ Absent</option><option value="late">⚠ Late</option></select></td><td><input type="number" class="att-days" value="45" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
+                <tr><td>Sipho Ndlovu</td><td><select class="att-select late" onchange="updateAttStyle(this)"><option value="present">✓ Present</option><option value="absent">✗ Absent</option><option value="late" selected>⚠ Late</option></select></td><td><input type="number" class="att-days" value="43" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+
+        <!-- SCHOOL-WIDE SUMMARY -->
+        <div class="tab-pane" id="att-summary">
+          <div class="callout cl-tip"><span>📊</span><p><strong>School-Wide Attendance Summary</strong> — Dynamically calculated from all your class tabs. Updates live when you switch to this tab or save a class.</p></div>
+          <div class="sgrid" style="margin-bottom:1.5rem">
+            <div class="scard"><div class="sc-icon">🏫</div><div class="sc-num">3</div><div class="sc-lbl">Classes Recorded</div></div>
+            <div class="scard"><div class="sc-icon">👨‍🎓</div><div class="sc-num">11</div><div class="sc-lbl">Total Students</div></div>
+            <div class="scard"><div class="sc-icon">✅</div><div class="sc-num" id="schoolAvgAtt">—</div><div class="sc-lbl">School Avg Attendance</div></div>
+            <div class="scard"><div class="sc-icon">✗</div><div class="sc-num">2</div><div class="sc-lbl">Absent Today</div></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3>Attendance by Class — Live Summary</h3><button class="print-btn" onclick="window.print()">🖨️ Print</button></div>
+            <div class="tbl"><table>
+              <thead><tr><th>Class</th><th>Students</th><th>Present Today</th><th>Absent Today</th><th>Term Average</th></tr></thead>
+              <tbody id="att-summary-tbody">
+                <tr><td colspan="5" style="text-align:center;color:var(--muted);padding:1.5rem">Click "📊 School Summary" to refresh live data</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEACHER LESSONS & ASSIGNMENTS -->
+      <div class="page" id="t-page-lessons">
+        <div class="phd"><h2>📚 Notes & Assignments</h2><p>Upload lesson notes and set assignments for your classes</p></div>
+
+        <!-- Tab bar -->
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="switchMaterialTab('notes',this)">📄 Notes</button>
+          <button class="tab-btn" onclick="switchMaterialTab('assignments',this)">📝 Assignments</button>
+          <button class="tab-btn" onclick="switchMaterialTab('submissions',this)">📥 Student Submissions</button>
+        </div>
+
+        <!-- NOTES TAB -->
+        <div class="tab-pane active" id="mat-notes">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:1rem">
+            <button class="add-btn" onclick="openModal('tUploadNote')">+ Upload Note</button>
+          </div>
+          <div id="notesGrid" style="display:flex;flex-direction:column;gap:.75rem">
+            <!-- seed notes -->
+            <div class="material-card note-card">
+              <div class="mat-icon">📄</div>
+              <div class="mat-info">
+                <div class="mat-title">Introduction to Cell Biology</div>
+                <div class="mat-meta">Science · Grade 10A · Uploaded 20 Mar 2026 by Mrs. Okonkwo</div>
+                <div class="mat-desc">Covers cell structure, organelles, and their functions. Includes diagrams and summary tables.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-blue">PDF</span>
+                <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+              </div>
+            </div>
+            <div class="material-card note-card">
+              <div class="mat-icon">📄</div>
+              <div class="mat-info">
+                <div class="mat-title">Photosynthesis — Full Notes</div>
+                <div class="mat-meta">Science · Grade 9B · Uploaded 15 Mar 2026 by Mrs. Okonkwo</div>
+                <div class="mat-desc">Light reactions, dark reactions, and the Calvin cycle explained with worked examples.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-green">DOCX</span>
+                <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ASSIGNMENTS TAB -->
+        <div class="tab-pane" id="mat-assignments">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:1rem">
+            <button class="add-btn" onclick="openModal('tCreateAssignment')">+ Create Assignment</button>
+          </div>
+          <div id="assignmentsGrid" style="display:flex;flex-direction:column;gap:.75rem">
+            <div class="material-card assign-card">
+              <div class="mat-icon">📝</div>
+              <div class="mat-info">
+                <div class="mat-title">Cell Biology Test — Written Questions</div>
+                <div class="mat-meta">Science · Grade 10A · Due: <b>25 Mar 2026</b></div>
+                <div class="mat-desc">Answer all 5 questions. Max 500 words per answer. Submit your response in the student portal.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-amber">Due Soon</span>
+                <span class="badge bg-blue" id="sub-count-1">3 submitted</span>
+                <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+              </div>
+            </div>
+            <div class="material-card assign-card">
+              <div class="mat-icon">📝</div>
+              <div class="mat-info">
+                <div class="mat-title">Photosynthesis Lab Report</div>
+                <div class="mat-meta">Science · Grade 9B · Due: <b>28 Mar 2026</b></div>
+                <div class="mat-desc">Write a full lab report including hypothesis, method, results, and conclusion.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-green">Open</span>
+                <span class="badge bg-blue">1 submitted</span>
+                <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUBMISSIONS TAB -->
+        <div class="tab-pane" id="mat-submissions">
+          <div class="callout cl-info"><span>📥</span><p>These are answers submitted by students for your assignments. You can read them and enter a grade directly.</p></div>
+          <div id="submissionsTable">
+            <div class="card">
+              <div class="tbl"><table>
+                <thead><tr><th>Student</th><th>Assignment</th><th>Class</th><th>Submitted</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody id="tSubmissionsTbody">
+                  <tr>
+                    <td><b>James Mokoena</b></td>
+                    <td>Cell Biology Test</td><td>10A</td><td>22 Mar 2026</td>
+                    <td><span class="badge bg-amber">Awaiting Grade</span></td>
+                    <td>
+                      <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewSubmission('James Mokoena','Cell Biology Test','The cell is the basic unit of life. All living organisms are made of cells. There are two main types: prokaryotic and eukaryotic. Eukaryotic cells contain a nucleus and membrane-bound organelles. Key organelles include the mitochondria (energy production), the nucleus (genetic control), and ribosomes (protein synthesis). The cell membrane regulates what enters and exits the cell.')">👁 View</button>
+                      <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem" onclick="openGradeSubmission('James Mokoena','Cell Biology Test',this)">📝 Grade</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><b>Lebo Dlamini</b></td>
+                    <td>Cell Biology Test</td><td>10A</td><td>21 Mar 2026</td>
+                    <td><span class="badge bg-green">Graded — 88%</span></td>
+                    <td>
+                      <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewSubmission('Lebo Dlamini','Cell Biology Test','Cells are the fundamental units of all living organisms. Eukaryotic cells have a defined nucleus and organelles enclosed by membranes. The mitochondria produce ATP through respiration. Chloroplasts in plant cells perform photosynthesis. The endoplasmic reticulum transports proteins, while the Golgi apparatus packages them for secretion.')">👁 View</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><b>Amara Osei</b></td>
+                    <td>Photosynthesis Lab Report</td><td>9B</td><td>23 Mar 2026</td>
+                    <td><span class="badge bg-amber">Awaiting Grade</span></td>
+                    <td>
+                      <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewSubmission('Amara Osei','Photosynthesis Lab Report','Hypothesis: If a plant is exposed to more light, then photosynthesis rate will increase. Method: We placed spinach leaves in a sodium bicarbonate solution and exposed them to varying light intensities. Results: At low light, 2 leaves floated after 10 mins. At high light, 9 leaves floated after 10 mins. Conclusion: Higher light intensity increases photosynthesis rate, supporting our hypothesis.')">👁 View</button>
+                      <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem" onclick="openGradeSubmission('Amara Osei','Photosynthesis Lab Report',this)">📝 Grade</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEACHER REPORTS -->
+      <div class="page" id="t-page-reports">
+        <div class="phd"><h2>📋 Class Reports</h2><p>Performance and attendance reports for your classes</p></div>
+        <div class="g2">
+          <div class="card reveal">
+            <div class="card-head"><h3>📊 Class Averages</h3></div>
+            <div class="card-body">
+              <div class="prog-item"><div class="prog-label">Grade 8A</div><div class="prog-track"><div class="prog-fill" style="width:79%;background:var(--blue)"></div></div><div class="prog-pct">79%</div></div>
+              <div class="prog-item"><div class="prog-label">Grade 9B</div><div class="prog-track"><div class="prog-fill" style="width:74%;background:var(--amber)"></div></div><div class="prog-pct">74%</div></div>
+              <div class="prog-item"><div class="prog-label">Grade 10A</div><div class="prog-track"><div class="prog-fill" style="width:84%;background:var(--green)"></div></div><div class="prog-pct">84%</div></div>
+            </div>
+          </div>
+          <div class="card reveal">
+            <div class="card-head"><h3>✅ Attendance Summary</h3></div>
+            <div class="card-body">
+              <div class="prog-item"><div class="prog-label">Grade 8A</div><div class="prog-track"><div class="prog-fill" style="width:77%;background:var(--teal)"></div></div><div class="prog-pct">77%</div></div>
+              <div class="prog-item"><div class="prog-label">Grade 9B</div><div class="prog-track"><div class="prog-fill" style="width:88%;background:var(--teal)"></div></div><div class="prog-pct">88%</div></div>
+              <div class="prog-item"><div class="prog-label">Grade 10A</div><div class="prog-track"><div class="prog-fill" style="width:95%;background:var(--green)"></div></div><div class="prog-pct">95%</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     STUDENT SCREEN
+══════════════════════════════ -->
+<div id="studentScreen" class="screen">
+  <nav class="topnav">
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <button class="hamburger" id="sHamburger" onclick="toggleSidebar('sSidebar','sHamburger')">☰</button>
+      <div class="topnav-brand"><b>Edu</b>Build Student</div>
+    </div>
+    <div class="topnav-right">
+      <span class="school-badge">🏫 EduBuild Academy</span>
+      <div class="user-pill">
+        <div class="user-avatar">J</div>
+        <div><div class="user-name">James Mokoena</div><div class="user-role">Grade 10A</div></div>
+      </div>
+      <button class="signout-btn" onclick="doSignOut()">⬅ Sign Out</button>
+    </div>
+  </nav>
+  <div class="shell">
+    <div class="sidebar-backdrop" id="sBackdrop" onclick="toggleSidebar('sSidebar','sHamburger')"></div>
+    <aside class="sidebar" id="sSidebar">
+      <div class="sgroup">My Portal</div>
+      <button class="sitem on" onclick="stPage('dashboard',this)"><span class="si">📊</span> Dashboard</button>
+      <button class="sitem" onclick="stPage('mygrades',this)"><span class="si">📝</span> My Grades</button>
+      <button class="sitem" onclick="stPage('myattendance',this)"><span class="si">✅</span> My Attendance</button>
+      <button class="sitem" onclick="stPage('mylessons',this)"><span class="si">📚</span> Notes & Tasks</button>
+      <button class="sitem" onclick="stPage('timetable',this)"><span class="si">🗓️</span> Timetable</button>
+      <button class="sitem" onclick="stPage('notices',this)"><span class="si">📢</span> Notices</button>
+      <button class="sitem" onclick="stPage('myreport',this)"><span class="si">📋</span> My Report</button>
+    </aside>
+    <main class="main" id="studentMain">
+
+      <!-- STUDENT DASHBOARD -->
+      <div class="page on" id="st-page-dashboard">
+        <div class="phd"><h2>Welcome back, James! 👨‍🎓</h2><p>Your academic overview — Monday, 23 March 2026 · Grade 10A</p></div>
+        <div class="sgrid">
+          <div class="scard reveal"><div class="sc-icon">📊</div><div class="sc-num">78%</div><div class="sc-lbl">Overall Average</div></div>
+          <div class="scard reveal"><div class="sc-icon">✅</div><div class="sc-num">92%</div><div class="sc-lbl">Attendance</div></div>
+          <div class="scard reveal"><div class="sc-icon">📝</div><div class="sc-num">4</div><div class="sc-lbl">Pending Tasks</div></div>
+          <div class="scard reveal"><div class="sc-icon">🏆</div><div class="sc-num">12th</div><div class="sc-lbl">Class Position</div></div>
+          <div class="scard reveal"><div class="sc-icon">📚</div><div class="sc-num">5</div><div class="sc-lbl">Subjects</div></div>
+          <div class="scard reveal"><div class="sc-icon">📋</div><div class="sc-num">3</div><div class="sc-lbl">New Notices</div></div>
+        </div>
+        <div class="g2">
+          <div class="card reveal">
+            <div class="card-head"><h3>📚 My Subject Scores</h3></div>
+            <div class="tbl"><table>
+              <thead><tr><th>Subject</th><th>Score</th><th>Grade</th></tr></thead>
+              <tbody>
+                <tr><td>Science</td><td>84%</td><td><span class="badge bg-green">A</span></td></tr>
+                <tr><td>Mathematics</td><td>72%</td><td><span class="badge bg-blue">B</span></td></tr>
+                <tr><td>Research</td><td>90%</td><td><span class="badge bg-green">A</span></td></tr>
+                <tr><td>English</td><td>68%</td><td><span class="badge bg-blue">B</span></td></tr>
+                <tr><td>History</td><td>77%</td><td><span class="badge bg-blue">B</span></td></tr>
+              </tbody>
+            </table></div>
+          </div>
+          <div class="card reveal">
+            <div class="card-head"><h3>📅 Upcoming Tasks</h3></div>
+            <div class="tbl"><table>
+              <thead><tr><th>Task</th><th>Subject</th><th>Due</th></tr></thead>
+              <tbody>
+                <tr><td>Lab Report</td><td>Science</td><td><span class="badge bg-red">25 Mar</span></td></tr>
+                <tr><td>Essay Draft</td><td>English</td><td><span class="badge bg-amber">28 Mar</span></td></tr>
+                <tr><td>Problem Set 4</td><td>Math</td><td><span class="badge bg-blue">30 Mar</span></td></tr>
+                <tr><td>Research Outline</td><td>Research</td><td><span class="badge bg-green">2 Apr</span></td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+        <div class="callout cl-info"><span>📢</span><p><strong>Reminder:</strong> Term 2 exams run 15–25 April 2026. Check your timetable and start revising early!</p></div>
+      </div>
+
+      <!-- MY GRADES -->
+      <div class="page" id="st-page-mygrades">
+        <div class="phd"><h2>📝 My Grades</h2><p>All your recorded scores this term</p></div>
+        <div class="card reveal">
+          <div class="tbl"><table>
+            <thead><tr><th>Subject</th><th>Assignment</th><th>Score</th><th>Teacher</th><th>Date</th></tr></thead>
+            <tbody>
+              <tr><td>Science</td><td>Cell Biology Test</td><td><span class="badge bg-green">84%</span></td><td>Mrs. Okonkwo</td><td>20 Mar</td></tr>
+              <tr><td>Mathematics</td><td>Algebra Quiz</td><td><span class="badge bg-blue">72%</span></td><td>Mr. Nkosi</td><td>18 Mar</td></tr>
+              <tr><td>Research</td><td>Research Paper 1</td><td><span class="badge bg-green">90%</span></td><td>Ms. Patel</td><td>15 Mar</td></tr>
+              <tr><td>English</td><td>Essay Assignment</td><td><span class="badge bg-blue">68%</span></td><td>Mr. Dlamini</td><td>12 Mar</td></tr>
+              <tr><td>History</td><td>WWI Quiz</td><td><span class="badge bg-blue">77%</span></td><td>Mrs. Moyo</td><td>10 Mar</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- MY ATTENDANCE -->
+      <div class="page" id="st-page-myattendance">
+        <div class="phd"><h2>✅ My Attendance</h2><p>Your attendance record per class this term</p></div>
+        <div class="sgrid" style="margin-bottom:1.5rem">
+          <div class="scard"><div class="sc-icon">📊</div><div class="sc-num">92%</div><div class="sc-lbl">Overall Attendance</div></div>
+          <div class="scard"><div class="sc-icon">✅</div><div class="sc-num">42</div><div class="sc-lbl">Days Present</div></div>
+          <div class="scard"><div class="sc-icon">✗</div><div class="sc-num">4</div><div class="sc-lbl">Days Absent</div></div>
+          <div class="scard"><div class="sc-icon">⚠</div><div class="sc-num">2</div><div class="sc-lbl">Days Late</div></div>
+        </div>
+        <div class="card reveal">
+          <div class="card-head"><h3>Attendance by Class</h3></div>
+          <div class="tbl"><table>
+            <thead><tr><th>Class / Subject</th><th>Days Present</th><th>Days Absent</th><th>Total Days</th><th>%</th></tr></thead>
+            <tbody>
+              <tr><td>Science (Grade 10A)</td><td>42</td><td>4</td><td>46</td><td><span class="badge bg-green">91%</span></td></tr>
+              <tr><td>Mathematics (Grade 10A)</td><td>43</td><td>3</td><td>46</td><td><span class="badge bg-green">93%</span></td></tr>
+              <tr><td>Research (Grade 10B)</td><td>40</td><td>6</td><td>46</td><td><span class="badge bg-blue">87%</span></td></tr>
+              <tr><td>English (Grade 10A)</td><td>44</td><td>2</td><td>46</td><td><span class="badge bg-green">96%</span></td></tr>
+              <tr><td>History (Grade 10A)</td><td>41</td><td>5</td><td>46</td><td><span class="badge bg-blue">89%</span></td></tr>
+              <tr style="background:var(--bg)"><td><b>Overall Total</b></td><td><b>210</b></td><td><b>20</b></td><td><b>230</b></td><td><span class="badge bg-green"><b>91%</b></span></td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- MY LESSONS & ASSIGNMENTS -->
+      <div class="page" id="st-page-mylessons">
+        <div class="phd"><h2>📚 Notes & Assignments</h2><p>Read your teacher's notes and submit your assignment answers</p></div>
+
+        <!-- Tab bar -->
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="switchMaterialTab('st-notes',this)">📄 Notes</button>
+          <button class="tab-btn" onclick="switchMaterialTab('st-assignments',this)">📝 Assignments</button>
+          <button class="tab-btn" onclick="switchMaterialTab('st-mysubmissions',this)">📥 My Submissions</button>
+        </div>
+
+        <!-- NOTES TAB -->
+        <div class="tab-pane active" id="mat-st-notes">
+          <div id="stNotesGrid" style="display:flex;flex-direction:column;gap:.75rem">
+            <div class="material-card note-card">
+              <div class="mat-icon">📄</div>
+              <div class="mat-info">
+                <div class="mat-title">Introduction to Cell Biology</div>
+                <div class="mat-meta">Science · Grade 10A · Mrs. Okonkwo · 20 Mar 2026</div>
+                <div class="mat-desc">Covers cell structure, organelles, and their functions. Includes diagrams and summary tables.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-blue">PDF</span>
+                <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewNote('Introduction to Cell Biology','Cells are the basic units of life. There are two types: prokaryotic (no nucleus) and eukaryotic (has nucleus).\n\nKey organelles:\n• Nucleus — controls cell activities, contains DNA\n• Mitochondria — produces energy (ATP)\n• Ribosomes — makes proteins\n• Cell membrane — controls entry/exit of substances\n• Endoplasmic reticulum — transports materials\n• Golgi apparatus — packages and exports proteins\n\nPlant cells also have:\n• Cell wall — provides structure\n• Chloroplasts — site of photosynthesis\n• Vacuole — stores water and nutrients')">📖 Read</button>
+              </div>
+            </div>
+            <div class="material-card note-card">
+              <div class="mat-icon">📄</div>
+              <div class="mat-info">
+                <div class="mat-title">Photosynthesis — Full Notes</div>
+                <div class="mat-meta">Science · Grade 9B · Mrs. Okonkwo · 15 Mar 2026</div>
+                <div class="mat-desc">Light reactions, dark reactions, and the Calvin cycle explained with worked examples.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-green">DOCX</span>
+                <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewNote('Photosynthesis — Full Notes','Photosynthesis is the process by which plants use sunlight, water and CO₂ to produce glucose and oxygen.\n\nEquation: 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂\n\nTwo stages:\n1. Light-dependent reactions (in thylakoid membrane)\n   • Water is split (photolysis)\n   • ATP and NADPH are produced\n   • Oxygen is released\n\n2. Light-independent reactions — Calvin Cycle (in stroma)\n   • CO₂ is fixed into glucose\n   • Uses ATP and NADPH from stage 1\n\nFactors affecting photosynthesis:\n• Light intensity\n• CO₂ concentration\n• Temperature')">📖 Read</button>
+              </div>
+            </div>
+            <div class="material-card note-card">
+              <div class="mat-icon">📄</div>
+              <div class="mat-info">
+                <div class="mat-title">Quadratic Equations — Study Guide</div>
+                <div class="mat-meta">Mathematics · Grade 10A · Mr. Nkosi · 19 Mar 2026</div>
+                <div class="mat-desc">Factorisation, completing the square, and the quadratic formula with worked examples.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-blue">PDF</span>
+                <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewNote('Quadratic Equations','A quadratic equation has the form: ax² + bx + c = 0\n\nMethods to solve:\n\n1. Factorisation\n   Example: x² + 5x + 6 = 0\n   → (x + 2)(x + 3) = 0\n   → x = -2 or x = -3\n\n2. Quadratic Formula\n   x = (-b ± √(b² - 4ac)) / 2a\n\n   Example: 2x² - 4x - 6 = 0\n   a=2, b=-4, c=-6\n   x = (4 ± √(16 + 48)) / 4\n   x = (4 ± 8) / 4\n   x = 3 or x = -1\n\n3. Completing the Square\n   Used when factorisation is difficult.\n   Rewrite as (x + p)² = q then solve.')">📖 Read</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ASSIGNMENTS TAB -->
+        <div class="tab-pane" id="mat-st-assignments">
+          <div id="stAssignmentsGrid" style="display:flex;flex-direction:column;gap:.75rem">
+
+            <!-- Assignment 1 — already submitted -->
+            <div class="material-card assign-card" id="assign-card-1">
+              <div class="mat-icon">📝</div>
+              <div class="mat-info">
+                <div class="mat-title">Cell Biology Test — Written Questions</div>
+                <div class="mat-meta">Science · Mrs. Okonkwo · Due: <b>25 Mar 2026</b></div>
+                <div class="mat-desc">Answer all 5 questions. Max 500 words per answer. Submit your written response below.</div>
+              </div>
+              <div class="mat-actions" style="flex-direction:column;align-items:flex-end;gap:.4rem">
+                <span class="badge bg-green" id="assign-status-1">✓ Submitted</span>
+                <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="openSubmitAnswer('Cell Biology Test','Science','Mrs. Okonkwo','assign-status-1')">✏️ Edit Answer</button>
+              </div>
+            </div>
+
+            <!-- Assignment 2 — not submitted -->
+            <div class="material-card assign-card" id="assign-card-2">
+              <div class="mat-icon">📝</div>
+              <div class="mat-info">
+                <div class="mat-title">Photosynthesis Lab Report</div>
+                <div class="mat-meta">Science · Mrs. Okonkwo · Due: <b>28 Mar 2026</b></div>
+                <div class="mat-desc">Write a full lab report including hypothesis, method, results, and conclusion.</div>
+              </div>
+              <div class="mat-actions" style="flex-direction:column;align-items:flex-end;gap:.4rem">
+                <span class="badge bg-amber" id="assign-status-2">⏳ Pending</span>
+                <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem" onclick="openSubmitAnswer('Photosynthesis Lab Report','Science','Mrs. Okonkwo','assign-status-2')">📤 Submit Answer</button>
+              </div>
+            </div>
+
+            <!-- Assignment 3 — not submitted -->
+            <div class="material-card assign-card" id="assign-card-3">
+              <div class="mat-icon">📝</div>
+              <div class="mat-info">
+                <div class="mat-title">Algebra Problem Set 4</div>
+                <div class="mat-meta">Mathematics · Mr. Nkosi · Due: <b>30 Mar 2026</b></div>
+                <div class="mat-desc">Solve 10 quadratic equations showing all working. Use the formula or factorisation method.</div>
+              </div>
+              <div class="mat-actions" style="flex-direction:column;align-items:flex-end;gap:.4rem">
+                <span class="badge bg-red" id="assign-status-3">⏳ Not Started</span>
+                <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem" onclick="openSubmitAnswer('Algebra Problem Set 4','Mathematics','Mr. Nkosi','assign-status-3')">📤 Submit Answer</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- MY SUBMISSIONS TAB -->
+        <div class="tab-pane" id="mat-st-mysubmissions">
+          <div class="card">
+            <div class="tbl"><table>
+              <thead><tr><th>Assignment</th><th>Subject</th><th>Submitted</th><th>Grade</th><th>Actions</th></tr></thead>
+              <tbody id="stSubmissionsTbody">
+                <tr>
+                  <td><b>Cell Biology Test</b></td><td>Science</td><td>22 Mar 2026</td>
+                  <td><span class="badge bg-amber">Awaiting Grade</span></td>
+                  <td><button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewSubmission('James Mokoena','Cell Biology Test','The cell is the basic unit of life. All living organisms are made of cells. There are two main types: prokaryotic and eukaryotic. Eukaryotic cells contain a nucleus and membrane-bound organelles. Key organelles include the mitochondria (energy production), the nucleus (genetic control), and ribosomes (protein synthesis). The cell membrane regulates what enters and exits the cell.')">👁 View</button></td>
+                </tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TIMETABLE -->
+      <div class="page" id="st-page-timetable">
+        <div class="phd"><h2>🗓️ My Timetable</h2><p>Weekly class schedule — Grade 10A · Term 1 2026</p></div>
+        <div class="card reveal">
+          <div class="tbl"><table>
+            <thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead>
+            <tbody>
+              <tr><td><b>07:30–08:30</b></td><td>Science<br><small style="color:var(--muted)">Mrs. Okonkwo</small></td><td>Mathematics<br><small style="color:var(--muted)">Mr. Nkosi</small></td><td>English<br><small style="color:var(--muted)">Mr. Dlamini</small></td><td>Research<br><small style="color:var(--muted)">Ms. Patel</small></td><td>History<br><small style="color:var(--muted)">Mrs. Moyo</small></td></tr>
+              <tr><td><b>08:30–09:30</b></td><td>Mathematics<br><small style="color:var(--muted)">Mr. Nkosi</small></td><td>History<br><small style="color:var(--muted)">Mrs. Moyo</small></td><td>Science<br><small style="color:var(--muted)">Mrs. Okonkwo</small></td><td>English<br><small style="color:var(--muted)">Mr. Dlamini</small></td><td>Research<br><small style="color:var(--muted)">Ms. Patel</small></td></tr>
+              <tr><td><b>09:30–10:00</b></td><td colspan="5" style="text-align:center;color:var(--muted);font-style:italic">☕ Morning Break</td></tr>
+              <tr><td><b>10:00–11:00</b></td><td>English<br><small style="color:var(--muted)">Mr. Dlamini</small></td><td>Research<br><small style="color:var(--muted)">Ms. Patel</small></td><td>Mathematics<br><small style="color:var(--muted)">Mr. Nkosi</small></td><td>Science<br><small style="color:var(--muted)">Mrs. Okonkwo</small></td><td>Mathematics<br><small style="color:var(--muted)">Mr. Nkosi</small></td></tr>
+              <tr><td><b>11:00–12:00</b></td><td>Research<br><small style="color:var(--muted)">Ms. Patel</small></td><td>English<br><small style="color:var(--muted)">Mr. Dlamini</small></td><td>History<br><small style="color:var(--muted)">Mrs. Moyo</small></td><td>Mathematics<br><small style="color:var(--muted)">Mr. Nkosi</small></td><td>Science<br><small style="color:var(--muted)">Mrs. Okonkwo</small></td></tr>
+              <tr><td><b>12:00–13:00</b></td><td colspan="5" style="text-align:center;color:var(--muted);font-style:italic">🍽️ Lunch Break</td></tr>
+              <tr><td><b>13:00–14:00</b></td><td>History<br><small style="color:var(--muted)">Mrs. Moyo</small></td><td>Science<br><small style="color:var(--muted)">Mrs. Okonkwo</small></td><td>Research<br><small style="color:var(--muted)">Ms. Patel</small></td><td>History<br><small style="color:var(--muted)">Mrs. Moyo</small></td><td>English<br><small style="color:var(--muted)">Mr. Dlamini</small></td></tr>
+              <tr><td><b>14:00–14:30</b></td><td colspan="5" style="text-align:center;color:var(--muted);font-style:italic">📚 Study / Homework Period</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="callout cl-info"><span>📅</span><p><strong>Today is Monday.</strong> Your first class is Science with Mrs. Okonkwo at 07:30. Don't forget your Lab Report is due 25 March!</p></div>
+      </div>
+
+      <!-- STUDENT NOTICES -->
+      <div class="page" id="st-page-notices">
+        <div class="phd"><h2>📢 School Notices</h2><p>Announcements from your school</p></div>
+        <article class="announce-card"><div class="announce-title">Term 2 Exam Schedule Released</div><div class="announce-meta">Posted by School Admin · 22 Mar 2026</div><div class="announce-body">Term 2 examinations will run from 15–25 April 2026. Check the school calendar for your timetable. Arrive 15 minutes early.</div></article>
+        <article class="announce-card" style="border-left-color:var(--green)"><div class="announce-title">Science Fair Registration Open</div><div class="announce-meta">Posted by School Admin · 20 Mar 2026</div><div class="announce-body">Students in Grades 8–12 are invited to register for the Annual Science Fair. Submissions close 5 April 2026.</div></article>
+        <article class="announce-card" style="border-left-color:var(--orange)"><div class="announce-title">School Closure — Public Holiday</div><div class="announce-meta">Posted by School Admin · 18 Mar 2026</div><div class="announce-body">School closed Friday 27 March 2026. Normal classes resume Monday 30 March 2026.</div></article>
+      </div>
+
+      <!-- MY REPORT -->
+      <div class="page" id="st-page-myreport">
+        <div class="ptop">
+          <div class="phd"><h2>📋 My Report</h2><p>Term 1 · January – March 2026</p></div>
+          <button class="print-btn" onclick="window.print()">🖨️ Print Report</button>
+        </div>
+        <div class="report-card reveal">
+          <div class="report-hd">
+            <div><div style="font-size:1rem;font-weight:900;color:var(--navy);font-family:'DM Serif Display',serif">🏫 EduBuild Academy</div><div style="font-size:.72rem;color:var(--muted);margin-top:.2rem">Term 1 · January – March 2026</div></div>
+            <div style="text-align:right;font-size:.82rem;line-height:1.8"><strong>James Mokoena</strong><br>Grade 10A · ID: EB-2026-047<br><span style="font-size:.72rem;color:var(--muted)">DOB: 14 Jun 2010</span></div>
+          </div>
+          <div class="tbl"><table>
+            <thead><tr><th>Subject</th><th>Teacher</th><th>Term</th><th>Exam</th><th>Final</th><th>Grade</th></tr></thead>
+            <tbody>
+              <tr><td>Science</td><td>Mrs. Okonkwo</td><td>82%</td><td>86%</td><td><b>84%</b></td><td><span class="badge bg-green">A</span></td></tr>
+              <tr><td>Mathematics</td><td>Mr. Nkosi</td><td>70%</td><td>74%</td><td><b>72%</b></td><td><span class="badge bg-blue">B</span></td></tr>
+              <tr><td>Research</td><td>Ms. Patel</td><td>88%</td><td>92%</td><td><b>90%</b></td><td><span class="badge bg-green">A</span></td></tr>
+              <tr><td>English</td><td>Mr. Dlamini</td><td>66%</td><td>70%</td><td><b>68%</b></td><td><span class="badge bg-blue">B</span></td></tr>
+              <tr><td>History</td><td>Mrs. Moyo</td><td>75%</td><td>79%</td><td><b>77%</b></td><td><span class="badge bg-blue">B</span></td></tr>
+            </tbody>
+          </table></div>
+          <div class="report-summary"><div><strong>Overall Average:</strong> 78.2%</div><div><strong>Attendance:</strong> 92%</div><div><strong>Conduct:</strong> <span class="badge bg-green">Excellent</span></div><div><strong>Position:</strong> 12 of 25</div></div>
+          <div class="report-comment"><strong>Teacher Comment:</strong> James has shown excellent progress this term, particularly in Research and Science. Mathematics needs more focused practice.<br><strong>Head Teacher:</strong> Dr. Adams &nbsp; <strong>Date:</strong> 23 March 2026</div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     PARENT SCREEN
+══════════════════════════════ -->
+<div id="parentScreen" class="screen">
+  <nav class="topnav">
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <button class="hamburger" id="pHamburger" onclick="toggleSidebar('pSidebar','pHamburger')">☰</button>
+      <div class="topnav-brand"><b>Edu</b>Build Parent</div>
+    </div>
+    <div class="topnav-right">
+      <span class="school-badge">🏫 EduBuild Academy</span>
+      <div class="user-pill">
+        <div class="user-avatar">P</div>
+        <div><div class="user-name">Mrs. Mokoena</div><div class="user-role">Parent Portal</div></div>
+      </div>
+      <button class="signout-btn" onclick="doSignOut()">⬅ Sign Out</button>
+    </div>
+  </nav>
+  <div class="shell">
+    <div class="sidebar-backdrop" id="pBackdrop" onclick="toggleSidebar('pSidebar','pHamburger')"></div>
+    <aside class="sidebar" id="pSidebar">
+      <div class="sgroup">My Child</div>
+      <button class="sitem on" onclick="prPage('dashboard',this)"><span class="si">📊</span> Overview</button>
+      <button class="sitem" onclick="prPage('childgrades',this)"><span class="si">📝</span> Grades</button>
+      <button class="sitem" onclick="prPage('childattendance',this)"><span class="si">✅</span> Attendance</button>
+      <button class="sitem" onclick="prPage('childreport',this)"><span class="si">📋</span> Report Card</button>
+      <button class="sitem" onclick="prPage('notices',this)"><span class="si">📢</span> Notices</button>
+      <button class="sitem" onclick="prPage('contactteacher',this)"><span class="si">✉️</span> Contact Teacher</button>
+    </aside>
+    <main class="main" id="parentMain">
+
+      <!-- PARENT DASHBOARD -->
+      <div class="page on" id="pr-page-dashboard">
+        <div class="phd"><h2>Welcome, Mrs. Mokoena 👪</h2><p>Monitoring: <strong>James Mokoena</strong> · Grade 10A · EduBuild Academy</p></div>
+        <div class="sgrid">
+          <div class="scard reveal"><div class="sc-icon">📊</div><div class="sc-num">78%</div><div class="sc-lbl">Child's Average</div></div>
+          <div class="scard reveal"><div class="sc-icon">✅</div><div class="sc-num">92%</div><div class="sc-lbl">Attendance</div></div>
+          <div class="scard reveal"><div class="sc-icon">🏆</div><div class="sc-num">12th</div><div class="sc-lbl">Class Position</div></div>
+          <div class="scard reveal"><div class="sc-icon">📋</div><div class="sc-num">3</div><div class="sc-lbl">New Notices</div></div>
+        </div>
+        <div class="g2">
+          <div class="card reveal">
+            <div class="card-head"><h3>📚 James — Recent Grades</h3></div>
+            <div class="tbl"><table>
+              <thead><tr><th>Subject</th><th>Assignment</th><th>Score</th></tr></thead>
+              <tbody>
+                <tr><td>Science</td><td>Cell Biology Test</td><td><span class="badge bg-green">84%</span></td></tr>
+                <tr><td>Mathematics</td><td>Algebra Quiz</td><td><span class="badge bg-blue">72%</span></td></tr>
+                <tr><td>Research</td><td>Research Paper 1</td><td><span class="badge bg-green">90%</span></td></tr>
+                <tr><td>English</td><td>Essay</td><td><span class="badge bg-blue">68%</span></td></tr>
+              </tbody>
+            </table></div>
+          </div>
+          <div class="card reveal">
+            <div class="card-head"><h3>✅ Attendance by Class</h3></div>
+            <div class="tbl"><table>
+              <thead><tr><th>Subject</th><th>Present</th><th>Total</th><th>%</th></tr></thead>
+              <tbody>
+                <tr><td>Science</td><td>42</td><td>46</td><td><span class="badge bg-green">91%</span></td></tr>
+                <tr><td>Mathematics</td><td>43</td><td>46</td><td><span class="badge bg-green">93%</span></td></tr>
+                <tr><td>Research</td><td>40</td><td>46</td><td><span class="badge bg-blue">87%</span></td></tr>
+                <tr><td>English</td><td>44</td><td>46</td><td><span class="badge bg-green">96%</span></td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+        <div class="callout cl-warn"><span>⚠️</span><p><strong>Attendance Notice:</strong> James has missed 4 days this term. Please ensure regular attendance as exams approach.</p></div>
+      </div>
+
+      <!-- CHILD GRADES -->
+      <div class="page" id="pr-page-childgrades">
+        <div class="phd"><h2>📝 James's Grades</h2><p>All recorded grades this term</p></div>
+        <div class="card reveal">
+          <div class="tbl"><table>
+            <thead><tr><th>Subject</th><th>Assignment</th><th>Score</th><th>Teacher</th></tr></thead>
+            <tbody>
+              <tr><td>Science</td><td>Cell Biology Test</td><td><span class="badge bg-green">84%</span></td><td>Mrs. Okonkwo</td></tr>
+              <tr><td>Mathematics</td><td>Algebra Quiz</td><td><span class="badge bg-blue">72%</span></td><td>Mr. Nkosi</td></tr>
+              <tr><td>Research</td><td>Research Paper 1</td><td><span class="badge bg-green">90%</span></td><td>Ms. Patel</td></tr>
+              <tr><td>English</td><td>Essay Assignment</td><td><span class="badge bg-blue">68%</span></td><td>Mr. Dlamini</td></tr>
+              <tr><td>History</td><td>WWI Quiz</td><td><span class="badge bg-blue">77%</span></td><td>Mrs. Moyo</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- CHILD ATTENDANCE -->
+      <div class="page" id="pr-page-childattendance">
+        <div class="phd"><h2>✅ James's Attendance</h2><p>Attendance per class — Term 1</p></div>
+        <div class="sgrid" style="margin-bottom:1.5rem">
+          <div class="scard"><div class="sc-icon">📊</div><div class="sc-num">92%</div><div class="sc-lbl">Overall</div></div>
+          <div class="scard"><div class="sc-icon">✅</div><div class="sc-num">42</div><div class="sc-lbl">Days Present</div></div>
+          <div class="scard"><div class="sc-icon">✗</div><div class="sc-num">4</div><div class="sc-lbl">Days Absent</div></div>
+          <div class="scard"><div class="sc-icon">⚠</div><div class="sc-num">2</div><div class="sc-lbl">Days Late</div></div>
+        </div>
+        <div class="card reveal">
+          <div class="tbl"><table>
+            <thead><tr><th>Class / Subject</th><th>Present</th><th>Absent</th><th>Total</th><th>%</th></tr></thead>
+            <tbody>
+              <tr><td>Science (10A)</td><td>42</td><td>4</td><td>46</td><td><span class="badge bg-green">91%</span></td></tr>
+              <tr><td>Mathematics (10A)</td><td>43</td><td>3</td><td>46</td><td><span class="badge bg-green">93%</span></td></tr>
+              <tr><td>Research (10B)</td><td>40</td><td>6</td><td>46</td><td><span class="badge bg-blue">87%</span></td></tr>
+              <tr><td>English (10A)</td><td>44</td><td>2</td><td>46</td><td><span class="badge bg-green">96%</span></td></tr>
+              <tr><td>History (10A)</td><td>41</td><td>5</td><td>46</td><td><span class="badge bg-blue">89%</span></td></tr>
+              <tr style="background:var(--bg)"><td><b>TOTAL</b></td><td><b>210</b></td><td><b>20</b></td><td><b>230</b></td><td><span class="badge bg-green"><b>91%</b></span></td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- CHILD REPORT -->
+      <div class="page" id="pr-page-childreport">
+        <div class="ptop">
+          <div class="phd"><h2>📋 James's Report Card</h2><p>Term 1 · January – March 2026</p></div>
+          <button class="print-btn" onclick="window.print()">🖨️ Print</button>
+        </div>
+        <div class="report-card reveal">
+          <div class="report-hd">
+            <div><div style="font-size:1rem;font-weight:900;color:var(--navy);font-family:'DM Serif Display',serif">🏫 EduBuild Academy</div><div style="font-size:.72rem;color:var(--muted);margin-top:.2rem">Term 1 · January – March 2026</div></div>
+            <div style="text-align:right;font-size:.82rem;line-height:1.8"><strong>James Mokoena</strong><br>Grade 10A · ID: EB-2026-047</div>
+          </div>
+          <div class="tbl"><table>
+            <thead><tr><th>Subject</th><th>Teacher</th><th>Term</th><th>Exam</th><th>Final</th><th>Grade</th></tr></thead>
+            <tbody>
+              <tr><td>Science</td><td>Mrs. Okonkwo</td><td>82%</td><td>86%</td><td><b>84%</b></td><td><span class="badge bg-green">A</span></td></tr>
+              <tr><td>Mathematics</td><td>Mr. Nkosi</td><td>70%</td><td>74%</td><td><b>72%</b></td><td><span class="badge bg-blue">B</span></td></tr>
+              <tr><td>Research</td><td>Ms. Patel</td><td>88%</td><td>92%</td><td><b>90%</b></td><td><span class="badge bg-green">A</span></td></tr>
+              <tr><td>English</td><td>Mr. Dlamini</td><td>66%</td><td>70%</td><td><b>68%</b></td><td><span class="badge bg-blue">B</span></td></tr>
+              <tr><td>History</td><td>Mrs. Moyo</td><td>75%</td><td>79%</td><td><b>77%</b></td><td><span class="badge bg-blue">B</span></td></tr>
+            </tbody>
+          </table></div>
+          <div class="report-summary"><div><strong>Average:</strong> 78.2%</div><div><strong>Attendance:</strong> 92%</div><div><strong>Conduct:</strong> <span class="badge bg-green">Excellent</span></div></div>
+          <div class="report-comment"><strong>Comment:</strong> James has shown excellent progress this term. Mathematics needs more focused practice.<br><strong>Head Teacher:</strong> Dr. Adams &nbsp; <strong>Date:</strong> 23 March 2026</div>
+        </div>
+      </div>
+
+      <!-- NOTICES -->
+      <div class="page" id="pr-page-notices">
+        <div class="phd"><h2>📢 School Notices</h2><p>Announcements from EduBuild Academy</p></div>
+        <article class="announce-card"><div class="announce-title">Term 2 Exam Schedule Released</div><div class="announce-meta">22 Mar 2026 · EduBuild Academy</div><div class="announce-body">Term 2 examinations will run from 15–25 April 2026. Please ensure your child arrives 15 minutes early.</div></article>
+        <article class="announce-card" style="border-left-color:var(--orange)"><div class="announce-title">School Closure — Public Holiday</div><div class="announce-meta">18 Mar 2026</div><div class="announce-body">School closed Friday 27 March 2026. Normal classes resume Monday 30 March.</div></article>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
      MODALS
-══════════════════════════════════════ -->
+══════════════════════════════ -->
 
-<!-- Add User Modal -->
-<div class="modal-overlay" id="modal-addUser">
+<!-- TEACHER: UPLOAD NOTE -->
+<div class="modal-overlay" id="modal-tUploadNote" role="dialog" aria-modal="true">
   <div class="modal">
-    <h3>➕ Add New User</h3>
-    <div class="mfield"><label>Full Name</label><input type="text" id="nu-name" placeholder="e.g. John Smith"/></div>
-    <div class="mfield"><label>Username</label><input type="text" id="nu-user" placeholder="e.g. j.smith"/></div>
-    <div class="mfield"><label>Role</label><select id="nu-role"><option>👩‍🏫 Teacher</option><option>👨‍🎓 Student</option><option>👪 Parent</option></select></div>
-    <div class="mfield"><label>Password</label><input type="password" id="nu-pass" placeholder="Set initial password"/></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('addUser')">Cancel</button>
-      <button class="btn btn-primary" onclick="addUser()">Add User</button>
+    <div class="modal-hd"><h3>📄 Upload Note</h3><button class="modal-close" onclick="closeModal('tUploadNote')">✕</button></div>
+    <div class="mfield"><label>Title</label><input type="text" id="tn-title" placeholder="e.g. Introduction to Cell Biology"/></div>
+    <div class="mrow">
+      <div class="mfield"><label>Subject</label><input type="text" id="tn-subject" placeholder="e.g. Science"/></div>
+      <div class="mfield"><label>Class</label><select id="tn-class"><option>Grade 8A</option><option>Grade 9B</option><option selected>Grade 10A</option><option>Grade 11A</option><option>Grade 12A</option></select></div>
+    </div>
+    <div class="mfield"><label>Description</label><input type="text" id="tn-desc" placeholder="Brief description of the note content"/></div>
+    <div class="mfield"><label>Note Content</label><textarea class="submit-area" id="tn-content" placeholder="Type or paste your note content here. Students will be able to read this directly in their portal." style="min-height:150px"></textarea></div>
+    <div class="mfield">
+      <label>Or Upload a File (optional)</label>
+      <div class="file-drop" id="tn-drop" onclick="document.getElementById('tn-file').click()" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="handleFileDrop(event,'tn-file','tn-fname')">
+        <div style="font-size:1.5rem">📁</div>
+        <p>Click to browse or drag & drop a file (PDF, DOCX, PNG)</p>
+        <input type="file" id="tn-file" accept=".pdf,.doc,.docx,.png,.jpg" onchange="showFileName('tn-file','tn-fname')"/>
+        <div class="file-name" id="tn-fname"></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('tUploadNote')">Cancel</button>
+      <button class="btn btn-primary" onclick="teacherUploadNote()">📤 Upload Note</button>
     </div>
   </div>
 </div>
 
-<!-- Add Teacher Modal -->
-<div class="modal-overlay" id="modal-addTeacher">
+<!-- TEACHER: CREATE ASSIGNMENT -->
+<div class="modal-overlay" id="modal-tCreateAssignment" role="dialog" aria-modal="true">
   <div class="modal">
-    <h3>👩‍🏫 Add Teacher</h3>
-    <div class="mfield"><label>Full Name</label><input type="text" id="nt-name" placeholder="e.g. Mr. John Smith"/></div>
-    <div class="mfield"><label>Subject</label><input type="text" id="nt-subject" placeholder="e.g. Mathematics"/></div>
-    <div class="mfield"><label>Classes</label><input type="text" id="nt-classes" placeholder="e.g. Gr 9A, 10B"/></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('addTeacher')">Cancel</button>
-      <button class="btn btn-primary" onclick="addTeacher()">Add Teacher</button>
+    <div class="modal-hd"><h3>📝 Create Assignment</h3><button class="modal-close" onclick="closeModal('tCreateAssignment')">✕</button></div>
+    <div class="mfield"><label>Assignment Title</label><input type="text" id="ta-title" placeholder="e.g. Chapter 4 Questions"/></div>
+    <div class="mrow">
+      <div class="mfield"><label>Subject</label><input type="text" id="ta-subject" placeholder="e.g. Science"/></div>
+      <div class="mfield"><label>Class</label><select id="ta-class"><option>Grade 8A</option><option>Grade 9B</option><option selected>Grade 10A</option><option>Grade 11A</option><option>Grade 12A</option></select></div>
+    </div>
+    <div class="mfield"><label>Due Date</label><input type="date" id="ta-due"/></div>
+    <div class="mfield"><label>Assignment Instructions</label><textarea class="submit-area" id="ta-instructions" placeholder="Write the full assignment question or instructions here. Students will read and respond to this." style="min-height:140px"></textarea></div>
+    <div class="mfield">
+      <label>Attach a File (optional)</label>
+      <div class="file-drop" onclick="document.getElementById('ta-file').click()">
+        <div style="font-size:1.5rem">📎</div>
+        <p>Attach a worksheet or question paper (PDF, DOCX)</p>
+        <input type="file" id="ta-file" accept=".pdf,.doc,.docx" onchange="showFileName('ta-file','ta-fname')"/>
+        <div class="file-name" id="ta-fname"></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('tCreateAssignment')">Cancel</button>
+      <button class="btn btn-primary" onclick="teacherCreateAssignment()">📝 Post Assignment</button>
     </div>
   </div>
 </div>
 
-<!-- Add Student Modal -->
-<div class="modal-overlay" id="modal-addStudent">
-  <div class="modal">
-    <h3>👨‍🎓 Enrol Student</h3>
-    <div class="mfield"><label>Full Name</label><input type="text" id="ns-name" placeholder="e.g. Sipho Dlamini"/></div>
-    <div class="mfield"><label>Grade</label><select id="ns-grade"><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option></select></div>
-    <div class="mfield"><label>Class</label><input type="text" id="ns-class" placeholder="e.g. 10A"/></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('addStudent')">Cancel</button>
-      <button class="btn btn-primary" onclick="addStudent()">Enrol Student</button>
+<!-- TEACHER: VIEW SUBMISSION -->
+<div class="modal-overlay" id="modal-viewSubmission" role="dialog" aria-modal="true">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-hd"><h3 id="vsModal-title">📄 Student Submission</h3><button class="modal-close" onclick="closeModal('viewSubmission')">✕</button></div>
+    <div style="font-size:.78rem;color:var(--muted);margin-bottom:.75rem" id="vsModal-meta"></div>
+    <div class="note-viewer" id="vsModal-content"></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('viewSubmission')">Close</button>
     </div>
   </div>
 </div>
 
-<!-- Add Parent Modal -->
-<div class="modal-overlay" id="modal-addParent">
+<!-- TEACHER: GRADE SUBMISSION -->
+<div class="modal-overlay" id="modal-gradeSubmission" role="dialog" aria-modal="true">
   <div class="modal">
-    <h3>👪 Add Parent</h3>
-    <div class="mfield"><label>Parent Name</label><input type="text" id="np-name" placeholder="e.g. Mrs. Dlamini"/></div>
-    <div class="mfield"><label>Child's Name</label><input type="text" id="np-child" placeholder="e.g. Lebo Dlamini"/></div>
-    <div class="mfield"><label>Email</label><input type="text" id="np-email" placeholder="e.g. parent@email.com"/></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('addParent')">Cancel</button>
-      <button class="btn btn-primary" onclick="addParent()">Add Parent</button>
+    <div class="modal-hd"><h3>📝 Grade Submission</h3><button class="modal-close" onclick="closeModal('gradeSubmission')">✕</button></div>
+    <div style="font-size:.82rem;color:var(--muted);margin-bottom:1rem" id="gs-meta"></div>
+    <div class="mfield"><label>Score (%)</label><input type="number" id="gs-score" min="0" max="100" placeholder="e.g. 85"/></div>
+    <div class="mfield"><label>Teacher Feedback (optional)</label><textarea class="submit-area" id="gs-feedback" placeholder="Write brief feedback for the student..." style="min-height:90px"></textarea></div>
+    <input type="hidden" id="gs-row-ref"/>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('gradeSubmission')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveSubmissionGrade()">Save Grade</button>
     </div>
   </div>
 </div>
 
-<!-- Add Subject Modal -->
-<div class="modal-overlay" id="modal-addSubject">
-  <div class="modal">
-    <h3>📚 Add Subject</h3>
-    <div class="mfield"><label>Subject Name</label><input type="text" id="nsub-name" placeholder="e.g. Physical Science"/></div>
-    <div class="mfield"><label>Assigned Teacher</label><input type="text" id="nsub-teacher" placeholder="e.g. Mrs. Okonkwo"/></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('addSubject')">Cancel</button>
-      <button class="btn btn-primary" onclick="addSubject()">Add Subject</button>
+<!-- STUDENT: READ NOTE MODAL -->
+<div class="modal-overlay" id="modal-readNote" role="dialog" aria-modal="true">
+  <div class="modal" style="max-width:580px">
+    <div class="modal-hd"><h3 id="rn-title">📄 Note</h3><button class="modal-close" onclick="closeModal('readNote')">✕</button></div>
+    <div class="note-viewer" id="rn-content"></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('readNote')">Close</button>
     </div>
   </div>
 </div>
 
-<!-- Add Class Modal -->
-<div class="modal-overlay" id="modal-addClass">
-  <div class="modal">
-    <h3>🏫 Add Class</h3>
-    <div class="mfield"><label>Class Name</label><input type="text" id="ncl-name" placeholder="e.g. Class 12B"/></div>
-    <div class="mfield"><label>Grade</label><select id="ncl-grade"><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option></select></div>
-    <div class="mfield"><label>Teacher</label><input type="text" id="ncl-teacher" placeholder="e.g. Mr. Nkosi"/></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('addClass')">Cancel</button>
-      <button class="btn btn-primary" onclick="addClass()">Add Class</button>
+<!-- STUDENT: SUBMIT ANSWER MODAL -->
+<div class="modal-overlay" id="modal-submitAnswer" role="dialog" aria-modal="true">
+  <div class="modal" style="max-width:580px">
+    <div class="modal-hd"><h3 id="sa-title">📤 Submit Answer</h3><button class="modal-close" onclick="closeModal('submitAnswer')">✕</button></div>
+    <div style="font-size:.78rem;color:var(--muted);margin-bottom:.75rem" id="sa-meta"></div>
+    <div class="mfield">
+      <label>Your Answer</label>
+      <textarea class="submit-area" id="sa-answer" placeholder="Type your answer here. Be clear and detailed. Max 1000 words." oninput="updateCharCount(this,'sa-count')"></textarea>
+      <div class="char-count" id="sa-count">0 / 1000 words</div>
+    </div>
+    <div class="mfield">
+      <label>Or attach a file (optional)</label>
+      <div class="file-drop" onclick="document.getElementById('sa-file').click()">
+        <div style="font-size:1.4rem">📎</div>
+        <p>Attach your answer as a file (PDF, DOCX, PNG, JPG)</p>
+        <input type="file" id="sa-file" accept=".pdf,.doc,.docx,.png,.jpg" onchange="showFileName('sa-file','sa-fname')"/>
+        <div class="file-name" id="sa-fname"></div>
+      </div>
+    </div>
+    <input type="hidden" id="sa-assignment-title"/>
+    <input type="hidden" id="sa-subject"/>
+    <input type="hidden" id="sa-teacher"/>
+    <input type="hidden" id="sa-status-id"/>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('submitAnswer')">Cancel</button>
+      <button class="btn btn-primary" onclick="studentSubmitAnswer()">📤 Submit Answer</button>
     </div>
   </div>
 </div>
 
-<!-- Add Lesson Modal -->
-<div class="modal-overlay" id="modal-addLesson">
+
+<div class="modal-overlay" id="modal-addSchool" role="dialog" aria-modal="true">
   <div class="modal">
-    <h3>📖 Upload Lesson</h3>
-    <div class="mfield"><label>Lesson Title</label><input type="text" id="nl-title" placeholder="e.g. Introduction to Genetics"/></div>
-    <div class="mfield"><label>Subject</label><input type="text" id="nl-sub" placeholder="e.g. Science"/></div>
-    <div class="mfield"><label>Grade</label><select id="nl-grade"><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option></select></div>
-    <div class="mfield"><label>Teacher</label><input type="text" id="nl-teacher" placeholder="e.g. Mrs. Okonkwo"/></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('addLesson')">Cancel</button>
-      <button class="btn btn-primary" onclick="addLesson()">Upload Lesson</button>
+    <div class="modal-hd"><h3>🏫 Add New School</h3><button class="modal-close" onclick="closeModal('addSchool')">✕</button></div>
+    <div class="mfield"><label>School Name</label><input type="text" id="ns-name" placeholder="e.g. Greenfield High School"/></div>
+    <div class="mfield"><label>School Address</label><input type="text" id="ns-addr" placeholder="e.g. 45 Oak Street, Cape Town"/></div>
+    <div class="mfield"><label>Head Teacher Name</label><input type="text" id="ns-head" placeholder="e.g. Dr. Mokoena"/></div>
+    <div class="mrow">
+      <div class="mfield"><label>Head Teacher Username</label><input type="text" id="ns-huser" placeholder="e.g. head.greenfield"/></div>
+      <div class="mfield"><label>Head Teacher Password</label><input type="password" id="ns-hpass" placeholder="Set password"/></div>
+    </div>
+    <div class="mfield"><label>Contact Email</label><input type="email" id="ns-email" placeholder="e.g. admin@greenfield.school"/></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('addSchool')">Cancel</button>
+      <button class="btn btn-primary" onclick="addSchool()">Create School</button>
     </div>
   </div>
 </div>
 
-<!-- Add Grade Modal -->
-<div class="modal-overlay" id="modal-addGrade">
+<!-- EDIT SCHOOL -->
+<div class="modal-overlay" id="modal-editSchool" role="dialog" aria-modal="true">
   <div class="modal">
-    <h3>📝 Enter Grade</h3>
-    <div class="mfield"><label>Student Name</label><input type="text" id="ng-student" placeholder="e.g. James Mokoena"/></div>
-    <div class="mfield"><label>Subject</label><input type="text" id="ng-sub" placeholder="e.g. Science"/></div>
-    <div class="mfield"><label>Assignment</label><input type="text" id="ng-assign" placeholder="e.g. Chapter 3 Test"/></div>
-    <div class="mfield"><label>Score (%)</label><input type="number" id="ng-score" placeholder="e.g. 85" min="0" max="100"/></div>
-    <div class="mfield"><label>Teacher</label><input type="text" id="ng-teacher" placeholder="e.g. Mrs. Okonkwo"/></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('addGrade')">Cancel</button>
-      <button class="btn btn-primary" onclick="addGrade()">Save Grade</button>
+    <div class="modal-hd"><h3>✏️ Edit School</h3><button class="modal-close" onclick="closeModal('editSchool')">✕</button></div>
+    <div class="mfield"><label>School Name</label><input type="text" id="es-name"/></div>
+    <div class="mfield"><label>School Address</label><input type="text" id="es-addr"/></div>
+    <div class="mfield"><label>Contact Email</label><input type="email" id="es-email"/></div>
+    <input type="hidden" id="es-idx"/>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('editSchool')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEditSchool()">Save Changes</button>
     </div>
   </div>
 </div>
 
-<!-- Add Announcement Modal -->
-<div class="modal-overlay" id="modal-addAnnounce">
+<!-- ADD PLATFORM USER -->
+<div class="modal-overlay" id="modal-addPlatformUser" role="dialog" aria-modal="true">
   <div class="modal">
-    <h3>📢 New Announcement</h3>
+    <div class="modal-hd"><h3>➕ Add User</h3><button class="modal-close" onclick="closeModal('addPlatformUser')">✕</button></div>
+    <div class="mfield"><label>Full Name</label><input type="text" id="pu-name" placeholder="e.g. Mrs. Johnson"/></div>
+    <div class="mfield"><label>Role</label><select id="pu-role"><option>👩‍🏫 Teacher</option><option>👨‍🎓 Student</option><option>👪 Parent</option><option>🏫 Head Teacher</option></select></div>
+    <div class="mfield"><label>School</label><select id="pu-school"></select></div>
+    <div class="mfield"><label>Username</label><input type="text" id="pu-user" placeholder="e.g. mrs.johnson"/></div>
+    <div class="mfield"><label>Password</label><input type="password" id="pu-pass" placeholder="Set password"/></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('addPlatformUser')">Cancel</button>
+      <button class="btn btn-primary" onclick="addPlatformUser()">Add User</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD ANNOUNCEMENT -->
+<div class="modal-overlay" id="modal-addAnnounce" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-hd"><h3>📢 New Announcement</h3><button class="modal-close" onclick="closeModal('addAnnounce')">✕</button></div>
     <div class="mfield"><label>Title</label><input type="text" id="na-title" placeholder="Announcement title"/></div>
-    <div class="mfield"><label>Message</label><input type="text" id="na-body" placeholder="Write your announcement here..."/></div>
-    <div class="modal-btns">
+    <div class="mfield"><label>Message</label><textarea id="na-body" placeholder="Write your announcement here..."></textarea></div>
+    <div class="mfield"><label>Target</label><select id="na-target"><option>All Schools</option><option>EduBuild Academy</option><option>Sunrise High School</option><option>Valley Institute</option></select></div>
+    <div class="modal-foot">
       <button class="btn btn-ghost" onclick="closeModal('addAnnounce')">Cancel</button>
       <button class="btn btn-primary" onclick="addAnnounce()">Post Announcement</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════ -->
+<!-- HT ADD TEACHER -->
+<div class="modal-overlay" id="modal-htAddTeacher" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-hd"><h3>👩‍🏫 Add Teacher</h3><button class="modal-close" onclick="closeModal('htAddTeacher')">✕</button></div>
+    <div class="mfield"><label>Full Name</label><input type="text" id="htt-name" placeholder="e.g. Mr. Obi"/></div>
+    <div class="mfield"><label>Subject</label><input type="text" id="htt-subj" placeholder="e.g. Mathematics"/></div>
+    <div class="mrow">
+      <div class="mfield"><label>Username</label><input type="text" id="htt-user" placeholder="e.g. m.obi"/></div>
+      <div class="mfield"><label>Password</label><input type="password" id="htt-pass" placeholder="Set password"/></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('htAddTeacher')">Cancel</button>
+      <button class="btn btn-primary" onclick="htAddTeacher()">Add Teacher</button>
+    </div>
+  </div>
+</div>
+
+<!-- HT ADD STUDENT -->
+<div class="modal-overlay" id="modal-htAddStudent" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-hd"><h3>👨‍🎓 Enrol Student</h3><button class="modal-close" onclick="closeModal('htAddStudent')">✕</button></div>
+    <div class="mfield"><label>Full Name</label><input type="text" id="hts-name" placeholder="e.g. Sipho Dlamini"/></div>
+    <div class="mrow">
+      <div class="mfield"><label>Grade</label><select id="hts-grade"><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option></select></div>
+      <div class="mfield"><label>Class</label><input type="text" id="hts-class" placeholder="e.g. 10A"/></div>
+    </div>
+    <div class="mrow">
+      <div class="mfield"><label>Username</label><input type="text" id="hts-user" placeholder="e.g. s.dlamini"/></div>
+      <div class="mfield"><label>Password</label><input type="password" id="hts-pass" placeholder="Set password"/></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('htAddStudent')">Cancel</button>
+      <button class="btn btn-primary" onclick="htAddStudent()">Enrol Student</button>
+    </div>
+  </div>
+</div>
+
+<!-- HT ADD PARENT -->
+<div class="modal-overlay" id="modal-htAddParent" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-hd"><h3>👪 Add Parent</h3><button class="modal-close" onclick="closeModal('htAddParent')">✕</button></div>
+    <div class="mfield"><label>Parent Name</label><input type="text" id="htp-name" placeholder="e.g. Mrs. Dlamini"/></div>
+    <div class="mfield"><label>Child's Name</label><input type="text" id="htp-child" placeholder="e.g. Lebo Dlamini"/></div>
+    <div class="mfield"><label>Email</label><input type="email" id="htp-email" placeholder="e.g. parent@email.com"/></div>
+    <div class="mrow">
+      <div class="mfield"><label>Username</label><input type="text" id="htp-user" placeholder="e.g. parent.dlamini"/></div>
+      <div class="mfield"><label>Password</label><input type="password" id="htp-pass" placeholder="Set password"/></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('htAddParent')">Cancel</button>
+      <button class="btn btn-primary" onclick="htAddParent()">Add Parent</button>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER ADD GRADE -->
+<div class="modal-overlay" id="modal-tAddGrade" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-hd"><h3>📝 Enter Grade</h3><button class="modal-close" onclick="closeModal('tAddGrade')">✕</button></div>
+    <div class="mfield"><label>Student Name</label><input type="text" id="tg-student" placeholder="e.g. James Mokoena"/></div>
+    <div class="mrow">
+      <div class="mfield"><label>Class</label><select id="tg-class"><option>Grade 8A</option><option>Grade 9B</option><option>Grade 10A</option></select></div>
+      <div class="mfield"><label>Score (%)</label><input type="number" id="tg-score" min="0" max="100" placeholder="e.g. 85"/></div>
+    </div>
+    <div class="mfield"><label>Assignment</label><input type="text" id="tg-assign" placeholder="e.g. Chapter 3 Test"/></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('tAddGrade')">Cancel</button>
+      <button class="btn btn-primary" onclick="tAddGrade()">Save Grade</button>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER ADD LESSON -->
+<div class="modal-overlay" id="modal-tAddLesson" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-hd"><h3>📖 Upload Lesson</h3><button class="modal-close" onclick="closeModal('tAddLesson')">✕</button></div>
+    <div class="mfield"><label>Lesson Title</label><input type="text" id="tl-title" placeholder="e.g. Cell Respiration"/></div>
+    <div class="mfield"><label>Class</label><select id="tl-class"><option>Grade 8A</option><option>Grade 9B</option><option>Grade 10A</option></select></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('tAddLesson')">Cancel</button>
+      <button class="btn btn-primary" onclick="tAddLesson()">Upload</button>
+    </div>
+  </div>
+</div>
+
 <script>
-/* ──────────────────────────────────────
-   AUTH — CREDENTIALS
-   SuperAdmin: Michel@2005 / Michel@4321
-────────────────────────────────────── */
-const CREDENTIALS = {
-  superadmin: { user: 'Michel@2005', pass: 'Michel@4321', role: 'superadmin' },
-  teacher:    { user: 'teacher',     pass: 'teacher123',  role: 'teacher' },
-  student:    { user: 'student',     pass: 'student123',  role: 'student' },
-  parent:     { user: 'parent',      pass: 'parent123',   role: 'parent' }
+/* ════════════════════════════════════════
+   DATA STORE
+════════════════════════════════════════ */
+const SCHOOLS = [
+  { id:'s1', name:'EduBuild Academy',    addr:'123 Education St, Johannesburg', email:'admin@edubuild.school',   head:'Dr. Adams',  huser:'head.edubuild',   hpass:'head1234',  students:247, teachers:18, active:true  },
+  { id:'s2', name:'Sunrise High School', addr:'45 Sunrise Ave, Cape Town',       email:'info@sunrisehigh.school', head:'Mrs. Banda',  huser:'head.sunrise',    hpass:'head1234',  students:312, teachers:22, active:true  },
+  { id:'s3', name:'Valley Institute',    addr:'7 Valley Road, Durban',           email:'contact@valley.edu',     head:'Mr. Okafor', huser:'head.valley',     hpass:'head1234',  students:182, teachers:14, active:false }
+];
+
+/* ════════════════════════════════════════
+   DATA STORE
+════════════════════════════════════════ */
+// Per-school role credentials — each school has its own set
+const SCHOOL_ROLE_CREDS = {
+  headteacher: { user:'head',    pass:'head1234',   icon:'🏫', title:'Head Teacher Sign In', hint:'Username: <b>head</b> &nbsp;·&nbsp; Password: <b>head1234</b>' },
+  student:     { user:'student', pass:'student123', icon:'👨‍🎓', title:'Student Sign In',     hint:'Username: <b>student</b> &nbsp;·&nbsp; Password: <b>student123</b>' },
+  parent:      { user:'parent',  pass:'parent123',  icon:'👪',  title:'Parent Sign In',      hint:'Username: <b>parent</b> &nbsp;·&nbsp; Password: <b>parent123</b>' },
+  teacher:     { user:'teacher', pass:'teacher123', icon:'👩‍🏫', title:'Teacher Sign In',     hint:'Username: <b>teacher</b> &nbsp;·&nbsp; Password: <b>teacher123</b>' }
 };
 
-const ROLE_META = {
-  superadmin: { icon:'👑', title:'SuperAdmin Sign In', hint:'Username: <b>Michel@2005</b> &nbsp;|&nbsp; Password: <b>Michel@4321</b>' },
-  teacher:    { icon:'👩‍🏫', title:'Teacher Sign In',    hint:'Username: <b>teacher</b> &nbsp;|&nbsp; Password: <b>teacher123</b>' },
-  student:    { icon:'👨‍🎓', title:'Student Sign In',    hint:'Username: <b>student</b> &nbsp;|&nbsp; Password: <b>student123</b>' },
-  parent:     { icon:'👪',  title:'Parent Sign In',     hint:'Username: <b>parent</b> &nbsp;|&nbsp; Password: <b>parent123</b>' }
-};
+let selectedSchoolIdx = null;   // which school was picked
+let selectedSchoolRole = null;  // which role inside that school
+let loginStep = 1;              // tracks current step
 
-let currentRole = 'superadmin';
-
-function setRole(role) {
-  currentRole = role;
-  document.querySelectorAll('.ltab').forEach(t => t.classList.remove('on'));
-  const idx = {superadmin:0,teacher:1,student:2,parent:3}[role];
-  document.querySelectorAll('.ltab')[idx].classList.add('on');
-  document.getElementById('roleIcon').textContent = ROLE_META[role].icon;
-  document.getElementById('roleTitle').textContent = ROLE_META[role].title;
-  document.getElementById('loginHint').innerHTML = ROLE_META[role].hint;
-  document.getElementById('loginError').style.display = 'none';
-  document.getElementById('loginUser').value = '';
-  document.getElementById('loginPass').value = '';
+/* ════════════════════════════════════════
+   SCREEN SWITCHER
+════════════════════════════════════════ */
+const ALL_SCREENS = ['loginScreen','adminScreen','headteacherScreen','teacherScreen','studentScreen','parentScreen'];
+function showScreen(id) {
+  ALL_SCREENS.forEach(s => { const el=document.getElementById(s); if(el) el.style.display='none'; });
+  const t = document.getElementById(id);
+  if(!t) return;
+  t.style.display = (id==='loginScreen') ? 'flex' : 'block';
 }
 
-function doLogin() {
-  const u = document.getElementById('loginUser').value.trim();
-  const p = document.getElementById('loginPass').value;
-  const cred = CREDENTIALS[currentRole];
-  const err = document.getElementById('loginError');
+/* ════════════════════════════════════════
+   LOGIN STEP HELPERS
+════════════════════════════════════════ */
+function showLoginStep(step) {
+  ['step1','step2Admin','step2School','step3Role','step4Login'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.style.display = 'none';
+  });
+  const target = document.getElementById(step);
+  if(target) target.style.display = 'block';
+  loginStep = step;
+}
 
-  if (u === cred.user && p === cred.pass) {
-    err.style.display = 'none';
-    if (currentRole === 'superadmin') {
-      document.getElementById('loginScreen').classList.remove('active');
-      document.getElementById('adminScreen').classList.add('active');
-      initReveal();
-    } else {
-      // Other roles — show coming soon message
-      err.style.display = 'block';
-      err.style.background = '#E8F5E9';
-      err.style.color = '#2E7D32';
-      err.style.border = '1px solid #C8E6C9';
-      err.textContent = '✅ Login successful! ' + currentRole.charAt(0).toUpperCase() + currentRole.slice(1) + ' dashboard coming soon.';
-    }
-  } else {
-    err.style.display = 'block';
-    err.style.background = '#FFEBEE';
-    err.style.color = '#B71C1C';
-    err.style.border = '1px solid #FFCDD2';
-    err.textContent = '❌ Incorrect username or password. Please try again.';
-    document.getElementById('loginPass').value = '';
-    document.getElementById('loginPass').focus();
+function showMsg(el, type, text) {
+  if(!el) return;
+  el.className = 'login-msg ' + type;
+  el.style.display = 'block';
+  el.textContent = text;
+}
+
+/* ════════════════════════════════════════
+   STEP 1 — Build school portal buttons
+════════════════════════════════════════ */
+function buildSchoolPortalList() {
+  const list = document.getElementById('schoolPortalList');
+  if(!list) return;
+  list.innerHTML = SCHOOLS.map((s,i) => `
+    <button class="portal-btn ${s.active?'':'restricted'}"
+      onclick="${s.active ? `chooseSchool(${i})` : `toast('🚫 ${s.name} is currently restricted by the Admin.')`}">
+      <span class="portal-icon">🏫</span>
+      <div class="portal-info">
+        <div class="portal-name">${s.name}</div>
+        <div class="portal-desc">${s.active ? s.addr : '⛔ Access Restricted'}</div>
+      </div>
+      <span class="portal-arrow">${s.active ? '›' : '🔒'}</span>
+    </button>
+  `).join('');
+}
+
+/* ════════════════════════════════════════
+   STEP 1 → STEP 2 : Choose Admin or School
+════════════════════════════════════════ */
+function choosePortal(type) {
+  if(type === 'admin') {
+    showLoginStep('step2Admin');
+    setTimeout(() => document.getElementById('adminUser')?.focus(), 80);
   }
 }
 
-// Allow Enter key on password field
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('loginPass').addEventListener('keydown', e => {
-    if (e.key === 'Enter') doLogin();
-  });
-  document.getElementById('loginUser').addEventListener('keydown', e => {
-    if (e.key === 'Enter') document.getElementById('loginPass').focus();
-  });
-});
-
-function signOut() {
-  document.getElementById('adminScreen').classList.remove('active');
-  document.getElementById('loginScreen').classList.add('active');
-  setRole('superadmin');
-  document.getElementById('loginUser').value = '';
-  document.getElementById('loginPass').value = '';
+function chooseSchool(idx) {
+  selectedSchoolIdx = idx;
+  const school = SCHOOLS[idx];
+  document.getElementById('schoolLoginName').textContent = school.name;
+  document.getElementById('schoolHint').innerHTML = `Head Teacher login: <b>${school.huser}</b> / <b>${school.hpass}</b>`;
+  document.getElementById('schoolPass').value = '';
+  document.getElementById('schoolMsg').style.display = 'none';
+  showLoginStep('step2School');
+  setTimeout(() => document.getElementById('schoolPass')?.focus(), 80);
 }
 
-/* ──────────────────────────────────────
-   SIDEBAR NAVIGATION
-────────────────────────────────────── */
-function showPage(name, el) {
-  document.querySelectorAll('.admin-page').forEach(p => p.classList.remove('on'));
-  document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('on'));
-  document.getElementById('page-' + name).classList.add('on');
-  if (el) el.classList.add('on');
+/* ════════════════════════════════════════
+   STEP 2a — Admin login
+════════════════════════════════════════ */
+function loginAdmin(e) {
+  if(e) e.preventDefault();
+  const u = document.getElementById('adminUser').value.trim();
+  const p = document.getElementById('adminPass').value;
+  const msg = document.getElementById('adminMsg');
+  if(u === 'Michel@2005' && p === 'Michel@4321') {
+    msg.style.display = 'none';
+    showScreen('adminScreen');
+    initReveal();
+  } else {
+    showMsg(msg, 'error', '❌ Incorrect admin credentials. Please try again.');
+    document.getElementById('adminPass').value = '';
+    document.getElementById('adminPass').focus();
+  }
+}
+
+/* ════════════════════════════════════════
+   STEP 2b — School password check
+════════════════════════════════════════ */
+function loginSchool(e) {
+  if(e) e.preventDefault();
+  const p = document.getElementById('schoolPass').value;
+  const school = SCHOOLS[selectedSchoolIdx];
+  const msg = document.getElementById('schoolMsg');
+  // School password is the head teacher's password (shared access code)
+  if(p === school.hpass) {
+    msg.style.display = 'none';
+    document.getElementById('step3SchoolName').textContent = '🏫 ' + school.name;
+    showLoginStep('step3Role');
+  } else {
+    showMsg(msg, 'error', '❌ Incorrect school password. Please try again.');
+    document.getElementById('schoolPass').value = '';
+    document.getElementById('schoolPass').focus();
+  }
+}
+
+/* ════════════════════════════════════════
+   STEP 3 → STEP 4 : Choose role inside school
+════════════════════════════════════════ */
+function chooseSchoolRole(role) {
+  selectedSchoolRole = role;
+  const meta = SCHOOL_ROLE_CREDS[role];
+  document.getElementById('step4Icon').textContent = meta.icon;
+  document.getElementById('step4Title').textContent = meta.title;
+  document.getElementById('roleHint').innerHTML = meta.hint;
+  document.getElementById('roleUser').value = '';
+  document.getElementById('rolePass').value = '';
+  document.getElementById('roleMsg').style.display = 'none';
+  showLoginStep('step4Login');
+  setTimeout(() => document.getElementById('roleUser')?.focus(), 80);
+}
+
+/* ════════════════════════════════════════
+   STEP 4 — Role login inside school
+════════════════════════════════════════ */
+function loginSchoolRole(e) {
+  if(e) e.preventDefault();
+  const u = document.getElementById('roleUser').value.trim();
+  const p = document.getElementById('rolePass').value;
+  const msg = document.getElementById('roleMsg');
+  const school = SCHOOLS[selectedSchoolIdx];
+  const meta = SCHOOL_ROLE_CREDS[selectedSchoolRole];
+
+  // For head teacher, check against school's own credentials
+  let valid = false;
+  if(selectedSchoolRole === 'headteacher') {
+    valid = (u === school.huser && p === school.hpass);
+  } else {
+    valid = (u === meta.user && p === meta.pass);
+  }
+
+  if(valid) {
+    msg.style.display = 'none';
+    // Set school badge names in the role dashboards
+    const badge = document.getElementById('htSchoolBadge');
+    if(badge) badge.textContent = '🏫 ' + school.name;
+    const htName = document.getElementById('htUserName');
+    if(htName) htName.textContent = school.head;
+    if(selectedSchoolRole === 'headteacher') renderSchoolPages(school);
+
+    const MAP = { headteacher:'headteacherScreen', teacher:'teacherScreen', student:'studentScreen', parent:'parentScreen' };
+    showScreen(MAP[selectedSchoolRole]);
+    initReveal();
+  } else {
+    showMsg(msg, 'error', '❌ Incorrect username or password. Please try again.');
+    document.getElementById('rolePass').value = '';
+    document.getElementById('rolePass').focus();
+  }
+}
+
+/* ════════════════════════════════════════
+   BACK NAVIGATION
+════════════════════════════════════════ */
+function goBack() {
+  if(loginStep === 'step2Admin' || loginStep === 'step2School') {
+    showLoginStep('step1');
+  } else if(loginStep === 'step3Role') {
+    showLoginStep('step2School');
+  }
+}
+
+function goToStep3() {
+  showLoginStep('step3Role');
+}
+
+/* ════════════════════════════════════════
+   SIGN OUT — always goes back to step 1
+════════════════════════════════════════ */
+function doSignOut() {
+  selectedSchoolIdx = null;
+  selectedSchoolRole = null;
+  // Clear all inputs
+  ['adminUser','adminPass','schoolPass','roleUser','rolePass'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.value = '';
+  });
+  ['adminMsg','schoolMsg','roleMsg'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.style.display = 'none';
+  });
+  buildSchoolPortalList();
+  showLoginStep('step1');
+  showScreen('loginScreen');
+}
+
+/* ════════════════════════════════════════
+   SCHOOL CARDS — Admin
+════════════════════════════════════════ */
+function renderSchoolGrid() {
+  const grid = document.getElementById('schoolGrid');
+  if(!grid) return;
+  grid.innerHTML = SCHOOLS.map((s,i) => `
+    <div class="school-card" id="school-card-${i}">
+      <div class="school-card-header">
+        <div>
+          <div class="school-card-name">${s.name}</div>
+          <div class="school-card-id">📍 ${s.addr}</div>
+        </div>
+        <span class="badge ${s.active?'bg-green':'bg-red'}">${s.active?'● Active':'● Restricted'}</span>
+      </div>
+      <div class="school-card-stats">
+        <div class="school-stat"><div class="school-stat-num">${s.students}</div><div class="school-stat-lbl">Students</div></div>
+        <div class="school-stat"><div class="school-stat-num">${s.teachers}</div><div class="school-stat-lbl">Teachers</div></div>
+        <div class="school-stat"><div class="school-stat-num">${s.active?'Active':'Locked'}</div><div class="school-stat-lbl">Status</div></div>
+      </div>
+      <div style="font-size:.77rem;color:var(--muted);margin-bottom:.8rem">👤 Head: <b>${s.head}</b> &nbsp;·&nbsp; ✉ ${s.email}</div>
+      <div class="school-card-foot">
+        <label class="toggle-wrap" title="${s.active?'Click to restrict':'Click to enable'}">
+          <span class="toggle"><input type="checkbox" ${s.active?'checked':''} onchange="toggleSchool(${i},this)"/><span class="toggle-slider"></span></span>
+          <span class="toggle-lbl">${s.active?'System Active':'System Restricted'}</span>
+        </label>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-ghost" style="font-size:.72rem;padding:.35rem .7rem" onclick="openEditSchool(${i})">✏️ Edit</button>
+          <button class="btn btn-danger" style="font-size:.72rem;padding:.35rem .7rem" onclick="deleteSchool(${i})">🗑️ Delete</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleSchool(idx, el) {
+  SCHOOLS[idx].active = el.checked;
+  const lbl = el.closest('.toggle-wrap').querySelector('.toggle-lbl');
+  const card = document.getElementById('school-card-'+idx);
+  const badge = card.querySelector('.school-card-header .badge');
+  lbl.textContent = el.checked ? 'System Active' : 'System Restricted';
+  badge.className = 'badge ' + (el.checked ? 'bg-green' : 'bg-red');
+  badge.textContent = el.checked ? '● Active' : '● Restricted';
+  buildSchoolPortalList(); // rebuild login portal buttons
+  toast(`${SCHOOLS[idx].name} ${el.checked ? 'enabled ✓' : 'restricted 🚫'}`);
+}
+
+function openEditSchool(idx) {
+  const s = SCHOOLS[idx];
+  document.getElementById('es-name').value = s.name;
+  document.getElementById('es-addr').value = s.addr;
+  document.getElementById('es-email').value = s.email;
+  document.getElementById('es-idx').value = idx;
+  openModal('editSchool');
+}
+
+function saveEditSchool() {
+  const idx = parseInt(document.getElementById('es-idx').value);
+  SCHOOLS[idx].name  = document.getElementById('es-name').value.trim() || SCHOOLS[idx].name;
+  SCHOOLS[idx].addr  = document.getElementById('es-addr').value.trim()  || SCHOOLS[idx].addr;
+  SCHOOLS[idx].email = document.getElementById('es-email').value.trim() || SCHOOLS[idx].email;
+  renderSchoolGrid();
+  closeModal('editSchool');
+  toast(`School "${SCHOOLS[idx].name}" updated ✓`);
+}
+
+function deleteSchool(idx) {
+  if(!confirm(`Delete "${SCHOOLS[idx].name}"? This cannot be undone.`)) return;
+  SCHOOLS.splice(idx,1);
+  renderSchoolGrid();
+  document.getElementById('totalSchools').textContent = SCHOOLS.filter(s=>s.active).length;
+  toast('School deleted.');
+}
+
+function addSchool() {
+  const name  = document.getElementById('ns-name').value.trim();
+  const addr  = document.getElementById('ns-addr').value.trim();
+  const head  = document.getElementById('ns-head').value.trim();
+  const huser = document.getElementById('ns-huser').value.trim();
+  const hpass = document.getElementById('ns-hpass').value.trim();
+  const email = document.getElementById('ns-email').value.trim();
+  if(!name || !head || !huser || !hpass) { toast('Please fill all required fields.'); return; }
+  SCHOOLS.push({ id:'s'+Date.now(), name, addr, email, head, huser, hpass, students:0, teachers:0, active:true });
+  renderSchoolGrid();
+  buildSchoolPortalList();
+  populateSchoolDropdowns();
+  closeModal('addSchool');
+  ['ns-name','ns-addr','ns-head','ns-huser','ns-hpass','ns-email'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('totalSchools').textContent = SCHOOLS.filter(s=>s.active).length;
+  toast(`School "${name}" created ✓`);
+}
+
+function populateSchoolDropdowns() {
+  const sel = document.getElementById('pu-school');
+  if(sel) sel.innerHTML = SCHOOLS.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
+}
+
+/* ════════════════════════════════════════
+   RENDER HEAD TEACHER SCHOOL PAGES
+════════════════════════════════════════ */
+function renderSchoolPages(school) {
+  const main = document.getElementById('htMain');
+  main.innerHTML = `
+    <div class="page on" id="ht-page-dashboard">
+      <div class="phd"><h2>Welcome, ${school.head} 🏫</h2><p>${school.name} — Monday, 23 March 2026</p></div>
+      <div class="sgrid">
+        <div class="scard reveal"><div class="sc-icon">👨‍🎓</div><div class="sc-num">${school.students}</div><div class="sc-lbl">Students</div></div>
+        <div class="scard reveal"><div class="sc-icon">👩‍🏫</div><div class="sc-num">${school.teachers}</div><div class="sc-lbl">Teachers</div></div>
+        <div class="scard reveal"><div class="sc-icon">✅</div><div class="sc-num">91%</div><div class="sc-lbl">Attendance Today</div></div>
+        <div class="scard reveal"><div class="sc-icon">📊</div><div class="sc-num">79%</div><div class="sc-lbl">School Average</div></div>
+      </div>
+      <div class="callout cl-tip"><span>💡</span><p>As Head Teacher of <strong>${school.name}</strong>, you can add teachers, enrol students, add parents, manage classes and subjects, and view school-wide attendance and reports. All data is independent from other schools.</p></div>
+    </div>
+
+    <div class="page" id="ht-page-teachers">
+      <div class="ptop">
+        <div class="phd"><h2>👩‍🏫 Teachers</h2><p>Manage teachers at ${school.name}</p></div>
+        <button class="add-btn" onclick="openModal('htAddTeacher')">+ Add Teacher</button>
+      </div>
+      <div class="card reveal"><div class="tbl"><table>
+        <thead><tr><th>Name</th><th>Subject</th><th>Classes</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="ht-teacher-tbody">
+          <tr><td><b>Mrs. Sarah Okonkwo</b></td><td>Science</td><td>8A, 9B, 10A</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
+          <tr><td><b>Mr. David Nkosi</b></td><td>Mathematics</td><td>8B, 9A, 11A</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
+          <tr><td><b>Ms. Priya Patel</b></td><td>Research</td><td>10B, 11B, 12A</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
+          <tr><td><b>Mr. John Dlamini</b></td><td>English</td><td>8A, 9A, 10A</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
+        </tbody>
+      </table></div></div>
+    </div>
+
+    <div class="page" id="ht-page-students">
+      <div class="ptop">
+        <div class="phd"><h2>👨‍🎓 Students</h2><p>All students enrolled at ${school.name}</p></div>
+        <button class="add-btn" onclick="openModal('htAddStudent')">+ Enrol Student</button>
+      </div>
+      <div class="card reveal"><div class="tbl"><table>
+        <thead><tr><th>Name</th><th>Grade</th><th>Class</th><th>Avg Score</th><th>Attendance</th><th>Actions</th></tr></thead>
+        <tbody id="ht-student-tbody">
+          <tr><td><b>James Mokoena</b></td><td>Grade 10</td><td>10A</td><td><span class="badge bg-green">78%</span></td><td>92%</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
+          <tr><td><b>Lebo Dlamini</b></td><td>Grade 10</td><td>10B</td><td><span class="badge bg-blue">85%</span></td><td>96%</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
+          <tr><td><b>Amara Osei</b></td><td>Grade 9</td><td>9A</td><td><span class="badge bg-amber">61%</span></td><td>78%</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
+          <tr><td><b>Thabo Nkosi</b></td><td>Grade 11</td><td>11A</td><td><span class="badge bg-green">90%</span></td><td>98%</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
+          <tr><td><b>Zanele Moyo</b></td><td>Grade 8</td><td>8B</td><td><span class="badge bg-red">55%</span></td><td>72%</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
+        </tbody>
+      </table></div></div>
+    </div>
+
+    <div class="page" id="ht-page-parents">
+      <div class="ptop">
+        <div class="phd"><h2>👪 Parents</h2><p>Parent accounts at ${school.name}</p></div>
+        <button class="add-btn" onclick="openModal('htAddParent')">+ Add Parent</button>
+      </div>
+      <div class="card reveal"><div class="tbl"><table>
+        <thead><tr><th>Parent</th><th>Child</th><th>Grade</th><th>Contact</th><th>Actions</th></tr></thead>
+        <tbody id="ht-parent-tbody">
+          <tr><td><b>Mrs. Mokoena</b></td><td>James Mokoena</td><td>Grade 10</td><td>parent.mokoena@email.com</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
+          <tr><td><b>Mr. Dlamini Sr.</b></td><td>Lebo Dlamini</td><td>Grade 10</td><td>parent.dlamini@email.com</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
+        </tbody>
+      </table></div></div>
+    </div>
+
+    <div class="page" id="ht-page-subjects">
+      <div class="phd"><h2>📚 Subjects</h2><p>Subjects offered at ${school.name}</p></div>
+      <div class="card reveal"><div class="tbl"><table>
+        <thead><tr><th>Subject</th><th>Teacher</th><th>Classes</th><th>Avg Score</th></tr></thead>
+        <tbody>
+          <tr><td><b>🔬 Science</b></td><td>Mrs. Okonkwo</td><td>6</td><td><span class="badge bg-green">82%</span></td></tr>
+          <tr><td><b>➕ Mathematics</b></td><td>Mr. Nkosi</td><td>6</td><td><span class="badge bg-blue">74%</span></td></tr>
+          <tr><td><b>🔍 Research</b></td><td>Ms. Patel</td><td>4</td><td><span class="badge bg-green">88%</span></td></tr>
+          <tr><td><b>📖 English</b></td><td>Mr. Dlamini</td><td>6</td><td><span class="badge bg-amber">70%</span></td></tr>
+          <tr><td><b>🌍 History</b></td><td>Mrs. Moyo</td><td>4</td><td><span class="badge bg-blue">77%</span></td></tr>
+        </tbody>
+      </table></div></div>
+    </div>
+
+    <div class="page" id="ht-page-classes">
+      <div class="phd"><h2>🏫 Classes</h2><p>All class groups at ${school.name}</p></div>
+      <div class="card reveal"><div class="tbl"><table>
+        <thead><tr><th>Class</th><th>Grade</th><th>Teacher</th><th>Students</th></tr></thead>
+        <tbody>
+          <tr><td><b>Class 8A</b></td><td>Grade 8</td><td>Mr. Dlamini</td><td>22</td></tr>
+          <tr><td><b>Class 9A</b></td><td>Grade 9</td><td>Mr. Nkosi</td><td>24</td></tr>
+          <tr><td><b>Class 9B</b></td><td>Grade 9</td><td>Mrs. Okonkwo</td><td>23</td></tr>
+          <tr><td><b>Class 10A</b></td><td>Grade 10</td><td>Mrs. Okonkwo</td><td>25</td></tr>
+          <tr><td><b>Class 10B</b></td><td>Grade 10</td><td>Ms. Patel</td><td>24</td></tr>
+        </tbody>
+      </table></div></div>
+    </div>
+
+    <div class="page" id="ht-page-research">
+      <div class="phd"><h2>🔍 Research</h2><p>Research subject overview at ${school.name}</p></div>
+      <div class="sgrid"><div class="scard"><div class="sc-icon">👩‍🏫</div><div class="sc-num">Ms. Patel</div><div class="sc-lbl">Teacher</div></div><div class="scard"><div class="sc-icon">👨‍🎓</div><div class="sc-num">68</div><div class="sc-lbl">Students</div></div><div class="scard"><div class="sc-icon">📊</div><div class="sc-num">88%</div><div class="sc-lbl">Average</div></div></div>
+      <div class="card reveal"><div class="tbl"><table>
+        <thead><tr><th>Student</th><th>Assignment</th><th>Score</th></tr></thead>
+        <tbody>
+          <tr><td>Lebo Dlamini</td><td>Research Paper 1</td><td><span class="badge bg-green">90%</span></td></tr>
+          <tr><td>Thabo Nkosi</td><td>Literature Review</td><td><span class="badge bg-green">87%</span></td></tr>
+          <tr><td>Sipho Ndlovu</td><td>Data Collection</td><td><span class="badge bg-green">82%</span></td></tr>
+          <tr><td>Amara Osei</td><td>Research Paper 1</td><td><span class="badge bg-amber">71%</span></td></tr>
+        </tbody>
+      </table></div></div>
+    </div>
+
+    <div class="page" id="ht-page-grades">
+      <div class="phd"><h2>📝 Grades</h2><p>All student grades at ${school.name}</p></div>
+      <div class="card reveal"><div class="tbl"><table>
+        <thead><tr><th>Student</th><th>Subject</th><th>Assignment</th><th>Score</th><th>Teacher</th></tr></thead>
+        <tbody>
+          <tr><td>James Mokoena</td><td>Science</td><td>Cell Biology Test</td><td><span class="badge bg-green">84%</span></td><td>Mrs. Okonkwo</td></tr>
+          <tr><td>Lebo Dlamini</td><td>Research</td><td>Research Paper 1</td><td><span class="badge bg-green">90%</span></td><td>Ms. Patel</td></tr>
+          <tr><td>Amara Osei</td><td>English</td><td>Essay</td><td><span class="badge bg-amber">61%</span></td><td>Mr. Dlamini</td></tr>
+          <tr><td>Thabo Nkosi</td><td>Mathematics</td><td>Calculus Test</td><td><span class="badge bg-green">93%</span></td><td>Mr. Nkosi</td></tr>
+          <tr><td>Zanele Moyo</td><td>Science</td><td>Lab Report</td><td><span class="badge bg-red">55%</span></td><td>Mrs. Okonkwo</td></tr>
+        </tbody>
+      </table></div></div>
+    </div>
+
+    <div class="page" id="ht-page-attendance">
+      <div class="phd"><h2>✅ School-Wide Attendance</h2><p>Full attendance summary for ${school.name}</p></div>
+      <div class="callout cl-info"><span>ℹ️</span><p>This is the consolidated attendance across all classes. Individual class records are updated by each teacher independently.</p></div>
+      <div class="sgrid" style="margin-bottom:1.5rem">
+        <div class="scard"><div class="sc-icon">👨‍🎓</div><div class="sc-num">${school.students}</div><div class="sc-lbl">Total Students</div></div>
+        <div class="scard"><div class="sc-icon">✅</div><div class="sc-num">91%</div><div class="sc-lbl">Present Today</div></div>
+        <div class="scard"><div class="sc-icon">✗</div><div class="sc-num">22</div><div class="sc-lbl">Absent Today</div></div>
+        <div class="scard"><div class="sc-icon">📊</div><div class="sc-num">89%</div><div class="sc-lbl">Term Average</div></div>
+      </div>
+      <div class="card"><div class="tbl"><table>
+        <thead><tr><th>Class</th><th>Teacher</th><th>Students</th><th>Present</th><th>Absent</th><th>Term %</th></tr></thead>
+        <tbody>
+          <tr><td><b>Grade 8A</b></td><td>Mrs. Okonkwo</td><td>22</td><td>19</td><td>3</td><td><span class="badge bg-blue">77%</span></td></tr>
+          <tr><td><b>Grade 9B</b></td><td>Mrs. Okonkwo</td><td>23</td><td>21</td><td>2</td><td><span class="badge bg-blue">88%</span></td></tr>
+          <tr><td><b>Grade 10A</b></td><td>Mrs. Okonkwo</td><td>25</td><td>25</td><td>0</td><td><span class="badge bg-green">95%</span></td></tr>
+          <tr><td><b>Grade 9A</b></td><td>Mr. Nkosi</td><td>24</td><td>22</td><td>2</td><td><span class="badge bg-green">91%</span></td></tr>
+          <tr><td><b>Grade 11A</b></td><td>Mr. Nkosi</td><td>22</td><td>20</td><td>2</td><td><span class="badge bg-blue">85%</span></td></tr>
+          <tr style="background:var(--bg)"><td><b>🏫 SCHOOL TOTAL</b></td><td></td><td><b>${school.students}</b></td><td><b>225</b></td><td><b>22</b></td><td><span class="badge bg-green"><b>91%</b></span></td></tr>
+        </tbody>
+      </table></div></div>
+    </div>
+
+    <div class="page" id="ht-page-reports">
+      <div class="ptop">
+        <div class="phd"><h2>📋 School Reports</h2><p>Term reports for ${school.name}</p></div>
+        <button class="print-btn" onclick="window.print()">🖨️ Print</button>
+      </div>
+      <div class="report-card reveal">
+        <div class="report-hd">
+          <div><div style="font-size:1rem;font-weight:900;color:var(--navy);font-family:'DM Serif Display',serif">🏫 ${school.name}</div><div style="font-size:.72rem;color:var(--muted);margin-top:.2rem">Term 1 · January – March 2026</div></div>
+          <div style="text-align:right;font-size:.82rem"><strong>James Mokoena</strong><br>Grade 10A · ID: EB-2026-047</div>
+        </div>
+        <div class="tbl"><table><thead><tr><th>Subject</th><th>Teacher</th><th>Term</th><th>Exam</th><th>Final</th><th>Grade</th></tr></thead>
+        <tbody>
+          <tr><td>Science</td><td>Mrs. Okonkwo</td><td>82%</td><td>86%</td><td><b>84%</b></td><td><span class="badge bg-green">A</span></td></tr>
+          <tr><td>Mathematics</td><td>Mr. Nkosi</td><td>70%</td><td>74%</td><td><b>72%</b></td><td><span class="badge bg-blue">B</span></td></tr>
+          <tr><td>Research</td><td>Ms. Patel</td><td>88%</td><td>92%</td><td><b>90%</b></td><td><span class="badge bg-green">A</span></td></tr>
+          <tr><td>English</td><td>Mr. Dlamini</td><td>66%</td><td>70%</td><td><b>68%</b></td><td><span class="badge bg-blue">B</span></td></tr>
+          <tr><td>History</td><td>Mrs. Moyo</td><td>75%</td><td>79%</td><td><b>77%</b></td><td><span class="badge bg-blue">B</span></td></tr>
+        </tbody></table></div>
+        <div class="report-summary"><div><strong>Average:</strong> 78.2%</div><div><strong>Attendance:</strong> 92%</div><div><strong>Conduct:</strong> <span class="badge bg-green">Excellent</span></div></div>
+        <div class="report-comment"><strong>Head Teacher Comment:</strong> James has shown excellent progress this term.<br><strong>Head Teacher:</strong> ${school.head} &nbsp; <strong>Date:</strong> 23 March 2026</div>
+      </div>
+    </div>
+
+    <div class="page" id="ht-page-announcements">
+      <div class="ptop">
+        <div class="phd"><h2>📢 Announcements</h2><p>Post notices for ${school.name}</p></div>
+        <button class="add-btn" onclick="openModal('addAnnounce')">+ New Announcement</button>
+      </div>
+      <div id="htAnnounceList">
+        <article class="announce-card"><div class="announce-title">Term 2 Exam Schedule Released</div><div class="announce-meta">Posted by ${school.head} · 22 Mar 2026</div><div class="announce-body">Term 2 examinations run 15–25 April 2026.</div></article>
+      </div>
+    </div>
+
+    <div class="page" id="ht-page-schoolsettings">
+      <div class="phd"><h2>⚙️ School Settings</h2><p>Edit ${school.name} configuration</p></div>
+      <div class="card reveal"><div class="settings-form">
+        <div class="mfield"><label>School Name</label><input type="text" value="${school.name}"/></div>
+        <div class="mfield"><label>Address</label><input type="text" value="${school.addr}"/></div>
+        <div class="mfield"><label>Contact Email</label><input type="email" value="${school.email}"/></div>
+        <div class="mfield"><label>Your Name</label><input type="text" value="${school.head}" readonly/></div>
+        <div class="callout cl-warn" style="margin:0"><span>⚠️</span><p style="font-size:.76rem">School name changes will be reflected across the platform. Contact the SuperAdmin to change your login credentials.</p></div>
+        <button class="btn btn-primary" style="align-self:flex-start" onclick="toast('Settings saved ✓')">Save Changes</button>
+      </div></div>
+    </div>
+  `;
   initReveal();
 }
 
-/* ──────────────────────────────────────
-   MODALS
-────────────────────────────────────── */
-function openModal(id) {
-  document.getElementById('modal-' + id).classList.add('open');
-}
-function closeModal(id) {
-  document.getElementById('modal-' + id).classList.remove('open');
-}
-// Close modal on overlay click
-document.querySelectorAll('.modal-overlay').forEach(o => {
-  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
-});
+/* ════════════════════════════════════════
+   PAGE NAVIGATION
+════════════════════════════════════════ */
+function adminPage(name, el) { switchPage('admin-page-', 'adminSidebar', name, el); }
+function htPage(name, el)    { switchPage('ht-page-',    'htSidebar',    name, el); initReveal(); }
+function tPage(name, el)     { switchPage('t-page-',     'tSidebar',     name, el); }
+function stPage(name, el)    { switchPage('st-page-',    'sSidebar',     name, el); }
+function prPage(name, el)    { switchPage('pr-page-',    'pSidebar',     name, el); }
 
-/* ──────────────────────────────────────
-   ADD FUNCTIONS — insert rows into tables
-────────────────────────────────────── */
-function todayStr() {
-  const d = new Date();
-  return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-}
-
-function addUser() {
-  const n = document.getElementById('nu-name').value.trim();
-  const u = document.getElementById('nu-user').value.trim();
-  const r = document.getElementById('nu-role').value;
-  if (!n || !u) { alert('Please fill in all fields.'); return; }
-  const roleMap = {'👩‍🏫 Teacher':'badge-blue','👨‍🎓 Student':'badge-green','👪 Parent':'badge-orange'};
-  const tbody = document.getElementById('userTable');
-  const row = tbody.insertRow();
-  row.innerHTML = `<td><b>${n}</b></td><td>${u}</td><td><span class="badge ${roleMap[r]}">${r}</span></td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td>`;
-  closeModal('addUser');
-  document.getElementById('nu-name').value=''; document.getElementById('nu-user').value='';
-  updateCount('totalStudents', r.includes('Student') ? 1 : 0);
-  updateCount('totalTeachers', r.includes('Teacher') ? 1 : 0);
+function switchPage(prefix, sidebarId, name, el) {
+  const main = document.getElementById(sidebarId).nextElementSibling.querySelector ? null : null;
+  // find all pages with the same prefix
+  document.querySelectorAll('[id^="'+prefix+'"]').forEach(p => p.classList.remove('on'));
+  const target = document.getElementById(prefix+name);
+  if(target) { target.classList.add('on'); initReveal(); }
+  document.querySelectorAll('#'+sidebarId+' .sitem').forEach(s => s.classList.remove('on'));
+  if(el) el.classList.add('on');
+  if(window.innerWidth < 769) {
+    const sid = sidebarId;
+    const btn = document.getElementById(sidebarId.replace('Sidebar','Hamburger'));
+    const backdrop = document.getElementById(sidebarId.replace('Sidebar','Backdrop'));
+    if(sid) document.getElementById(sid).classList.remove('open');
+    if(backdrop) backdrop.classList.remove('open');
+    if(btn) btn.setAttribute('aria-expanded','false');
+  }
 }
 
-function addTeacher() {
-  const n = document.getElementById('nt-name').value.trim();
-  const s = document.getElementById('nt-subject').value.trim();
-  const c = document.getElementById('nt-classes').value.trim();
-  if (!n || !s) { alert('Please fill name and subject.'); return; }
-  const tbody = document.getElementById('teacherTable');
-  const row = tbody.insertRow();
-  row.innerHTML = `<td><b>${n}</b></td><td>${s}</td><td>${c||'TBA'}</td><td>0</td><td><span class="badge badge-green">Active</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td>`;
-  closeModal('addTeacher');
-  document.getElementById('nt-name').value=''; document.getElementById('nt-subject').value=''; document.getElementById('nt-classes').value='';
-  updateCount('totalTeachers', 1);
+/* ════════════════════════════════════════
+   ATTENDANCE — LIVE CALCULATION
+════════════════════════════════════════ */
+function switchAttTab(id, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  const pane = document.getElementById('att-'+id);
+  if(pane) pane.classList.add('active');
+  if(id === 'summary') refreshAttSummary();
 }
 
-function addStudent() {
-  const n = document.getElementById('ns-name').value.trim();
-  const g = document.getElementById('ns-grade').value;
-  const c = document.getElementById('ns-class').value.trim();
-  if (!n) { alert('Please enter student name.'); return; }
-  const tbody = document.getElementById('studentTable');
-  const row = tbody.insertRow();
-  row.innerHTML = `<td><b>${n}</b></td><td>${g}</td><td>${c||'TBA'}</td><td><span class="badge badge-blue">N/A</span></td><td>N/A</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td>`;
-  closeModal('addStudent');
-  document.getElementById('ns-name').value=''; document.getElementById('ns-class').value='';
-  updateCount('totalStudents', 1);
+function updateAttStyle(sel) {
+  sel.className = 'att-select ' + sel.value;
 }
 
-function addParent() {
-  const n = document.getElementById('np-name').value.trim();
-  const ch = document.getElementById('np-child').value.trim();
-  const em = document.getElementById('np-email').value.trim();
-  if (!n || !ch) { alert('Please fill parent name and child name.'); return; }
-  const rows = document.querySelectorAll('#page-parents tbody tr');
-  const tbody = document.querySelector('#page-parents tbody');
-  const row = tbody.insertRow();
-  row.innerHTML = `<td><b>${n}</b></td><td>${ch}</td><td>—</td><td>${em||'—'}</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td>`;
-  closeModal('addParent');
-  document.getElementById('np-name').value=''; document.getElementById('np-child').value=''; document.getElementById('np-email').value='';
+/* Called whenever a days-present input changes — recalculates % live */
+function recalcPct(input) {
+  const row = input.closest('tr');
+  const totalCell = row.cells[3];
+  const pctCell = row.cells[4];
+  const total = parseInt(totalCell.textContent) || 46;
+  const days = Math.min(parseInt(input.value) || 0, total);
+  const pct = Math.round((days / total) * 100);
+  const cls = pct >= 90 ? 'bg-green' : pct >= 75 ? 'bg-blue' : pct >= 60 ? 'bg-amber' : 'bg-red';
+  pctCell.innerHTML = `<span class="badge ${cls}">${pct}%</span>`;
 }
 
-function addSubject() {
-  const n = document.getElementById('nsub-name').value.trim();
-  const t = document.getElementById('nsub-teacher').value.trim();
-  if (!n) { alert('Please enter subject name.'); return; }
-  const tbody = document.getElementById('subjectTable');
-  const row = tbody.insertRow();
-  row.innerHTML = `<td><b>📘 ${n}</b></td><td>${t||'TBA'}</td><td>0</td><td>0</td><td><span class="badge badge-blue">N/A</span></td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td>`;
-  closeModal('addSubject');
-  document.getElementById('nsub-name').value=''; document.getElementById('nsub-teacher').value='';
+/* Attach live recalc to all attendance inputs on page load */
+function initAttendanceInputs() {
+  document.querySelectorAll('.att-days').forEach(inp => {
+    inp.addEventListener('input', () => recalcPct(inp));
+    recalcPct(inp); // init on load
+  });
 }
 
-function addClass() {
-  const n = document.getElementById('ncl-name').value.trim();
-  const g = document.getElementById('ncl-grade').value;
-  const t = document.getElementById('ncl-teacher').value.trim();
-  if (!n) { alert('Please enter class name.'); return; }
-  const tbody = document.getElementById('classTable');
-  const row = tbody.insertRow();
-  row.innerHTML = `<td><b>${n}</b></td><td>${g}</td><td>${t||'TBA'}</td><td>0</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span> <span class="action-ico">✏️</span></td>`;
-  closeModal('addClass');
-  document.getElementById('ncl-name').value=''; document.getElementById('ncl-teacher').value='';
+function saveAttendance(cls) {
+  // Collect data from the tab and show a summary toast
+  const tbody = document.getElementById('att-tbody-'+cls);
+  if(!tbody) { toast(`Attendance for Grade ${cls} saved ✓`); return; }
+  let present=0, absent=0, late=0, total=0;
+  tbody.querySelectorAll('tr').forEach(row => {
+    const status = row.querySelector('.att-select')?.value || 'present';
+    if(status==='present') present++;
+    else if(status==='absent') absent++;
+    else late++;
+    total++;
+  });
+  toast(`Grade ${cls}: ${present} present, ${absent} absent, ${late} late — saved ✓`);
+  refreshAttSummary();
 }
 
-function addLesson() {
-  const title = document.getElementById('nl-title').value.trim();
-  const sub = document.getElementById('nl-sub').value.trim();
-  const gr = document.getElementById('nl-grade').value;
-  const t = document.getElementById('nl-teacher').value.trim();
-  if (!title) { alert('Please enter a lesson title.'); return; }
-  const tbody = document.getElementById('lessonTable');
-  const row = tbody.insertRow(0);
-  row.innerHTML = `<td><b>${title}</b></td><td>${sub||'—'}</td><td>${gr}</td><td>${t||'—'}</td><td>${todayStr()}</td><td><span class="action-ico" onclick="delRow(this)">🗑️</span></td>`;
-  closeModal('addLesson');
-  document.getElementById('nl-title').value=''; document.getElementById('nl-sub').value=''; document.getElementById('nl-teacher').value='';
+function refreshAttSummary() {
+  // Dynamically recalculate summary from all class tabs
+  const classes = ['8A','9B','10A'];
+  let grandTotal=0, grandPresent=0;
+  const rows = [];
+  classes.forEach(cls => {
+    const tbody = document.getElementById('att-tbody-'+cls);
+    if(!tbody) return;
+    let present=0, absent=0, total=0;
+    tbody.querySelectorAll('tr').forEach(row => {
+      const status = row.querySelector('.att-select')?.value || 'present';
+      const days = parseInt(row.querySelector('.att-days')?.value) || 0;
+      const allDays = parseInt(row.cells[3]?.textContent) || 46;
+      if(status === 'present' || status === 'late') present++;
+      else absent++;
+      total++;
+      grandPresent += days;
+      grandTotal += allDays;
+    });
+    const pct = total > 0 ? Math.round((present/total)*100) : 0;
+    const cls2 = pct>=90?'bg-green':pct>=75?'bg-blue':pct>=60?'bg-amber':'bg-red';
+    rows.push(`<tr><td><b>Grade ${cls}</b></td><td>${total}</td><td>${present}</td><td>${absent}</td><td><span class="badge ${cls2}">${pct}%</span></td></tr>`);
+  });
+  const summTbody = document.getElementById('att-summary-tbody');
+  const overallPct = grandTotal > 0 ? Math.round((grandPresent/grandTotal)*100) : 0;
+  const totalStudents = classes.reduce((acc,cls) => {
+    const tb = document.getElementById('att-tbody-'+cls);
+    return acc + (tb ? tb.querySelectorAll('tr').length : 0);
+  },0);
+  if(summTbody) {
+    const absentToday = document.querySelectorAll('.att-select.absent').length;
+    summTbody.innerHTML = rows.join('') +
+      `<tr style="background:var(--bg)"><td><b>🏫 SCHOOL TOTAL</b></td><td><b>${totalStudents}</b></td><td><b>${totalStudents - absentToday}</b></td><td><b>${absentToday}</b></td><td><span class="badge bg-green"><b>${overallPct}%</b></span></td></tr>`;
+  }
+  const avg = document.getElementById('schoolAvgAtt');
+  if(avg) avg.textContent = overallPct + '%';
 }
 
-function addGrade() {
-  const st = document.getElementById('ng-student').value.trim();
-  const sb = document.getElementById('ng-sub').value.trim();
-  const as = document.getElementById('ng-assign').value.trim();
-  const sc = document.getElementById('ng-score').value;
-  const t = document.getElementById('ng-teacher').value.trim();
-  if (!st || !sc) { alert('Please enter student name and score.'); return; }
-  const grade = parseInt(sc);
-  const cls = grade >= 80 ? 'badge-green' : grade >= 60 ? 'badge-blue' : grade >= 50 ? 'badge-orange' : 'badge-red';
-  const tbody = document.getElementById('gradeTable');
-  const row = tbody.insertRow(0);
-  row.innerHTML = `<td>${st}</td><td>${sb||'—'}</td><td>—</td><td>${as||'Assessment'}</td><td><span class="badge ${cls}">${sc}%</span></td><td>${t||'—'}</td>`;
-  closeModal('addGrade');
-  document.getElementById('ng-student').value=''; document.getElementById('ng-sub').value=''; document.getElementById('ng-assign').value=''; document.getElementById('ng-score').value=''; document.getElementById('ng-teacher').value='';
+/* ════════════════════════════════════════
+   HEAD TEACHER ADD FUNCTIONS
+════════════════════════════════════════ */
+function htAddTeacher() {
+  const n = document.getElementById('htt-name').value.trim();
+  const s = document.getElementById('htt-subj').value.trim();
+  if(!n||!s){toast('Please fill all fields.');return;}
+  const tb = document.getElementById('ht-teacher-tbody');
+  if(!tb){toast('Please log in as Head Teacher first.');return;}
+  const row = tb.insertRow();
+  row.innerHTML = `<td><b>${n}</b></td><td>${s}</td><td>TBA</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td>`;
+  closeModal('htAddTeacher');
+  ['htt-name','htt-subj','htt-user','htt-pass'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  toast(`Teacher "${n}" added ✓`);
+}
+function htAddStudent() {
+  const n = document.getElementById('hts-name').value.trim();
+  const g = document.getElementById('hts-grade').value;
+  const c = document.getElementById('hts-class').value.trim();
+  if(!n){toast('Please enter student name.');return;}
+  const tb = document.getElementById('ht-student-tbody');
+  if(!tb){toast('Please log in as Head Teacher first.');return;}
+  const row = tb.insertRow();
+  row.innerHTML = `<td><b>${n}</b></td><td>${g}</td><td>${c||'TBA'}</td><td><span class="badge bg-muted">N/A</span></td><td>N/A</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td>`;
+  closeModal('htAddStudent');
+  ['hts-name','hts-class','hts-user','hts-pass'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  toast(`Student "${n}" enrolled ✓`);
+}
+function htAddParent() {
+  const n  = document.getElementById('htp-name').value.trim();
+  const ch = document.getElementById('htp-child').value.trim();
+  const em = document.getElementById('htp-email').value.trim();
+  if(!n||!ch){toast('Please fill parent and child name.');return;}
+  const tb = document.getElementById('ht-parent-tbody');
+  if(!tb){toast('Please log in as Head Teacher first.');return;}
+  const row = tb.insertRow();
+  row.innerHTML = `<td><b>${n}</b></td><td>${ch}</td><td>—</td><td>${em||'—'}</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td>`;
+  closeModal('htAddParent');
+  ['htp-name','htp-child','htp-email','htp-user','htp-pass'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  toast(`Parent "${n}" added ✓`);
+}
+
+/* ════════════════════════════════════════
+   TEACHER FUNCTIONS
+════════════════════════════════════════ */
+function tAddGrade() {
+  const st = document.getElementById('tg-student').value.trim();
+  const cl = document.getElementById('tg-class').value;
+  const sc = parseInt(document.getElementById('tg-score').value);
+  const as = document.getElementById('tg-assign').value.trim();
+  if(!st||isNaN(sc)){toast('Please enter student name and score.');return;}
+  const cls = sc>=80?'bg-green':sc>=60?'bg-blue':sc>=50?'bg-amber':'bg-red';
+  const row = document.getElementById('tGradeTable').insertRow(0);
+  row.innerHTML = `<td>${st}</td><td>${cl}</td><td>${as||'Assessment'}</td><td><span class="badge ${cls}">${sc}%</span></td><td>${todayStr()}</td>`;
+  closeModal('tAddGrade');
+  ['tg-student','tg-assign','tg-score'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  toast(`Grade saved for ${st} ✓`);
+}
+function tAddLesson() {
+  const t = document.getElementById('tl-title').value.trim();
+  const c = document.getElementById('tl-class').value;
+  if(!t){toast('Please enter a title.');return;}
+  const row = document.getElementById('tLessonTable').insertRow(0);
+  row.innerHTML = `<td><b>${t}</b></td><td>${c}</td><td>${todayStr()}</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td>`;
+  closeModal('tAddLesson');
+  document.getElementById('tl-title').value='';
+  toast(`Lesson "${t}" uploaded ✓`);
+}
+
+/* ════════════════════════════════════════
+   ADMIN ADD FUNCTIONS
+════════════════════════════════════════ */
+function addPlatformUser() {
+  const n = document.getElementById('pu-name').value.trim();
+  const r = document.getElementById('pu-role').value;
+  const sc = document.getElementById('pu-school');
+  const school = sc ? sc.options[sc.selectedIndex]?.text : '—';
+  const u = document.getElementById('pu-user').value.trim();
+  if(!n||!u){toast('Please fill all fields.');return;}
+  const roleClass = r.includes('Teacher')?'bg-blue':r.includes('Student')?'bg-teal':r.includes('Parent')?'bg-orange':'bg-navy';
+  const row = document.getElementById('allUsersTbody').insertRow();
+  row.innerHTML = `<td><b>${n}</b></td><td><span class="badge ${roleClass}">${r}</span></td><td>${school}</td><td>${u}</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td>`;
+  closeModal('addPlatformUser');
+  ['pu-name','pu-user','pu-pass'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  toast(`User "${n}" added ✓`);
 }
 
 function addAnnounce() {
   const ti = document.getElementById('na-title').value.trim();
   const bo = document.getElementById('na-body').value.trim();
-  if (!ti) { alert('Please enter an announcement title.'); return; }
-  const colors = [
-    'var(--blue)','var(--green)','var(--orange)','var(--purple)','var(--teal)'
-  ];
+  const tgt = document.getElementById('na-target');
+  if(!ti){toast('Please enter a title.');return;}
+  const colors = ['var(--blue)','var(--green)','var(--orange)','var(--purple)','var(--teal)'];
   const col = colors[Math.floor(Math.random()*colors.length)];
+  const art = document.createElement('article');
+  art.className = 'announce-card';
+  art.style.borderLeftColor = col;
+  art.innerHTML = `<div class="announce-title">${ti}</div><div class="announce-meta">Posted by Michel · ${todayStr()} · ${tgt?tgt.value:'All Schools'}</div><div class="announce-body">${bo||''}</div>`;
   const list = document.getElementById('announceList');
-  const div = document.createElement('div');
-  div.className = 'announce';
-  div.style.borderLeftColor = col;
-  div.innerHTML = `<div class="announce-title">${ti}</div><div class="announce-meta">Posted by Michel · ${todayStr()} · 📌 New</div><div class="announce-body">${bo||''}</div>`;
-  list.insertBefore(div, list.firstChild);
+  if(list) list.prepend(art);
   closeModal('addAnnounce');
-  document.getElementById('na-title').value=''; document.getElementById('na-body').value='';
+  document.getElementById('na-title').value='';
+  document.getElementById('na-body').value='';
+  toast('Announcement posted ✓');
 }
 
-/* ──────────────────────────────────────
-   DELETE ROW
-────────────────────────────────────── */
-function delRow(el) {
-  if (confirm('Are you sure you want to delete this record?')) {
-    el.closest('tr').remove();
+/* ════════════════════════════════════════
+   MODALS
+════════════════════════════════════════ */
+let lastFocus;
+function openModal(id) {
+  lastFocus = document.activeElement;
+  const o = document.getElementById('modal-'+id);
+  if(o){ o.classList.add('open'); const f=o.querySelector('input,select,textarea,button'); if(f) setTimeout(()=>f.focus(),50); }
+}
+function closeModal(id) {
+  const o = document.getElementById('modal-'+id);
+  if(o) o.classList.remove('open');
+  if(lastFocus) lastFocus.focus();
+}
+document.addEventListener('keydown', e => {
+  if(e.key==='Escape') document.querySelectorAll('.modal-overlay.open').forEach(o=>{ closeModal(o.id.replace('modal-','')); });
+});
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if(e.target===o) closeModal(o.id.replace('modal-','')); });
+});
+
+/* ════════════════════════════════════════
+   SIDEBAR TOGGLE (MOBILE)
+════════════════════════════════════════ */
+function toggleSidebar(sidebarId, btnId) {
+  const sidebar = document.getElementById(sidebarId);
+  const backdrop = document.getElementById(sidebarId.replace('Sidebar','Backdrop'));
+  const btn = document.getElementById(btnId);
+  const isOpen = sidebar.classList.contains('open');
+  sidebar.classList.toggle('open',!isOpen);
+  if(backdrop) backdrop.classList.toggle('open',!isOpen);
+  if(btn) btn.setAttribute('aria-expanded', String(!isOpen));
+}
+
+/* ════════════════════════════════════════
+   MATERIAL TAB SWITCHER
+════════════════════════════════════════ */
+function switchMaterialTab(id, btn) {
+  // Find the tab-bar parent and switch within it
+  const bar = btn.closest('.tab-bar');
+  bar.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  // Find all sibling tab-panes (next siblings after the tab-bar)
+  const container = bar.parentElement;
+  container.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('mat-' + id);
+  if(target) target.classList.add('active');
+}
+
+/* ════════════════════════════════════════
+   FILE UPLOAD HELPERS
+════════════════════════════════════════ */
+function showFileName(inputId, labelId) {
+  const input = document.getElementById(inputId);
+  const label = document.getElementById(labelId);
+  if(input && input.files.length > 0 && label) {
+    label.textContent = '📎 ' + input.files[0].name;
+    label.style.display = 'block';
   }
 }
 
-/* ──────────────────────────────────────
-   UPDATE STAT COUNTERS
-────────────────────────────────────── */
-function updateCount(id, delta) {
-  const el = document.getElementById(id);
-  if (el && delta !== 0) el.textContent = parseInt(el.textContent) + delta;
+function handleFileDrop(e, inputId, labelId) {
+  e.preventDefault();
+  const drop = e.currentTarget;
+  drop.classList.remove('dragover');
+  const files = e.dataTransfer.files;
+  if(files.length) {
+    const input = document.getElementById(inputId);
+    // Can't directly set files, but show name
+    const label = document.getElementById(labelId);
+    if(label) { label.textContent = '📎 ' + files[0].name; label.style.display='block'; }
+  }
 }
 
-/* ──────────────────────────────────────
-   SCROLL REVEAL
-────────────────────────────────────── */
-function initReveal() {
-  setTimeout(() => {
-    document.querySelectorAll('.reveal').forEach(el => {
-      el.classList.add('vis');
-    });
-  }, 50);
+function updateCharCount(textarea, countId) {
+  const words = textarea.value.trim().split(/\s+/).filter(w=>w.length>0).length;
+  const el = document.getElementById(countId);
+  if(el) {
+    el.textContent = words + ' / 1000 words';
+    el.style.color = words > 950 ? 'var(--red)' : words > 800 ? 'var(--amber)' : 'var(--muted2)';
+  }
 }
+
+/* ════════════════════════════════════════
+   TEACHER — VIEW NOTE (read modal)
+════════════════════════════════════════ */
+function viewNote(title, content) {
+  document.getElementById('rn-title').textContent = '📄 ' + title;
+  document.getElementById('rn-content').textContent = content;
+  openModal('readNote');
+}
+
+/* ════════════════════════════════════════
+   TEACHER — UPLOAD NOTE
+════════════════════════════════════════ */
+function teacherUploadNote() {
+  const title   = document.getElementById('tn-title').value.trim();
+  const subject = document.getElementById('tn-subject').value.trim();
+  const cls     = document.getElementById('tn-class').value;
+  const desc    = document.getElementById('tn-desc').value.trim();
+  const content = document.getElementById('tn-content').value.trim();
+  const fname   = document.getElementById('tn-fname').textContent;
+  const fileType = fname ? fname.split('.').pop().toUpperCase() : 'NOTE';
+
+  if(!title) { toast('Please enter a title.'); return; }
+
+  // Add to teacher notes grid
+  const grid = document.getElementById('notesGrid');
+  if(grid) {
+    const card = document.createElement('div');
+    card.className = 'material-card note-card';
+    card.innerHTML = `
+      <div class="mat-icon">📄</div>
+      <div class="mat-info">
+        <div class="mat-title">${title}</div>
+        <div class="mat-meta">${subject||'General'} · ${cls} · Uploaded ${todayStr()} by Mrs. Okonkwo</div>
+        <div class="mat-desc">${desc||'No description provided.'}</div>
+      </div>
+      <div class="mat-actions">
+        <span class="badge bg-blue">${fileType}</span>
+        <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+      </div>`;
+    grid.prepend(card);
+  }
+
+  // Also add to student notes grid so students see it
+  const stGrid = document.getElementById('stNotesGrid');
+  if(stGrid) {
+    const stCard = document.createElement('div');
+    stCard.className = 'material-card note-card';
+    stCard.innerHTML = `
+      <div class="mat-icon">📄</div>
+      <div class="mat-info">
+        <div class="mat-title">${title}</div>
+        <div class="mat-meta">${subject||'General'} · ${cls} · Mrs. Okonkwo · ${todayStr()}</div>
+        <div class="mat-desc">${desc||'No description provided.'}</div>
+      </div>
+      <div class="mat-actions">
+        <span class="badge bg-blue">${fileType}</span>
+        <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewNote('${title.replace(/'/g,"\\'")}','${(content||desc||'No content available.').replace(/'/g,"\\'").replace(/\n/g,'\\n')}')">📖 Read</button>
+      </div>`;
+    stGrid.prepend(stCard);
+  }
+
+  closeModal('tUploadNote');
+  ['tn-title','tn-subject','tn-desc','tn-content','tn-fname'].forEach(id=>{
+    const el=document.getElementById(id); if(el){el.value='';el.textContent='';el.style.display='none';}
+  });
+  toast(`Note "${title}" uploaded — students can now read it ✓`);
+}
+
+/* ════════════════════════════════════════
+   TEACHER — CREATE ASSIGNMENT
+════════════════════════════════════════ */
+function teacherCreateAssignment() {
+  const title        = document.getElementById('ta-title').value.trim();
+  const subject      = document.getElementById('ta-subject').value.trim();
+  const cls          = document.getElementById('ta-class').value;
+  const due          = document.getElementById('ta-due').value;
+  const instructions = document.getElementById('ta-instructions').value.trim();
+  if(!title || !instructions) { toast('Please enter a title and instructions.'); return; }
+
+  const dueStr = due ? new Date(due).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) : 'No deadline set';
+
+  // Add to teacher assignments grid
+  const grid = document.getElementById('assignmentsGrid');
+  const assignId = 'assign-t-' + Date.now();
+  if(grid) {
+    const card = document.createElement('div');
+    card.className = 'material-card assign-card';
+    card.innerHTML = `
+      <div class="mat-icon">📝</div>
+      <div class="mat-info">
+        <div class="mat-title">${title}</div>
+        <div class="mat-meta">${subject||'General'} · ${cls} · Due: <b>${dueStr}</b></div>
+        <div class="mat-desc">${instructions}</div>
+      </div>
+      <div class="mat-actions">
+        <span class="badge bg-green">Open</span>
+        <span class="badge bg-blue">0 submitted</span>
+        <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+      </div>`;
+    grid.prepend(card);
+  }
+
+  // Add to student assignments grid
+  const stGrid = document.getElementById('stAssignmentsGrid');
+  const newStatusId = 'assign-status-new-' + Date.now();
+  if(stGrid) {
+    const stCard = document.createElement('div');
+    stCard.className = 'material-card assign-card';
+    stCard.id = assignId;
+    stCard.innerHTML = `
+      <div class="mat-icon">📝</div>
+      <div class="mat-info">
+        <div class="mat-title">${title}</div>
+        <div class="mat-meta">${subject||'General'} · Mrs. Okonkwo · Due: <b>${dueStr}</b></div>
+        <div class="mat-desc">${instructions}</div>
+      </div>
+      <div class="mat-actions" style="flex-direction:column;align-items:flex-end;gap:.4rem">
+        <span class="badge bg-red" id="${newStatusId}">⏳ Not Started</span>
+        <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem"
+          onclick="openSubmitAnswer('${title.replace(/'/g,"\\'")}','${(subject||'General').replace(/'/g,"\\'")}','Mrs. Okonkwo','${newStatusId}')">📤 Submit Answer</button>
+      </div>`;
+    stGrid.prepend(stCard);
+  }
+
+  closeModal('tCreateAssignment');
+  ['ta-title','ta-subject','ta-due','ta-instructions','ta-fname'].forEach(id=>{
+    const el=document.getElementById(id); if(el){el.value='';el.textContent='';el.style.display='none';}
+  });
+  toast(`Assignment "${title}" posted — students can now submit answers ✓`);
+}
+
+/* ════════════════════════════════════════
+   TEACHER — VIEW SUBMISSION
+════════════════════════════════════════ */
+function viewSubmission(student, assignment, content) {
+  document.getElementById('vsModal-title').textContent = `📄 ${student} — ${assignment}`;
+  document.getElementById('vsModal-meta').textContent = `Submitted answer for: ${assignment}`;
+  document.getElementById('vsModal-content').textContent = content;
+  openModal('viewSubmission');
+}
+
+/* ════════════════════════════════════════
+   TEACHER — OPEN GRADE SUBMISSION
+════════════════════════════════════════ */
+let _gradeRowBtn = null;
+function openGradeSubmission(student, assignment, triggerBtn) {
+  _gradeRowBtn = triggerBtn;
+  document.getElementById('gs-meta').textContent = `Grading: ${student} — ${assignment}`;
+  document.getElementById('gs-score').value = '';
+  document.getElementById('gs-feedback').value = '';
+  openModal('gradeSubmission');
+}
+
+function saveSubmissionGrade() {
+  const score = document.getElementById('gs-score').value;
+  if(!score || isNaN(parseInt(score))) { toast('Please enter a valid score.'); return; }
+  const s = parseInt(score);
+  const cls = s>=80?'bg-green':s>=60?'bg-blue':s>=50?'bg-amber':'bg-red';
+
+  // Update the row in teacher submissions table
+  if(_gradeRowBtn) {
+    const row = _gradeRowBtn.closest('tr');
+    if(row) {
+      const statusCell = row.cells[4];
+      if(statusCell) statusCell.innerHTML = `<span class="badge ${cls}">Graded — ${s}%</span>`;
+      // Remove grade button from actions
+      _gradeRowBtn.remove();
+    }
+  }
+
+  // Also update student's submissions table
+  const stTbody = document.getElementById('stSubmissionsTbody');
+  if(stTbody) {
+    const rows = stTbody.querySelectorAll('tr');
+    rows.forEach(row => {
+      const gradeCell = row.cells[3];
+      if(gradeCell && gradeCell.innerHTML.includes('Awaiting')) {
+        gradeCell.innerHTML = `<span class="badge ${cls}">${s}%</span>`;
+      }
+    });
+  }
+
+  closeModal('gradeSubmission');
+  toast(`Grade saved — ${s}% ✓`);
+  _gradeRowBtn = null;
+}
+
+/* ════════════════════════════════════════
+   STUDENT — OPEN SUBMIT ANSWER
+════════════════════════════════════════ */
+function openSubmitAnswer(assignmentTitle, subject, teacher, statusElementId) {
+  document.getElementById('sa-title').textContent = '📤 ' + assignmentTitle;
+  document.getElementById('sa-meta').textContent = subject + ' · ' + teacher;
+  document.getElementById('sa-assignment-title').value = assignmentTitle;
+  document.getElementById('sa-subject').value = subject;
+  document.getElementById('sa-teacher').value = teacher;
+  document.getElementById('sa-status-id').value = statusElementId;
+  document.getElementById('sa-answer').value = '';
+  document.getElementById('sa-count').textContent = '0 / 1000 words';
+  const fn = document.getElementById('sa-fname');
+  if(fn) { fn.style.display='none'; fn.textContent=''; }
+  openModal('submitAnswer');
+}
+
+/* ════════════════════════════════════════
+   STUDENT — SUBMIT ANSWER
+════════════════════════════════════════ */
+function studentSubmitAnswer() {
+  const answer     = document.getElementById('sa-answer').value.trim();
+  const fname      = document.getElementById('sa-fname').textContent;
+  const assignTitle = document.getElementById('sa-assignment-title').value;
+  const subject    = document.getElementById('sa-subject').value;
+  const statusId   = document.getElementById('sa-status-id').value;
+
+  if(!answer && !fname) {
+    toast('Please type your answer or attach a file before submitting.');
+    return;
+  }
+
+  // Update the badge on the assignment card
+  const statusEl = document.getElementById(statusId);
+  if(statusEl) {
+    statusEl.className = 'badge bg-green';
+    statusEl.textContent = '✓ Submitted';
+    // Change the button next to it
+    const btn = statusEl.closest('.mat-actions')?.querySelector('.btn-primary');
+    if(btn) { btn.textContent = '✏️ Edit Answer'; btn.className = btn.className.replace('btn-primary','btn-ghost'); }
+  }
+
+  // Add to student's My Submissions table
+  const stTbody = document.getElementById('stSubmissionsTbody');
+  if(stTbody) {
+    const row = stTbody.insertRow(0);
+    row.innerHTML = `
+      <td><b>${assignTitle}</b></td>
+      <td>${subject}</td>
+      <td>${todayStr()}</td>
+      <td><span class="badge bg-amber">Awaiting Grade</span></td>
+      <td>
+        <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem"
+          onclick="viewSubmission('James Mokoena','${assignTitle.replace(/'/g,"\\'")}','${answer.replace(/'/g,"\\'").substring(0,300)}${answer.length>300?'...':''}')">👁 View</button>
+      </td>`;
+  }
+
+  // Add to teacher's submissions table
+  const tTbody = document.getElementById('tSubmissionsTbody');
+  if(tTbody) {
+    const row = tTbody.insertRow(0);
+    row.innerHTML = `
+      <td><b>James Mokoena</b></td>
+      <td>${assignTitle}</td><td>10A</td><td>${todayStr()}</td>
+      <td><span class="badge bg-amber">Awaiting Grade</span></td>
+      <td>
+        <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem"
+          onclick="viewSubmission('James Mokoena','${assignTitle.replace(/'/g,"\\'")}','${answer.replace(/'/g,"\\'").substring(0,500)}${answer.length>500?'...':''}')">👁 View</button>
+        <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem"
+          onclick="openGradeSubmission('James Mokoena','${assignTitle.replace(/'/g,"\\'")}',this)">📝 Grade</button>
+      </td>`;
+  }
+
+  closeModal('submitAnswer');
+  toast(`Answer submitted for "${assignTitle}" ✓`);
+}
+
+/* ════════════════════════════════════════
+   DELETE MATERIAL CARD
+════════════════════════════════════════ */
+function delMaterial(btn) {
+  if(confirm('Delete this material?')) {
+    btn.closest('.material-card').remove();
+    toast('Material deleted.');
+  }
+}
+
+
+function delRow(el) { if(confirm('Delete this record?')){ el.closest('tr').remove(); toast('Record deleted.'); } }
+function todayStr() { return new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
+
+let toastTimer;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>el.classList.remove('show'), 3000);
+}
+
+function initReveal() {
+  setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>el.classList.add('vis')), 60);
+}
+
+/* ════════════════════════════════════════
+   INIT
+════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  showScreen('loginScreen');
+  showLoginStep('step1');
+  buildSchoolPortalList();
+  renderSchoolGrid();
+  populateSchoolDropdowns();
+  initReveal();
+  initAttendanceInputs();
+});
 </script>
 </body>
 </html>
