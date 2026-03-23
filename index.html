@@ -245,7 +245,53 @@ tbody tr:hover td{background:#EEF4FF}
 .sidebar-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:799}
 .sidebar-backdrop.open{display:block}
 
-/* PORTAL BUTTONS (login step 1 & 3) */
+/* MATERIAL CARDS (notes & assignments) */
+.material-card{
+  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);
+  padding:1.1rem 1.25rem;display:flex;align-items:flex-start;gap:1rem;
+  box-shadow:var(--shadow);transition:box-shadow .2s,border-color .2s;
+}
+.material-card:hover{box-shadow:var(--shadow-lg)}
+.note-card{border-left:4px solid var(--blue)}
+.assign-card{border-left:4px solid var(--orange)}
+.mat-icon{font-size:1.6rem;flex-shrink:0;width:40px;text-align:center;padding-top:.1rem}
+.mat-info{flex:1;min-width:0}
+.mat-title{font-size:.92rem;font-weight:800;color:var(--navy);margin-bottom:.2rem}
+.mat-meta{font-size:.72rem;color:var(--muted);margin-bottom:.35rem}
+.mat-desc{font-size:.8rem;color:var(--text);line-height:1.55}
+.mat-actions{display:flex;align-items:center;gap:.5rem;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+
+/* NOTE VIEWER */
+.note-viewer{
+  background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r2);
+  padding:1.1rem 1.25rem;font-size:.84rem;line-height:1.75;color:var(--text);
+  white-space:pre-wrap;max-height:320px;overflow-y:auto;margin-top:.75rem;
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+
+/* SUBMISSION TEXT AREA */
+.submit-area{
+  width:100%;min-height:200px;padding:.8rem 1rem;border:2px solid var(--border);
+  border-radius:var(--r2);font-size:.85rem;font-family:inherit;outline:none;
+  transition:border-color .2s,box-shadow .2s;resize:vertical;background:var(--surface2);color:var(--text);
+  line-height:1.65;
+}
+.submit-area:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(23,86,243,.1);background:var(--surface)}
+
+/* FILE UPLOAD DROP ZONE */
+.file-drop{
+  border:2px dashed var(--border2);border-radius:var(--r2);padding:1.5rem;
+  text-align:center;cursor:pointer;transition:all .2s;background:var(--bg);margin-top:.75rem;
+}
+.file-drop:hover,.file-drop.dragover{border-color:var(--blue);background:#EFF6FF}
+.file-drop p{font-size:.8rem;color:var(--muted);margin-top:.4rem}
+.file-drop input[type=file]{display:none}
+.file-name{font-size:.78rem;color:var(--green);font-weight:700;margin-top:.5rem;display:none}
+
+/* CHAR COUNTER */
+.char-count{font-size:.7rem;color:var(--muted2);text-align:right;margin-top:.3rem}
+
+
 .portal-btn{
   display:flex;align-items:center;gap:.85rem;width:100%;
   padding:.9rem 1rem;background:var(--surface2);border:2px solid var(--border);
@@ -662,7 +708,7 @@ tbody tr:hover td{background:#EEF4FF}
       <button class="sitem" onclick="tPage('myclasses',this)"><span class="si">🏫</span> My Classes</button>
       <button class="sitem" onclick="tPage('grades',this)"><span class="si">📝</span> Enter Grades</button>
       <button class="sitem" onclick="tPage('attendance',this)"><span class="si">✅</span> Take Attendance</button>
-      <button class="sitem" onclick="tPage('lessons',this)"><span class="si">📖</span> Lessons</button>
+      <button class="sitem" onclick="tPage('lessons',this)"><span class="si">📚</span> Notes & Assignments</button>
       <div class="sgroup">Reports</div>
       <button class="sitem" onclick="tPage('reports',this)"><span class="si">📋</span> Class Reports</button>
     </aside>
@@ -832,20 +878,124 @@ tbody tr:hover td{background:#EEF4FF}
         </div>
       </div>
 
-      <!-- TEACHER LESSONS -->
+      <!-- TEACHER LESSONS & ASSIGNMENTS -->
       <div class="page" id="t-page-lessons">
-        <div class="ptop">
-          <div class="phd"><h2>📖 Lessons</h2><p>Your uploaded lessons and materials</p></div>
-          <button class="add-btn" onclick="openModal('tAddLesson')">+ Upload Lesson</button>
+        <div class="phd"><h2>📚 Notes & Assignments</h2><p>Upload lesson notes and set assignments for your classes</p></div>
+
+        <!-- Tab bar -->
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="switchMaterialTab('notes',this)">📄 Notes</button>
+          <button class="tab-btn" onclick="switchMaterialTab('assignments',this)">📝 Assignments</button>
+          <button class="tab-btn" onclick="switchMaterialTab('submissions',this)">📥 Student Submissions</button>
         </div>
-        <div class="card reveal">
-          <div class="tbl"><table>
-            <thead><tr><th>Title</th><th>Class</th><th>Date</th><th>Actions</th></tr></thead>
-            <tbody id="tLessonTable">
-              <tr><td><b>Introduction to Cell Biology</b></td><td>Grade 10A</td><td>20 Mar 2026</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
-              <tr><td><b>Photosynthesis Lab Report</b></td><td>Grade 9B</td><td>15 Mar 2026</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
-            </tbody>
-          </table></div>
+
+        <!-- NOTES TAB -->
+        <div class="tab-pane active" id="mat-notes">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:1rem">
+            <button class="add-btn" onclick="openModal('tUploadNote')">+ Upload Note</button>
+          </div>
+          <div id="notesGrid" style="display:flex;flex-direction:column;gap:.75rem">
+            <!-- seed notes -->
+            <div class="material-card note-card">
+              <div class="mat-icon">📄</div>
+              <div class="mat-info">
+                <div class="mat-title">Introduction to Cell Biology</div>
+                <div class="mat-meta">Science · Grade 10A · Uploaded 20 Mar 2026 by Mrs. Okonkwo</div>
+                <div class="mat-desc">Covers cell structure, organelles, and their functions. Includes diagrams and summary tables.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-blue">PDF</span>
+                <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+              </div>
+            </div>
+            <div class="material-card note-card">
+              <div class="mat-icon">📄</div>
+              <div class="mat-info">
+                <div class="mat-title">Photosynthesis — Full Notes</div>
+                <div class="mat-meta">Science · Grade 9B · Uploaded 15 Mar 2026 by Mrs. Okonkwo</div>
+                <div class="mat-desc">Light reactions, dark reactions, and the Calvin cycle explained with worked examples.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-green">DOCX</span>
+                <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ASSIGNMENTS TAB -->
+        <div class="tab-pane" id="mat-assignments">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:1rem">
+            <button class="add-btn" onclick="openModal('tCreateAssignment')">+ Create Assignment</button>
+          </div>
+          <div id="assignmentsGrid" style="display:flex;flex-direction:column;gap:.75rem">
+            <div class="material-card assign-card">
+              <div class="mat-icon">📝</div>
+              <div class="mat-info">
+                <div class="mat-title">Cell Biology Test — Written Questions</div>
+                <div class="mat-meta">Science · Grade 10A · Due: <b>25 Mar 2026</b></div>
+                <div class="mat-desc">Answer all 5 questions. Max 500 words per answer. Submit your response in the student portal.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-amber">Due Soon</span>
+                <span class="badge bg-blue" id="sub-count-1">3 submitted</span>
+                <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+              </div>
+            </div>
+            <div class="material-card assign-card">
+              <div class="mat-icon">📝</div>
+              <div class="mat-info">
+                <div class="mat-title">Photosynthesis Lab Report</div>
+                <div class="mat-meta">Science · Grade 9B · Due: <b>28 Mar 2026</b></div>
+                <div class="mat-desc">Write a full lab report including hypothesis, method, results, and conclusion.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-green">Open</span>
+                <span class="badge bg-blue">1 submitted</span>
+                <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUBMISSIONS TAB -->
+        <div class="tab-pane" id="mat-submissions">
+          <div class="callout cl-info"><span>📥</span><p>These are answers submitted by students for your assignments. You can read them and enter a grade directly.</p></div>
+          <div id="submissionsTable">
+            <div class="card">
+              <div class="tbl"><table>
+                <thead><tr><th>Student</th><th>Assignment</th><th>Class</th><th>Submitted</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody id="tSubmissionsTbody">
+                  <tr>
+                    <td><b>James Mokoena</b></td>
+                    <td>Cell Biology Test</td><td>10A</td><td>22 Mar 2026</td>
+                    <td><span class="badge bg-amber">Awaiting Grade</span></td>
+                    <td>
+                      <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewSubmission('James Mokoena','Cell Biology Test','The cell is the basic unit of life. All living organisms are made of cells. There are two main types: prokaryotic and eukaryotic. Eukaryotic cells contain a nucleus and membrane-bound organelles. Key organelles include the mitochondria (energy production), the nucleus (genetic control), and ribosomes (protein synthesis). The cell membrane regulates what enters and exits the cell.')">👁 View</button>
+                      <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem" onclick="openGradeSubmission('James Mokoena','Cell Biology Test',this)">📝 Grade</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><b>Lebo Dlamini</b></td>
+                    <td>Cell Biology Test</td><td>10A</td><td>21 Mar 2026</td>
+                    <td><span class="badge bg-green">Graded — 88%</span></td>
+                    <td>
+                      <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewSubmission('Lebo Dlamini','Cell Biology Test','Cells are the fundamental units of all living organisms. Eukaryotic cells have a defined nucleus and organelles enclosed by membranes. The mitochondria produce ATP through respiration. Chloroplasts in plant cells perform photosynthesis. The endoplasmic reticulum transports proteins, while the Golgi apparatus packages them for secretion.')">👁 View</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><b>Amara Osei</b></td>
+                    <td>Photosynthesis Lab Report</td><td>9B</td><td>23 Mar 2026</td>
+                    <td><span class="badge bg-amber">Awaiting Grade</span></td>
+                    <td>
+                      <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewSubmission('Amara Osei','Photosynthesis Lab Report','Hypothesis: If a plant is exposed to more light, then photosynthesis rate will increase. Method: We placed spinach leaves in a sodium bicarbonate solution and exposed them to varying light intensities. Results: At low light, 2 leaves floated after 10 mins. At high light, 9 leaves floated after 10 mins. Conclusion: Higher light intensity increases photosynthesis rate, supporting our hypothesis.')">👁 View</button>
+                      <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem" onclick="openGradeSubmission('Amara Osei','Photosynthesis Lab Report',this)">📝 Grade</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -901,7 +1051,7 @@ tbody tr:hover td{background:#EEF4FF}
       <button class="sitem on" onclick="stPage('dashboard',this)"><span class="si">📊</span> Dashboard</button>
       <button class="sitem" onclick="stPage('mygrades',this)"><span class="si">📝</span> My Grades</button>
       <button class="sitem" onclick="stPage('myattendance',this)"><span class="si">✅</span> My Attendance</button>
-      <button class="sitem" onclick="stPage('mylessons',this)"><span class="si">📖</span> Lessons</button>
+      <button class="sitem" onclick="stPage('mylessons',this)"><span class="si">📚</span> Notes & Tasks</button>
       <button class="sitem" onclick="stPage('timetable',this)"><span class="si">🗓️</span> Timetable</button>
       <button class="sitem" onclick="stPage('notices',this)"><span class="si">📢</span> Notices</button>
       <button class="sitem" onclick="stPage('myreport',this)"><span class="si">📋</span> My Report</button>
@@ -991,20 +1141,124 @@ tbody tr:hover td{background:#EEF4FF}
         </div>
       </div>
 
-      <!-- MY LESSONS -->
+      <!-- MY LESSONS & ASSIGNMENTS -->
       <div class="page" id="st-page-mylessons">
-        <div class="phd"><h2>📖 Lessons</h2><p>Learning materials uploaded by your teachers</p></div>
-        <div class="card reveal">
-          <div class="tbl"><table>
-            <thead><tr><th>Lesson Title</th><th>Subject</th><th>Teacher</th><th>Date</th></tr></thead>
-            <tbody>
-              <tr><td><b>Introduction to Cell Biology</b></td><td>Science</td><td>Mrs. Okonkwo</td><td>20 Mar 2026</td></tr>
-              <tr><td><b>Quadratic Equations</b></td><td>Mathematics</td><td>Mr. Nkosi</td><td>19 Mar 2026</td></tr>
-              <tr><td><b>Research Methodology — Part 2</b></td><td>Research</td><td>Ms. Patel</td><td>18 Mar 2026</td></tr>
-              <tr><td><b>Shakespeare — Hamlet Overview</b></td><td>English</td><td>Mr. Dlamini</td><td>17 Mar 2026</td></tr>
-            </tbody>
-          </table></div>
+        <div class="phd"><h2>📚 Notes & Assignments</h2><p>Read your teacher's notes and submit your assignment answers</p></div>
+
+        <!-- Tab bar -->
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="switchMaterialTab('st-notes',this)">📄 Notes</button>
+          <button class="tab-btn" onclick="switchMaterialTab('st-assignments',this)">📝 Assignments</button>
+          <button class="tab-btn" onclick="switchMaterialTab('st-mysubmissions',this)">📥 My Submissions</button>
         </div>
+
+        <!-- NOTES TAB -->
+        <div class="tab-pane active" id="mat-st-notes">
+          <div id="stNotesGrid" style="display:flex;flex-direction:column;gap:.75rem">
+            <div class="material-card note-card">
+              <div class="mat-icon">📄</div>
+              <div class="mat-info">
+                <div class="mat-title">Introduction to Cell Biology</div>
+                <div class="mat-meta">Science · Grade 10A · Mrs. Okonkwo · 20 Mar 2026</div>
+                <div class="mat-desc">Covers cell structure, organelles, and their functions. Includes diagrams and summary tables.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-blue">PDF</span>
+                <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewNote('Introduction to Cell Biology','Cells are the basic units of life. There are two types: prokaryotic (no nucleus) and eukaryotic (has nucleus).\n\nKey organelles:\n• Nucleus — controls cell activities, contains DNA\n• Mitochondria — produces energy (ATP)\n• Ribosomes — makes proteins\n• Cell membrane — controls entry/exit of substances\n• Endoplasmic reticulum — transports materials\n• Golgi apparatus — packages and exports proteins\n\nPlant cells also have:\n• Cell wall — provides structure\n• Chloroplasts — site of photosynthesis\n• Vacuole — stores water and nutrients')">📖 Read</button>
+              </div>
+            </div>
+            <div class="material-card note-card">
+              <div class="mat-icon">📄</div>
+              <div class="mat-info">
+                <div class="mat-title">Photosynthesis — Full Notes</div>
+                <div class="mat-meta">Science · Grade 9B · Mrs. Okonkwo · 15 Mar 2026</div>
+                <div class="mat-desc">Light reactions, dark reactions, and the Calvin cycle explained with worked examples.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-green">DOCX</span>
+                <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewNote('Photosynthesis — Full Notes','Photosynthesis is the process by which plants use sunlight, water and CO₂ to produce glucose and oxygen.\n\nEquation: 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂\n\nTwo stages:\n1. Light-dependent reactions (in thylakoid membrane)\n   • Water is split (photolysis)\n   • ATP and NADPH are produced\n   • Oxygen is released\n\n2. Light-independent reactions — Calvin Cycle (in stroma)\n   • CO₂ is fixed into glucose\n   • Uses ATP and NADPH from stage 1\n\nFactors affecting photosynthesis:\n• Light intensity\n• CO₂ concentration\n• Temperature')">📖 Read</button>
+              </div>
+            </div>
+            <div class="material-card note-card">
+              <div class="mat-icon">📄</div>
+              <div class="mat-info">
+                <div class="mat-title">Quadratic Equations — Study Guide</div>
+                <div class="mat-meta">Mathematics · Grade 10A · Mr. Nkosi · 19 Mar 2026</div>
+                <div class="mat-desc">Factorisation, completing the square, and the quadratic formula with worked examples.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-blue">PDF</span>
+                <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewNote('Quadratic Equations','A quadratic equation has the form: ax² + bx + c = 0\n\nMethods to solve:\n\n1. Factorisation\n   Example: x² + 5x + 6 = 0\n   → (x + 2)(x + 3) = 0\n   → x = -2 or x = -3\n\n2. Quadratic Formula\n   x = (-b ± √(b² - 4ac)) / 2a\n\n   Example: 2x² - 4x - 6 = 0\n   a=2, b=-4, c=-6\n   x = (4 ± √(16 + 48)) / 4\n   x = (4 ± 8) / 4\n   x = 3 or x = -1\n\n3. Completing the Square\n   Used when factorisation is difficult.\n   Rewrite as (x + p)² = q then solve.')">📖 Read</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ASSIGNMENTS TAB -->
+        <div class="tab-pane" id="mat-st-assignments">
+          <div id="stAssignmentsGrid" style="display:flex;flex-direction:column;gap:.75rem">
+
+            <!-- Assignment 1 — already submitted -->
+            <div class="material-card assign-card" id="assign-card-1">
+              <div class="mat-icon">📝</div>
+              <div class="mat-info">
+                <div class="mat-title">Cell Biology Test — Written Questions</div>
+                <div class="mat-meta">Science · Mrs. Okonkwo · Due: <b>25 Mar 2026</b></div>
+                <div class="mat-desc">Answer all 5 questions. Max 500 words per answer. Submit your written response below.</div>
+              </div>
+              <div class="mat-actions" style="flex-direction:column;align-items:flex-end;gap:.4rem">
+                <span class="badge bg-green" id="assign-status-1">✓ Submitted</span>
+                <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="openSubmitAnswer('Cell Biology Test','Science','Mrs. Okonkwo','assign-status-1')">✏️ Edit Answer</button>
+              </div>
+            </div>
+
+            <!-- Assignment 2 — not submitted -->
+            <div class="material-card assign-card" id="assign-card-2">
+              <div class="mat-icon">📝</div>
+              <div class="mat-info">
+                <div class="mat-title">Photosynthesis Lab Report</div>
+                <div class="mat-meta">Science · Mrs. Okonkwo · Due: <b>28 Mar 2026</b></div>
+                <div class="mat-desc">Write a full lab report including hypothesis, method, results, and conclusion.</div>
+              </div>
+              <div class="mat-actions" style="flex-direction:column;align-items:flex-end;gap:.4rem">
+                <span class="badge bg-amber" id="assign-status-2">⏳ Pending</span>
+                <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem" onclick="openSubmitAnswer('Photosynthesis Lab Report','Science','Mrs. Okonkwo','assign-status-2')">📤 Submit Answer</button>
+              </div>
+            </div>
+
+            <!-- Assignment 3 — not submitted -->
+            <div class="material-card assign-card" id="assign-card-3">
+              <div class="mat-icon">📝</div>
+              <div class="mat-info">
+                <div class="mat-title">Algebra Problem Set 4</div>
+                <div class="mat-meta">Mathematics · Mr. Nkosi · Due: <b>30 Mar 2026</b></div>
+                <div class="mat-desc">Solve 10 quadratic equations showing all working. Use the formula or factorisation method.</div>
+              </div>
+              <div class="mat-actions" style="flex-direction:column;align-items:flex-end;gap:.4rem">
+                <span class="badge bg-red" id="assign-status-3">⏳ Not Started</span>
+                <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem" onclick="openSubmitAnswer('Algebra Problem Set 4','Mathematics','Mr. Nkosi','assign-status-3')">📤 Submit Answer</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- MY SUBMISSIONS TAB -->
+        <div class="tab-pane" id="mat-st-mysubmissions">
+          <div class="card">
+            <div class="tbl"><table>
+              <thead><tr><th>Assignment</th><th>Subject</th><th>Submitted</th><th>Grade</th><th>Actions</th></tr></thead>
+              <tbody id="stSubmissionsTbody">
+                <tr>
+                  <td><b>Cell Biology Test</b></td><td>Science</td><td>22 Mar 2026</td>
+                  <td><span class="badge bg-amber">Awaiting Grade</span></td>
+                  <td><button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewSubmission('James Mokoena','Cell Biology Test','The cell is the basic unit of life. All living organisms are made of cells. There are two main types: prokaryotic and eukaryotic. Eukaryotic cells contain a nucleus and membrane-bound organelles. Key organelles include the mitochondria (energy production), the nucleus (genetic control), and ribosomes (protein synthesis). The cell membrane regulates what enters and exits the cell.')">👁 View</button></td>
+                </tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+
       </div>
 
       <!-- TIMETABLE -->
@@ -1217,7 +1471,129 @@ tbody tr:hover td{background:#EEF4FF}
      MODALS
 ══════════════════════════════ -->
 
-<!-- ADD SCHOOL -->
+<!-- TEACHER: UPLOAD NOTE -->
+<div class="modal-overlay" id="modal-tUploadNote" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-hd"><h3>📄 Upload Note</h3><button class="modal-close" onclick="closeModal('tUploadNote')">✕</button></div>
+    <div class="mfield"><label>Title</label><input type="text" id="tn-title" placeholder="e.g. Introduction to Cell Biology"/></div>
+    <div class="mrow">
+      <div class="mfield"><label>Subject</label><input type="text" id="tn-subject" placeholder="e.g. Science"/></div>
+      <div class="mfield"><label>Class</label><select id="tn-class"><option>Grade 8A</option><option>Grade 9B</option><option selected>Grade 10A</option><option>Grade 11A</option><option>Grade 12A</option></select></div>
+    </div>
+    <div class="mfield"><label>Description</label><input type="text" id="tn-desc" placeholder="Brief description of the note content"/></div>
+    <div class="mfield"><label>Note Content</label><textarea class="submit-area" id="tn-content" placeholder="Type or paste your note content here. Students will be able to read this directly in their portal." style="min-height:150px"></textarea></div>
+    <div class="mfield">
+      <label>Or Upload a File (optional)</label>
+      <div class="file-drop" id="tn-drop" onclick="document.getElementById('tn-file').click()" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="handleFileDrop(event,'tn-file','tn-fname')">
+        <div style="font-size:1.5rem">📁</div>
+        <p>Click to browse or drag & drop a file (PDF, DOCX, PNG)</p>
+        <input type="file" id="tn-file" accept=".pdf,.doc,.docx,.png,.jpg" onchange="showFileName('tn-file','tn-fname')"/>
+        <div class="file-name" id="tn-fname"></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('tUploadNote')">Cancel</button>
+      <button class="btn btn-primary" onclick="teacherUploadNote()">📤 Upload Note</button>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER: CREATE ASSIGNMENT -->
+<div class="modal-overlay" id="modal-tCreateAssignment" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-hd"><h3>📝 Create Assignment</h3><button class="modal-close" onclick="closeModal('tCreateAssignment')">✕</button></div>
+    <div class="mfield"><label>Assignment Title</label><input type="text" id="ta-title" placeholder="e.g. Chapter 4 Questions"/></div>
+    <div class="mrow">
+      <div class="mfield"><label>Subject</label><input type="text" id="ta-subject" placeholder="e.g. Science"/></div>
+      <div class="mfield"><label>Class</label><select id="ta-class"><option>Grade 8A</option><option>Grade 9B</option><option selected>Grade 10A</option><option>Grade 11A</option><option>Grade 12A</option></select></div>
+    </div>
+    <div class="mfield"><label>Due Date</label><input type="date" id="ta-due"/></div>
+    <div class="mfield"><label>Assignment Instructions</label><textarea class="submit-area" id="ta-instructions" placeholder="Write the full assignment question or instructions here. Students will read and respond to this." style="min-height:140px"></textarea></div>
+    <div class="mfield">
+      <label>Attach a File (optional)</label>
+      <div class="file-drop" onclick="document.getElementById('ta-file').click()">
+        <div style="font-size:1.5rem">📎</div>
+        <p>Attach a worksheet or question paper (PDF, DOCX)</p>
+        <input type="file" id="ta-file" accept=".pdf,.doc,.docx" onchange="showFileName('ta-file','ta-fname')"/>
+        <div class="file-name" id="ta-fname"></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('tCreateAssignment')">Cancel</button>
+      <button class="btn btn-primary" onclick="teacherCreateAssignment()">📝 Post Assignment</button>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER: VIEW SUBMISSION -->
+<div class="modal-overlay" id="modal-viewSubmission" role="dialog" aria-modal="true">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-hd"><h3 id="vsModal-title">📄 Student Submission</h3><button class="modal-close" onclick="closeModal('viewSubmission')">✕</button></div>
+    <div style="font-size:.78rem;color:var(--muted);margin-bottom:.75rem" id="vsModal-meta"></div>
+    <div class="note-viewer" id="vsModal-content"></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('viewSubmission')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER: GRADE SUBMISSION -->
+<div class="modal-overlay" id="modal-gradeSubmission" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-hd"><h3>📝 Grade Submission</h3><button class="modal-close" onclick="closeModal('gradeSubmission')">✕</button></div>
+    <div style="font-size:.82rem;color:var(--muted);margin-bottom:1rem" id="gs-meta"></div>
+    <div class="mfield"><label>Score (%)</label><input type="number" id="gs-score" min="0" max="100" placeholder="e.g. 85"/></div>
+    <div class="mfield"><label>Teacher Feedback (optional)</label><textarea class="submit-area" id="gs-feedback" placeholder="Write brief feedback for the student..." style="min-height:90px"></textarea></div>
+    <input type="hidden" id="gs-row-ref"/>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('gradeSubmission')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveSubmissionGrade()">Save Grade</button>
+    </div>
+  </div>
+</div>
+
+<!-- STUDENT: READ NOTE MODAL -->
+<div class="modal-overlay" id="modal-readNote" role="dialog" aria-modal="true">
+  <div class="modal" style="max-width:580px">
+    <div class="modal-hd"><h3 id="rn-title">📄 Note</h3><button class="modal-close" onclick="closeModal('readNote')">✕</button></div>
+    <div class="note-viewer" id="rn-content"></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('readNote')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- STUDENT: SUBMIT ANSWER MODAL -->
+<div class="modal-overlay" id="modal-submitAnswer" role="dialog" aria-modal="true">
+  <div class="modal" style="max-width:580px">
+    <div class="modal-hd"><h3 id="sa-title">📤 Submit Answer</h3><button class="modal-close" onclick="closeModal('submitAnswer')">✕</button></div>
+    <div style="font-size:.78rem;color:var(--muted);margin-bottom:.75rem" id="sa-meta"></div>
+    <div class="mfield">
+      <label>Your Answer</label>
+      <textarea class="submit-area" id="sa-answer" placeholder="Type your answer here. Be clear and detailed. Max 1000 words." oninput="updateCharCount(this,'sa-count')"></textarea>
+      <div class="char-count" id="sa-count">0 / 1000 words</div>
+    </div>
+    <div class="mfield">
+      <label>Or attach a file (optional)</label>
+      <div class="file-drop" onclick="document.getElementById('sa-file').click()">
+        <div style="font-size:1.4rem">📎</div>
+        <p>Attach your answer as a file (PDF, DOCX, PNG, JPG)</p>
+        <input type="file" id="sa-file" accept=".pdf,.doc,.docx,.png,.jpg" onchange="showFileName('sa-file','sa-fname')"/>
+        <div class="file-name" id="sa-fname"></div>
+      </div>
+    </div>
+    <input type="hidden" id="sa-assignment-title"/>
+    <input type="hidden" id="sa-subject"/>
+    <input type="hidden" id="sa-teacher"/>
+    <input type="hidden" id="sa-status-id"/>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('submitAnswer')">Cancel</button>
+      <button class="btn btn-primary" onclick="studentSubmitAnswer()">📤 Submit Answer</button>
+    </div>
+  </div>
+</div>
+
+
 <div class="modal-overlay" id="modal-addSchool" role="dialog" aria-modal="true">
   <div class="modal">
     <div class="modal-hd"><h3>🏫 Add New School</h3><button class="modal-close" onclick="closeModal('addSchool')">✕</button></div>
@@ -2133,8 +2509,329 @@ function toggleSidebar(sidebarId, btnId) {
 }
 
 /* ════════════════════════════════════════
-   HELPERS
+   MATERIAL TAB SWITCHER
 ════════════════════════════════════════ */
+function switchMaterialTab(id, btn) {
+  // Find the tab-bar parent and switch within it
+  const bar = btn.closest('.tab-bar');
+  bar.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  // Find all sibling tab-panes (next siblings after the tab-bar)
+  const container = bar.parentElement;
+  container.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('mat-' + id);
+  if(target) target.classList.add('active');
+}
+
+/* ════════════════════════════════════════
+   FILE UPLOAD HELPERS
+════════════════════════════════════════ */
+function showFileName(inputId, labelId) {
+  const input = document.getElementById(inputId);
+  const label = document.getElementById(labelId);
+  if(input && input.files.length > 0 && label) {
+    label.textContent = '📎 ' + input.files[0].name;
+    label.style.display = 'block';
+  }
+}
+
+function handleFileDrop(e, inputId, labelId) {
+  e.preventDefault();
+  const drop = e.currentTarget;
+  drop.classList.remove('dragover');
+  const files = e.dataTransfer.files;
+  if(files.length) {
+    const input = document.getElementById(inputId);
+    // Can't directly set files, but show name
+    const label = document.getElementById(labelId);
+    if(label) { label.textContent = '📎 ' + files[0].name; label.style.display='block'; }
+  }
+}
+
+function updateCharCount(textarea, countId) {
+  const words = textarea.value.trim().split(/\s+/).filter(w=>w.length>0).length;
+  const el = document.getElementById(countId);
+  if(el) {
+    el.textContent = words + ' / 1000 words';
+    el.style.color = words > 950 ? 'var(--red)' : words > 800 ? 'var(--amber)' : 'var(--muted2)';
+  }
+}
+
+/* ════════════════════════════════════════
+   TEACHER — VIEW NOTE (read modal)
+════════════════════════════════════════ */
+function viewNote(title, content) {
+  document.getElementById('rn-title').textContent = '📄 ' + title;
+  document.getElementById('rn-content').textContent = content;
+  openModal('readNote');
+}
+
+/* ════════════════════════════════════════
+   TEACHER — UPLOAD NOTE
+════════════════════════════════════════ */
+function teacherUploadNote() {
+  const title   = document.getElementById('tn-title').value.trim();
+  const subject = document.getElementById('tn-subject').value.trim();
+  const cls     = document.getElementById('tn-class').value;
+  const desc    = document.getElementById('tn-desc').value.trim();
+  const content = document.getElementById('tn-content').value.trim();
+  const fname   = document.getElementById('tn-fname').textContent;
+  const fileType = fname ? fname.split('.').pop().toUpperCase() : 'NOTE';
+
+  if(!title) { toast('Please enter a title.'); return; }
+
+  // Add to teacher notes grid
+  const grid = document.getElementById('notesGrid');
+  if(grid) {
+    const card = document.createElement('div');
+    card.className = 'material-card note-card';
+    card.innerHTML = `
+      <div class="mat-icon">📄</div>
+      <div class="mat-info">
+        <div class="mat-title">${title}</div>
+        <div class="mat-meta">${subject||'General'} · ${cls} · Uploaded ${todayStr()} by Mrs. Okonkwo</div>
+        <div class="mat-desc">${desc||'No description provided.'}</div>
+      </div>
+      <div class="mat-actions">
+        <span class="badge bg-blue">${fileType}</span>
+        <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+      </div>`;
+    grid.prepend(card);
+  }
+
+  // Also add to student notes grid so students see it
+  const stGrid = document.getElementById('stNotesGrid');
+  if(stGrid) {
+    const stCard = document.createElement('div');
+    stCard.className = 'material-card note-card';
+    stCard.innerHTML = `
+      <div class="mat-icon">📄</div>
+      <div class="mat-info">
+        <div class="mat-title">${title}</div>
+        <div class="mat-meta">${subject||'General'} · ${cls} · Mrs. Okonkwo · ${todayStr()}</div>
+        <div class="mat-desc">${desc||'No description provided.'}</div>
+      </div>
+      <div class="mat-actions">
+        <span class="badge bg-blue">${fileType}</span>
+        <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewNote('${title.replace(/'/g,"\\'")}','${(content||desc||'No content available.').replace(/'/g,"\\'").replace(/\n/g,'\\n')}')">📖 Read</button>
+      </div>`;
+    stGrid.prepend(stCard);
+  }
+
+  closeModal('tUploadNote');
+  ['tn-title','tn-subject','tn-desc','tn-content','tn-fname'].forEach(id=>{
+    const el=document.getElementById(id); if(el){el.value='';el.textContent='';el.style.display='none';}
+  });
+  toast(`Note "${title}" uploaded — students can now read it ✓`);
+}
+
+/* ════════════════════════════════════════
+   TEACHER — CREATE ASSIGNMENT
+════════════════════════════════════════ */
+function teacherCreateAssignment() {
+  const title        = document.getElementById('ta-title').value.trim();
+  const subject      = document.getElementById('ta-subject').value.trim();
+  const cls          = document.getElementById('ta-class').value;
+  const due          = document.getElementById('ta-due').value;
+  const instructions = document.getElementById('ta-instructions').value.trim();
+  if(!title || !instructions) { toast('Please enter a title and instructions.'); return; }
+
+  const dueStr = due ? new Date(due).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) : 'No deadline set';
+
+  // Add to teacher assignments grid
+  const grid = document.getElementById('assignmentsGrid');
+  const assignId = 'assign-t-' + Date.now();
+  if(grid) {
+    const card = document.createElement('div');
+    card.className = 'material-card assign-card';
+    card.innerHTML = `
+      <div class="mat-icon">📝</div>
+      <div class="mat-info">
+        <div class="mat-title">${title}</div>
+        <div class="mat-meta">${subject||'General'} · ${cls} · Due: <b>${dueStr}</b></div>
+        <div class="mat-desc">${instructions}</div>
+      </div>
+      <div class="mat-actions">
+        <span class="badge bg-green">Open</span>
+        <span class="badge bg-blue">0 submitted</span>
+        <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+      </div>`;
+    grid.prepend(card);
+  }
+
+  // Add to student assignments grid
+  const stGrid = document.getElementById('stAssignmentsGrid');
+  const newStatusId = 'assign-status-new-' + Date.now();
+  if(stGrid) {
+    const stCard = document.createElement('div');
+    stCard.className = 'material-card assign-card';
+    stCard.id = assignId;
+    stCard.innerHTML = `
+      <div class="mat-icon">📝</div>
+      <div class="mat-info">
+        <div class="mat-title">${title}</div>
+        <div class="mat-meta">${subject||'General'} · Mrs. Okonkwo · Due: <b>${dueStr}</b></div>
+        <div class="mat-desc">${instructions}</div>
+      </div>
+      <div class="mat-actions" style="flex-direction:column;align-items:flex-end;gap:.4rem">
+        <span class="badge bg-red" id="${newStatusId}">⏳ Not Started</span>
+        <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem"
+          onclick="openSubmitAnswer('${title.replace(/'/g,"\\'")}','${(subject||'General').replace(/'/g,"\\'")}','Mrs. Okonkwo','${newStatusId}')">📤 Submit Answer</button>
+      </div>`;
+    stGrid.prepend(stCard);
+  }
+
+  closeModal('tCreateAssignment');
+  ['ta-title','ta-subject','ta-due','ta-instructions','ta-fname'].forEach(id=>{
+    const el=document.getElementById(id); if(el){el.value='';el.textContent='';el.style.display='none';}
+  });
+  toast(`Assignment "${title}" posted — students can now submit answers ✓`);
+}
+
+/* ════════════════════════════════════════
+   TEACHER — VIEW SUBMISSION
+════════════════════════════════════════ */
+function viewSubmission(student, assignment, content) {
+  document.getElementById('vsModal-title').textContent = `📄 ${student} — ${assignment}`;
+  document.getElementById('vsModal-meta').textContent = `Submitted answer for: ${assignment}`;
+  document.getElementById('vsModal-content').textContent = content;
+  openModal('viewSubmission');
+}
+
+/* ════════════════════════════════════════
+   TEACHER — OPEN GRADE SUBMISSION
+════════════════════════════════════════ */
+let _gradeRowBtn = null;
+function openGradeSubmission(student, assignment, triggerBtn) {
+  _gradeRowBtn = triggerBtn;
+  document.getElementById('gs-meta').textContent = `Grading: ${student} — ${assignment}`;
+  document.getElementById('gs-score').value = '';
+  document.getElementById('gs-feedback').value = '';
+  openModal('gradeSubmission');
+}
+
+function saveSubmissionGrade() {
+  const score = document.getElementById('gs-score').value;
+  if(!score || isNaN(parseInt(score))) { toast('Please enter a valid score.'); return; }
+  const s = parseInt(score);
+  const cls = s>=80?'bg-green':s>=60?'bg-blue':s>=50?'bg-amber':'bg-red';
+
+  // Update the row in teacher submissions table
+  if(_gradeRowBtn) {
+    const row = _gradeRowBtn.closest('tr');
+    if(row) {
+      const statusCell = row.cells[4];
+      if(statusCell) statusCell.innerHTML = `<span class="badge ${cls}">Graded — ${s}%</span>`;
+      // Remove grade button from actions
+      _gradeRowBtn.remove();
+    }
+  }
+
+  // Also update student's submissions table
+  const stTbody = document.getElementById('stSubmissionsTbody');
+  if(stTbody) {
+    const rows = stTbody.querySelectorAll('tr');
+    rows.forEach(row => {
+      const gradeCell = row.cells[3];
+      if(gradeCell && gradeCell.innerHTML.includes('Awaiting')) {
+        gradeCell.innerHTML = `<span class="badge ${cls}">${s}%</span>`;
+      }
+    });
+  }
+
+  closeModal('gradeSubmission');
+  toast(`Grade saved — ${s}% ✓`);
+  _gradeRowBtn = null;
+}
+
+/* ════════════════════════════════════════
+   STUDENT — OPEN SUBMIT ANSWER
+════════════════════════════════════════ */
+function openSubmitAnswer(assignmentTitle, subject, teacher, statusElementId) {
+  document.getElementById('sa-title').textContent = '📤 ' + assignmentTitle;
+  document.getElementById('sa-meta').textContent = subject + ' · ' + teacher;
+  document.getElementById('sa-assignment-title').value = assignmentTitle;
+  document.getElementById('sa-subject').value = subject;
+  document.getElementById('sa-teacher').value = teacher;
+  document.getElementById('sa-status-id').value = statusElementId;
+  document.getElementById('sa-answer').value = '';
+  document.getElementById('sa-count').textContent = '0 / 1000 words';
+  const fn = document.getElementById('sa-fname');
+  if(fn) { fn.style.display='none'; fn.textContent=''; }
+  openModal('submitAnswer');
+}
+
+/* ════════════════════════════════════════
+   STUDENT — SUBMIT ANSWER
+════════════════════════════════════════ */
+function studentSubmitAnswer() {
+  const answer     = document.getElementById('sa-answer').value.trim();
+  const fname      = document.getElementById('sa-fname').textContent;
+  const assignTitle = document.getElementById('sa-assignment-title').value;
+  const subject    = document.getElementById('sa-subject').value;
+  const statusId   = document.getElementById('sa-status-id').value;
+
+  if(!answer && !fname) {
+    toast('Please type your answer or attach a file before submitting.');
+    return;
+  }
+
+  // Update the badge on the assignment card
+  const statusEl = document.getElementById(statusId);
+  if(statusEl) {
+    statusEl.className = 'badge bg-green';
+    statusEl.textContent = '✓ Submitted';
+    // Change the button next to it
+    const btn = statusEl.closest('.mat-actions')?.querySelector('.btn-primary');
+    if(btn) { btn.textContent = '✏️ Edit Answer'; btn.className = btn.className.replace('btn-primary','btn-ghost'); }
+  }
+
+  // Add to student's My Submissions table
+  const stTbody = document.getElementById('stSubmissionsTbody');
+  if(stTbody) {
+    const row = stTbody.insertRow(0);
+    row.innerHTML = `
+      <td><b>${assignTitle}</b></td>
+      <td>${subject}</td>
+      <td>${todayStr()}</td>
+      <td><span class="badge bg-amber">Awaiting Grade</span></td>
+      <td>
+        <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem"
+          onclick="viewSubmission('James Mokoena','${assignTitle.replace(/'/g,"\\'")}','${answer.replace(/'/g,"\\'").substring(0,300)}${answer.length>300?'...':''}')">👁 View</button>
+      </td>`;
+  }
+
+  // Add to teacher's submissions table
+  const tTbody = document.getElementById('tSubmissionsTbody');
+  if(tTbody) {
+    const row = tTbody.insertRow(0);
+    row.innerHTML = `
+      <td><b>James Mokoena</b></td>
+      <td>${assignTitle}</td><td>10A</td><td>${todayStr()}</td>
+      <td><span class="badge bg-amber">Awaiting Grade</span></td>
+      <td>
+        <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem"
+          onclick="viewSubmission('James Mokoena','${assignTitle.replace(/'/g,"\\'")}','${answer.replace(/'/g,"\\'").substring(0,500)}${answer.length>500?'...':''}')">👁 View</button>
+        <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem"
+          onclick="openGradeSubmission('James Mokoena','${assignTitle.replace(/'/g,"\\'")}',this)">📝 Grade</button>
+      </td>`;
+  }
+
+  closeModal('submitAnswer');
+  toast(`Answer submitted for "${assignTitle}" ✓`);
+}
+
+/* ════════════════════════════════════════
+   DELETE MATERIAL CARD
+════════════════════════════════════════ */
+function delMaterial(btn) {
+  if(confirm('Delete this material?')) {
+    btn.closest('.material-card').remove();
+    toast('Material deleted.');
+  }
+}
+
+
 function delRow(el) { if(confirm('Delete this record?')){ el.closest('tr').remove(); toast('Record deleted.'); } }
 function todayStr() { return new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
 
