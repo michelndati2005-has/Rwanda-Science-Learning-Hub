@@ -1,165 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduBuild OS — Enterprise School Management</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Merriweather:ital,wght@0,700;0,900;1,400&display=swap');
-        
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        :root {
-            --navy: #0D2B5E; --blue: #1565C0; --sky: #2196F3; --teal: #00838F;
-            --green: #2E7D32; --orange: #E65100; --purple: #6A1B9A; --red: #B71C1C;
-            --bg: #F0F4FF; --surface: #fff; --surface2: #F5F7FF; --border: #DDE3F0;
-            --text: #1A2340; --muted: #5A6B8A; --r: 12px;
-            --shadow: 0 10px 30px rgba(13, 43, 94, 0.1);
-        }
+<script>
+/* ======================================
+GLOBAL DATA
+====================================== */
+let currentRole = "superadmin";
+let currentSchool = "EduBuild School";
+let students = [];
+let marks = [];
+let announcements = [];
 
-        body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
-        h1, h2, h3 { font-family: 'Merriweather', serif; }
+/* ======================================
+ROLE SWITCH
+====================================== */
+function setRole(role){
+  currentRole = role;
 
-        /* --- AUTHENTICATION SCREEN --- */
-        #loginScreen {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0D2B5E 0%, #1565C0 100%);
-            display: flex; align-items: center; justify-content: center; padding: 2rem;
-        }
-        .login-box {
-            background: #fff; border-radius: 20px; padding: 3rem 2.5rem;
-            width: 100%; max-width: 450px; box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            animation: fadeUp 0.6s ease;
-        }
-        .login-tabs { display: flex; background: var(--bg); border-radius: 10px; padding: 5px; margin-bottom: 1.5rem; }
-        .ltab { flex: 1; padding: 0.6rem; text-align: center; font-size: 0.8rem; font-weight: 800; cursor: pointer; border-radius: 8px; transition: 0.3s; color: var(--muted); }
-        .ltab.on { background: #fff; color: var(--blue); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+  document.querySelectorAll(".ltab").forEach(t=>t.classList.remove("on"));
+  event.target.classList.add("on");
 
-        .field { margin-bottom: 1.2rem; }
-        .field label { display: block; font-size: 0.75rem; font-weight: 800; color: var(--muted); margin-bottom: 0.4rem; text-transform: uppercase; }
-        .field input { width: 100%; padding: 0.8rem 1rem; border: 2px solid var(--border); border-radius: 10px; font-family: inherit; outline: none; transition: 0.2s; }
-        .field input:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(21, 101, 192, 0.1); }
+  const icon = document.getElementById("roleIcon");
+  const title = document.getElementById("roleTitle");
+  const hint = document.getElementById("loginHint");
 
-        .login-btn { width: 100%; padding: 1rem; background: var(--blue); color: #fff; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; transition: 0.3s; }
-        .login-error { background: #FFEBEE; color: var(--red); padding: 0.8rem; border-radius: 8px; font-size: 0.85rem; font-weight: 700; margin-top: 1rem; display: none; text-align: center; }
+  if(role==="superadmin"){
+    icon.innerHTML="👑";
+    title.innerHTML="SuperAdmin Sign In";
+    hint.innerHTML="SuperAdmin: <b>Michel@2005</b> / <b>Michel@4321</b>";
+  }
+  if(role==="teacher"){
+    icon.innerHTML="👩‍🏫";
+    title.innerHTML="Teacher Sign In";
+    hint.innerHTML="Teacher: <b>teacher</b> / <b>teacher123</b>";
+  }
+  if(role==="student"){
+    icon.innerHTML="👨‍🎓";
+    title.innerHTML="Student Sign In";
+    hint.innerHTML="Student: <b>student</b> / <b>student123</b>";
+  }
+  if(role==="parent"){
+    icon.innerHTML="👪";
+    title.innerHTML="Parent Sign In";
+    hint.innerHTML="Parent: <b>parent</b> / <b>parent123</b>";
+  }
+}
 
-        /* --- DASHBOARD ARCHITECTURE --- */
-        #adminScreen { display: none; min-height: 100vh; }
-        .admin-nav { background: var(--navy); height: 65px; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; position: sticky; top: 0; z-index: 100; color: #fff; }
-        .admin-layout { display: flex; }
-        .admin-sidebar { width: 260px; background: #fff; border-right: 1px solid var(--border); height: calc(100vh - 65px); position: sticky; top: 65px; padding: 1.5rem 0; }
-        
-        .sidebar-item { padding: 0.8rem 1.5rem; cursor: pointer; display: flex; align-items: center; gap: 12px; font-weight: 600; color: var(--muted); transition: 0.2s; border-left: 4px solid transparent; }
-        .sidebar-item:hover { background: var(--bg); color: var(--navy); }
-        .sidebar-item.on { background: #EEF4FF; color: var(--blue); border-left-color: var(--blue); font-weight: 800; }
+/* ======================================
+LOGIN SYSTEM
+====================================== */
+const users = {
+  superadmin:{user:"Michel@2005",pass:"Michel@4321"},
+  teacher:{user:"teacher",pass:"teacher123"},
+  student:{user:"student",pass:"student123"},
+  parent:{user:"parent",pass:"parent123"}
+};
 
-        .admin-main { flex: 1; padding: 2.5rem; }
-        .admin-page { display: none; }
-        .admin-page.active { display: block; animation: fadeIn 0.4s ease; }
+function doLogin(){
+  const u=document.getElementById("loginUser").value;
+  const p=document.getElementById("loginPass").value;
 
-        /* --- SMART REPORT UI --- */
-        .report-card { background: #fff; border-radius: 20px; border: 1px solid var(--border); padding: 3rem; box-shadow: var(--shadow); position: relative; overflow: hidden; margin-top: 2rem; }
-        .report-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 10px; background: linear-gradient(90deg, var(--blue), var(--teal), var(--purple)); }
-        
-        .report-header { display: flex; justify-content: space-between; border-bottom: 2px solid var(--bg); padding-bottom: 1.5rem; margin-bottom: 2rem; }
-        .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
-        .stat-card { background: var(--surface2); padding: 1.5rem; border-radius: 15px; border: 1px solid var(--border); }
-        .sc-num { font-size: 2.2rem; font-weight: 900; color: var(--navy); display: block; }
+  if(u===users[currentRole].user && p===users[currentRole].pass){
+    document.getElementById("loginScreen").classList.remove("active");
+    document.getElementById("adminScreen").classList.add("active");
+    loadData();
+  }else{
+    document.getElementById("loginError").style.display="block";
+  }
+}
 
-        .report-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
-        .report-table th { text-align: left; padding: 1.2rem; background: var(--navy); color: #fff; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
-        .report-table td { padding: 1.2rem; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
-        
-        .badge { padding: 0.5rem 1rem; border-radius: 30px; font-weight: 800; font-size: 0.7rem; display: inline-block; }
-        .badge-green { background: #E8F5E9; color: var(--green); }
-        .badge-blue { background: #E3F2FD; color: var(--blue); }
+function signOut(){
+  location.reload();
+}
 
-        .trend-up { color: var(--green); font-weight: 900; }
-        .trend-down { color: var(--red); font-weight: 900; }
+/* ======================================
+PAGE NAVIGATION
+====================================== */
+function showPage(page,el){
+  document.querySelectorAll(".admin-page").forEach(p=>p.classList.remove("on"));
+  document.getElementById("page-"+page).classList.add("on");
 
-        /* --- UTILITIES --- */
-        .callout { padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; display: flex; gap: 1rem; align-items: center; border-left: 6px solid var(--blue); background: #E3F2FD; }
-        .btn-action { background: var(--navy); color: #fff; border: none; padding: 1rem 2rem; border-radius: 10px; font-weight: 800; cursor: pointer; transition: 0.3s; }
-        .btn-action:hover { background: var(--blue); transform: translateY(-2px); }
+  document.querySelectorAll(".sidebar-item").forEach(i=>i.classList.remove("on"));
+  if(el) el.classList.add("on");
+}
 
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+/* ======================================
+LOCAL STORAGE DATABASE
+====================================== */
+function saveData(){
+  localStorage.setItem(currentSchool+"_students",JSON.stringify(students));
+  localStorage.setItem(currentSchool+"_marks",JSON.stringify(marks));
+  localStorage.setItem(currentSchool+"_announcements",JSON.stringify(announcements));
+}
 
-        @media print {
-            .admin-nav, .admin-sidebar, .btn-action, .callout, .sidebar-item { display: none !important; }
-            .admin-main { padding: 0; }
-            .report-card { border: none; box-shadow: none; width: 100%; }
-            body { background: #fff; }
-        }
-    </style>
-</head>
-<body>
+function loadData(){
+  students = JSON.parse(localStorage.getItem(currentSchool+"_students"))||[];
+  marks = JSON.parse(localStorage.getItem(currentSchool+"_marks"))||[];
+  announcements = JSON.parse(localStorage.getItem(currentSchool+"_announcements"))||[];
+  renderStudents();
+  renderAnnouncements();
+}
 
-    <div id="loginScreen">
-        <div class="login-box">
-            <div style="text-align:center; margin-bottom: 2rem;">
-                <h1 style="font-size: 2.5rem; color: var(--navy);">Edu<b>Build</b></h1>
-                <p style="color: var(--muted); font-weight: 700;">Global Management System</p>
-            </div>
+/* ======================================
+STUDENT DATABASE
+====================================== */
+function addStudent(){
+  const name=document.getElementById("studentName").value;
+  const className=document.getElementById("studentClass").value;
 
-            <div class="login-tabs">
-                <div class="ltab on" onclick="switchRole('superadmin')">SuperAdmin</div>
-                <div class="ltab" onclick="switchRole('teacher')">Teacher</div>
-                <div class="ltab" onclick="switchRole('student')">Student</div>
-                <div class="ltab" onclick="switchRole('parent')">Parent</div>
-            </div>
+  const id="ST"+(students.length+1);
 
-            <div class="field">
-                <label>System Identifier</label>
-                <input type="text" id="userInput" placeholder="e.g. Michel@2005">
-            </div>
-            <div class="field">
-                <label>Security Key</label>
-                <input type="password" id="passInput" placeholder="••••••••">
-            </div>
+  students.push({
+    id:id,
+    name:name,
+    class:className
+  });
 
-            <button class="login-btn" onclick="validateAccess()">Initialize Session →</button>
-            <div id="authError" class="login-error"></div>
+  saveData();
+  renderStudents();
+}
 
-            <div id="accessHint" style="margin-top: 1.5rem; padding: 1rem; background: var(--bg); border-radius: 10px; font-size: 0.75rem; text-align: center; color: var(--muted);">
-                Authorized SuperAdmin: <b>Michel@2005</b> / <b>Michel@4321</b>
-            </div>
-        </div>
+function renderStudents(){
+  const table=document.getElementById("studentTable");
+  if(!table) return;
+
+  table.innerHTML="";
+  students.forEach(s=>{
+    table.innerHTML+=`
+      <tr>
+        <td>${s.id}</td>
+        <td>${s.name}</td>
+        <td>${s.class}</td>
+      </tr>
+    `;
+  });
+
+  document.getElementById("totalStudents").innerText=students.length;
+}
+
+/* ======================================
+MARKS + AVERAGE
+====================================== */
+function addMark(){
+  const studentId=document.getElementById("markStudent").value;
+  const subject=document.getElementById("markSubject").value;
+  const score=parseFloat(document.getElementById("markScore").value);
+
+  marks.push({studentId,subject,score});
+  saveData();
+}
+
+function average(studentId){
+  let m=marks.filter(x=>x.studentId===studentId);
+  if(m.length===0) return 0;
+  let total=0;
+  m.forEach(x=>total+=x.score);
+  return (total/m.length).toFixed(1);
+}
+
+/* ======================================
+AI SMART COMMENT
+====================================== */
+function aiComment(avg){
+  if(avg>=85) return "Outstanding performance. Keep pushing your limits.";
+  if(avg>=70) return "Very good performance. You are doing well.";
+  if(avg>=50) return "Good effort. More practice will improve results.";
+  return "Needs serious improvement. Extra support recommended.";
+}
+
+/* ======================================
+SMART REPORT CARD
+====================================== */
+function generateReport(){
+  if(currentRole==="student" || currentRole==="parent"){
+    alert("You are not allowed to view report.");
+    return;
+  }
+
+  const studentId=document.getElementById("reportStudent").value;
+  const student=students.find(s=>s.id===studentId);
+  const avg=average(studentId);
+  const comment=aiComment(avg);
+
+  let grades="";
+  marks.filter(m=>m.studentId===studentId).forEach(m=>{
+    grades+=`<tr><td>${m.subject}</td><td>${m.score}</td></tr>`;
+  });
+
+  document.getElementById("reportCard").innerHTML=`
+  <div class="report-card">
+    <div class="report-header">
+      <div>
+        <div class="report-school">EduBuild Smart Report</div>
+        <div class="report-term">Academic Report Card</div>
+      </div>
+      <div class="report-student">
+        <b>${student.name}</b><br>
+        Class: ${student.class}<br>
+        Average: <b>${avg}%</b>
+      </div>
     </div>
 
-    <div id="adminScreen">
-        <nav class="admin-nav">
-            <div style="font-weight: 900; font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
-                <div style="width:30px; height:30px; background: var(--sky); border-radius: 6px;"></div>
-                EduBuild <span style="font-weight: 400; opacity: 0.7;">| School OS</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 25px;">
-                <span style="font-weight: 800; font-size: 0.8rem; background: rgba(255,255,255,0.1); padding: 6px 15px; border-radius: 30px;">
-                    Welcome, Michel (Master Admin)
-                </span>
-                <button onclick="location.reload()" style="background: var(--red); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.7rem; font-weight: 800;">Terminate Session</button>
-            </div>
-        </nav>
+    <table class="report-grades">
+      <tr><th>Subject</th><th>Score</th></tr>
+      ${grades}
+    </table>
 
-        <div class="admin-layout">
-            <aside class="admin-sidebar">
-                <div class="sidebar-item on" onclick="changeTab('dashboard', this)">🏛️ Control Center</div>
-                <div class="sidebar-item" onclick="changeTab('analytics', this)">📈 Smart Reports</div>
-                <div class="sidebar-item" onclick="changeTab('academic', this)">📚 Academic Units</div>
-                <div class="sidebar-item" onclick="alert('Feature locked: User Encryption Active.')">👥 User Vault</div>
-                <div class="sidebar-item" onclick="alert('Global settings require Level 2 clearance.')">⚙️ System Config</div>
-            </aside>
+    <div class="report-footer">
+      <b>AI Teacher Comment:</b> ${comment}<br>
+      Generated by EduBuild Smart System
+    </div>
+  </div>
+  `;
+}
 
-            <main class="admin-main">
-                <div id="tab-dashboard" class="admin-page active">
-                    <h2>System Status</h2>
-                    <p style="color: var(--muted); margin-bottom: 2rem;">Real-time feed of the 2026 Academic Cycle.</p>
-                    
-                    <div class="g3">
-                        <div class="stat-card">
-                            <span style="font-size: 0.7rem; font-weight: 800; color: var(--muted);">TOTAL REVENUE</span>
-                            <span class="sc-num">$428k</span>
-                            <div class="badge badge-green">▲ 12% Growth</div>
+/* ======================================
+ANNOUNCEMENTS
+====================================== */
+function addAnnouncement(){
+  const title=document.getElementById("annTitle").value;
+  const body=document.getElementById("annBody").value;
+
+  announcements.push({title,body});
+  saveData();
+  renderAnnouncements();
+}
+
+function renderAnnouncements(){
+  const box=document.getElementById("announceList");
+  if(!box) return;
+
+  box.innerHTML="";
+  announcements.forEach(a=>{
+    box.innerHTML+=`
+      <div class="announce">
+        <div class="announce-title">${a.title}</div>
+        <div class="announce-body">${a.body}</div>
+      </div>
+    `;
+  });
+}
+</script>
+                     <div class="badge badge-green">▲ 12% Growth</div>
                         </div>
                         <div class="stat-card">
                             <span style="font-size: 0.7rem; font-weight: 800; color: var(--muted);">AVG STUDENT SCORE</span>
