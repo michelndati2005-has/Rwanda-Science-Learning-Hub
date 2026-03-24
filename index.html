@@ -233,6 +233,72 @@ tbody tr:hover td{background:#EEF4FF}
 .print-btn{background:var(--navy);color:#fff;border:none;border-radius:var(--r2);padding:.55rem 1.25rem;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;display:inline-flex;align-items:center;gap:.4rem}
 .print-btn:hover{background:var(--navy2)}
 
+/* ══ SMART REPORT CARD ══ */
+.smart-report{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(10,22,40,.18);margin-bottom:2rem;border:1px solid var(--border)}
+.sr-header{background:linear-gradient(135deg,#0A1628 0%,#1756F3 60%,#0D9488 100%);padding:2rem 2.5rem;color:#fff;position:relative;overflow:hidden}
+.sr-header-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;position:relative;z-index:1}
+.sr-school-name{font-family:'DM Serif Display',serif;font-size:1.5rem;color:#fff;margin-bottom:.25rem}
+.sr-term-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:100px;padding:.3rem .9rem;font-size:.72rem;font-weight:700;color:#fff;display:inline-block;margin-top:.3rem}
+.sr-student-card{display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:.9rem 1.25rem}
+.sr-avatar{width:56px;height:56px;border-radius:50%;border:3px solid rgba(255,255,255,.5);background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;overflow:hidden}
+.sr-avatar img{width:100%;height:100%;object-fit:cover}
+.sr-student-name{font-size:1.05rem;font-weight:800;color:#fff}
+.sr-student-meta{font-size:.74rem;color:rgba(255,255,255,.75);margin-top:.15rem}
+.sr-body{padding:2rem 2.5rem}
+.sr-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:1rem;margin-bottom:2rem}
+.sr-kpi{background:var(--bg);border-radius:12px;padding:1rem;text-align:center;border:1.5px solid var(--border);position:relative;overflow:hidden}
+.sr-kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0}
+.sr-kpi.kpi-green::before{background:var(--green)}.sr-kpi.kpi-blue::before{background:var(--blue)}.sr-kpi.kpi-teal::before{background:var(--teal)}.sr-kpi.kpi-purple::before{background:var(--purple)}.sr-kpi.kpi-amber::before{background:var(--amber)}
+.sr-kpi-value{font-size:1.65rem;font-weight:900;color:var(--navy);line-height:1;letter-spacing:-.02em}
+.sr-kpi-label{font-size:.65rem;font-weight:600;color:var(--muted);margin-top:.3rem;line-height:1.3}
+.sr-section-title{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:1.75rem 0 .75rem;display:flex;align-items:center;gap:.7rem}
+.sr-section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.sr-subject-row{display:grid;grid-template-columns:150px 1fr 55px 55px 64px;align-items:center;gap:.75rem;padding:.65rem 0;border-bottom:1px solid var(--border);font-size:.8rem}
+.sr-subject-row:last-child{border-bottom:none}
+.sr-subj-name{font-weight:700;color:var(--navy);font-size:.82rem}
+.sr-bar-wrap{height:7px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border)}
+.sr-bar-fill{height:100%;border-radius:4px;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.sr-pct{font-weight:800;color:var(--navy);text-align:right;font-size:.82rem}
+.sr-grade-pill{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;font-size:.72rem;font-weight:900;flex-shrink:0}
+.grade-A{background:#DCFCE7;color:#15803D}.grade-B{background:#DBEAFE;color:#1D4ED8}.grade-C{background:#FEF3C7;color:#B45309}.grade-D{background:#FEE2E2;color:#B91C1C}
+.sr-trend{font-size:.68rem;font-weight:700}.trend-up{color:var(--green)}.trend-dn{color:var(--red)}.trend-eq{color:var(--muted)}
+.sr-skills{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.5rem}
+.sr-skill-item{margin-bottom:.6rem}
+.sr-skill-name{font-size:.76rem;font-weight:600;color:var(--text);margin-bottom:.3rem;display:flex;justify-content:space-between}
+.sr-skill-bar{height:9px;background:var(--bg);border-radius:5px;overflow:hidden;border:1px solid var(--border)}
+.sr-skill-fill{height:100%;border-radius:5px;transition:width 1.2s ease}
+.sr-comment-box{background:linear-gradient(135deg,#EFF6FF,#F0FDF4);border:1.5px solid #BFDBFE;border-radius:12px;padding:1.25rem 1.5rem;margin-top:1.25rem}
+.sr-comment-label{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:.45rem}
+.sr-comment-text{font-size:.84rem;line-height:1.75;color:var(--text);font-style:italic}
+.sr-sig{display:flex;justify-content:space-between;align-items:flex-end;padding-top:1.5rem;margin-top:1.5rem;border-top:1px solid var(--border);font-size:.78rem;color:var(--muted);flex-wrap:wrap;gap:1rem}
+.sr-sig-block{text-align:center}
+.sr-sig-line{width:120px;height:1px;background:var(--border2);margin:0 auto .4rem}
+.sr-seal{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#1756F3,#0D9488);display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fff;flex-shrink:0;box-shadow:0 4px 12px rgba(23,86,243,.3)}
+
+/* ══ PROFILE PHOTO ══ */
+.profile-wrap{position:relative;display:inline-block}
+.profile-photo{width:72px;height:72px;border-radius:50%;border:3px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1.8rem;overflow:hidden;cursor:pointer;transition:opacity .2s}
+.profile-photo:hover{opacity:.85}
+.profile-photo img{width:100%;height:100%;object-fit:cover}
+.profile-edit-btn{position:absolute;bottom:0;right:0;background:var(--blue);color:#fff;border:2px solid #fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.6rem;cursor:pointer;font-family:inherit}
+.profile-photo input[type=file]{display:none}
+
+/* ══ ATTENDANCE QUICK BUTTONS ══ */
+.att-quick-btn{display:inline-flex;align-items:center;gap:.25rem;padding:.25rem .6rem;border-radius:6px;font-size:.7rem;font-weight:700;cursor:pointer;border:1.5px solid;transition:all .15s;font-family:inherit}
+.att-quick-btn.present{background:#F0FDF4;color:#15803D;border-color:#BBF7D0}
+.att-quick-btn.present.on,.att-quick-btn.present:hover{background:#15803D;color:#fff;border-color:#15803D}
+.att-quick-btn.absent{background:#FEF2F2;color:#B91C1C;border-color:#FECACA}
+.att-quick-btn.absent.on,.att-quick-btn.absent:hover{background:#B91C1C;color:#fff;border-color:#B91C1C}
+.att-quick-btn.late{background:#FFFBEB;color:#B45309;border-color:#FDE68A}
+.att-quick-btn.late.on,.att-quick-btn.late:hover{background:#B45309;color:#fff;border-color:#B45309}
+
+/* ══ INNOVATION BADGES ══ */
+.level-badge{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .6rem;border-radius:100px;font-size:.65rem;font-weight:800}
+.level-star{background:linear-gradient(90deg,#F59E0B,#FBBF24);color:#fff}
+.level-rising{background:linear-gradient(90deg,#3B82F6,#2563EB);color:#fff}
+.level-honor{background:linear-gradient(90deg,#8B5CF6,#7C3AED);color:#fff}
+.level-needs{background:#FEE2E2;color:#B91C1C}
+
 /* SETTINGS FORM */
 .settings-form{display:flex;flex-direction:column;gap:1rem;padding:1.25rem}
 
@@ -245,7 +311,53 @@ tbody tr:hover td{background:#EEF4FF}
 .sidebar-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:799}
 .sidebar-backdrop.open{display:block}
 
-/* PORTAL BUTTONS (login step 1 & 3) */
+/* MATERIAL CARDS (notes & assignments) */
+.material-card{
+  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);
+  padding:1.1rem 1.25rem;display:flex;align-items:flex-start;gap:1rem;
+  box-shadow:var(--shadow);transition:box-shadow .2s,border-color .2s;
+}
+.material-card:hover{box-shadow:var(--shadow-lg)}
+.note-card{border-left:4px solid var(--blue)}
+.assign-card{border-left:4px solid var(--orange)}
+.mat-icon{font-size:1.6rem;flex-shrink:0;width:40px;text-align:center;padding-top:.1rem}
+.mat-info{flex:1;min-width:0}
+.mat-title{font-size:.92rem;font-weight:800;color:var(--navy);margin-bottom:.2rem}
+.mat-meta{font-size:.72rem;color:var(--muted);margin-bottom:.35rem}
+.mat-desc{font-size:.8rem;color:var(--text);line-height:1.55}
+.mat-actions{display:flex;align-items:center;gap:.5rem;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+
+/* NOTE VIEWER */
+.note-viewer{
+  background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r2);
+  padding:1.1rem 1.25rem;font-size:.84rem;line-height:1.75;color:var(--text);
+  white-space:pre-wrap;max-height:320px;overflow-y:auto;margin-top:.75rem;
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+
+/* SUBMISSION TEXT AREA */
+.submit-area{
+  width:100%;min-height:200px;padding:.8rem 1rem;border:2px solid var(--border);
+  border-radius:var(--r2);font-size:.85rem;font-family:inherit;outline:none;
+  transition:border-color .2s,box-shadow .2s;resize:vertical;background:var(--surface2);color:var(--text);
+  line-height:1.65;
+}
+.submit-area:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(23,86,243,.1);background:var(--surface)}
+
+/* FILE UPLOAD DROP ZONE */
+.file-drop{
+  border:2px dashed var(--border2);border-radius:var(--r2);padding:1.5rem;
+  text-align:center;cursor:pointer;transition:all .2s;background:var(--bg);margin-top:.75rem;
+}
+.file-drop:hover,.file-drop.dragover{border-color:var(--blue);background:#EFF6FF}
+.file-drop p{font-size:.8rem;color:var(--muted);margin-top:.4rem}
+.file-drop input[type=file]{display:none}
+.file-name{font-size:.78rem;color:var(--green);font-weight:700;margin-top:.5rem;display:none}
+
+/* CHAR COUNTER */
+.char-count{font-size:.7rem;color:var(--muted2);text-align:right;margin-top:.3rem}
+
+
 .portal-btn{
   display:flex;align-items:center;gap:.85rem;width:100%;
   padding:.9rem 1rem;background:var(--surface2);border:2px solid var(--border);
@@ -662,7 +774,7 @@ tbody tr:hover td{background:#EEF4FF}
       <button class="sitem" onclick="tPage('myclasses',this)"><span class="si">🏫</span> My Classes</button>
       <button class="sitem" onclick="tPage('grades',this)"><span class="si">📝</span> Enter Grades</button>
       <button class="sitem" onclick="tPage('attendance',this)"><span class="si">✅</span> Take Attendance</button>
-      <button class="sitem" onclick="tPage('lessons',this)"><span class="si">📖</span> Lessons</button>
+      <button class="sitem" onclick="tPage('lessons',this)"><span class="si">📚</span> Notes & Assignments</button>
       <div class="sgroup">Reports</div>
       <button class="sitem" onclick="tPage('reports',this)"><span class="si">📋</span> Class Reports</button>
     </aside>
@@ -765,10 +877,10 @@ tbody tr:hover td{background:#EEF4FF}
             <div class="tbl"><table>
               <thead><tr><th>Student</th><th>Status</th><th>Days Present</th><th>Total Days</th><th>% Attendance</th></tr></thead>
               <tbody id="att-tbody-8A">
-                <tr><td>Zanele Moyo</td><td><select class="att-select present" onchange="updateAttStyle(this)" data-student="Zanele Moyo" data-class="8A"><option value="present" selected>✓ Present</option><option value="absent">✗ Absent</option><option value="late">⚠ Late</option></select></td><td><input type="number" class="att-days" value="33" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
-                <tr><td>Sipho Sithole</td><td><select class="att-select present" onchange="updateAttStyle(this)" data-student="Sipho Sithole" data-class="8A"><option value="present" selected>✓ Present</option><option value="absent">✗ Absent</option><option value="late">⚠ Late</option></select></td><td><input type="number" class="att-days" value="42" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
-                <tr><td>Nomsa Dube</td><td><select class="att-select late" onchange="updateAttStyle(this)" data-student="Nomsa Dube" data-class="8A"><option value="present">✓ Present</option><option value="absent">✗ Absent</option><option value="late" selected>⚠ Late</option></select></td><td><input type="number" class="att-days" value="38" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
-                <tr><td>Thandeka Zulu</td><td><select class="att-select absent" onchange="updateAttStyle(this)" data-student="Thandeka Zulu" data-class="8A"><option value="present">✓ Present</option><option value="absent" selected>✗ Absent</option><option value="late">⚠ Late</option></select></td><td><input type="number" class="att-days" value="29" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
+                <tr><td>Zanele Moyo</td><td><div style="display:flex;gap:.3rem"><button class="att-quick-btn present on" onclick="markAttendance(this,'present','Zanele Moyo','8A')">✓ Present</button><button class="att-quick-btn absent" onclick="markAttendance(this,'absent','Zanele Moyo','8A')">✗ Absent</button><button class="att-quick-btn late" onclick="markAttendance(this,'late','Zanele Moyo','8A')">⚠ Late</button></div></td><td><input type="number" class="att-days" value="33" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
+                <tr><td>Sipho Sithole</td><td><div style="display:flex;gap:.3rem"><button class="att-quick-btn present on" onclick="markAttendance(this,'present','Sipho Sithole','8A')">✓ Present</button><button class="att-quick-btn absent" onclick="markAttendance(this,'absent','Sipho Sithole','8A')">✗ Absent</button><button class="att-quick-btn late" onclick="markAttendance(this,'late','Sipho Sithole','8A')">⚠ Late</button></div></td><td><input type="number" class="att-days" value="42" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
+                <tr><td>Nomsa Dube</td><td><div style="display:flex;gap:.3rem"><button class="att-quick-btn present" onclick="markAttendance(this,'present','Nomsa Dube','8A')">✓ Present</button><button class="att-quick-btn absent" onclick="markAttendance(this,'absent','Nomsa Dube','8A')">✗ Absent</button><button class="att-quick-btn late on" onclick="markAttendance(this,'late','Nomsa Dube','8A')">⚠ Late</button></div></td><td><input type="number" class="att-days" value="38" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
+                <tr><td>Thandeka Zulu</td><td><div style="display:flex;gap:.3rem"><button class="att-quick-btn present" onclick="markAttendance(this,'present','Thandeka Zulu','8A')">✓ Present</button><button class="att-quick-btn absent on" onclick="markAttendance(this,'absent','Thandeka Zulu','8A')">✗ Absent</button><button class="att-quick-btn late" onclick="markAttendance(this,'late','Thandeka Zulu','8A')">⚠ Late</button></div></td><td><input type="number" class="att-days" value="29" min="0" max="50" oninput="recalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td><td>46</td><td></td></tr>
               </tbody>
             </table></div>
           </div>
@@ -832,44 +944,161 @@ tbody tr:hover td{background:#EEF4FF}
         </div>
       </div>
 
-      <!-- TEACHER LESSONS -->
+      <!-- TEACHER LESSONS & ASSIGNMENTS -->
       <div class="page" id="t-page-lessons">
-        <div class="ptop">
-          <div class="phd"><h2>📖 Lessons</h2><p>Your uploaded lessons and materials</p></div>
-          <button class="add-btn" onclick="openModal('tAddLesson')">+ Upload Lesson</button>
+        <div class="phd"><h2>📚 Notes & Assignments</h2><p>Upload lesson notes and set assignments for your classes</p></div>
+
+        <!-- Tab bar -->
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="switchMaterialTab('notes',this)">📄 Notes</button>
+          <button class="tab-btn" onclick="switchMaterialTab('assignments',this)">📝 Assignments</button>
+          <button class="tab-btn" onclick="switchMaterialTab('submissions',this)">📥 Student Submissions</button>
         </div>
-        <div class="card reveal">
-          <div class="tbl"><table>
-            <thead><tr><th>Title</th><th>Class</th><th>Date</th><th>Actions</th></tr></thead>
-            <tbody id="tLessonTable">
-              <tr><td><b>Introduction to Cell Biology</b></td><td>Grade 10A</td><td>20 Mar 2026</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
-              <tr><td><b>Photosynthesis Lab Report</b></td><td>Grade 9B</td><td>15 Mar 2026</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
-            </tbody>
-          </table></div>
+
+        <!-- NOTES TAB -->
+        <div class="tab-pane active" id="mat-notes">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:1rem">
+            <button class="add-btn" onclick="openModal('tUploadNote')">+ Upload Note</button>
+          </div>
+          <div id="notesGrid" style="display:flex;flex-direction:column;gap:.75rem">
+            <!-- seed notes -->
+            <div class="material-card note-card">
+              <div class="mat-icon">📄</div>
+              <div class="mat-info">
+                <div class="mat-title">Introduction to Cell Biology</div>
+                <div class="mat-meta">Science · Grade 10A · Uploaded 20 Mar 2026 by Mrs. Okonkwo</div>
+                <div class="mat-desc">Covers cell structure, organelles, and their functions. Includes diagrams and summary tables.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-blue">PDF</span>
+                <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+              </div>
+            </div>
+            <div class="material-card note-card">
+              <div class="mat-icon">📄</div>
+              <div class="mat-info">
+                <div class="mat-title">Photosynthesis — Full Notes</div>
+                <div class="mat-meta">Science · Grade 9B · Uploaded 15 Mar 2026 by Mrs. Okonkwo</div>
+                <div class="mat-desc">Light reactions, dark reactions, and the Calvin cycle explained with worked examples.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-green">DOCX</span>
+                <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ASSIGNMENTS TAB -->
+        <div class="tab-pane" id="mat-assignments">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:1rem">
+            <button class="add-btn" onclick="openModal('tCreateAssignment')">+ Create Assignment</button>
+          </div>
+          <div id="assignmentsGrid" style="display:flex;flex-direction:column;gap:.75rem">
+            <div class="material-card assign-card">
+              <div class="mat-icon">📝</div>
+              <div class="mat-info">
+                <div class="mat-title">Cell Biology Test — Written Questions</div>
+                <div class="mat-meta">Science · Grade 10A · Due: <b>25 Mar 2026</b></div>
+                <div class="mat-desc">Answer all 5 questions. Max 500 words per answer. Submit your response in the student portal.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-amber">Due Soon</span>
+                <span class="badge bg-blue" id="sub-count-1">3 submitted</span>
+                <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+              </div>
+            </div>
+            <div class="material-card assign-card">
+              <div class="mat-icon">📝</div>
+              <div class="mat-info">
+                <div class="mat-title">Photosynthesis Lab Report</div>
+                <div class="mat-meta">Science · Grade 9B · Due: <b>28 Mar 2026</b></div>
+                <div class="mat-desc">Write a full lab report including hypothesis, method, results, and conclusion.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-green">Open</span>
+                <span class="badge bg-blue">1 submitted</span>
+                <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUBMISSIONS TAB -->
+        <div class="tab-pane" id="mat-submissions">
+          <div class="callout cl-info"><span>📥</span><p>These are answers submitted by students for your assignments. You can read them and enter a grade directly.</p></div>
+          <div id="submissionsTable">
+            <div class="card">
+              <div class="tbl"><table>
+                <thead><tr><th>Student</th><th>Assignment</th><th>Class</th><th>Submitted</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody id="tSubmissionsTbody">
+                  <tr>
+                    <td><b>James Mokoena</b></td>
+                    <td>Cell Biology Test</td><td>10A</td><td>22 Mar 2026</td>
+                    <td><span class="badge bg-amber">Awaiting Grade</span></td>
+                    <td>
+                      <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewSubmission('James Mokoena','Cell Biology Test','The cell is the basic unit of life. All living organisms are made of cells. There are two main types: prokaryotic and eukaryotic. Eukaryotic cells contain a nucleus and membrane-bound organelles. Key organelles include the mitochondria (energy production), the nucleus (genetic control), and ribosomes (protein synthesis). The cell membrane regulates what enters and exits the cell.')">👁 View</button>
+                      <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem" onclick="openGradeSubmission('James Mokoena','Cell Biology Test',this)">📝 Grade</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><b>Lebo Dlamini</b></td>
+                    <td>Cell Biology Test</td><td>10A</td><td>21 Mar 2026</td>
+                    <td><span class="badge bg-green">Graded — 88%</span></td>
+                    <td>
+                      <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewSubmission('Lebo Dlamini','Cell Biology Test','Cells are the fundamental units of all living organisms. Eukaryotic cells have a defined nucleus and organelles enclosed by membranes. The mitochondria produce ATP through respiration. Chloroplasts in plant cells perform photosynthesis. The endoplasmic reticulum transports proteins, while the Golgi apparatus packages them for secretion.')">👁 View</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><b>Amara Osei</b></td>
+                    <td>Photosynthesis Lab Report</td><td>9B</td><td>23 Mar 2026</td>
+                    <td><span class="badge bg-amber">Awaiting Grade</span></td>
+                    <td>
+                      <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewSubmission('Amara Osei','Photosynthesis Lab Report','Hypothesis: If a plant is exposed to more light, then photosynthesis rate will increase. Method: We placed spinach leaves in a sodium bicarbonate solution and exposed them to varying light intensities. Results: At low light, 2 leaves floated after 10 mins. At high light, 9 leaves floated after 10 mins. Conclusion: Higher light intensity increases photosynthesis rate, supporting our hypothesis.')">👁 View</button>
+                      <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem" onclick="openGradeSubmission('Amara Osei','Photosynthesis Lab Report',this)">📝 Grade</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table></div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- TEACHER REPORTS -->
+      <!-- SMART REPORT CARD -->
       <div class="page" id="t-page-reports">
-        <div class="phd"><h2>📋 Class Reports</h2><p>Performance and attendance reports for your classes</p></div>
-        <div class="g2">
-          <div class="card reveal">
-            <div class="card-head"><h3>📊 Class Averages</h3></div>
-            <div class="card-body">
-              <div class="prog-item"><div class="prog-label">Grade 8A</div><div class="prog-track"><div class="prog-fill" style="width:79%;background:var(--blue)"></div></div><div class="prog-pct">79%</div></div>
-              <div class="prog-item"><div class="prog-label">Grade 9B</div><div class="prog-track"><div class="prog-fill" style="width:74%;background:var(--amber)"></div></div><div class="prog-pct">74%</div></div>
-              <div class="prog-item"><div class="prog-label">Grade 10A</div><div class="prog-track"><div class="prog-fill" style="width:84%;background:var(--green)"></div></div><div class="prog-pct">84%</div></div>
+        <div class="ptop">
+          <div class="phd"><h2>📊 Smart Report Generator</h2><p>Generate beautiful, data-rich student reports with one click</p></div>
+          <button class="print-btn" onclick="window.print()">🖨️ Print Report</button>
+        </div>
+
+        <!-- Student selector -->
+        <div class="card reveal" style="margin-bottom:1.5rem">
+          <div class="card-body" style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap">
+            <div style="flex:1;min-width:180px">
+              <label style="font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:.4rem">Select Student</label>
+              <select onchange="generateSmartReport(this.value)" style="width:100%;padding:.65rem .9rem;border:2px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;outline:none;background:var(--surface2)">
+                <option value="james">James Mokoena — Grade 10A</option>
+                <option value="lebo">Lebo Dlamini — Grade 10B</option>
+                <option value="amara">Amara Osei — Grade 9A</option>
+                <option value="thabo">Thabo Nkosi — Grade 11A</option>
+                <option value="zanele">Zanele Moyo — Grade 8B</option>
+              </select>
             </div>
-          </div>
-          <div class="card reveal">
-            <div class="card-head"><h3>✅ Attendance Summary</h3></div>
-            <div class="card-body">
-              <div class="prog-item"><div class="prog-label">Grade 8A</div><div class="prog-track"><div class="prog-fill" style="width:77%;background:var(--teal)"></div></div><div class="prog-pct">77%</div></div>
-              <div class="prog-item"><div class="prog-label">Grade 9B</div><div class="prog-track"><div class="prog-fill" style="width:88%;background:var(--teal)"></div></div><div class="prog-pct">88%</div></div>
-              <div class="prog-item"><div class="prog-label">Grade 10A</div><div class="prog-track"><div class="prog-fill" style="width:95%;background:var(--green)"></div></div><div class="prog-pct">95%</div></div>
+            <div style="flex:1;min-width:140px">
+              <label style="font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:.4rem">Term</label>
+              <select style="width:100%;padding:.65rem .9rem;border:2px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;outline:none;background:var(--surface2)">
+                <option>Term 1 · Jan–Mar 2026</option>
+                <option>Term 2 · Apr–Jun 2026</option>
+              </select>
             </div>
+            <button class="btn btn-primary" onclick="generateSmartReport('james')" style="margin-top:1.2rem">✨ Generate Report</button>
           </div>
         </div>
+
+        <!-- SMART REPORT OUTPUT -->
+        <div id="smartReportOutput"></div>
       </div>
 
     </main>
@@ -901,10 +1130,10 @@ tbody tr:hover td{background:#EEF4FF}
       <button class="sitem on" onclick="stPage('dashboard',this)"><span class="si">📊</span> Dashboard</button>
       <button class="sitem" onclick="stPage('mygrades',this)"><span class="si">📝</span> My Grades</button>
       <button class="sitem" onclick="stPage('myattendance',this)"><span class="si">✅</span> My Attendance</button>
-      <button class="sitem" onclick="stPage('mylessons',this)"><span class="si">📖</span> Lessons</button>
+      <button class="sitem" onclick="stPage('mylessons',this)"><span class="si">📚</span> Notes & Tasks</button>
       <button class="sitem" onclick="stPage('timetable',this)"><span class="si">🗓️</span> Timetable</button>
       <button class="sitem" onclick="stPage('notices',this)"><span class="si">📢</span> Notices</button>
-      <button class="sitem" onclick="stPage('myreport',this)"><span class="si">📋</span> My Report</button>
+      <button class="sitem" onclick="stPage('profile',this)"><span class="si">👤</span> My Profile</button>
     </aside>
     <main class="main" id="studentMain">
 
@@ -991,20 +1220,124 @@ tbody tr:hover td{background:#EEF4FF}
         </div>
       </div>
 
-      <!-- MY LESSONS -->
+      <!-- MY LESSONS & ASSIGNMENTS -->
       <div class="page" id="st-page-mylessons">
-        <div class="phd"><h2>📖 Lessons</h2><p>Learning materials uploaded by your teachers</p></div>
-        <div class="card reveal">
-          <div class="tbl"><table>
-            <thead><tr><th>Lesson Title</th><th>Subject</th><th>Teacher</th><th>Date</th></tr></thead>
-            <tbody>
-              <tr><td><b>Introduction to Cell Biology</b></td><td>Science</td><td>Mrs. Okonkwo</td><td>20 Mar 2026</td></tr>
-              <tr><td><b>Quadratic Equations</b></td><td>Mathematics</td><td>Mr. Nkosi</td><td>19 Mar 2026</td></tr>
-              <tr><td><b>Research Methodology — Part 2</b></td><td>Research</td><td>Ms. Patel</td><td>18 Mar 2026</td></tr>
-              <tr><td><b>Shakespeare — Hamlet Overview</b></td><td>English</td><td>Mr. Dlamini</td><td>17 Mar 2026</td></tr>
-            </tbody>
-          </table></div>
+        <div class="phd"><h2>📚 Notes & Assignments</h2><p>Read your teacher's notes and submit your assignment answers</p></div>
+
+        <!-- Tab bar -->
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="switchMaterialTab('st-notes',this)">📄 Notes</button>
+          <button class="tab-btn" onclick="switchMaterialTab('st-assignments',this)">📝 Assignments</button>
+          <button class="tab-btn" onclick="switchMaterialTab('st-mysubmissions',this)">📥 My Submissions</button>
         </div>
+
+        <!-- NOTES TAB -->
+        <div class="tab-pane active" id="mat-st-notes">
+          <div id="stNotesGrid" style="display:flex;flex-direction:column;gap:.75rem">
+            <div class="material-card note-card">
+              <div class="mat-icon">📄</div>
+              <div class="mat-info">
+                <div class="mat-title">Introduction to Cell Biology</div>
+                <div class="mat-meta">Science · Grade 10A · Mrs. Okonkwo · 20 Mar 2026</div>
+                <div class="mat-desc">Covers cell structure, organelles, and their functions. Includes diagrams and summary tables.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-blue">PDF</span>
+                <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewNote('Introduction to Cell Biology','Cells are the basic units of life. There are two types: prokaryotic (no nucleus) and eukaryotic (has nucleus).\n\nKey organelles:\n• Nucleus — controls cell activities, contains DNA\n• Mitochondria — produces energy (ATP)\n• Ribosomes — makes proteins\n• Cell membrane — controls entry/exit of substances\n• Endoplasmic reticulum — transports materials\n• Golgi apparatus — packages and exports proteins\n\nPlant cells also have:\n• Cell wall — provides structure\n• Chloroplasts — site of photosynthesis\n• Vacuole — stores water and nutrients')">📖 Read</button>
+              </div>
+            </div>
+            <div class="material-card note-card">
+              <div class="mat-icon">📄</div>
+              <div class="mat-info">
+                <div class="mat-title">Photosynthesis — Full Notes</div>
+                <div class="mat-meta">Science · Grade 9B · Mrs. Okonkwo · 15 Mar 2026</div>
+                <div class="mat-desc">Light reactions, dark reactions, and the Calvin cycle explained with worked examples.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-green">DOCX</span>
+                <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewNote('Photosynthesis — Full Notes','Photosynthesis is the process by which plants use sunlight, water and CO₂ to produce glucose and oxygen.\n\nEquation: 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂\n\nTwo stages:\n1. Light-dependent reactions (in thylakoid membrane)\n   • Water is split (photolysis)\n   • ATP and NADPH are produced\n   • Oxygen is released\n\n2. Light-independent reactions — Calvin Cycle (in stroma)\n   • CO₂ is fixed into glucose\n   • Uses ATP and NADPH from stage 1\n\nFactors affecting photosynthesis:\n• Light intensity\n• CO₂ concentration\n• Temperature')">📖 Read</button>
+              </div>
+            </div>
+            <div class="material-card note-card">
+              <div class="mat-icon">📄</div>
+              <div class="mat-info">
+                <div class="mat-title">Quadratic Equations — Study Guide</div>
+                <div class="mat-meta">Mathematics · Grade 10A · Mr. Nkosi · 19 Mar 2026</div>
+                <div class="mat-desc">Factorisation, completing the square, and the quadratic formula with worked examples.</div>
+              </div>
+              <div class="mat-actions">
+                <span class="badge bg-blue">PDF</span>
+                <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewNote('Quadratic Equations','A quadratic equation has the form: ax² + bx + c = 0\n\nMethods to solve:\n\n1. Factorisation\n   Example: x² + 5x + 6 = 0\n   → (x + 2)(x + 3) = 0\n   → x = -2 or x = -3\n\n2. Quadratic Formula\n   x = (-b ± √(b² - 4ac)) / 2a\n\n   Example: 2x² - 4x - 6 = 0\n   a=2, b=-4, c=-6\n   x = (4 ± √(16 + 48)) / 4\n   x = (4 ± 8) / 4\n   x = 3 or x = -1\n\n3. Completing the Square\n   Used when factorisation is difficult.\n   Rewrite as (x + p)² = q then solve.')">📖 Read</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ASSIGNMENTS TAB -->
+        <div class="tab-pane" id="mat-st-assignments">
+          <div id="stAssignmentsGrid" style="display:flex;flex-direction:column;gap:.75rem">
+
+            <!-- Assignment 1 — already submitted -->
+            <div class="material-card assign-card" id="assign-card-1">
+              <div class="mat-icon">📝</div>
+              <div class="mat-info">
+                <div class="mat-title">Cell Biology Test — Written Questions</div>
+                <div class="mat-meta">Science · Mrs. Okonkwo · Due: <b>25 Mar 2026</b></div>
+                <div class="mat-desc">Answer all 5 questions. Max 500 words per answer. Submit your written response below.</div>
+              </div>
+              <div class="mat-actions" style="flex-direction:column;align-items:flex-end;gap:.4rem">
+                <span class="badge bg-green" id="assign-status-1">✓ Submitted</span>
+                <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="openSubmitAnswer('Cell Biology Test','Science','Mrs. Okonkwo','assign-status-1')">✏️ Edit Answer</button>
+              </div>
+            </div>
+
+            <!-- Assignment 2 — not submitted -->
+            <div class="material-card assign-card" id="assign-card-2">
+              <div class="mat-icon">📝</div>
+              <div class="mat-info">
+                <div class="mat-title">Photosynthesis Lab Report</div>
+                <div class="mat-meta">Science · Mrs. Okonkwo · Due: <b>28 Mar 2026</b></div>
+                <div class="mat-desc">Write a full lab report including hypothesis, method, results, and conclusion.</div>
+              </div>
+              <div class="mat-actions" style="flex-direction:column;align-items:flex-end;gap:.4rem">
+                <span class="badge bg-amber" id="assign-status-2">⏳ Pending</span>
+                <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem" onclick="openSubmitAnswer('Photosynthesis Lab Report','Science','Mrs. Okonkwo','assign-status-2')">📤 Submit Answer</button>
+              </div>
+            </div>
+
+            <!-- Assignment 3 — not submitted -->
+            <div class="material-card assign-card" id="assign-card-3">
+              <div class="mat-icon">📝</div>
+              <div class="mat-info">
+                <div class="mat-title">Algebra Problem Set 4</div>
+                <div class="mat-meta">Mathematics · Mr. Nkosi · Due: <b>30 Mar 2026</b></div>
+                <div class="mat-desc">Solve 10 quadratic equations showing all working. Use the formula or factorisation method.</div>
+              </div>
+              <div class="mat-actions" style="flex-direction:column;align-items:flex-end;gap:.4rem">
+                <span class="badge bg-red" id="assign-status-3">⏳ Not Started</span>
+                <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem" onclick="openSubmitAnswer('Algebra Problem Set 4','Mathematics','Mr. Nkosi','assign-status-3')">📤 Submit Answer</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- MY SUBMISSIONS TAB -->
+        <div class="tab-pane" id="mat-st-mysubmissions">
+          <div class="card">
+            <div class="tbl"><table>
+              <thead><tr><th>Assignment</th><th>Subject</th><th>Submitted</th><th>Grade</th><th>Actions</th></tr></thead>
+              <tbody id="stSubmissionsTbody">
+                <tr>
+                  <td><b>Cell Biology Test</b></td><td>Science</td><td>22 Mar 2026</td>
+                  <td><span class="badge bg-amber">Awaiting Grade</span></td>
+                  <td><button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewSubmission('James Mokoena','Cell Biology Test','The cell is the basic unit of life. All living organisms are made of cells. There are two main types: prokaryotic and eukaryotic. Eukaryotic cells contain a nucleus and membrane-bound organelles. Key organelles include the mitochondria (energy production), the nucleus (genetic control), and ribosomes (protein synthesis). The cell membrane regulates what enters and exits the cell.')">👁 View</button></td>
+                </tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+
       </div>
 
       <!-- TIMETABLE -->
@@ -1037,28 +1370,42 @@ tbody tr:hover td{background:#EEF4FF}
       </div>
 
       <!-- MY REPORT -->
-      <div class="page" id="st-page-myreport">
-        <div class="ptop">
-          <div class="phd"><h2>📋 My Report</h2><p>Term 1 · January – March 2026</p></div>
-          <button class="print-btn" onclick="window.print()">🖨️ Print Report</button>
-        </div>
-        <div class="report-card reveal">
-          <div class="report-hd">
-            <div><div style="font-size:1rem;font-weight:900;color:var(--navy);font-family:'DM Serif Display',serif">🏫 EduBuild Academy</div><div style="font-size:.72rem;color:var(--muted);margin-top:.2rem">Term 1 · January – March 2026</div></div>
-            <div style="text-align:right;font-size:.82rem;line-height:1.8"><strong>James Mokoena</strong><br>Grade 10A · ID: EB-2026-047<br><span style="font-size:.72rem;color:var(--muted)">DOB: 14 Jun 2010</span></div>
+      <!-- STUDENT PROFILE -->
+      <div class="page" id="st-page-profile">
+        <div class="phd"><h2>👤 My Profile</h2><p>Your personal information and academic identity</p></div>
+        <div class="g2">
+          <div class="card reveal">
+            <div class="card-head"><h3>Profile Picture</h3></div>
+            <div style="padding:1.5rem;text-align:center">
+              <div class="profile-avatar-lg" id="st-avatar-display">JM</div>
+              <div style="font-size:.75rem;color:var(--muted);margin-top:.75rem;margin-bottom:1rem">Profile photo is set by your class teacher</div>
+              <div style="background:var(--bg);border-radius:var(--r2);padding:.75rem;font-size:.78rem;color:var(--muted);border:1px solid var(--border)">
+                📌 To update your profile picture, ask your class teacher (Mrs. Okonkwo) to upload one for you in the Teacher portal.
+              </div>
+            </div>
           </div>
-          <div class="tbl"><table>
-            <thead><tr><th>Subject</th><th>Teacher</th><th>Term</th><th>Exam</th><th>Final</th><th>Grade</th></tr></thead>
-            <tbody>
-              <tr><td>Science</td><td>Mrs. Okonkwo</td><td>82%</td><td>86%</td><td><b>84%</b></td><td><span class="badge bg-green">A</span></td></tr>
-              <tr><td>Mathematics</td><td>Mr. Nkosi</td><td>70%</td><td>74%</td><td><b>72%</b></td><td><span class="badge bg-blue">B</span></td></tr>
-              <tr><td>Research</td><td>Ms. Patel</td><td>88%</td><td>92%</td><td><b>90%</b></td><td><span class="badge bg-green">A</span></td></tr>
-              <tr><td>English</td><td>Mr. Dlamini</td><td>66%</td><td>70%</td><td><b>68%</b></td><td><span class="badge bg-blue">B</span></td></tr>
-              <tr><td>History</td><td>Mrs. Moyo</td><td>75%</td><td>79%</td><td><b>77%</b></td><td><span class="badge bg-blue">B</span></td></tr>
-            </tbody>
-          </table></div>
-          <div class="report-summary"><div><strong>Overall Average:</strong> 78.2%</div><div><strong>Attendance:</strong> 92%</div><div><strong>Conduct:</strong> <span class="badge bg-green">Excellent</span></div><div><strong>Position:</strong> 12 of 25</div></div>
-          <div class="report-comment"><strong>Teacher Comment:</strong> James has shown excellent progress this term, particularly in Research and Science. Mathematics needs more focused practice.<br><strong>Head Teacher:</strong> Dr. Adams &nbsp; <strong>Date:</strong> 23 March 2026</div>
+          <div class="card reveal">
+            <div class="card-head"><h3>Personal Information</h3></div>
+            <div style="padding:1.25rem;display:flex;flex-direction:column;gap:.85rem">
+              <div class="profile-field"><span class="pf-label">Full Name</span><span class="pf-value">James Mokoena</span></div>
+              <div class="profile-field"><span class="pf-label">Student ID</span><span class="pf-value">EB-2026-047</span></div>
+              <div class="profile-field"><span class="pf-label">Date of Birth</span><span class="pf-value">14 June 2010</span></div>
+              <div class="profile-field"><span class="pf-label">Grade</span><span class="pf-value">Grade 10A</span></div>
+              <div class="profile-field"><span class="pf-label">School</span><span class="pf-value">EduBuild Academy</span></div>
+              <div class="profile-field"><span class="pf-label">Class Teacher</span><span class="pf-value">Mrs. Sarah Okonkwo</span></div>
+              <div class="profile-field"><span class="pf-label">Enrolled Since</span><span class="pf-value">January 2023</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card reveal">
+          <div class="card-head"><h3>📊 Academic Snapshot</h3></div>
+          <div style="padding:1.25rem">
+            <div class="g3" style="margin-bottom:0">
+              <div style="text-align:center;background:var(--bg);border-radius:var(--r2);padding:1rem;border:1px solid var(--border)"><div style="font-size:1.6rem;font-weight:900;color:var(--navy)">78%</div><div style="font-size:.72rem;color:var(--muted);margin-top:.2rem">Overall Average</div></div>
+              <div style="text-align:center;background:var(--bg);border-radius:var(--r2);padding:1rem;border:1px solid var(--border)"><div style="font-size:1.6rem;font-weight:900;color:var(--green)">92%</div><div style="font-size:.72rem;color:var(--muted);margin-top:.2rem">Attendance</div></div>
+              <div style="text-align:center;background:var(--bg);border-radius:var(--r2);padding:1rem;border:1px solid var(--border)"><div style="font-size:1.6rem;font-weight:900;color:var(--blue)">12th</div><div style="font-size:.72rem;color:var(--muted);margin-top:.2rem">Class Position</div></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1091,7 +1438,6 @@ tbody tr:hover td{background:#EEF4FF}
       <button class="sitem on" onclick="prPage('dashboard',this)"><span class="si">📊</span> Overview</button>
       <button class="sitem" onclick="prPage('childgrades',this)"><span class="si">📝</span> Grades</button>
       <button class="sitem" onclick="prPage('childattendance',this)"><span class="si">✅</span> Attendance</button>
-      <button class="sitem" onclick="prPage('childreport',this)"><span class="si">📋</span> Report Card</button>
       <button class="sitem" onclick="prPage('notices',this)"><span class="si">📢</span> Notices</button>
       <button class="sitem" onclick="prPage('contactteacher',this)"><span class="si">✉️</span> Contact Teacher</button>
     </aside>
@@ -1176,37 +1522,42 @@ tbody tr:hover td{background:#EEF4FF}
         </div>
       </div>
 
-      <!-- CHILD REPORT -->
-      <div class="page" id="pr-page-childreport">
-        <div class="ptop">
-          <div class="phd"><h2>📋 James's Report Card</h2><p>Term 1 · January – March 2026</p></div>
-          <button class="print-btn" onclick="window.print()">🖨️ Print</button>
-        </div>
-        <div class="report-card reveal">
-          <div class="report-hd">
-            <div><div style="font-size:1rem;font-weight:900;color:var(--navy);font-family:'DM Serif Display',serif">🏫 EduBuild Academy</div><div style="font-size:.72rem;color:var(--muted);margin-top:.2rem">Term 1 · January – March 2026</div></div>
-            <div style="text-align:right;font-size:.82rem;line-height:1.8"><strong>James Mokoena</strong><br>Grade 10A · ID: EB-2026-047</div>
-          </div>
-          <div class="tbl"><table>
-            <thead><tr><th>Subject</th><th>Teacher</th><th>Term</th><th>Exam</th><th>Final</th><th>Grade</th></tr></thead>
-            <tbody>
-              <tr><td>Science</td><td>Mrs. Okonkwo</td><td>82%</td><td>86%</td><td><b>84%</b></td><td><span class="badge bg-green">A</span></td></tr>
-              <tr><td>Mathematics</td><td>Mr. Nkosi</td><td>70%</td><td>74%</td><td><b>72%</b></td><td><span class="badge bg-blue">B</span></td></tr>
-              <tr><td>Research</td><td>Ms. Patel</td><td>88%</td><td>92%</td><td><b>90%</b></td><td><span class="badge bg-green">A</span></td></tr>
-              <tr><td>English</td><td>Mr. Dlamini</td><td>66%</td><td>70%</td><td><b>68%</b></td><td><span class="badge bg-blue">B</span></td></tr>
-              <tr><td>History</td><td>Mrs. Moyo</td><td>75%</td><td>79%</td><td><b>77%</b></td><td><span class="badge bg-blue">B</span></td></tr>
-            </tbody>
-          </table></div>
-          <div class="report-summary"><div><strong>Average:</strong> 78.2%</div><div><strong>Attendance:</strong> 92%</div><div><strong>Conduct:</strong> <span class="badge bg-green">Excellent</span></div></div>
-          <div class="report-comment"><strong>Comment:</strong> James has shown excellent progress this term. Mathematics needs more focused practice.<br><strong>Head Teacher:</strong> Dr. Adams &nbsp; <strong>Date:</strong> 23 March 2026</div>
-        </div>
-      </div>
+      <!-- CHILD REPORT REMOVED — reports are only viewable by Head Teacher -->
 
       <!-- NOTICES -->
       <div class="page" id="pr-page-notices">
         <div class="phd"><h2>📢 School Notices</h2><p>Announcements from EduBuild Academy</p></div>
         <article class="announce-card"><div class="announce-title">Term 2 Exam Schedule Released</div><div class="announce-meta">22 Mar 2026 · EduBuild Academy</div><div class="announce-body">Term 2 examinations will run from 15–25 April 2026. Please ensure your child arrives 15 minutes early.</div></article>
         <article class="announce-card" style="border-left-color:var(--orange)"><div class="announce-title">School Closure — Public Holiday</div><div class="announce-meta">18 Mar 2026</div><div class="announce-body">School closed Friday 27 March 2026. Normal classes resume Monday 30 March.</div></article>
+      </div>
+
+      <!-- CONTACT TEACHER -->
+      <div class="page" id="pr-page-contactteacher">
+        <div class="phd"><h2>✉️ Contact Teacher</h2><p>Send a message to your child's teachers</p></div>
+        <div class="card reveal">
+          <div class="card-head"><h3>New Message</h3></div>
+          <div style="padding:1.25rem;display:flex;flex-direction:column;gap:1rem">
+            <div class="mfield"><label>To</label><select style="width:100%;padding:.65rem .9rem;border:2px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;outline:none;background:var(--surface2)"><option>Mrs. Okonkwo — Science</option><option>Mr. Nkosi — Mathematics</option><option>Ms. Patel — Research</option><option>Mr. Dlamini — English</option><option>Mrs. Moyo — History</option></select></div>
+            <div class="mfield"><label>Subject</label><input type="text" placeholder="e.g. Question about James's progress"/></div>
+            <div class="mfield"><label>Message</label><textarea class="submit-area" placeholder="Type your message here..." style="min-height:120px"></textarea></div>
+            <button class="btn btn-primary" style="align-self:flex-start" onclick="toast('Message sent to teacher ✓')">📤 Send Message</button>
+          </div>
+        </div>
+        <div class="card reveal">
+          <div class="card-head"><h3>Message History</h3></div>
+          <div style="padding:1rem">
+            <div style="background:var(--bg);border-radius:var(--r2);padding:.85rem 1rem;margin-bottom:.65rem;border-left:3px solid var(--blue)">
+              <div style="font-size:.78rem;font-weight:700;color:var(--navy)">Mrs. Okonkwo replied</div>
+              <div style="font-size:.72rem;color:var(--muted);margin-bottom:.3rem">18 Mar 2026 · 14:32</div>
+              <div style="font-size:.82rem">James is doing well overall. I would encourage him to spend more time on the written components of his science work. His lab reports show great potential.</div>
+            </div>
+            <div style="background:var(--bg);border-radius:var(--r2);padding:.85rem 1rem;border-left:3px solid var(--muted2)">
+              <div style="font-size:.78rem;font-weight:700;color:var(--navy)">You wrote</div>
+              <div style="font-size:.72rem;color:var(--muted);margin-bottom:.3rem">17 Mar 2026 · 09:15</div>
+              <div style="font-size:.82rem">Good morning Mrs. Okonkwo. I wanted to check in on James's science progress. Is there anything we can do at home to support him?</div>
+            </div>
+          </div>
+        </div>
       </div>
 
     </main>
@@ -1217,7 +1568,129 @@ tbody tr:hover td{background:#EEF4FF}
      MODALS
 ══════════════════════════════ -->
 
-<!-- ADD SCHOOL -->
+<!-- TEACHER: UPLOAD NOTE -->
+<div class="modal-overlay" id="modal-tUploadNote" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-hd"><h3>📄 Upload Note</h3><button class="modal-close" onclick="closeModal('tUploadNote')">✕</button></div>
+    <div class="mfield"><label>Title</label><input type="text" id="tn-title" placeholder="e.g. Introduction to Cell Biology"/></div>
+    <div class="mrow">
+      <div class="mfield"><label>Subject</label><input type="text" id="tn-subject" placeholder="e.g. Science"/></div>
+      <div class="mfield"><label>Class</label><select id="tn-class"><option>Grade 8A</option><option>Grade 9B</option><option selected>Grade 10A</option><option>Grade 11A</option><option>Grade 12A</option></select></div>
+    </div>
+    <div class="mfield"><label>Description</label><input type="text" id="tn-desc" placeholder="Brief description of the note content"/></div>
+    <div class="mfield"><label>Note Content</label><textarea class="submit-area" id="tn-content" placeholder="Type or paste your note content here. Students will be able to read this directly in their portal." style="min-height:150px"></textarea></div>
+    <div class="mfield">
+      <label>Or Upload a File (optional)</label>
+      <div class="file-drop" id="tn-drop" onclick="document.getElementById('tn-file').click()" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="handleFileDrop(event,'tn-file','tn-fname')">
+        <div style="font-size:1.5rem">📁</div>
+        <p>Click to browse or drag & drop a file (PDF, DOCX, PNG)</p>
+        <input type="file" id="tn-file" accept=".pdf,.doc,.docx,.png,.jpg" onchange="showFileName('tn-file','tn-fname')"/>
+        <div class="file-name" id="tn-fname"></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('tUploadNote')">Cancel</button>
+      <button class="btn btn-primary" onclick="teacherUploadNote()">📤 Upload Note</button>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER: CREATE ASSIGNMENT -->
+<div class="modal-overlay" id="modal-tCreateAssignment" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-hd"><h3>📝 Create Assignment</h3><button class="modal-close" onclick="closeModal('tCreateAssignment')">✕</button></div>
+    <div class="mfield"><label>Assignment Title</label><input type="text" id="ta-title" placeholder="e.g. Chapter 4 Questions"/></div>
+    <div class="mrow">
+      <div class="mfield"><label>Subject</label><input type="text" id="ta-subject" placeholder="e.g. Science"/></div>
+      <div class="mfield"><label>Class</label><select id="ta-class"><option>Grade 8A</option><option>Grade 9B</option><option selected>Grade 10A</option><option>Grade 11A</option><option>Grade 12A</option></select></div>
+    </div>
+    <div class="mfield"><label>Due Date</label><input type="date" id="ta-due"/></div>
+    <div class="mfield"><label>Assignment Instructions</label><textarea class="submit-area" id="ta-instructions" placeholder="Write the full assignment question or instructions here. Students will read and respond to this." style="min-height:140px"></textarea></div>
+    <div class="mfield">
+      <label>Attach a File (optional)</label>
+      <div class="file-drop" onclick="document.getElementById('ta-file').click()">
+        <div style="font-size:1.5rem">📎</div>
+        <p>Attach a worksheet or question paper (PDF, DOCX)</p>
+        <input type="file" id="ta-file" accept=".pdf,.doc,.docx" onchange="showFileName('ta-file','ta-fname')"/>
+        <div class="file-name" id="ta-fname"></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('tCreateAssignment')">Cancel</button>
+      <button class="btn btn-primary" onclick="teacherCreateAssignment()">📝 Post Assignment</button>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER: VIEW SUBMISSION -->
+<div class="modal-overlay" id="modal-viewSubmission" role="dialog" aria-modal="true">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-hd"><h3 id="vsModal-title">📄 Student Submission</h3><button class="modal-close" onclick="closeModal('viewSubmission')">✕</button></div>
+    <div style="font-size:.78rem;color:var(--muted);margin-bottom:.75rem" id="vsModal-meta"></div>
+    <div class="note-viewer" id="vsModal-content"></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('viewSubmission')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER: GRADE SUBMISSION -->
+<div class="modal-overlay" id="modal-gradeSubmission" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-hd"><h3>📝 Grade Submission</h3><button class="modal-close" onclick="closeModal('gradeSubmission')">✕</button></div>
+    <div style="font-size:.82rem;color:var(--muted);margin-bottom:1rem" id="gs-meta"></div>
+    <div class="mfield"><label>Score (%)</label><input type="number" id="gs-score" min="0" max="100" placeholder="e.g. 85"/></div>
+    <div class="mfield"><label>Teacher Feedback (optional)</label><textarea class="submit-area" id="gs-feedback" placeholder="Write brief feedback for the student..." style="min-height:90px"></textarea></div>
+    <input type="hidden" id="gs-row-ref"/>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('gradeSubmission')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveSubmissionGrade()">Save Grade</button>
+    </div>
+  </div>
+</div>
+
+<!-- STUDENT: READ NOTE MODAL -->
+<div class="modal-overlay" id="modal-readNote" role="dialog" aria-modal="true">
+  <div class="modal" style="max-width:580px">
+    <div class="modal-hd"><h3 id="rn-title">📄 Note</h3><button class="modal-close" onclick="closeModal('readNote')">✕</button></div>
+    <div class="note-viewer" id="rn-content"></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('readNote')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- STUDENT: SUBMIT ANSWER MODAL -->
+<div class="modal-overlay" id="modal-submitAnswer" role="dialog" aria-modal="true">
+  <div class="modal" style="max-width:580px">
+    <div class="modal-hd"><h3 id="sa-title">📤 Submit Answer</h3><button class="modal-close" onclick="closeModal('submitAnswer')">✕</button></div>
+    <div style="font-size:.78rem;color:var(--muted);margin-bottom:.75rem" id="sa-meta"></div>
+    <div class="mfield">
+      <label>Your Answer</label>
+      <textarea class="submit-area" id="sa-answer" placeholder="Type your answer here. Be clear and detailed. Max 1000 words." oninput="updateCharCount(this,'sa-count')"></textarea>
+      <div class="char-count" id="sa-count">0 / 1000 words</div>
+    </div>
+    <div class="mfield">
+      <label>Or attach a file (optional)</label>
+      <div class="file-drop" onclick="document.getElementById('sa-file').click()">
+        <div style="font-size:1.4rem">📎</div>
+        <p>Attach your answer as a file (PDF, DOCX, PNG, JPG)</p>
+        <input type="file" id="sa-file" accept=".pdf,.doc,.docx,.png,.jpg" onchange="showFileName('sa-file','sa-fname')"/>
+        <div class="file-name" id="sa-fname"></div>
+      </div>
+    </div>
+    <input type="hidden" id="sa-assignment-title"/>
+    <input type="hidden" id="sa-subject"/>
+    <input type="hidden" id="sa-teacher"/>
+    <input type="hidden" id="sa-status-id"/>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('submitAnswer')">Cancel</button>
+      <button class="btn btn-primary" onclick="studentSubmitAnswer()">📤 Submit Answer</button>
+    </div>
+  </div>
+</div>
+
+
 <div class="modal-overlay" id="modal-addSchool" role="dialog" aria-modal="true">
   <div class="modal">
     <div class="modal-hd"><h3>🏫 Add New School</h3><button class="modal-close" onclick="closeModal('addSchool')">✕</button></div>
@@ -1371,9 +1844,27 @@ tbody tr:hover td{background:#EEF4FF}
    DATA STORE
 ════════════════════════════════════════ */
 const SCHOOLS = [
-  { id:'s1', name:'EduBuild Academy',    addr:'123 Education St, Johannesburg', email:'admin@edubuild.school',   head:'Dr. Adams',  huser:'head.edubuild',   hpass:'head1234',  students:247, teachers:18, active:true  },
-  { id:'s2', name:'Sunrise High School', addr:'45 Sunrise Ave, Cape Town',       email:'info@sunrisehigh.school', head:'Mrs. Banda',  huser:'head.sunrise',    hpass:'head1234',  students:312, teachers:22, active:true  },
-  { id:'s3', name:'Valley Institute',    addr:'7 Valley Road, Durban',           email:'contact@valley.edu',     head:'Mr. Okafor', huser:'head.valley',     hpass:'head1234',  students:182, teachers:14, active:false }
+  {
+    id:'s1', name:'EduBuild Academy', addr:'123 Education St, Johannesburg',
+    email:'admin@edubuild.school', head:'Dr. Adams',
+    huser:'head.edubuild', hpass:'edubuild1234', portal:'school1234',
+    students:247, teachers:18, active:true,
+    creds:{ teacher:{user:'teacher',pass:'teacher123'}, student:{user:'student',pass:'student123'}, parent:{user:'parent',pass:'parent123'} }
+  },
+  {
+    id:'s2', name:'Sunrise High School', addr:'45 Sunrise Ave, Cape Town',
+    email:'info@sunrisehigh.school', head:'Mrs. Banda',
+    huser:'head.sunrise', hpass:'sunrise1234', portal:'school2468',
+    students:312, teachers:22, active:true,
+    creds:{ teacher:{user:'teacher2',pass:'teacher456'}, student:{user:'student2',pass:'student456'}, parent:{user:'parent2',pass:'parent456'} }
+  },
+  {
+    id:'s3', name:'Valley Institute', addr:'7 Valley Road, Durban',
+    email:'contact@valley.edu', head:'Mr. Okafor',
+    huser:'head.valley', hpass:'valley1234', portal:'school3579',
+    students:182, teachers:14, active:false,
+    creds:{ teacher:{user:'teacher3',pass:'teacher789'}, student:{user:'student3',pass:'student789'}, parent:{user:'parent3',pass:'parent789'} }
+  }
 ];
 
 /* ════════════════════════════════════════
@@ -1381,15 +1872,16 @@ const SCHOOLS = [
 ════════════════════════════════════════ */
 // Per-school role credentials — each school has its own set
 const SCHOOL_ROLE_CREDS = {
-  headteacher: { user:'head',    pass:'head1234',   icon:'🏫', title:'Head Teacher Sign In', hint:'Username: <b>head</b> &nbsp;·&nbsp; Password: <b>head1234</b>' },
+  headteacher: { icon:'🏫', title:'Head Teacher Sign In' },
   student:     { user:'student', pass:'student123', icon:'👨‍🎓', title:'Student Sign In',     hint:'Username: <b>student</b> &nbsp;·&nbsp; Password: <b>student123</b>' },
   parent:      { user:'parent',  pass:'parent123',  icon:'👪',  title:'Parent Sign In',      hint:'Username: <b>parent</b> &nbsp;·&nbsp; Password: <b>parent123</b>' },
   teacher:     { user:'teacher', pass:'teacher123', icon:'👩‍🏫', title:'Teacher Sign In',     hint:'Username: <b>teacher</b> &nbsp;·&nbsp; Password: <b>teacher123</b>' }
 };
 
-let selectedSchoolIdx = null;   // which school was picked
-let selectedSchoolRole = null;  // which role inside that school
-let loginStep = 1;              // tracks current step
+let selectedSchoolIdx = null;
+let selectedSchoolRole = null;
+let currentSchool = null;
+let loginStep = 1;
 
 /* ════════════════════════════════════════
    SCREEN SWITCHER
@@ -1455,7 +1947,7 @@ function chooseSchool(idx) {
   selectedSchoolIdx = idx;
   const school = SCHOOLS[idx];
   document.getElementById('schoolLoginName').textContent = school.name;
-  document.getElementById('schoolHint').innerHTML = `Head Teacher login: <b>${school.huser}</b> / <b>${school.hpass}</b>`;
+  document.getElementById('schoolHint').innerHTML = `School access code: <b>${school.portal}</b>`;
   document.getElementById('schoolPass').value = '';
   document.getElementById('schoolMsg').style.display = 'none';
   showLoginStep('step2School');
@@ -1482,20 +1974,19 @@ function loginAdmin(e) {
 }
 
 /* ════════════════════════════════════════
-   STEP 2b — School password check
+   STEP 2b — School portal access code
 ════════════════════════════════════════ */
 function loginSchool(e) {
   if(e) e.preventDefault();
-  const p = document.getElementById('schoolPass').value;
+  const p = document.getElementById('schoolPass').value.trim();
   const school = SCHOOLS[selectedSchoolIdx];
   const msg = document.getElementById('schoolMsg');
-  // School password is the head teacher's password (shared access code)
-  if(p === school.hpass) {
+  if(p === school.portal) {
     msg.style.display = 'none';
     document.getElementById('step3SchoolName').textContent = '🏫 ' + school.name;
     showLoginStep('step3Role');
   } else {
-    showMsg(msg, 'error', '❌ Incorrect school password. Please try again.');
+    showMsg(msg, 'error', '❌ Incorrect school access code. Please try again.');
     document.getElementById('schoolPass').value = '';
     document.getElementById('schoolPass').focus();
   }
@@ -1506,10 +1997,16 @@ function loginSchool(e) {
 ════════════════════════════════════════ */
 function chooseSchoolRole(role) {
   selectedSchoolRole = role;
+  const school = SCHOOLS[selectedSchoolIdx];
   const meta = SCHOOL_ROLE_CREDS[role];
   document.getElementById('step4Icon').textContent = meta.icon;
   document.getElementById('step4Title').textContent = meta.title;
-  document.getElementById('roleHint').innerHTML = meta.hint;
+  if(role === 'headteacher') {
+    document.getElementById('roleHint').innerHTML = `Username: <b>${school.huser}</b> &nbsp;·&nbsp; Password: <b>${school.hpass}</b>`;
+  } else {
+    const c = school.creds[role];
+    document.getElementById('roleHint').innerHTML = c ? `Username: <b>${c.user}</b> &nbsp;·&nbsp; Password: <b>${c.pass}</b>` : '';
+  }
   document.getElementById('roleUser').value = '';
   document.getElementById('rolePass').value = '';
   document.getElementById('roleMsg').style.display = 'none';
@@ -1526,21 +2023,22 @@ function loginSchoolRole(e) {
   const p = document.getElementById('rolePass').value;
   const msg = document.getElementById('roleMsg');
   const school = SCHOOLS[selectedSchoolIdx];
-  const meta = SCHOOL_ROLE_CREDS[selectedSchoolRole];
 
-  // For head teacher, check against school's own credentials
   let valid = false;
   if(selectedSchoolRole === 'headteacher') {
     valid = (u === school.huser && p === school.hpass);
   } else {
-    valid = (u === meta.user && p === meta.pass);
+    const c = school.creds[selectedSchoolRole];
+    valid = c && (u === c.user && p === c.pass);
   }
 
   if(valid) {
     msg.style.display = 'none';
-    // Set school badge names in the role dashboards
-    const badge = document.getElementById('htSchoolBadge');
-    if(badge) badge.textContent = '🏫 ' + school.name;
+    currentSchool = school;
+    // Update all school badges across dashboards
+    ['htSchoolBadge','tSchoolBadge'].forEach(id => {
+      const el = document.getElementById(id); if(el) el.textContent = '🏫 ' + school.name;
+    });
     const htName = document.getElementById('htUserName');
     if(htName) htName.textContent = school.head;
     if(selectedSchoolRole === 'headteacher') renderSchoolPages(school);
@@ -2133,9 +2631,538 @@ function toggleSidebar(sidebarId, btnId) {
 }
 
 /* ════════════════════════════════════════
-   HELPERS
+   MATERIAL TAB SWITCHER
 ════════════════════════════════════════ */
-function delRow(el) { if(confirm('Delete this record?')){ el.closest('tr').remove(); toast('Record deleted.'); } }
+function switchMaterialTab(id, btn) {
+  // Find the tab-bar parent and switch within it
+  const bar = btn.closest('.tab-bar');
+  bar.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  // Find all sibling tab-panes (next siblings after the tab-bar)
+  const container = bar.parentElement;
+  container.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('mat-' + id);
+  if(target) target.classList.add('active');
+}
+
+/* ════════════════════════════════════════
+   FILE UPLOAD HELPERS
+════════════════════════════════════════ */
+function showFileName(inputId, labelId) {
+  const input = document.getElementById(inputId);
+  const label = document.getElementById(labelId);
+  if(input && input.files.length > 0 && label) {
+    label.textContent = '📎 ' + input.files[0].name;
+    label.style.display = 'block';
+  }
+}
+
+function handleFileDrop(e, inputId, labelId) {
+  e.preventDefault();
+  const drop = e.currentTarget;
+  drop.classList.remove('dragover');
+  const files = e.dataTransfer.files;
+  if(files.length) {
+    const input = document.getElementById(inputId);
+    // Can't directly set files, but show name
+    const label = document.getElementById(labelId);
+    if(label) { label.textContent = '📎 ' + files[0].name; label.style.display='block'; }
+  }
+}
+
+function updateCharCount(textarea, countId) {
+  const words = textarea.value.trim().split(/\s+/).filter(w=>w.length>0).length;
+  const el = document.getElementById(countId);
+  if(el) {
+    el.textContent = words + ' / 1000 words';
+    el.style.color = words > 950 ? 'var(--red)' : words > 800 ? 'var(--amber)' : 'var(--muted2)';
+  }
+}
+
+/* ════════════════════════════════════════
+   TEACHER — VIEW NOTE (read modal)
+════════════════════════════════════════ */
+function viewNote(title, content) {
+  document.getElementById('rn-title').textContent = '📄 ' + title;
+  document.getElementById('rn-content').textContent = content;
+  openModal('readNote');
+}
+
+/* ════════════════════════════════════════
+   TEACHER — UPLOAD NOTE
+════════════════════════════════════════ */
+function teacherUploadNote() {
+  const title   = document.getElementById('tn-title').value.trim();
+  const subject = document.getElementById('tn-subject').value.trim();
+  const cls     = document.getElementById('tn-class').value;
+  const desc    = document.getElementById('tn-desc').value.trim();
+  const content = document.getElementById('tn-content').value.trim();
+  const fname   = document.getElementById('tn-fname').textContent;
+  const fileType = fname ? fname.split('.').pop().toUpperCase() : 'NOTE';
+
+  if(!title) { toast('Please enter a title.'); return; }
+
+  // Add to teacher notes grid
+  const grid = document.getElementById('notesGrid');
+  if(grid) {
+    const card = document.createElement('div');
+    card.className = 'material-card note-card';
+    card.innerHTML = `
+      <div class="mat-icon">📄</div>
+      <div class="mat-info">
+        <div class="mat-title">${title}</div>
+        <div class="mat-meta">${subject||'General'} · ${cls} · Uploaded ${todayStr()} by Mrs. Okonkwo</div>
+        <div class="mat-desc">${desc||'No description provided.'}</div>
+      </div>
+      <div class="mat-actions">
+        <span class="badge bg-blue">${fileType}</span>
+        <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+      </div>`;
+    grid.prepend(card);
+  }
+
+  // Also add to student notes grid so students see it
+  const stGrid = document.getElementById('stNotesGrid');
+  if(stGrid) {
+    const stCard = document.createElement('div');
+    stCard.className = 'material-card note-card';
+    stCard.innerHTML = `
+      <div class="mat-icon">📄</div>
+      <div class="mat-info">
+        <div class="mat-title">${title}</div>
+        <div class="mat-meta">${subject||'General'} · ${cls} · Mrs. Okonkwo · ${todayStr()}</div>
+        <div class="mat-desc">${desc||'No description provided.'}</div>
+      </div>
+      <div class="mat-actions">
+        <span class="badge bg-blue">${fileType}</span>
+        <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewNote('${title.replace(/'/g,"\\'")}','${(content||desc||'No content available.').replace(/'/g,"\\'").replace(/\n/g,'\\n')}')">📖 Read</button>
+      </div>`;
+    stGrid.prepend(stCard);
+  }
+
+  closeModal('tUploadNote');
+  ['tn-title','tn-subject','tn-desc','tn-content','tn-fname'].forEach(id=>{
+    const el=document.getElementById(id); if(el){el.value='';el.textContent='';el.style.display='none';}
+  });
+  toast(`Note "${title}" uploaded — students can now read it ✓`);
+}
+
+/* ════════════════════════════════════════
+   TEACHER — CREATE ASSIGNMENT
+════════════════════════════════════════ */
+function teacherCreateAssignment() {
+  const title        = document.getElementById('ta-title').value.trim();
+  const subject      = document.getElementById('ta-subject').value.trim();
+  const cls          = document.getElementById('ta-class').value;
+  const due          = document.getElementById('ta-due').value;
+  const instructions = document.getElementById('ta-instructions').value.trim();
+  if(!title || !instructions) { toast('Please enter a title and instructions.'); return; }
+
+  const dueStr = due ? new Date(due).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) : 'No deadline set';
+
+  // Add to teacher assignments grid
+  const grid = document.getElementById('assignmentsGrid');
+  const assignId = 'assign-t-' + Date.now();
+  if(grid) {
+    const card = document.createElement('div');
+    card.className = 'material-card assign-card';
+    card.innerHTML = `
+      <div class="mat-icon">📝</div>
+      <div class="mat-info">
+        <div class="mat-title">${title}</div>
+        <div class="mat-meta">${subject||'General'} · ${cls} · Due: <b>${dueStr}</b></div>
+        <div class="mat-desc">${instructions}</div>
+      </div>
+      <div class="mat-actions">
+        <span class="badge bg-green">Open</span>
+        <span class="badge bg-blue">0 submitted</span>
+        <button class="action-btn" title="Delete" onclick="delMaterial(this)">🗑️</button>
+      </div>`;
+    grid.prepend(card);
+  }
+
+  // Add to student assignments grid
+  const stGrid = document.getElementById('stAssignmentsGrid');
+  const newStatusId = 'assign-status-new-' + Date.now();
+  if(stGrid) {
+    const stCard = document.createElement('div');
+    stCard.className = 'material-card assign-card';
+    stCard.id = assignId;
+    stCard.innerHTML = `
+      <div class="mat-icon">📝</div>
+      <div class="mat-info">
+        <div class="mat-title">${title}</div>
+        <div class="mat-meta">${subject||'General'} · Mrs. Okonkwo · Due: <b>${dueStr}</b></div>
+        <div class="mat-desc">${instructions}</div>
+      </div>
+      <div class="mat-actions" style="flex-direction:column;align-items:flex-end;gap:.4rem">
+        <span class="badge bg-red" id="${newStatusId}">⏳ Not Started</span>
+        <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem"
+          onclick="openSubmitAnswer('${title.replace(/'/g,"\\'")}','${(subject||'General').replace(/'/g,"\\'")}','Mrs. Okonkwo','${newStatusId}')">📤 Submit Answer</button>
+      </div>`;
+    stGrid.prepend(stCard);
+  }
+
+  closeModal('tCreateAssignment');
+  ['ta-title','ta-subject','ta-due','ta-instructions','ta-fname'].forEach(id=>{
+    const el=document.getElementById(id); if(el){el.value='';el.textContent='';el.style.display='none';}
+  });
+  toast(`Assignment "${title}" posted — students can now submit answers ✓`);
+}
+
+/* ════════════════════════════════════════
+   TEACHER — VIEW SUBMISSION
+════════════════════════════════════════ */
+function viewSubmission(student, assignment, content) {
+  document.getElementById('vsModal-title').textContent = `📄 ${student} — ${assignment}`;
+  document.getElementById('vsModal-meta').textContent = `Submitted answer for: ${assignment}`;
+  document.getElementById('vsModal-content').textContent = content;
+  openModal('viewSubmission');
+}
+
+/* ════════════════════════════════════════
+   TEACHER — OPEN GRADE SUBMISSION
+════════════════════════════════════════ */
+let _gradeRowBtn = null;
+function openGradeSubmission(student, assignment, triggerBtn) {
+  _gradeRowBtn = triggerBtn;
+  document.getElementById('gs-meta').textContent = `Grading: ${student} — ${assignment}`;
+  document.getElementById('gs-score').value = '';
+  document.getElementById('gs-feedback').value = '';
+  openModal('gradeSubmission');
+}
+
+function saveSubmissionGrade() {
+  const score = document.getElementById('gs-score').value;
+  if(!score || isNaN(parseInt(score))) { toast('Please enter a valid score.'); return; }
+  const s = parseInt(score);
+  const cls = s>=80?'bg-green':s>=60?'bg-blue':s>=50?'bg-amber':'bg-red';
+
+  // Update the row in teacher submissions table
+  if(_gradeRowBtn) {
+    const row = _gradeRowBtn.closest('tr');
+    if(row) {
+      const statusCell = row.cells[4];
+      if(statusCell) statusCell.innerHTML = `<span class="badge ${cls}">Graded — ${s}%</span>`;
+      // Remove grade button from actions
+      _gradeRowBtn.remove();
+    }
+  }
+
+  // Also update student's submissions table
+  const stTbody = document.getElementById('stSubmissionsTbody');
+  if(stTbody) {
+    const rows = stTbody.querySelectorAll('tr');
+    rows.forEach(row => {
+      const gradeCell = row.cells[3];
+      if(gradeCell && gradeCell.innerHTML.includes('Awaiting')) {
+        gradeCell.innerHTML = `<span class="badge ${cls}">${s}%</span>`;
+      }
+    });
+  }
+
+  closeModal('gradeSubmission');
+  toast(`Grade saved — ${s}% ✓`);
+  _gradeRowBtn = null;
+}
+
+/* ════════════════════════════════════════
+   STUDENT — OPEN SUBMIT ANSWER
+════════════════════════════════════════ */
+function openSubmitAnswer(assignmentTitle, subject, teacher, statusElementId) {
+  document.getElementById('sa-title').textContent = '📤 ' + assignmentTitle;
+  document.getElementById('sa-meta').textContent = subject + ' · ' + teacher;
+  document.getElementById('sa-assignment-title').value = assignmentTitle;
+  document.getElementById('sa-subject').value = subject;
+  document.getElementById('sa-teacher').value = teacher;
+  document.getElementById('sa-status-id').value = statusElementId;
+  document.getElementById('sa-answer').value = '';
+  document.getElementById('sa-count').textContent = '0 / 1000 words';
+  const fn = document.getElementById('sa-fname');
+  if(fn) { fn.style.display='none'; fn.textContent=''; }
+  openModal('submitAnswer');
+}
+
+/* ════════════════════════════════════════
+   STUDENT — SUBMIT ANSWER
+════════════════════════════════════════ */
+function studentSubmitAnswer() {
+  const answer     = document.getElementById('sa-answer').value.trim();
+  const fname      = document.getElementById('sa-fname').textContent;
+  const assignTitle = document.getElementById('sa-assignment-title').value;
+  const subject    = document.getElementById('sa-subject').value;
+  const statusId   = document.getElementById('sa-status-id').value;
+
+  if(!answer && !fname) {
+    toast('Please type your answer or attach a file before submitting.');
+    return;
+  }
+
+  // Update the badge on the assignment card
+  const statusEl = document.getElementById(statusId);
+  if(statusEl) {
+    statusEl.className = 'badge bg-green';
+    statusEl.textContent = '✓ Submitted';
+    // Change the button next to it
+    const btn = statusEl.closest('.mat-actions')?.querySelector('.btn-primary');
+    if(btn) { btn.textContent = '✏️ Edit Answer'; btn.className = btn.className.replace('btn-primary','btn-ghost'); }
+  }
+
+  // Add to student's My Submissions table
+  const stTbody = document.getElementById('stSubmissionsTbody');
+  if(stTbody) {
+    const row = stTbody.insertRow(0);
+    row.innerHTML = `
+      <td><b>${assignTitle}</b></td>
+      <td>${subject}</td>
+      <td>${todayStr()}</td>
+      <td><span class="badge bg-amber">Awaiting Grade</span></td>
+      <td>
+        <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem"
+          onclick="viewSubmission('James Mokoena','${assignTitle.replace(/'/g,"\\'")}','${answer.replace(/'/g,"\\'").substring(0,300)}${answer.length>300?'...':''}')">👁 View</button>
+      </td>`;
+  }
+
+  // Add to teacher's submissions table
+  const tTbody = document.getElementById('tSubmissionsTbody');
+  if(tTbody) {
+    const row = tTbody.insertRow(0);
+    row.innerHTML = `
+      <td><b>James Mokoena</b></td>
+      <td>${assignTitle}</td><td>10A</td><td>${todayStr()}</td>
+      <td><span class="badge bg-amber">Awaiting Grade</span></td>
+      <td>
+        <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem"
+          onclick="viewSubmission('James Mokoena','${assignTitle.replace(/'/g,"\\'")}','${answer.replace(/'/g,"\\'").substring(0,500)}${answer.length>500?'...':''}')">👁 View</button>
+        <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .65rem"
+          onclick="openGradeSubmission('James Mokoena','${assignTitle.replace(/'/g,"\\'")}',this)">📝 Grade</button>
+      </td>`;
+  }
+
+  closeModal('submitAnswer');
+  toast(`Answer submitted for "${assignTitle}" ✓`);
+}
+
+/* ════════════════════════════════════════
+   DELETE MATERIAL CARD
+════════════════════════════════════════ */
+function delMaterial(btn) {
+  if(confirm('Delete this material?')) {
+    btn.closest('.material-card').remove();
+    toast('Material deleted.');
+  }
+}
+
+
+/* ════════════════════════════════════════
+   SMART REPORT GENERATOR
+════════════════════════════════════════ */
+const REPORT_DATA = {
+  james:  { name:'James Mokoena',  grade:'10A', id:'EB-2026-047', avg:78, att:92, pos:'12th/25', conduct:'Excellent', avatar:'👦🏾',
+    subjects:[
+      {name:'Science',     score:84, prev:79, teacher:'Mrs. Okonkwo'},
+      {name:'Mathematics', score:72, prev:70, teacher:'Mr. Nkosi'},
+      {name:'Research',    score:90, prev:85, teacher:'Ms. Patel'},
+      {name:'English',     score:68, prev:72, teacher:'Mr. Dlamini'},
+      {name:'History',     score:77, prev:74, teacher:'Mrs. Moyo'}
+    ],
+    skills:{Numeracy:72,Literacy:74,'Critical Thinking':85,'Communication':70,'Research':90,'Creativity':78},
+    comment:'James has demonstrated excellent academic growth this term, particularly in Research and Science where he shows strong analytical skills. Mathematics requires more consistent practice and focus on problem-solving techniques. His conduct and class participation are commendable. Encouraged to join the Science Fair.'
+  },
+  lebo:   { name:'Lebo Dlamini',  grade:'10B', id:'EB-2026-052', avg:85, att:96, pos:'5th/25',  conduct:'Outstanding', avatar:'👦🏾',
+    subjects:[
+      {name:'Science',     score:88, prev:82, teacher:'Mrs. Okonkwo'},
+      {name:'Mathematics', score:80, prev:76, teacher:'Mr. Nkosi'},
+      {name:'Research',    score:92, prev:88, teacher:'Ms. Patel'},
+      {name:'English',     score:83, prev:79, teacher:'Mr. Dlamini'},
+      {name:'History',     score:80, prev:77, teacher:'Mrs. Moyo'}
+    ],
+    skills:{Numeracy:80,Literacy:83,'Critical Thinking':90,'Communication':82,'Research':92,'Creativity':85},
+    comment:'Lebo is an outstanding student who consistently produces work of exceptional quality. Strong performance across all subjects, with Research as a particular highlight. Lebo is encouraged to take on a leadership role in the Science Fair and peer tutoring programme.'
+  },
+  amara:  { name:'Amara Osei',    grade:'9A',  id:'EB-2025-031', avg:61, att:78, pos:'20th/23', conduct:'Satisfactory', avatar:'👧🏾',
+    subjects:[
+      {name:'Science',     score:65, prev:68, teacher:'Mrs. Okonkwo'},
+      {name:'Mathematics', score:55, prev:60, teacher:'Mr. Nkosi'},
+      {name:'Research',    score:71, prev:66, teacher:'Ms. Patel'},
+      {name:'English',     score:61, prev:58, teacher:'Mr. Dlamini'},
+      {name:'History',     score:53, prev:55, teacher:'Mrs. Moyo'}
+    ],
+    skills:{Numeracy:55,Literacy:61,'Critical Thinking':65,'Communication':68,'Research':71,'Creativity':60},
+    comment:'Amara is showing gradual improvement in English and Research, which is encouraging. However, Mathematics and History require significant additional attention. Attendance has been a concern this term — regular school attendance is essential for academic progress. Additional support sessions are strongly recommended.'
+  },
+  thabo:  { name:'Thabo Nkosi',   grade:'11A', id:'EB-2025-018', avg:90, att:98, pos:'1st/22',  conduct:'Outstanding', avatar:'👦🏾',
+    subjects:[
+      {name:'Science',     score:93, prev:89, teacher:'Mrs. Okonkwo'},
+      {name:'Mathematics', score:95, prev:91, teacher:'Mr. Nkosi'},
+      {name:'Research',    score:88, prev:84, teacher:'Ms. Patel'},
+      {name:'English',     score:86, prev:82, teacher:'Mr. Dlamini'},
+      {name:'History',     score:89, prev:85, teacher:'Mrs. Moyo'}
+    ],
+    skills:{Numeracy:95,Literacy:86,'Critical Thinking':91,'Communication':87,'Research':88,'Creativity':84},
+    comment:'Thabo is the top-performing student in Grade 11A and consistently demonstrates exceptional academic ability and leadership. His dedication to excellence is evident across all subjects, particularly in Mathematics and Science. Thabo is strongly encouraged to apply for the National Science Olympiad and University scholarships.'
+  },
+  zanele: { name:'Zanele Moyo',   grade:'8B',  id:'EB-2026-063', avg:55, att:72, pos:'22nd/21', conduct:'Needs Improvement', avatar:'👧🏾',
+    subjects:[
+      {name:'Science',     score:55, prev:50, teacher:'Mrs. Okonkwo'},
+      {name:'Mathematics', score:48, prev:52, teacher:'Mr. Nkosi'},
+      {name:'English',     score:62, prev:57, teacher:'Mr. Dlamini'},
+      {name:'History',     score:58, prev:55, teacher:'Mrs. Moyo'}
+    ],
+    skills:{Numeracy:48,Literacy:62,'Critical Thinking':55,'Communication':60,'Research':52,'Creativity':58},
+    comment:'Zanele has shown some improvement in English and Science, which is encouraging. However, Mathematics is a significant area of concern and requires urgent intervention. Attendance is below acceptable levels and must improve immediately. A parent meeting has been scheduled. With consistent effort and support, Zanele can achieve much more.'
+  }
+};
+
+function generateSmartReport(studentKey) {
+  const d = REPORT_DATA[studentKey];
+  if(!d) return;
+
+  const schoolName = currentSchool ? currentSchool.name : 'EduBuild Academy';
+  const headName   = currentSchool ? currentSchool.head : 'Dr. Adams';
+
+  function gradeFromScore(s){ return s>=80?'A':s>=65?'B':s>=50?'C':'D'; }
+  function gradeClass(s){ return s>=80?'grade-A':s>=65?'grade-B':s>=50?'grade-C':'grade-D'; }
+  function barColor(s){ return s>=80?'#16A34A':s>=65?'#1756F3':s>=50?'#D97706':'#DC2626'; }
+  function trend(cur,prev){
+    if(cur>prev) return `<span class="trend-up">▲ ${cur-prev}%</span>`;
+    if(cur<prev) return `<span class="trend-dn">▼ ${prev-cur}%</span>`;
+    return `<span class="trend-eq">— same</span>`;
+  }
+  function conductBadge(c){
+    const map={'Outstanding':'level-star','Excellent':'level-honor','Satisfactory':'level-rising','Needs Improvement':'level-needs'};
+    const cls=map[c]||'level-rising';
+    return `<span class="level-badge ${cls}">★ ${c}</span>`;
+  }
+
+  const subjectRows = d.subjects.map(s=>`
+    <div class="sr-subject-row">
+      <div class="sr-subj-name">${s.name}</div>
+      <div><div class="sr-bar-wrap"><div class="sr-bar-fill" style="width:${s.score}%;background:${barColor(s.score)}"></div></div></div>
+      <div class="sr-pct">${s.score}%</div>
+      <div><span class="sr-grade-pill ${gradeClass(s.score)}">${gradeFromScore(s.score)}</span></div>
+      <div class="sr-trend">${trend(s.score,s.prev)}</div>
+    </div>`).join('');
+
+  const skillItems = Object.entries(d.skills).map(([name,val])=>`
+    <div class="sr-skill-item">
+      <div class="sr-skill-name"><span>${name}</span><span style="font-weight:800;color:var(--navy)">${val}%</span></div>
+      <div class="sr-skill-bar"><div class="sr-skill-fill" style="width:${val}%;background:${barColor(val)}"></div></div>
+    </div>`).join('');
+
+  const html = `
+    <div class="smart-report reveal">
+      <div class="sr-header">
+        <div class="sr-header-top">
+          <div>
+            <div class="sr-school-name">🏫 ${schoolName}</div>
+            <div class="sr-term-badge">📅 Term 1 · January – March 2026</div>
+          </div>
+          <div class="sr-student-card">
+            <div class="sr-avatar">${d.avatar}</div>
+            <div>
+              <div class="sr-student-name">${d.name}</div>
+              <div class="sr-student-meta">Grade ${d.grade} &nbsp;·&nbsp; ID: ${d.id}</div>
+              <div style="margin-top:.4rem">${conductBadge(d.conduct)}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sr-body">
+        <!-- KPI Row -->
+        <div class="sr-kpis">
+          <div class="sr-kpi kpi-blue"><div class="sr-kpi-value">${d.avg}%</div><div class="sr-kpi-label">Overall Average</div></div>
+          <div class="sr-kpi kpi-green"><div class="sr-kpi-value">${d.att}%</div><div class="sr-kpi-label">Attendance Rate</div></div>
+          <div class="sr-kpi kpi-purple"><div class="sr-kpi-value">${d.pos}</div><div class="sr-kpi-label">Class Position</div></div>
+          <div class="sr-kpi kpi-teal"><div class="sr-kpi-value">${d.subjects.length}</div><div class="sr-kpi-label">Subjects Taken</div></div>
+          <div class="sr-kpi kpi-amber"><div class="sr-kpi-value">${d.subjects.filter(s=>s.score>=80).length}</div><div class="sr-kpi-label">Distinctions (A)</div></div>
+        </div>
+
+        <!-- Subject Performance -->
+        <div class="sr-section-title">📚 Subject Performance</div>
+        <div style="background:var(--surface2);border-radius:10px;padding:.75rem 1rem;margin-bottom:.5rem">
+          <div style="display:grid;grid-template-columns:150px 1fr 55px 55px 64px;gap:.75rem;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);padding-bottom:.5rem;border-bottom:1px solid var(--border)">
+            <div>Subject</div><div>Score Bar</div><div style="text-align:right">Score</div><div>Grade</div><div>vs Last</div>
+          </div>
+          ${subjectRows}
+        </div>
+
+        <!-- Skills Radar -->
+        <div class="sr-section-title">🧠 Learning Skills Profile</div>
+        <div class="sr-skills">${skillItems}</div>
+
+        <!-- Comment -->
+        <div class="sr-section-title">💬 Teacher's Comment</div>
+        <div class="sr-comment-box">
+          <div class="sr-comment-label">Class Teacher Assessment</div>
+          <div class="sr-comment-text">"${d.comment}"</div>
+        </div>
+
+        <!-- Signatures -->
+        <div class="sr-sig">
+          <div class="sr-sig-block">
+            <div class="sr-sig-line"></div>
+            <div style="font-weight:700;color:var(--navy)">Mrs. Okonkwo</div>
+            <div>Class Teacher</div>
+          </div>
+          <div class="sr-seal">🏛️</div>
+          <div style="text-align:center">
+            <div style="font-weight:800;color:var(--navy);font-size:.8rem">🔒 OFFICIAL REPORT</div>
+            <div>Generated: ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}</div>
+          </div>
+          <div class="sr-sig-block">
+            <div class="sr-sig-line"></div>
+            <div style="font-weight:700;color:var(--navy)">${headName}</div>
+            <div>Head Teacher</div>
+          </div>
+        </div>
+
+      </div>
+    </div>`;
+
+  const out = document.getElementById('smartReportOutput');
+  if(out) {
+    out.innerHTML = html;
+    setTimeout(()=>out.querySelectorAll('.reveal').forEach(el=>el.classList.add('vis')),60);
+  }
+}
+
+/* ════════════════════════════════════════
+   PROFILE PHOTO — click to upload
+════════════════════════════════════════ */
+function triggerProfileUpload(inputId) {
+  document.getElementById(inputId)?.click();
+}
+function previewProfilePhoto(inputId, imgId) {
+  const input = document.getElementById(inputId);
+  const img   = document.getElementById(imgId);
+  if(input?.files?.length && img) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      img.src = e.target.result;
+      img.style.display = 'block';
+      img.previousElementSibling && (img.previousElementSibling.style.display='none');
+    };
+    reader.readAsDataURL(input.files[0]);
+    toast('Profile photo updated ✓');
+  }
+}
+
+/* ════════════════════════════════════════
+   ATTENDANCE — QUICK MARK TOGGLE
+════════════════════════════════════════ */
+function markAttendance(btn, status, student, cls) {
+  // Remove .on from siblings in same cell
+  btn.closest('td').querySelectorAll('.att-quick-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  recalcRowPct(btn.closest('tr'));
+}
+function recalcRowPct(row) {
+  // If row has days input, recalc %. Otherwise just visual update.
+  const inp = row.querySelector('.att-days');
+  if(inp) recalcPct(inp);
+}
 function todayStr() { return new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
 
 let toastTimer;
