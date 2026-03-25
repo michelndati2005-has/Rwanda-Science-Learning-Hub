@@ -299,6 +299,81 @@ tbody tr:hover td{background:#EEF4FF}
 .level-honor{background:linear-gradient(90deg,#8B5CF6,#7C3AED);color:#fff}
 .level-needs{background:#FEE2E2;color:#B91C1C}
 
+/* PROFILE PAGE */
+.profile-avatar-lg{
+  width:110px;height:110px;border-radius:50%;border:4px solid var(--border);
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.4rem;font-weight:900;color:#fff;
+  margin:0 auto;overflow:hidden;position:relative;
+  box-shadow:0 8px 24px rgba(23,86,243,.25);
+}
+.profile-avatar-lg img{width:100%;height:100%;object-fit:cover}
+.profile-avatar-edit-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  background:rgba(0,0,0,.55);color:#fff;
+  font-size:.65rem;font-weight:700;padding:.3rem;
+  text-align:center;cursor:pointer;
+  transition:opacity .2s;opacity:0;
+}
+.profile-avatar-lg:hover .profile-avatar-edit-overlay{opacity:1}
+.profile-field{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.6rem 0;border-bottom:1px solid var(--border);
+}
+.profile-field:last-child{border-bottom:none}
+.pf-label{font-size:.74rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.pf-value{font-size:.85rem;font-weight:600;color:var(--navy)}
+
+/* TEACHER STUDENT PROFILE CARD in class management */
+.student-profile-card{
+  display:flex;align-items:center;gap:1rem;padding:.75rem;
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--r2);margin-bottom:.65rem;transition:all .15s;
+}
+.student-profile-card:hover{border-color:var(--blue2);background:#EFF6FF}
+.sp-photo{
+  width:48px;height:48px;border-radius:50%;
+  border:2px solid var(--border);
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;font-weight:800;color:#fff;
+  flex-shrink:0;overflow:hidden;cursor:pointer;
+  transition:opacity .2s;
+}
+.sp-photo:hover{opacity:.8}
+.sp-photo img{width:100%;height:100%;object-fit:cover}
+.sp-info{flex:1;min-width:0}
+.sp-name{font-size:.88rem;font-weight:800;color:var(--navy)}
+.sp-meta{font-size:.72rem;color:var(--muted);margin-top:.1rem}
+.sp-actions{display:flex;gap:.4rem;align-items:center;flex-shrink:0}
+.sp-photo input[type=file]{display:none}
+
+/* HT teacher cards */
+.teacher-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:1.25rem;display:flex;align-items:center;gap:1rem;
+  box-shadow:var(--shadow);transition:all .2s;
+}
+.teacher-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.tc-photo{
+  width:64px;height:64px;border-radius:50%;
+  border:3px solid var(--border);
+  background:linear-gradient(135deg,#6A1B9A,#1756F3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;color:#fff;flex-shrink:0;overflow:hidden;
+  cursor:pointer;transition:opacity .2s;
+}
+.tc-photo:hover{opacity:.85}
+.tc-photo img{width:100%;height:100%;object-fit:cover}
+.tc-info{flex:1;min-width:0}
+.tc-name{font-size:.95rem;font-weight:800;color:var(--navy)}
+.tc-sub{font-size:.76rem;color:var(--muted);margin-top:.15rem}
+.tc-stats{display:flex;gap:.75rem;margin-top:.4rem;font-size:.72rem}
+.tc-stat{background:var(--bg);border-radius:6px;padding:.2rem .5rem;font-weight:700;color:var(--navy)}
+.tc-photo input[type=file]{display:none}
+
+
 /* SETTINGS FORM */
 .settings-form{display:flex;flex-direction:column;gap:1rem;padding:1.25rem}
 
@@ -2190,49 +2265,81 @@ function renderSchoolPages(school) {
   const main = document.getElementById('htMain');
   main.innerHTML = `
     <div class="page on" id="ht-page-dashboard">
-      <div class="phd"><h2>Welcome, ${school.head} 🏫</h2><p>${school.name} — Monday, 23 March 2026</p></div>
+      <div class="phd"><h2>Welcome, ${school.head} 🏫</h2><p>${school.name} · ${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</p></div>
       <div class="sgrid">
         <div class="scard reveal"><div class="sc-icon">👨‍🎓</div><div class="sc-num">${school.students}</div><div class="sc-lbl">Students</div></div>
         <div class="scard reveal"><div class="sc-icon">👩‍🏫</div><div class="sc-num">${school.teachers}</div><div class="sc-lbl">Teachers</div></div>
         <div class="scard reveal"><div class="sc-icon">✅</div><div class="sc-num">91%</div><div class="sc-lbl">Attendance Today</div></div>
         <div class="scard reveal"><div class="sc-icon">📊</div><div class="sc-num">79%</div><div class="sc-lbl">School Average</div></div>
+        <div class="scard reveal"><div class="sc-icon">📝</div><div class="sc-num">12</div><div class="sc-lbl">Pending Grades</div></div>
+        <div class="scard reveal"><div class="sc-icon">📢</div><div class="sc-num">3</div><div class="sc-lbl">Notices</div></div>
       </div>
-      <div class="callout cl-tip"><span>💡</span><p>As Head Teacher of <strong>${school.name}</strong>, you can add teachers, enrol students, add parents, manage classes and subjects, and view school-wide attendance and reports. All data is independent from other schools.</p></div>
+      <div class="g2">
+        <div class="card reveal">
+          <div class="card-head"><h3>📊 Subject Averages</h3></div>
+          <div class="card-body">
+            <div class="prog-item"><div class="prog-label">Research</div><div class="prog-track"><div class="prog-fill" style="width:88%;background:var(--purple)"></div></div><div class="prog-pct">88%</div></div>
+            <div class="prog-item"><div class="prog-label">Science</div><div class="prog-track"><div class="prog-fill" style="width:82%;background:var(--blue)"></div></div><div class="prog-pct">82%</div></div>
+            <div class="prog-item"><div class="prog-label">History</div><div class="prog-track"><div class="prog-fill" style="width:77%;background:var(--teal)"></div></div><div class="prog-pct">77%</div></div>
+            <div class="prog-item"><div class="prog-label">Mathematics</div><div class="prog-track"><div class="prog-fill" style="width:74%;background:var(--green)"></div></div><div class="prog-pct">74%</div></div>
+            <div class="prog-item"><div class="prog-label">English</div><div class="prog-track"><div class="prog-fill" style="width:70%;background:var(--amber)"></div></div><div class="prog-pct">70%</div></div>
+          </div>
+        </div>
+        <div class="card reveal">
+          <div class="card-head"><h3>🔔 Recent Activity</h3></div>
+          <div class="tbl"><table>
+            <thead><tr><th>Action</th><th>By</th><th>Time</th></tr></thead>
+            <tbody>
+              <tr><td>Grade submitted</td><td>Mrs. Okonkwo</td><td>9:12 AM</td></tr>
+              <tr><td>Attendance marked</td><td>Mr. Nkosi</td><td>8:55 AM</td></tr>
+              <tr><td>Note uploaded</td><td>Ms. Patel</td><td>8:30 AM</td></tr>
+              <tr><td>Assignment posted</td><td>Mr. Dlamini</td><td>8:10 AM</td></tr>
+              <tr><td>Student enrolled</td><td>${school.head}</td><td>7:50 AM</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+      <div class="callout cl-tip"><span>💡</span><p>As Head Teacher of <strong>${school.name}</strong>, you can add teachers (with profile photos), enrol students, manage attendance, and generate smart reports. All data is completely independent from other schools.</p></div>
     </div>
 
+    <!-- TEACHERS PAGE WITH PROFILE CARDS -->
     <div class="page" id="ht-page-teachers">
       <div class="ptop">
-        <div class="phd"><h2>👩‍🏫 Teachers</h2><p>Manage teachers at ${school.name}</p></div>
+        <div class="phd"><h2>👩‍🏫 Teaching Staff</h2><p>Manage teachers at ${school.name} — add, remove and upload profile photos</p></div>
         <button class="add-btn" onclick="openModal('htAddTeacher')">+ Add Teacher</button>
       </div>
-      <div class="card reveal"><div class="tbl"><table>
-        <thead><tr><th>Name</th><th>Subject</th><th>Classes</th><th>Status</th><th>Actions</th></tr></thead>
-        <tbody id="ht-teacher-tbody">
-          <tr><td><b>Mrs. Sarah Okonkwo</b></td><td>Science</td><td>8A, 9B, 10A</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
-          <tr><td><b>Mr. David Nkosi</b></td><td>Mathematics</td><td>8B, 9A, 11A</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
-          <tr><td><b>Ms. Priya Patel</b></td><td>Research</td><td>10B, 11B, 12A</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
-          <tr><td><b>Mr. John Dlamini</b></td><td>English</td><td>8A, 9A, 10A</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
-        </tbody>
-      </table></div></div>
+      <div class="callout cl-info"><span>📸</span><p>Click any teacher's photo to upload a new profile picture. Only you as Head Teacher can update staff photos.</p></div>
+      <div id="ht-teacher-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1rem">
+        ${htTeacherCardHTML('tc-1','👩🏾','Mrs. Sarah Okonkwo','Science','Gr 8A, 9B, 10A',87,'Active')}
+        ${htTeacherCardHTML('tc-2','👨🏾','Mr. David Nkosi','Mathematics','Gr 8B, 9A, 11A',92,'Active')}
+        ${htTeacherCardHTML('tc-3','👩🏽','Ms. Priya Patel','Research','Gr 10B, 11B, 12A',68,'Active')}
+        ${htTeacherCardHTML('tc-4','👨🏿','Mr. John Dlamini','English','Gr 8A, 9A, 10A',84,'Active')}
+        ${htTeacherCardHTML('tc-5','👩🏿','Mrs. Grace Moyo','History','Gr 9B, 10B',52,'On Leave')}
+      </div>
     </div>
 
+    <!-- STUDENTS PAGE WITH PROFILE PHOTOS -->
     <div class="page" id="ht-page-students">
       <div class="ptop">
         <div class="phd"><h2>👨‍🎓 Students</h2><p>All students enrolled at ${school.name}</p></div>
         <button class="add-btn" onclick="openModal('htAddStudent')">+ Enrol Student</button>
       </div>
-      <div class="card reveal"><div class="tbl"><table>
-        <thead><tr><th>Name</th><th>Grade</th><th>Class</th><th>Avg Score</th><th>Attendance</th><th>Actions</th></tr></thead>
-        <tbody id="ht-student-tbody">
-          <tr><td><b>James Mokoena</b></td><td>Grade 10</td><td>10A</td><td><span class="badge bg-green">78%</span></td><td>92%</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
-          <tr><td><b>Lebo Dlamini</b></td><td>Grade 10</td><td>10B</td><td><span class="badge bg-blue">85%</span></td><td>96%</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
-          <tr><td><b>Amara Osei</b></td><td>Grade 9</td><td>9A</td><td><span class="badge bg-amber">61%</span></td><td>78%</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
-          <tr><td><b>Thabo Nkosi</b></td><td>Grade 11</td><td>11A</td><td><span class="badge bg-green">90%</span></td><td>98%</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
-          <tr><td><b>Zanele Moyo</b></td><td>Grade 8</td><td>8B</td><td><span class="badge bg-red">55%</span></td><td>72%</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
-        </tbody>
-      </table></div></div>
+      <div class="callout cl-info"><span>📸</span><p>Click any student's photo circle to upload their profile picture. Students can view but not change their own photos.</p></div>
+      <div class="card reveal">
+        <div class="tbl"><table>
+          <thead><tr><th>Photo</th><th>Name</th><th>Grade</th><th>Class</th><th>Avg Score</th><th>Attendance</th><th>Actions</th></tr></thead>
+          <tbody id="ht-student-tbody">
+            ${htStudentRowHTML('stu-1','👦🏾','James Mokoena','Grade 10','10A','bg-green','78%','92%')}
+            ${htStudentRowHTML('stu-2','👦🏾','Lebo Dlamini','Grade 10','10B','bg-blue','85%','96%')}
+            ${htStudentRowHTML('stu-3','👧🏾','Amara Osei','Grade 9','9A','bg-amber','61%','78%')}
+            ${htStudentRowHTML('stu-4','👦🏾','Thabo Nkosi','Grade 11','11A','bg-green','90%','98%')}
+            ${htStudentRowHTML('stu-5','👧🏿','Zanele Moyo','Grade 8','8B','bg-red','55%','72%')}
+          </tbody>
+        </table></div>
+      </div>
     </div>
 
+    <!-- PARENTS PAGE -->
     <div class="page" id="ht-page-parents">
       <div class="ptop">
         <div class="phd"><h2>👪 Parents</h2><p>Parent accounts at ${school.name}</p></div>
@@ -2243,10 +2350,12 @@ function renderSchoolPages(school) {
         <tbody id="ht-parent-tbody">
           <tr><td><b>Mrs. Mokoena</b></td><td>James Mokoena</td><td>Grade 10</td><td>parent.mokoena@email.com</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
           <tr><td><b>Mr. Dlamini Sr.</b></td><td>Lebo Dlamini</td><td>Grade 10</td><td>parent.dlamini@email.com</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
+          <tr><td><b>Mrs. Osei</b></td><td>Amara Osei</td><td>Grade 9</td><td>parent.osei@email.com</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td></tr>
         </tbody>
       </table></div></div>
     </div>
 
+    <!-- SUBJECTS -->
     <div class="page" id="ht-page-subjects">
       <div class="phd"><h2>📚 Subjects</h2><p>Subjects offered at ${school.name}</p></div>
       <div class="card reveal"><div class="tbl"><table>
@@ -2261,6 +2370,7 @@ function renderSchoolPages(school) {
       </table></div></div>
     </div>
 
+    <!-- CLASSES -->
     <div class="page" id="ht-page-classes">
       <div class="phd"><h2>🏫 Classes</h2><p>All class groups at ${school.name}</p></div>
       <div class="card reveal"><div class="tbl"><table>
@@ -2275,20 +2385,7 @@ function renderSchoolPages(school) {
       </table></div></div>
     </div>
 
-    <div class="page" id="ht-page-research">
-      <div class="phd"><h2>🔍 Research</h2><p>Research subject overview at ${school.name}</p></div>
-      <div class="sgrid"><div class="scard"><div class="sc-icon">👩‍🏫</div><div class="sc-num">Ms. Patel</div><div class="sc-lbl">Teacher</div></div><div class="scard"><div class="sc-icon">👨‍🎓</div><div class="sc-num">68</div><div class="sc-lbl">Students</div></div><div class="scard"><div class="sc-icon">📊</div><div class="sc-num">88%</div><div class="sc-lbl">Average</div></div></div>
-      <div class="card reveal"><div class="tbl"><table>
-        <thead><tr><th>Student</th><th>Assignment</th><th>Score</th></tr></thead>
-        <tbody>
-          <tr><td>Lebo Dlamini</td><td>Research Paper 1</td><td><span class="badge bg-green">90%</span></td></tr>
-          <tr><td>Thabo Nkosi</td><td>Literature Review</td><td><span class="badge bg-green">87%</span></td></tr>
-          <tr><td>Sipho Ndlovu</td><td>Data Collection</td><td><span class="badge bg-green">82%</span></td></tr>
-          <tr><td>Amara Osei</td><td>Research Paper 1</td><td><span class="badge bg-amber">71%</span></td></tr>
-        </tbody>
-      </table></div></div>
-    </div>
-
+    <!-- GRADES -->
     <div class="page" id="ht-page-grades">
       <div class="phd"><h2>📝 Grades</h2><p>All student grades at ${school.name}</p></div>
       <div class="card reveal"><div class="tbl"><table>
@@ -2303,51 +2400,118 @@ function renderSchoolPages(school) {
       </table></div></div>
     </div>
 
+    <!-- ATTENDANCE — LIVE MARKING -->
     <div class="page" id="ht-page-attendance">
-      <div class="phd"><h2>✅ School-Wide Attendance</h2><p>Full attendance summary for ${school.name}</p></div>
-      <div class="callout cl-info"><span>ℹ️</span><p>This is the consolidated attendance across all classes. Individual class records are updated by each teacher independently.</p></div>
-      <div class="sgrid" style="margin-bottom:1.5rem">
-        <div class="scard"><div class="sc-icon">👨‍🎓</div><div class="sc-num">${school.students}</div><div class="sc-lbl">Total Students</div></div>
-        <div class="scard"><div class="sc-icon">✅</div><div class="sc-num">91%</div><div class="sc-lbl">Present Today</div></div>
-        <div class="scard"><div class="sc-icon">✗</div><div class="sc-num">22</div><div class="sc-lbl">Absent Today</div></div>
-        <div class="scard"><div class="sc-icon">📊</div><div class="sc-num">89%</div><div class="sc-lbl">Term Average</div></div>
+      <div class="phd"><h2>✅ School Attendance</h2><p>Mark and manage attendance for all classes at ${school.name}</p></div>
+      <div class="callout cl-info"><span>ℹ️</span><p>Click the <strong>✓ Present</strong>, <strong>✗ Absent</strong> or <strong>⚠ Late</strong> buttons to mark each student. The school total updates automatically. Hit <strong>Save</strong> when done.</p></div>
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="htSwitchAttTab('class8a',this)">Grade 8A</button>
+        <button class="tab-btn" onclick="htSwitchAttTab('class9a',this)">Grade 9A</button>
+        <button class="tab-btn" onclick="htSwitchAttTab('class10a',this)">Grade 10A</button>
+        <button class="tab-btn" onclick="htSwitchAttTab('htSummary',this)" style="background:var(--navy);color:#fff;border-color:var(--navy)">📊 School Total</button>
       </div>
-      <div class="card"><div class="tbl"><table>
-        <thead><tr><th>Class</th><th>Teacher</th><th>Students</th><th>Present</th><th>Absent</th><th>Term %</th></tr></thead>
-        <tbody>
-          <tr><td><b>Grade 8A</b></td><td>Mrs. Okonkwo</td><td>22</td><td>19</td><td>3</td><td><span class="badge bg-blue">77%</span></td></tr>
-          <tr><td><b>Grade 9B</b></td><td>Mrs. Okonkwo</td><td>23</td><td>21</td><td>2</td><td><span class="badge bg-blue">88%</span></td></tr>
-          <tr><td><b>Grade 10A</b></td><td>Mrs. Okonkwo</td><td>25</td><td>25</td><td>0</td><td><span class="badge bg-green">95%</span></td></tr>
-          <tr><td><b>Grade 9A</b></td><td>Mr. Nkosi</td><td>24</td><td>22</td><td>2</td><td><span class="badge bg-green">91%</span></td></tr>
-          <tr><td><b>Grade 11A</b></td><td>Mr. Nkosi</td><td>22</td><td>20</td><td>2</td><td><span class="badge bg-blue">85%</span></td></tr>
-          <tr style="background:var(--bg)"><td><b>🏫 SCHOOL TOTAL</b></td><td></td><td><b>${school.students}</b></td><td><b>225</b></td><td><b>22</b></td><td><span class="badge bg-green"><b>91%</b></span></td></tr>
-        </tbody>
-      </table></div></div>
+
+      <div class="tab-pane active" id="ht-att-class8a">
+        <div class="card">
+          <div class="card-head"><h3>Grade 8A · ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</h3>
+            <button class="btn btn-success" onclick="htSaveAtt('class8a')">💾 Save 8A</button></div>
+          <div class="tbl"><table>
+            <thead><tr><th>Photo</th><th>Student</th><th>Today's Status</th><th>Days Present</th><th>Total</th><th>%</th></tr></thead>
+            <tbody id="ht-att-tbody-class8a">
+              ${htAttRowHTML('ha-8a-1','👧🏿','Zanele Moyo','present',33,46)}
+              ${htAttRowHTML('ha-8a-2','👦🏾','Sipho Sithole','present',42,46)}
+              ${htAttRowHTML('ha-8a-3','👩🏾','Nomsa Dube','late',38,46)}
+              ${htAttRowHTML('ha-8a-4','👧🏾','Thandeka Zulu','absent',29,46)}
+              ${htAttRowHTML('ha-8a-5','👦🏿','Kwabena Mensah','present',40,46)}
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="ht-att-class9a">
+        <div class="card">
+          <div class="card-head"><h3>Grade 9A · ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</h3>
+            <button class="btn btn-success" onclick="htSaveAtt('class9a')">💾 Save 9A</button></div>
+          <div class="tbl"><table>
+            <thead><tr><th>Photo</th><th>Student</th><th>Today's Status</th><th>Days Present</th><th>Total</th><th>%</th></tr></thead>
+            <tbody id="ht-att-tbody-class9a">
+              ${htAttRowHTML('ha-9a-1','👧🏾','Amara Osei','absent',36,46)}
+              ${htAttRowHTML('ha-9a-2','👦🏾','Kwame Asante','present',44,46)}
+              ${htAttRowHTML('ha-9a-3','👩🏽','Fatima Diallo','present',41,46)}
+              ${htAttRowHTML('ha-9a-4','👦🏿','Osei Bonsu','late',39,46)}
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="ht-att-class10a">
+        <div class="card">
+          <div class="card-head"><h3>Grade 10A · ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</h3>
+            <button class="btn btn-success" onclick="htSaveAtt('class10a')">💾 Save 10A</button></div>
+          <div class="tbl"><table>
+            <thead><tr><th>Photo</th><th>Student</th><th>Today's Status</th><th>Days Present</th><th>Total</th><th>%</th></tr></thead>
+            <tbody id="ht-att-tbody-class10a">
+              ${htAttRowHTML('ha-10a-1','👦🏾','James Mokoena','present',42,46)}
+              ${htAttRowHTML('ha-10a-2','👦🏾','Lebo Dlamini','present',44,46)}
+              ${htAttRowHTML('ha-10a-3','👦🏾','Thabo Nkosi','present',45,46)}
+              ${htAttRowHTML('ha-10a-4','👦🏾','Sipho Ndlovu','late',43,46)}
+              ${htAttRowHTML('ha-10a-5','👩🏾','Afia Mensah','present',41,46)}
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="ht-att-htSummary">
+        <div class="callout cl-tip"><span>📊</span><p>Live school-wide attendance total — calculated automatically from all class tabs above.</p></div>
+        <div class="sgrid" style="margin-bottom:1.5rem">
+          <div class="scard"><div class="sc-icon">🏫</div><div class="sc-num">3</div><div class="sc-lbl">Classes</div></div>
+          <div class="scard"><div class="sc-icon">👨‍🎓</div><div class="sc-num" id="ht-total-students">14</div><div class="sc-lbl">Total Students</div></div>
+          <div class="scard"><div class="sc-icon">✅</div><div class="sc-num" id="ht-school-att-pct">—</div><div class="sc-lbl">School Avg %</div></div>
+          <div class="scard"><div class="sc-icon">✗</div><div class="sc-num" id="ht-absent-count">—</div><div class="sc-lbl">Absent Today</div></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>Consolidated Attendance Register</h3><button class="print-btn" onclick="window.print()">🖨️ Print</button></div>
+          <div class="tbl"><table>
+            <thead><tr><th>Class</th><th>Students</th><th>Present</th><th>Absent</th><th>Late</th><th>Term %</th></tr></thead>
+            <tbody id="ht-att-summary-tbody">
+              <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1.5rem">Click "📊 School Total" to load live data</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
     </div>
 
+    <!-- SMART REPORTS -->
     <div class="page" id="ht-page-reports">
       <div class="ptop">
-        <div class="phd"><h2>📋 School Reports</h2><p>Term reports for ${school.name}</p></div>
+        <div class="phd"><h2>📊 Smart Report Generator</h2><p>Generate beautiful official reports for ${school.name}</p></div>
         <button class="print-btn" onclick="window.print()">🖨️ Print</button>
       </div>
-      <div class="report-card reveal">
-        <div class="report-hd">
-          <div><div style="font-size:1rem;font-weight:900;color:var(--navy);font-family:'DM Serif Display',serif">🏫 ${school.name}</div><div style="font-size:.72rem;color:var(--muted);margin-top:.2rem">Term 1 · January – March 2026</div></div>
-          <div style="text-align:right;font-size:.82rem"><strong>James Mokoena</strong><br>Grade 10A · ID: EB-2026-047</div>
+      <div class="card reveal" style="margin-bottom:1.5rem">
+        <div class="card-body" style="display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap">
+          <div style="flex:1;min-width:180px">
+            <label style="font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:.4rem">Select Student</label>
+            <select id="ht-report-student" style="width:100%;padding:.65rem .9rem;border:2px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;outline:none;background:var(--surface2)">
+              <option value="james">James Mokoena — Grade 10A</option>
+              <option value="lebo">Lebo Dlamini — Grade 10B</option>
+              <option value="amara">Amara Osei — Grade 9A</option>
+              <option value="thabo">Thabo Nkosi — Grade 11A</option>
+              <option value="zanele">Zanele Moyo — Grade 8B</option>
+            </select>
+          </div>
+          <div style="flex:1;min-width:140px">
+            <label style="font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:.4rem">Term</label>
+            <select style="width:100%;padding:.65rem .9rem;border:2px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;outline:none;background:var(--surface2)">
+              <option>Term 1 · Jan–Mar 2026</option><option>Term 2 · Apr–Jun 2026</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" onclick="generateSmartReport(document.getElementById('ht-report-student').value)" style="flex-shrink:0">✨ Generate Report</button>
         </div>
-        <div class="tbl"><table><thead><tr><th>Subject</th><th>Teacher</th><th>Term</th><th>Exam</th><th>Final</th><th>Grade</th></tr></thead>
-        <tbody>
-          <tr><td>Science</td><td>Mrs. Okonkwo</td><td>82%</td><td>86%</td><td><b>84%</b></td><td><span class="badge bg-green">A</span></td></tr>
-          <tr><td>Mathematics</td><td>Mr. Nkosi</td><td>70%</td><td>74%</td><td><b>72%</b></td><td><span class="badge bg-blue">B</span></td></tr>
-          <tr><td>Research</td><td>Ms. Patel</td><td>88%</td><td>92%</td><td><b>90%</b></td><td><span class="badge bg-green">A</span></td></tr>
-          <tr><td>English</td><td>Mr. Dlamini</td><td>66%</td><td>70%</td><td><b>68%</b></td><td><span class="badge bg-blue">B</span></td></tr>
-          <tr><td>History</td><td>Mrs. Moyo</td><td>75%</td><td>79%</td><td><b>77%</b></td><td><span class="badge bg-blue">B</span></td></tr>
-        </tbody></table></div>
-        <div class="report-summary"><div><strong>Average:</strong> 78.2%</div><div><strong>Attendance:</strong> 92%</div><div><strong>Conduct:</strong> <span class="badge bg-green">Excellent</span></div></div>
-        <div class="report-comment"><strong>Head Teacher Comment:</strong> James has shown excellent progress this term.<br><strong>Head Teacher:</strong> ${school.head} &nbsp; <strong>Date:</strong> 23 March 2026</div>
       </div>
+      <div id="htSmartReportOutput"></div>
     </div>
 
+    <!-- ANNOUNCEMENTS -->
     <div class="page" id="ht-page-announcements">
       <div class="ptop">
         <div class="phd"><h2>📢 Announcements</h2><p>Post notices for ${school.name}</p></div>
@@ -2355,22 +2519,41 @@ function renderSchoolPages(school) {
       </div>
       <div id="htAnnounceList">
         <article class="announce-card"><div class="announce-title">Term 2 Exam Schedule Released</div><div class="announce-meta">Posted by ${school.head} · 22 Mar 2026</div><div class="announce-body">Term 2 examinations run 15–25 April 2026.</div></article>
+        <article class="announce-card" style="border-left-color:var(--green)"><div class="announce-title">Science Fair Open for Registration</div><div class="announce-meta">Posted by ${school.head} · 20 Mar 2026</div><div class="announce-body">All Grade 8–12 students are welcome to register. Deadline: 5 April 2026.</div></article>
       </div>
     </div>
 
+    <!-- SCHOOL SETTINGS -->
     <div class="page" id="ht-page-schoolsettings">
       <div class="phd"><h2>⚙️ School Settings</h2><p>Edit ${school.name} configuration</p></div>
-      <div class="card reveal"><div class="settings-form">
-        <div class="mfield"><label>School Name</label><input type="text" value="${school.name}"/></div>
-        <div class="mfield"><label>Address</label><input type="text" value="${school.addr}"/></div>
-        <div class="mfield"><label>Contact Email</label><input type="email" value="${school.email}"/></div>
-        <div class="mfield"><label>Your Name</label><input type="text" value="${school.head}" readonly/></div>
-        <div class="callout cl-warn" style="margin:0"><span>⚠️</span><p style="font-size:.76rem">School name changes will be reflected across the platform. Contact the SuperAdmin to change your login credentials.</p></div>
-        <button class="btn btn-primary" style="align-self:flex-start" onclick="toast('Settings saved ✓')">Save Changes</button>
-      </div></div>
+      <div class="g2">
+        <div class="card reveal"><div class="settings-form">
+          <div class="mfield"><label>School Name</label><input type="text" value="${school.name}"/></div>
+          <div class="mfield"><label>Address</label><input type="text" value="${school.addr}"/></div>
+          <div class="mfield"><label>Contact Email</label><input type="email" value="${school.email}"/></div>
+          <div class="mfield"><label>Head Teacher</label><input type="text" value="${school.head}" readonly/></div>
+          <div class="callout cl-warn" style="margin:0"><span>⚠️</span><p style="font-size:.76rem">Contact the SuperAdmin (Michel) to change login credentials or school name on the platform.</p></div>
+          <button class="btn btn-primary" style="align-self:flex-start" onclick="toast('Settings saved ✓')">Save Changes</button>
+        </div></div>
+        <div class="card reveal">
+          <div class="card-head"><h3>🌐 School Portal</h3></div>
+          <div style="padding:1.25rem;display:flex;flex-direction:column;gap:.9rem">
+            <div style="text-align:center;padding:1.5rem;background:var(--bg);border-radius:var(--r2);border:1px solid var(--border)">
+              <div style="font-size:2rem;margin-bottom:.5rem">🏫</div>
+              <div style="font-weight:900;font-size:1.1rem;color:var(--navy)">${school.name}</div>
+              <div style="font-size:.72rem;color:var(--muted);margin-top:.3rem">Portal Code: <b style="color:var(--navy)">${school.portal}</b></div>
+              <div style="font-size:.72rem;color:var(--muted);margin-top:.1rem">Head Teacher: <b style="color:var(--navy)">${school.head}</b></div>
+            </div>
+            <div class="callout cl-info" style="margin:0"><span>🔑</span><p style="font-size:.76rem">Share the portal code with your staff and students so they can access the right school at login.</p></div>
+          </div>
+        </div>
+      </div>
     </div>
   `;
+  // Override the smart report output target for HT
+  window._htReportMode = true;
   initReveal();
+  initHtAttendance();
 }
 
 /* ════════════════════════════════════════
@@ -2497,14 +2680,22 @@ function htAddTeacher() {
   const n = document.getElementById('htt-name').value.trim();
   const s = document.getElementById('htt-subj').value.trim();
   if(!n||!s){toast('Please fill all fields.');return;}
-  const tb = document.getElementById('ht-teacher-tbody');
-  if(!tb){toast('Please log in as Head Teacher first.');return;}
-  const row = tb.insertRow();
-  row.innerHTML = `<td><b>${n}</b></td><td>${s}</td><td>TBA</td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td>`;
-  closeModal('htAddTeacher');
-  ['htt-name','htt-subj','htt-user','htt-pass'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  toast(`Teacher "${n}" added ✓`);
+
+  // Inject teacher card into the cards grid
+  const grid = document.getElementById('ht-teacher-cards');
+  if(grid) {
+    const newId = 'tc-new-'+Date.now();
+    const div = document.createElement('div');
+    div.innerHTML = htTeacherCardHTML(newId,'👩‍🏫',n,s,'TBA',0,'Active');
+    grid.appendChild(div.firstElementChild);
+    closeModal('htAddTeacher');
+    ['htt-name','htt-subj','htt-user','htt-pass'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+    toast(`Teacher "${n}" added ✓`);
+  } else {
+    toast('Please log in as Head Teacher first.');
+  }
 }
+
 function htAddStudent() {
   const n = document.getElementById('hts-name').value.trim();
   const g = document.getElementById('hts-grade').value;
@@ -2512,8 +2703,11 @@ function htAddStudent() {
   if(!n){toast('Please enter student name.');return;}
   const tb = document.getElementById('ht-student-tbody');
   if(!tb){toast('Please log in as Head Teacher first.');return;}
-  const row = tb.insertRow();
-  row.innerHTML = `<td><b>${n}</b></td><td>${g}</td><td>${c||'TBA'}</td><td><span class="badge bg-muted">N/A</span></td><td>N/A</td><td><button class="action-btn" onclick="delRow(this)">🗑️</button></td>`;
+  const newId = 'stu-new-'+Date.now();
+  const div = document.createElement('tbody');
+  div.innerHTML = htStudentRowHTML(newId,'👦🏾',n,g,c||'TBA','bg-muted','N/A','N/A');
+  const row = div.firstElementChild;
+  tb.appendChild(row);
   closeModal('htAddStudent');
   ['hts-name','hts-class','hts-user','hts-pass'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   toast(`Student "${n}" enrolled ✓`);
@@ -2955,8 +3149,186 @@ function delMaterial(btn) {
 
 
 /* ════════════════════════════════════════
-   SMART REPORT GENERATOR
+   TEACHER CARD HTML BUILDER
 ════════════════════════════════════════ */
+function htTeacherCardHTML(id, emoji, name, subject, classes, students, status) {
+  const statusCls = status === 'Active' ? 'bg-green' : 'bg-amber';
+  return `
+    <div class="teacher-card reveal">
+      <div class="tc-photo" id="tc-photo-${id}" onclick="document.getElementById('tc-file-${id}').click()" title="Click to update photo">
+        <span id="tc-emoji-${id}">${emoji}</span>
+        <img id="tc-img-${id}" style="display:none"/>
+        <input type="file" id="tc-file-${id}" accept="image/*" onchange="uploadTeacherPhoto('${id}')"/>
+      </div>
+      <div class="tc-info">
+        <div class="tc-name">${name}</div>
+        <div class="tc-sub">${subject} · <span class="badge ${statusCls}" style="font-size:.62rem">${status}</span></div>
+        <div class="tc-stats">
+          <span class="tc-stat">🏫 ${classes}</span>
+          <span class="tc-stat">👨‍🎓 ${students} students</span>
+        </div>
+      </div>
+      <button class="action-btn" onclick="this.closest('.teacher-card').remove();toast('Teacher removed.')" title="Remove">🗑️</button>
+    </div>`;
+}
+
+function htStudentRowHTML(id, emoji, name, grade, cls, badgeCls, avg, att) {
+  return `
+    <tr>
+      <td>
+        <div class="sp-photo" id="sp-photo-${id}" onclick="document.getElementById('sp-file-${id}').click()" title="Click to update photo" style="width:40px;height:40px;font-size:.95rem;margin:0">
+          <span id="sp-emoji-${id}">${emoji}</span>
+          <img id="sp-img-${id}" style="display:none"/>
+          <input type="file" id="sp-file-${id}" accept="image/*" onchange="uploadStudentPhoto('${id}')"/>
+        </div>
+      </td>
+      <td><b>${name}</b></td>
+      <td>${grade}</td>
+      <td>${cls}</td>
+      <td><span class="badge ${badgeCls}">${avg}</span></td>
+      <td>${att}</td>
+      <td><button class="action-btn" onclick="delRow(this)">🗑️</button></td>
+    </tr>`;
+}
+
+function htAttRowHTML(id, emoji, name, initStatus, days, total) {
+  const pct = Math.round((days/total)*100);
+  const pctCls = pct>=90?'bg-green':pct>=75?'bg-blue':pct>=60?'bg-amber':'bg-red';
+  return `
+    <tr>
+      <td><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--teal));display:flex;align-items:center;justify-content:center;font-size:.95rem">${emoji}</div></td>
+      <td><b>${name}</b></td>
+      <td>
+        <div style="display:flex;gap:.3rem;flex-wrap:wrap">
+          <button class="att-quick-btn present ${initStatus==='present'?'on':''}" onclick="htMarkAtt(this,'present')">✓ Present</button>
+          <button class="att-quick-btn absent ${initStatus==='absent'?'on':''}" onclick="htMarkAtt(this,'absent')">✗ Absent</button>
+          <button class="att-quick-btn late ${initStatus==='late'?'on':''}" onclick="htMarkAtt(this,'late')">⚠ Late</button>
+        </div>
+      </td>
+      <td><input type="number" class="att-days" value="${days}" min="0" max="${total}" oninput="htRecalcPct(this)" style="width:55px;padding:.25rem .4rem;border:1.5px solid var(--border);border-radius:6px;font-size:.8rem;text-align:center"/></td>
+      <td>${total}</td>
+      <td><span class="badge ${pctCls}">${pct}%</span></td>
+    </tr>`;
+}
+
+/* ════════════════════════════════════════
+   PHOTO UPLOAD HANDLERS
+════════════════════════════════════════ */
+function uploadTeacherPhoto(id) {
+  const input = document.getElementById('tc-file-'+id);
+  const img   = document.getElementById('tc-img-'+id);
+  const emoji = document.getElementById('tc-emoji-'+id);
+  if(input?.files?.length && img) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      img.src = e.target.result;
+      img.style.display = 'block';
+      if(emoji) emoji.style.display = 'none';
+    };
+    reader.readAsDataURL(input.files[0]);
+    toast('Teacher photo updated ✓');
+  }
+}
+
+function uploadStudentPhoto(id) {
+  const input = document.getElementById('sp-file-'+id);
+  const img   = document.getElementById('sp-img-'+id);
+  const emoji = document.getElementById('sp-emoji-'+id);
+  if(input?.files?.length && img) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      img.src = e.target.result;
+      img.style.display = 'block';
+      if(emoji) emoji.style.display = 'none';
+    };
+    reader.readAsDataURL(input.files[0]);
+    toast('Student photo updated ✓');
+  }
+}
+
+/* ════════════════════════════════════════
+   HT ATTENDANCE FUNCTIONS
+════════════════════════════════════════ */
+function htMarkAtt(btn, status) {
+  btn.closest('td').querySelectorAll('.att-quick-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+function htRecalcPct(input) {
+  const row = input.closest('tr');
+  const total = parseInt(row.cells[4]?.textContent) || 46;
+  const days  = Math.min(parseInt(input.value) || 0, total);
+  const pct   = Math.round((days/total)*100);
+  const cls   = pct>=90?'bg-green':pct>=75?'bg-blue':pct>=60?'bg-amber':'bg-red';
+  row.cells[5].innerHTML = `<span class="badge ${cls}">${pct}%</span>`;
+}
+
+function htSwitchAttTab(id, btn) {
+  document.querySelectorAll('#headteacherScreen .tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#headteacherScreen .tab-pane').forEach(p => p.classList.remove('active'));
+  const pane = document.getElementById('ht-att-'+id);
+  if(pane) pane.classList.add('active');
+  if(id === 'htSummary') htRefreshAttSummary();
+}
+
+function htSaveAtt(cls) {
+  const tbody = document.getElementById('ht-att-tbody-'+cls);
+  if(!tbody) { toast('Attendance saved ✓'); return; }
+  let present=0, absent=0, late=0;
+  tbody.querySelectorAll('tr').forEach(row => {
+    const onBtn = row.querySelector('.att-quick-btn.on');
+    const status = onBtn ? (onBtn.classList.contains('absent')?'absent':onBtn.classList.contains('late')?'late':'present') : 'present';
+    if(status==='present') present++;
+    else if(status==='absent') absent++;
+    else late++;
+  });
+  toast(`${cls.replace('class','Grade ').toUpperCase()}: ${present} present, ${absent} absent, ${late} late — saved ✓`);
+}
+
+function htRefreshAttSummary() {
+  const classes = ['class8a','class9a','class10a'];
+  const labels  = ['Grade 8A','Grade 9A','Grade 10A'];
+  let grandDays=0, grandTotal=0;
+  const rows = [];
+  classes.forEach((cls,i) => {
+    const tbody = document.getElementById('ht-att-tbody-'+cls);
+    if(!tbody) return;
+    let present=0, absent=0, late=0, total=0;
+    tbody.querySelectorAll('tr').forEach(row => {
+      const onBtn = row.querySelector('.att-quick-btn.on');
+      const status = onBtn ? (onBtn.classList.contains('absent')?'absent':onBtn.classList.contains('late')?'late':'present') : 'present';
+      const days  = parseInt(row.querySelector('.att-days')?.value) || 0;
+      const allDays = parseInt(row.cells[4]?.textContent) || 46;
+      if(status==='present'||status==='late') present++;
+      else absent++;
+      late += status==='late'?1:0;
+      grandDays += days; grandTotal += allDays; total++;
+    });
+    const pct = total>0?Math.round((present/total)*100):0;
+    const pc  = pct>=90?'bg-green':pct>=75?'bg-blue':pct>=60?'bg-amber':'bg-red';
+    rows.push(`<tr><td><b>${labels[i]}</b></td><td>${total}</td><td>${present}</td><td>${absent}</td><td>${late}</td><td><span class="badge ${pc}">${pct}%</span></td></tr>`);
+  });
+  const overallPct = grandTotal>0?Math.round((grandDays/grandTotal)*100):0;
+  const totalStudents = classes.reduce((a,c)=>{ const tb=document.getElementById('ht-att-tbody-'+c); return a+(tb?tb.querySelectorAll('tr').length:0); },0);
+  const absentNow = document.querySelectorAll('#headteacherScreen .att-quick-btn.absent.on').length;
+  const tbody2 = document.getElementById('ht-att-summary-tbody');
+  if(tbody2) tbody2.innerHTML = rows.join('') + `<tr style="background:var(--bg);font-weight:800"><td>🏫 TOTAL</td><td>${totalStudents}</td><td>${totalStudents-absentNow}</td><td>${absentNow}</td><td>—</td><td><span class="badge bg-green">${overallPct}%</span></td></tr>`;
+  const pctEl = document.getElementById('ht-school-att-pct'); if(pctEl) pctEl.textContent = overallPct+'%';
+  const absEl = document.getElementById('ht-absent-count');   if(absEl) absEl.textContent = absentNow;
+  const stuEl = document.getElementById('ht-total-students'); if(stuEl) stuEl.textContent = totalStudents;
+}
+
+function initHtAttendance() {
+  document.querySelectorAll('#headteacherScreen .att-days').forEach(inp => {
+    inp.addEventListener('input', () => htRecalcPct(inp));
+    htRecalcPct(inp);
+  });
+}
+
+/* Also patch generateSmartReport to output to correct container */
+
+
 const REPORT_DATA = {
   james:  { name:'James Mokoena',  grade:'10A', id:'EB-2026-047', avg:78, att:92, pos:'12th/25', conduct:'Excellent', avatar:'👦🏾',
     subjects:[
@@ -3121,7 +3493,7 @@ function generateSmartReport(studentKey) {
       </div>
     </div>`;
 
-  const out = document.getElementById('smartReportOutput');
+  const out = document.getElementById('htSmartReportOutput') || document.getElementById('smartReportOutput');
   if(out) {
     out.innerHTML = html;
     setTimeout(()=>out.querySelectorAll('.reveal').forEach(el=>el.classList.add('vis')),60);
