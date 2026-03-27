@@ -158,35 +158,6 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .value-title{font-family:var(--font-serif);font-size:1.05rem;font-weight:700;color:var(--forest);margin-bottom:.4rem}
 .value-desc{font-size:.8rem;color:var(--muted);line-height:1.65}
 
-<script type="module">
-import { createClient } from 'https://esm.sh/@supabase/supabase-js'
-
-const supabaseUrl = 'https://onzvsgaoefrcckqduhmh.supabase.co'
-const supabaseKey = 'sb_publishable_lPaUO3cUrxbpcDja6k3uIw_e4ikDt3W'
-   
-console.log("Connected to Supabase")
-</script>
-   
-async function testConnection() {
-  const { data, error } = await supabase
-    .from('students')
-    .select('*')
-
-  console.log(data, error)
-}
-
-testConnection()
-
-   async function loadStudents() {
-  const { data } = await supabase
-    .from('students')
-    .select('*')
-
-  document.body.innerHTML += JSON.stringify(data)
-}
-
-loadStudents()
-
 /* NEWS */
 .news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem}
 .news-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);transition:var(--ease)}
@@ -2259,4 +2230,3 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
-
