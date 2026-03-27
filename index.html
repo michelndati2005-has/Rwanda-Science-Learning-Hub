@@ -437,6 +437,37 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
 .quiz-option.wrong{background:var(--red-bg);border-color:#FECACA;color:var(--red)}
 .quiz-option.reveal-correct{background:var(--green-bg);border-color:#86EFAC}
 
+   <!-- Supabase JS CDN for browsers -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.26.0/dist/supabase.min.js"></script>
+</head>
+<body>
+  <h1>Supabase Test</h1>
+
+  <script>
+    // Replace these with your own Supabase URL and anon key
+    const supabaseUrl = 'https://onzvsgaoefrcckqduhmh.supabase.co';
+    const supabaseKey = 'sb_publishable_lPaUO3cUrxbpcDja6k3uIw_e4ikDt3W';
+
+    // Create Supabase client
+    const supabase = supabaseJs.createClient(supabaseUrl, supabaseKey);
+
+    console.log("Connected to Supabase");
+
+    // Example: fetch data from a table called "students"
+    async function getStudents() {
+      const { data, error } = await supabase
+        .from('students')
+        .select('*');
+
+      if (error) {
+        console.error(error);
+      } else {
+        console.log(data);
+      }
+    }
+
+    getStudents();
+   
 /* REPORT CARD */
 .report-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--r);padding:2rem;margin-bottom:1.25rem}
 .report-school-hd{text-align:center;padding-bottom:1.25rem;margin-bottom:1.25rem;border-bottom:2px solid var(--border)}
