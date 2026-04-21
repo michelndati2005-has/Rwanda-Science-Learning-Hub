@@ -437,37 +437,6 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
 .quiz-option.wrong{background:var(--red-bg);border-color:#FECACA;color:var(--red)}
 .quiz-option.reveal-correct{background:var(--green-bg);border-color:#86EFAC}
 
-   <!-- Supabase JS CDN for browsers -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.26.0/dist/supabase.min.js"></script>
-</head>
-<body>
-  <h1>Supabase Test</h1>
-
-  <script>
-    // Replace these with your own Supabase URL and anon key
-    const supabaseUrl = 'https://onzvsgaoefrcckqduhmh.supabase.co';
-    const supabaseKey = 'sb_publishable_lPaUO3cUrxbpcDja6k3uIw_e4ikDt3W';
-
-    // Create Supabase client
-    const supabase = supabaseJs.createClient(supabaseUrl, supabaseKey);
-
-    console.log("Connected to Supabase");
-
-    // Example: fetch data from a table called "students"
-    async function getStudents() {
-      const { data, error } = await supabase
-        .from('students')
-        .select('*');
-
-      if (error) {
-        console.error(error);
-      } else {
-        console.log(data);
-      }
-    }
-
-    getStudents();
-   
 /* REPORT CARD */
 .report-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--r);padding:2rem;margin-bottom:1.25rem}
 .report-school-hd{text-align:center;padding-bottom:1.25rem;margin-bottom:1.25rem;border-bottom:2px solid var(--border)}
@@ -505,6 +474,40 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
 /* PERMISSION CHIPS */
 .perm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.65rem;margin-top:.75rem}
 .perm-item{display:flex;align-items:center;justify-content:space-between;background:var(--cream2);border:1px solid var(--border);border-radius:var(--r2);padding:.6rem .9rem;font-size:.79rem;font-weight:600;color:var(--forest)}
+
+/* DIRECTOR */
+.director-badge{background:linear-gradient(135deg,#7C3AED,#4F46E5);color:#fff;border-radius:100px;padding:.2rem .85rem;font-size:.68rem;font-weight:700;letter-spacing:.06em;display:inline-block}
+.activity-log{max-height:280px;overflow-y:auto;font-size:.78rem}
+.log-item{display:flex;gap:.75rem;padding:.55rem 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.log-item:last-child{border-bottom:none}
+.log-dot{width:8px;height:8px;border-radius:50%;background:var(--forest3);flex-shrink:0;margin-top:.35rem}
+.log-dot.red{background:var(--red)}.log-dot.gold{background:var(--gold)}.log-dot.blue{background:var(--blue)}
+.log-time{font-size:.68rem;color:var(--muted2);white-space:nowrap;margin-top:.1rem}
+
+/* AUDIO / TTS */
+.tts-bar{display:flex;align-items:center;gap:.65rem;background:rgba(13,61,31,.06);border:1px solid rgba(13,61,31,.14);border-radius:var(--r2);padding:.55rem .9rem;margin-top:.75rem;flex-wrap:wrap}
+.tts-btn{display:inline-flex;align-items:center;gap:.35rem;background:var(--forest2);color:#fff;border:none;border-radius:var(--r2);padding:.38rem .85rem;font-size:.74rem;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--ease)}
+.tts-btn:hover{background:var(--forest3)}.tts-btn.playing{background:var(--red)}
+.tts-btn.stop-btn{background:rgba(185,28,28,.1);color:var(--red);border:1.5px solid var(--red)}
+.tts-status{font-size:.72rem;color:var(--muted);flex:1;min-width:0}
+.tts-speed{padding:.28rem .5rem;border:1.5px solid var(--border);border-radius:var(--rsm);font-size:.73rem;font-family:inherit;background:var(--surface);color:var(--text);cursor:pointer}
+
+/* REPORT CARD ENHANCED */
+.rc-print-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center}
+.report-subject-row{display:grid;grid-template-columns:1fr 80px 80px 80px 80px 70px;gap:0;border-bottom:1px solid var(--border)}
+.report-subject-row>*{padding:.55rem .75rem;font-size:.8rem;border-right:1px solid var(--border)}
+.report-subject-row>*:last-child{border-right:none}
+.report-header-row{background:var(--forest);color:#fff;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.report-card-full{background:#fff;border:2px solid var(--border);border-radius:var(--r);overflow:hidden;max-width:800px;margin:0 auto}
+.report-card-top{background:linear-gradient(135deg,var(--forest),var(--forest3));color:#fff;padding:1.5rem 2rem;text-align:center}
+.report-card-top .rc-school{font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:var(--gold2)}
+.report-card-top .rc-sub{font-size:.75rem;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;margin-top:.25rem}
+.rc-student-bar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.75rem;padding:1rem 1.5rem;background:var(--cream2);border-bottom:1px solid var(--border)}
+.rc-student-field{font-size:.8rem}
+.rc-student-field label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:.15rem}
+.rc-student-field span{font-weight:700;color:var(--forest)}
+.rc-footer{padding:1.25rem 1.5rem;background:var(--cream2);border-top:2px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.8rem;color:var(--muted)}
+.rc-sig-line{border-top:1.5px solid var(--forest);width:150px;padding-top:.35rem;text-align:center;font-size:.7rem;font-weight:700;color:var(--forest)}
 
 /* LIVE DOT */
 .live-dot{display:inline-block;width:7px;height:7px;background:var(--green);border-radius:50%;margin-right:.3rem;animation:pulse 2s infinite}
@@ -736,11 +739,11 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
     </div>
     <div class="role-tabs" style="margin-top:-.75rem" id="roleTabs2">
       <button class="rtab" style="grid-column:span 1" onclick="selectRole('parent',this)"><span class="tab-icon">👪</span>Parent</button>
-      <div style="grid-column:span 2;display:flex;align-items:center;justify-content:center;font-size:.72rem;color:var(--muted);font-style:italic;padding:.3rem">Select your role ↑</div>
+      <button class="rtab" style="grid-column:span 2;background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);color:#6D28D9" onclick="selectRole('director',this)"><span class="tab-icon">👑</span>Director (Super Admin)</button>
     </div>
 
     <div class="login-hint-box" id="loginHintBox">
-      <b>Head Teacher:</b> Username: <b>headteacher</b> · Password: <b>sfds2026</b>
+      <b>👑 Director:</b> Username: <b>director</b> · Password: <b>director2026</b>
     </div>
 
     <div class="field">
@@ -862,6 +865,17 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
   <div class="modal modal-wide">
     <div class="modal-hd"><h3 id="vm-title">📄 Content</h3><button class="modal-close" onclick="closeModal('viewMaterial')">✕</button></div>
     <div class="note-viewer" id="vm-content"></div>
+    <div class="tts-bar" style="margin-top:.75rem">
+      <button class="tts-btn" id="vm-tts-btn" onclick="ttsRead(document.getElementById('vm-content').textContent, document.getElementById('vm-tts-btn'))">🔊 Listen</button>
+      <button class="tts-btn stop-btn" onclick="ttsStop()">⏹ Stop</button>
+      <span class="tts-status" id="tts-status-text">Click Listen to hear this content read aloud</span>
+      <select class="tts-speed" id="tts-speed" title="Reading speed">
+        <option value="0.7">Slow</option>
+        <option value="1" selected>Normal</option>
+        <option value="1.3">Fast</option>
+        <option value="1.6">Very Fast</option>
+      </select>
+    </div>
     <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('viewMaterial')">Close</button></div>
   </div>
 </div>
@@ -936,6 +950,7 @@ const CLASSES = ['P1A','P1B','P2A','P2B','P3A','P3B','P4A','P4B','P5A','P5B','P5
 
 // Credentials
 const CREDS = {
+  director: { user:'director', pass:'director2026', role:'School Director', name:'School Director', av:'D' },
   ht:       { user:'headteacher', pass:'sfds2026', role:'Head Teacher', name:'Head Teacher', av:'H' },
   teacher:  { user:'teacher',     pass:'teach2026', role:'Teacher', name:'Mrs. Okonkwo', av:'T' },
   student:  { user:'student',     pass:'student2026', role:'Student', name:'Jean-Paul Mutombo', av:'J' },
@@ -1057,12 +1072,13 @@ function selectRole(role, btn) {
   document.querySelectorAll('.rtab').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   const hints = {
+    director:'<b>🏛️ Director:</b> Username: <b>director</b> · Password: <b>director2026</b>',
     ht:      '<b>Head Teacher:</b> Username: <b>headteacher</b> · Password: <b>sfds2026</b>',
     teacher: '<b>Teacher:</b> Username: <b>teacher</b> · Password: <b>teach2026</b>',
     student: '<b>Student:</b> Username: <b>student</b> · Password: <b>student2026</b>',
     parent:  '<b>Parent:</b> Username = <b>Class name</b> (e.g. P3A) · Password = <b>Student\'s full name</b>'
   };
-  const labels = { ht:'Username', teacher:'Username', student:'Username', parent:'Class Name (e.g. P3A)' };
+  const labels = { director:'Username', ht:'Username', teacher:'Username', student:'Username', parent:'Class Name (e.g. P3A)' };
   document.getElementById('loginHintBox').innerHTML = hints[role];
   document.getElementById('loginUserLabel').textContent = labels[role];
   document.getElementById('loginUser').placeholder = role==='parent'?'e.g. P3A':'Enter username';
@@ -1074,7 +1090,9 @@ function doLogin() {
   const msg = document.getElementById('loginMsg');
   msg.style.display='none';
 
-  if(_selectedRole === 'ht') {
+  if(_selectedRole === 'director') {
+    if(u===CREDS.director.user && p===CREDS.director.pass) { launchApp('director',CREDS.director,null); return; }
+  } else if(_selectedRole === 'ht') {
     if(u===CREDS.ht.user && p===CREDS.ht.pass) { launchApp('ht',CREDS.ht,null); return; }
   } else if(_selectedRole === 'teacher') {
     // Allow any teacher from DB or default
@@ -1123,6 +1141,21 @@ function doSignOut() {
 function buildSidebar(role, cls) {
   const sb = document.getElementById('appSidebar');
   const menus = {
+    director: `
+      <div class="sgroup" style="color:#7C3AED;font-weight:800">👑 SUPER ADMIN</div>
+      <button class="sitem on" onclick="showPage('dir-dashboard',this)"><span class="si">📊</span> Dashboard</button>
+      <div class="sgroup">System Management</div>
+      <button class="sitem" onclick="showPage('dir-teachers',this)"><span class="si">👩‍🏫</span> All Teachers</button>
+      <button class="sitem" onclick="showPage('dir-students',this)"><span class="si">👨‍🎓</span> All Students</button>
+      <button class="sitem" onclick="showPage('dir-users',this)"><span class="si">🔐</span> User Accounts</button>
+      <div class="sgroup">Academic</div>
+      <button class="sitem" onclick="showPage('dir-reports',this)"><span class="si">📋</span> School Reports</button>
+      <button class="sitem" onclick="showPage('dir-activity',this)"><span class="si">📜</span> Activity Log</button>
+      <div class="sgroup">Permissions</div>
+      <button class="sitem" onclick="showPage('dir-permissions',this)"><span class="si">🛡️</span> Roles & Permissions</button>
+      <div class="sgroup">Website</div>
+      <button class="sitem" onclick="showPage('dir-website',this)"><span class="si">🌐</span> Edit Website</button>
+    `,
     ht: `
       <div class="sgroup">Overview</div>
       <button class="sitem on" onclick="showPage('ht-dashboard',this)"><span class="si">📊</span> Dashboard</button>
@@ -1188,7 +1221,8 @@ function buildSidebar(role, cls) {
 ══════════════════════════════════════════════════════ */
 function buildMainContent(role, cls, studentName) {
   const main = document.getElementById('appMain');
-  if(role === 'ht') main.innerHTML = buildHTDashboard();
+  if(role === 'director') main.innerHTML = buildDirectorDashboard();
+  else if(role === 'ht') main.innerHTML = buildHTDashboard();
   else if(role === 'teacher') main.innerHTML = buildTeacherDashboard(cls);
   else if(role === 'student') main.innerHTML = buildStudentDashboard(cls, studentName || 'Jean-Paul Mutombo');
   else if(role === 'parent') main.innerHTML = buildParentDashboard(cls, studentName);
@@ -1297,8 +1331,13 @@ function buildHTPages() {
 
   // Reports
   html += `<div class="page" id="ht-reports">
-    <div class="ptop"><div class="phd"><h2>📋 School Reports</h2><p>Academic performance summary</p><div class="phd-line"></div></div><button class="print-btn" onclick="window.print()">🖨️ Print</button></div>
-    ${buildSchoolReport()}
+    <div class="phd"><h2>📋 School Reports</h2><p>Academic performance overview and report card generation</p><div class="phd-line"></div></div>
+    <div class="tab-bar">
+      <button class="tab-btn active" id="ht-rep-tab1" onclick="switchHTRepTab('ht-rep-overview',this)">📊 Overview</button>
+      <button class="tab-btn" onclick="switchHTRepTab('ht-rep-card',this)">📋 Report Cards</button>
+    </div>
+    <div class="tab-pane active" id="ht-rep-overview">${buildSchoolReport()}</div>
+    <div class="tab-pane" id="ht-rep-card">${buildHTReportCardSection()}</div>
   </div>`;
 
   // Website editor
@@ -1826,6 +1865,7 @@ function renderMaterials(cls, type, mode) {
     </div>
     <div class="mat-actions">
       <button class="btn btn-ghost" style="font-size:.72rem;padding:.28rem .6rem" onclick="viewMaterial('${m.title.replace(/'/g,"\\'")}','${m.content.replace(/'/g,"\\'").replace(/\n/g,'\\n')}')">👁 View</button>
+      <button class="tts-btn" style="font-size:.7rem;padding:.28rem .6rem;border-radius:var(--r2)" onclick="ttsReadInline('${m.content.replace(/'/g,"\\'").replace(/\n/g,' ').replace(/"/g,'').substring(0,500)}',this)">🔊</button>
       ${currentRole==='ht'||currentRole==='teacher'?`<button class="action-btn" onclick="deleteMaterial('${cls}','${type}',${i})">🗑️</button>`:''}
     </div>
   </div>`).join('');
@@ -2178,6 +2218,148 @@ function recalcGradeRow(inp) {
   if(gradeEl) gradeEl.innerHTML=`<span class="badge ${gc}">${g}</span>`;
 }
 
+
+function switchHTRepTab(id, btn) {
+  const pg = document.getElementById('ht-reports');
+  if(!pg) return;
+  pg.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  pg.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  const t = document.getElementById(id); if(t) t.classList.add('active');
+}
+
+function buildHTReportCardSection() {
+  return `
+    <div class="callout cl-info"><span>📋</span><p>Generate individual student report cards. Each card includes Subject, Test, Exam, Total, Rank, Average, Conduct and Teacher Comment. Click 🖨️ Print to save as PDF.</p></div>
+    <div class="card">
+      <div class="card-head"><h3>📋 Report Card Generator</h3></div>
+      <div class="card-body">
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;align-items:flex-end">
+          <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Class</label>
+            <select id="ht-rc-class" onchange="htPopulateStudents()" style="padding:.6rem .9rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;background:var(--cream2)">
+              ${CLASSES.map(c=>'<option value="'+c+'">'+c+'</option>').join('')}
+            </select>
+          </div>
+          <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Student</label>
+            <select id="ht-rc-student" style="padding:.6rem .9rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;background:var(--cream2)">
+              ${(STUDENTS['P1A']||[]).map(s=>'<option>'+s+'</option>').join('')}
+            </select>
+          </div>
+          <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Term</label>
+            <select id="ht-rc-term" style="padding:.6rem .9rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;background:var(--cream2)">
+              <option>Term 1 · 2025-2026</option><option>Term 2 · 2025-2026</option><option>Term 3 · 2025-2026</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" onclick="generateHTReportCard()">📋 Generate Report Card</button>
+        </div>
+        <div id="ht-report-output"></div>
+      </div>
+    </div>`;
+}
+
+function htPopulateStudents() {
+  const cls = document.getElementById('ht-rc-class')?.value;
+  const sel = document.getElementById('ht-rc-student');
+  if(!sel||!cls) return;
+  sel.innerHTML = (STUDENTS[cls]||[]).map(s=>'<option>'+s+'</option>').join('');
+}
+
+function generateHTReportCard() {
+  const cls = document.getElementById('ht-rc-class')?.value||'P1A';
+  const student = document.getElementById('ht-rc-student')?.value||'Student';
+  const term = document.getElementById('ht-rc-term')?.value||'Term 1';
+  const subjects = DB.subjects[cls]||['French','Mathematics','Science','Religion','History','Geography','English','Physical Education','Drawing','Music'];
+  const classSize = (STUDENTS[cls]||[]).length;
+  const subjectData = subjects.map(s=>{
+    const test=Math.floor(60+Math.random()*38);
+    const exam=Math.floor(55+Math.random()*42);
+    const total=Math.round((test+exam)/2);
+    const grade=total>=90?'A+':total>=80?'A':total>=70?'B':total>=60?'C':total>=50?'D':'F';
+    const gc=total>=80?'bg-green':total>=70?'bg-blue':total>=60?'bg-amber':'bg-red';
+    return{s,test,exam,total,grade,gc};
+  });
+  const avg=Math.round(subjectData.reduce((a,r)=>a+r.total,0)/subjectData.length);
+  const rank=Math.floor(1+Math.random()*(classSize-1));
+  const conduct=avg>=85?'Excellent':avg>=75?'Very Good':avg>=65?'Good':avg>=55?'Satisfactory':'Needs Improvement';
+  const conductColor=avg>=85?'bg-green':avg>=75?'bg-blue':avg>=65?'bg-amber':'bg-red';
+  const comment=avg>=80?student.split(' ')[0]+' has performed exceptionally well this term. A diligent and motivated student who is a great example to peers.':avg>=65?student.split(' ')[0]+' has shown good progress with consistent effort. Continued focus will yield excellent results.':student.split(' ')[0]+' needs to apply more effort consistently. With dedication, improvement is very achievable.';
+  
+  const rows = subjectData.map(r=>`<div class="report-subject-row"><div style="font-weight:600">${r.s}</div><div>${r.test}</div><div>${r.exam}</div><div><b>${r.total}</b></div><div style="color:var(--muted);font-size:.75rem">—</div><div><span class="badge ${r.gc}" style="font-size:.65rem">${r.grade}</span></div></div>`).join('');
+  
+  const html = `<div class="report-card-full" id="ht-printable-report">
+    <div class="report-card-top">
+      <div style="font-size:2.5rem;margin-bottom:.5rem">✝</div>
+      <div class="rc-school">Saint François de Sales School</div>
+      <div class="rc-sub">ACADEMIC REPORT CARD — ${term}</div>
+      <div style="font-size:.7rem;color:rgba(255,255,255,.5);margin-top:.25rem;font-style:italic">"Qui s'humilie sera exalté"</div>
+    </div>
+    <div class="rc-student-bar">
+      <div class="rc-student-field"><label>Student Name</label><span>${student}</span></div>
+      <div class="rc-student-field"><label>Class</label><span>${cls}</span></div>
+      <div class="rc-student-field"><label>Term</label><span>${term}</span></div>
+      <div class="rc-student-field"><label>Class Size</label><span>${classSize} Students</span></div>
+      <div class="rc-student-field"><label>Academic Year</label><span>2025–2026</span></div>
+    </div>
+    <div style="overflow-x:auto">
+      <div class="report-subject-row report-header-row"><div>Subject</div><div>Test (/100)</div><div>Exam (/100)</div><div>Total (/100)</div><div>Rank</div><div>Grade</div></div>
+      ${rows}
+      <div class="report-subject-row" style="background:rgba(13,61,31,.06);font-weight:700;border-top:2px solid var(--forest)">
+        <div style="font-weight:800;color:var(--forest)">OVERALL</div><div>—</div><div>—</div>
+        <div><b>${avg}%</b></div><div style="font-weight:800;color:var(--forest)">${rank} / ${classSize}</div>
+        <div><span class="badge ${conductColor}">${avg>=90?'A+':avg>=80?'A':avg>=70?'B':avg>=60?'C':'D'}</span></div>
+      </div>
+    </div>
+    <div style="padding:1rem 1.5rem;border-top:1px solid var(--border)">
+      <div style="display:flex;flex-wrap:wrap;gap:2rem;font-size:.82rem;margin-bottom:.75rem">
+        <div><b style="color:var(--forest)">Overall Average:</b> ${avg}%</div>
+        <div><b style="color:var(--forest)">Class Rank:</b> ${rank} of ${classSize}</div>
+        <div><b style="color:var(--forest)">Conduct:</b> <span class="badge ${conductColor}">${conduct}</span></div>
+        <div><b style="color:var(--forest)">Attendance:</b> 93%</div>
+      </div>
+      <div style="font-size:.8rem;color:var(--muted);line-height:1.7;background:var(--cream2);padding:.65rem 1rem;border-radius:var(--r2);border:1px solid var(--border)">
+        <b>Teacher's Comment:</b> ${comment}
+      </div>
+    </div>
+    <div class="rc-footer">
+      <div><div class="rc-sig-line">Class Teacher</div></div>
+      <div style="text-align:center"><div style="font-size:.75rem;color:var(--forest);font-weight:700;margin-bottom:.5rem">School Stamp</div><div style="width:80px;height:80px;border:2px dashed var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto">✝</div></div>
+      <div style="text-align:right"><div class="rc-sig-line" style="margin-left:auto">Head Teacher</div></div>
+    </div>
+  </div>
+  <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;justify-content:center">
+    <button class="print-btn" onclick="printHTReport()">🖨️ Print / Save as PDF</button>
+    <button class="btn btn-ghost" onclick="toast('Copied to clipboard: Report for '+document.getElementById('ht-rc-student').value)">📋 Share</button>
+  </div>`;
+  const out=document.getElementById('ht-report-output');
+  if(out){out.innerHTML=html;out.scrollIntoView({behavior:'smooth',block:'start'});}
+  toast('Report card generated for '+student+' ✓');
+}
+
+function printHTReport() {
+  const c = document.getElementById('ht-printable-report');
+  if(!c) return;
+  const w = window.open('','_blank','width=900,height=700');
+  w.document.write('<!DOCTYPE html><html><head><title>Report Card - Saint Francois de Sales</title>'
+  +'<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">'
+  +'<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Outfit,sans-serif;background:#fff}'
+  +'.report-card-full{border:2px solid #DDD8CC;border-radius:12px;overflow:hidden;max-width:800px;margin:20px auto}'
+  +'.report-card-top{background:linear-gradient(135deg,#0D3D1F,#246634);color:#fff;padding:1.5rem 2rem;text-align:center}'
+  +'.rc-school{font-family:"Playfair Display",serif;font-size:1.5rem;font-weight:700;color:#E4B84A}'
+  +'.rc-sub{font-size:.75rem;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;margin-top:.25rem}'
+  +'.rc-student-bar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.75rem;padding:1rem 1.5rem;background:#F5F0E8;border-bottom:1px solid #DDD8CC}'
+  +'.rc-student-field{font-size:.8rem}.rc-student-field label{font-size:.65rem;font-weight:700;text-transform:uppercase;color:#5C5440;display:block;margin-bottom:.15rem}.rc-student-field span{font-weight:700;color:#0D3D1F}'
+  +'.report-subject-row{display:grid;grid-template-columns:1fr 80px 80px 80px 80px 70px;border-bottom:1px solid #DDD8CC}'
+  +'.report-subject-row>*{padding:.55rem .75rem;font-size:.8rem;border-right:1px solid #DDD8CC}.report-subject-row>*:last-child{border-right:none}'
+  +'.report-header-row{background:#0D3D1F;color:#fff;font-size:.68rem;font-weight:700;text-transform:uppercase}'
+  +'.badge{display:inline-flex;padding:.2rem .65rem;border-radius:100px;font-size:.67rem;font-weight:700}'
+  +'.bg-green{background:#DCFCE7;color:#15803D}.bg-blue{background:#DBEAFE;color:#1D4ED8}.bg-amber{background:#FEF3C7;color:#92400E}.bg-red{background:#FEE2E2;color:#B91C1C}'
+  +'.rc-footer{padding:1.25rem 1.5rem;background:#F5F0E8;border-top:2px solid #DDD8CC;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}'
+  +'.rc-sig-line{border-top:1.5px solid #0D3D1F;width:150px;padding-top:.35rem;text-align:center;font-size:.7rem;font-weight:700;color:#0D3D1F}'
+  +'@media print{@page{margin:12mm}}</style>'
+  +'</head><body>'+c.outerHTML+'<script>window.onload=()=>window.print()<\/script></body></html>');
+  w.document.close();
+}
+
 /* ══════════════════════════════════════════════════════
    SIDEBAR TOGGLE
 ══════════════════════════════════════════════════════ */
@@ -2237,6 +2419,492 @@ function saveAbout() {
 /* ══════════════════════════════════════════════════════
    INIT
 ══════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════════════
+   DIRECTOR (SUPER ADMIN) DASHBOARD
+══════════════════════════════════════════════════════ */
+const ACTIVITY_LOG = [
+  { time:'09:14', msg:'Head Teacher posted announcement: Term 2 Exams', type:'gold' },
+  { time:'09:02', msg:'Teacher M. Kapenda uploaded notes for P4B', type:'blue' },
+  { time:'08:47', msg:'Student Jean-Paul Mutombo completed morning quiz (80%)', type:'blue' },
+  { time:'08:30', msg:'Teacher Mme. Bertrand marked attendance for P1A', type:'blue' },
+  { time:'07:55', msg:'Parent of Alice Mbuyi logged in (P1A)', type:'blue' },
+  { time:'07:40', msg:'System: Morning Quiz activated for Mon 21 Apr 2026', type:'gold' },
+  { time:'Yesterday', msg:'New student enrolled: Nadine Lumbu (P5C)', type:'gold' },
+  { time:'Yesterday', msg:'Teacher account created: Mme. Anne Kasongo (P5C)', type:'blue' },
+];
+
+function buildDirectorDashboard() {
+  const totalStudents = Object.values(STUDENTS).flat().length;
+  return `
+  <div class="page on" id="dir-dashboard">
+    ${cwHtml()}
+    <div class="phd">
+      <h2>👑 Director — Super Admin Dashboard</h2>
+      <p>Saint François de Sales School — Full system control &amp; monitoring</p>
+      <div class="phd-line"></div>
+    </div>
+    <div class="callout" style="background:rgba(124,58,237,.08);border-left:4px solid #7C3AED;border-color:#7C3AED">
+      <span>👑</span>
+      <p style="color:#4C1D95"><b>You are logged in as School Director (Super Admin).</b> You have unrestricted access to all data, accounts, roles, and school settings.</p>
+    </div>
+    <div class="sgrid">
+      <div class="scard reveal"><div class="sc-icon">👨‍🎓</div><div class="sc-num">${totalStudents}</div><div class="sc-lbl">Total Students</div></div>
+      <div class="scard reveal"><div class="sc-icon">👩‍🏫</div><div class="sc-num">${DB.teachers.length}</div><div class="sc-lbl">Teachers</div></div>
+      <div class="scard reveal"><div class="sc-icon">🏫</div><div class="sc-num">${CLASSES.length}</div><div class="sc-lbl">Classes</div></div>
+      <div class="scard reveal"><div class="sc-icon">📢</div><div class="sc-num">${DB.announcements.length}</div><div class="sc-lbl">Announcements</div></div>
+      <div class="scard reveal"><div class="sc-icon">✅</div><div class="sc-num">89%</div><div class="sc-lbl">Avg Attendance</div></div>
+      <div class="scard reveal"><div class="sc-icon">📊</div><div class="sc-num">83%</div><div class="sc-lbl">School Average</div></div>
+    </div>
+    <div class="g2">
+      <div class="card reveal">
+        <div class="card-head"><h3>👩‍🏫 Teachers Overview</h3><button class="add-btn" onclick="openModal('addTeacher')" style="font-size:.72rem;padding:.35rem .8rem">+ Add</button></div>
+        <div class="tbl"><table>
+          <thead><tr><th>Name</th><th>Class</th><th>Subject</th><th>Actions</th></tr></thead>
+          <tbody id="dir-teachers-tbody">${DB.teachers.map((t,i)=>`<tr><td><b>${t.name}</b></td><td><span class="badge bg-forest">${t.cls}</span></td><td>${t.subject}</td><td><button class="action-btn" onclick="removeTeacher(${i})">🗑️</button></td></tr>`).join('')}</tbody>
+        </table></div>
+      </div>
+      <div class="card reveal">
+        <div class="card-head"><h3>📜 Recent Activity</h3></div>
+        <div class="activity-log">
+          ${ACTIVITY_LOG.map(l=>`<div class="log-item"><div class="log-dot ${l.type}"></div><div style="flex:1"><div style="font-size:.79rem;color:var(--text)">${l.msg}</div><div class="log-time">${l.time}</div></div></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card reveal">
+        <div class="card-head"><h3>🏫 Class Performance</h3></div>
+        <div class="card-body">
+          ${CLASSES.map(c=>{const pct=75+Math.floor(Math.random()*20);return `<div class="prog-item"><div class="prog-label">${c}</div><div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:var(--forest3)"></div></div><div class="prog-pct">${pct}%</div></div>`}).join('')}
+        </div>
+      </div>
+      <div class="card reveal">
+        <div class="card-head"><h3>🛡️ System Roles</h3></div>
+        <div class="card-body">
+          <div class="perm-grid">
+            <div class="perm-item"><span>👑 Director</span><span class="director-badge">1 active</span></div>
+            <div class="perm-item"><span>🏫 Head Teacher</span><span class="badge bg-green">1 active</span></div>
+            <div class="perm-item"><span>👩‍🏫 Teachers</span><span class="badge bg-blue">${DB.teachers.length} active</span></div>
+            <div class="perm-item"><span>👨‍🎓 Students</span><span class="badge bg-forest">${totalStudents} enrolled</span></div>
+            <div class="perm-item"><span>👪 Parents</span><span class="badge bg-amber">${totalStudents} accounts</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Director: All Teachers -->
+  <div class="page" id="dir-teachers">
+    <div class="ptop">
+      <div class="phd"><h2>👩‍🏫 All Teachers</h2><div class="phd-line"></div></div>
+      <button class="add-btn" onclick="openModal('addTeacher')">+ Add Teacher</button>
+    </div>
+    <div class="card">
+      <div class="tbl"><table>
+        <thead><tr><th>Name</th><th>Class</th><th>Subject</th><th>Username</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>${DB.teachers.map((t,i)=>`<tr><td><b>${t.name}</b></td><td><span class="badge bg-forest">${t.cls}</span></td><td>${t.subject}</td><td><code style="font-size:.75rem;background:var(--cream2);padding:.1rem .4rem;border-radius:4px">${t.user}</code></td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="removeTeacher(${i})">🗑️</button></td></tr>`).join('')}</tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- Director: All Students -->
+  <div class="page" id="dir-students">
+    <div class="ptop">
+      <div class="phd"><h2>👨‍🎓 All Students</h2><div class="phd-line"></div></div>
+      <button class="add-btn" onclick="openModal('addStudent')">+ Enrol Student</button>
+    </div>
+    <div class="tab-bar">${CLASSES.map((c,i)=>`<button class="tab-btn${i===0?' active':''}" onclick="switchDirStudentTab('${c}',this)">Class ${c}</button>`).join('')}</div>
+    ${CLASSES.map((c,i)=>`<div class="tab-pane${i===0?' active':''}" id="dir-stab-${c}">
+      <div class="card"><div class="card-head"><h3>Class ${c} — ${(STUDENTS[c]||[]).length} Students</h3></div>
+      <div class="tbl"><table><thead><tr><th>#</th><th>Name</th><th>Class</th><th>Parent Login</th><th>Actions</th></tr></thead>
+      <tbody>${(STUDENTS[c]||[]).map((s,j)=>`<tr><td>${j+1}</td><td><b>${s}</b></td><td><span class="badge bg-forest">${c}</span></td><td><span style="font-size:.72rem;color:var(--muted)">Class: ${c} / Name: ${s}</span></td><td><button class="action-btn" onclick="removeStudent('${c}',${j})">🗑️</button></td></tr>`).join('')}
+      </tbody></table></div></div>
+    </div>`).join('')}
+  </div>
+
+  <!-- Director: User Accounts -->
+  <div class="page" id="dir-users">
+    <div class="phd"><h2>🔐 User Accounts & Passwords</h2><p>Manage all login credentials for the school portal</p><div class="phd-line"></div></div>
+    <div class="g2">
+      <div class="card reveal">
+        <div class="card-head"><h3>🔑 System Accounts</h3></div>
+        <div class="tbl"><table>
+          <thead><tr><th>Role</th><th>Username</th><th>Password</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr><td><span class="director-badge">Director</span></td><td>director</td><td><span class="badge bg-muted">director2026</span></td><td><button class="btn btn-ghost" style="font-size:.72rem;padding:.25rem .6rem" onclick="changePwdModal('Director','director')">Change</button></td></tr>
+            <tr><td><span class="badge bg-forest">Head Teacher</span></td><td>headteacher</td><td><span class="badge bg-muted">sfds2026</span></td><td><button class="btn btn-ghost" style="font-size:.72rem;padding:.25rem .6rem" onclick="changePwdModal('Head Teacher','headteacher')">Change</button></td></tr>
+            <tr><td><span class="badge bg-blue">Teacher (default)</span></td><td>teacher</td><td><span class="badge bg-muted">teach2026</span></td><td><button class="btn btn-ghost" style="font-size:.72rem;padding:.25rem .6rem" onclick="changePwdModal('Teacher','teacher')">Change</button></td></tr>
+            <tr><td><span class="badge bg-amber">Student (demo)</span></td><td>student</td><td><span class="badge bg-muted">student2026</span></td><td><button class="btn btn-ghost" style="font-size:.72rem;padding:.25rem .6rem" onclick="changePwdModal('Student','student')">Change</button></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="card reveal">
+        <div class="card-head"><h3>👩‍🏫 Teacher Accounts</h3></div>
+        <div class="tbl"><table>
+          <thead><tr><th>Teacher</th><th>Username</th><th>Class</th></tr></thead>
+          <tbody>${DB.teachers.map(t=>`<tr><td><b>${t.name}</b></td><td><code style="font-size:.75rem">${t.user}</code></td><td><span class="badge bg-forest">${t.cls}</span></td></tr>`).join('')}</tbody>
+        </table></div>
+      </div>
+    </div>
+    <div class="callout cl-tip"><span>👪</span><p><b>Parent Login:</b> Username = class name (e.g. <b>P3A</b>), Password = student's full name. No setup needed — auto-generated for all enrolled students.</p></div>
+  </div>
+
+  <!-- Director: Reports -->
+  <div class="page" id="dir-reports">
+    <div class="phd"><h2>📋 School Reports</h2><p>Full academic overview and report card generation</p><div class="phd-line"></div></div>
+    ${buildDirectorReports()}
+  </div>
+
+  <!-- Director: Activity Log -->
+  <div class="page" id="dir-activity">
+    <div class="phd"><h2>📜 Activity Log</h2><p>All user actions across the platform</p><div class="phd-line"></div></div>
+    <div class="card">
+      <div class="activity-log" style="max-height:600px">
+        ${[...ACTIVITY_LOG, ...ACTIVITY_LOG].map(l=>`<div class="log-item"><div class="log-dot ${l.type}"></div><div style="flex:1"><div style="font-size:.82rem;color:var(--text)">${l.msg}</div><div class="log-time">${l.time}</div></div></div>`).join('')}
+      </div>
+    </div>
+  </div>
+
+  <!-- Director: Permissions -->
+  <div class="page" id="dir-permissions">
+    <div class="phd"><h2>🛡️ Roles & Permissions</h2><p>Control what each role can access in the portal</p><div class="phd-line"></div></div>
+    ${buildPermissionsPage()}
+  </div>
+
+  <!-- Director: Edit Website -->
+  <div class="page" id="dir-website">
+    <div class="phd"><h2>🌐 Edit Public Website</h2><p>Update the public-facing school website content</p><div class="phd-line"></div></div>
+    ${buildWebsiteEditorHTML()}
+  </div>
+  `;
+}
+
+function switchDirStudentTab(cls, btn) {
+  document.querySelectorAll('#dir-students .tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#dir-students .tab-pane').forEach(p=>p.classList.remove('active'));
+  const t = document.getElementById('dir-stab-'+cls);
+  if(t) t.classList.add('active');
+}
+
+function buildDirectorReports() {
+  return `
+    <div class="sgrid">
+      <div class="scard"><div class="sc-icon">📊</div><div class="sc-num">83%</div><div class="sc-lbl">School Avg</div></div>
+      <div class="scard"><div class="sc-icon">✅</div><div class="sc-num">89%</div><div class="sc-lbl">Attendance</div></div>
+      <div class="scard"><div class="sc-icon">🏆</div><div class="sc-num">${CLASSES.length}</div><div class="sc-lbl">Classes</div></div>
+      <div class="scard"><div class="sc-icon">👨‍🎓</div><div class="sc-num">${Object.values(STUDENTS).flat().length}</div><div class="sc-lbl">Students</div></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>📋 Generate Report Cards</h3></div>
+      <div class="card-body">
+        <div class="callout cl-info"><span>ℹ️</span><p>Select a class and student to generate a full report card with Test, Exam, Total, Rank, Average, and Conduct. Export as PDF or printable format.</p></div>
+        <div class="mrow" style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem">
+          <div class="mfield" style="flex:1;min-width:140px"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Class</label>
+            <select id="rc-class" onchange="populateRCStudents()" style="width:100%;padding:.6rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;background:var(--cream2)">
+              ${CLASSES.map(c=>`<option value="${c}">${c}</option>`).join('')}
+            </select>
+          </div>
+          <div class="mfield" style="flex:1;min-width:180px"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Student</label>
+            <select id="rc-student" style="width:100%;padding:.6rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;background:var(--cream2)">
+              ${(STUDENTS['P1A']||[]).map(s=>`<option>${s}</option>`).join('')}
+            </select>
+          </div>
+          <div class="mfield" style="flex:1;min-width:140px"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Term</label>
+            <select id="rc-term" style="width:100%;padding:.6rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;background:var(--cream2)">
+              <option>Term 1 · 2025-2026</option><option>Term 2 · 2025-2026</option><option>Term 3 · 2025-2026</option>
+            </select>
+          </div>
+          <div style="display:flex;align-items:flex-end;padding-bottom:.05rem">
+            <button class="btn btn-primary" onclick="generateReportCard()">📋 Generate Report Card</button>
+          </div>
+        </div>
+        <div id="report-card-output"></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1.25rem">
+      <div class="card-head"><h3>📊 Class Performance Summary</h3></div>
+      <div class="card-body">
+        ${CLASSES.map(c=>{const pct=75+Math.floor(Math.random()*20);return `<div class="prog-item"><div class="prog-label">${c}</div><div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:var(--forest3)"></div></div><div class="prog-pct">${pct}%</div></div>`}).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function populateRCStudents() {
+  const cls = document.getElementById('rc-class')?.value;
+  const sel = document.getElementById('rc-student');
+  if(!sel || !cls) return;
+  sel.innerHTML = (STUDENTS[cls]||[]).map(s=>`<option>${s}</option>`).join('');
+}
+
+function generateReportCard() {
+  const cls = document.getElementById('rc-class')?.value || 'P1A';
+  const student = document.getElementById('rc-student')?.value || 'Student';
+  const term = document.getElementById('rc-term')?.value || 'Term 1';
+  const subjects = DB.subjects[cls] || ['French','Mathematics','Science','Religion','History','Geography','English','Physical Education','Drawing','Music'];
+  const classSize = (STUDENTS[cls]||[]).length;
+  
+  // Generate marks
+  const subjectData = subjects.map(s=>{
+    const test = Math.floor(60 + Math.random()*38);
+    const exam = Math.floor(55 + Math.random()*42);
+    const total = Math.round((test + exam) / 2);
+    const grade = total>=90?'A+':total>=80?'A':total>=70?'B':total>=60?'C':total>=50?'D':'F';
+    const gc = total>=80?'bg-green':total>=70?'bg-blue':total>=60?'bg-amber':'bg-red';
+    return { s, test, exam, total, grade, gc };
+  });
+  const avg = Math.round(subjectData.reduce((a,r)=>a+r.total,0)/subjectData.length);
+  const rank = Math.floor(1 + Math.random()*(classSize-1));
+  const conduct = avg>=85?'Excellent':avg>=75?'Very Good':avg>=65?'Good':avg>=55?'Satisfactory':'Needs Improvement';
+  const conductColor = avg>=85?'bg-green':avg>=75?'bg-blue':avg>=65?'bg-amber':'bg-red';
+  
+  const html = `
+    <div class="report-card-full" id="printable-report">
+      <div class="report-card-top">
+        <div style="font-size:2.5rem;margin-bottom:.5rem">✝</div>
+        <div class="rc-school">Saint François de Sales School</div>
+        <div class="rc-sub">ACADEMIC REPORT CARD — ${term}</div>
+        <div style="font-size:.7rem;color:rgba(255,255,255,.5);margin-top:.25rem;font-style:italic">"Qui s'humilie sera exalté"</div>
+      </div>
+      <div class="rc-student-bar">
+        <div class="rc-student-field"><label>Student Name</label><span>${student}</span></div>
+        <div class="rc-student-field"><label>Class</label><span>${cls}</span></div>
+        <div class="rc-student-field"><label>Term</label><span>${term}</span></div>
+        <div class="rc-student-field"><label>Class Size</label><span>${classSize} Students</span></div>
+        <div class="rc-student-field"><label>Academic Year</label><span>2025–2026</span></div>
+      </div>
+      <div style="overflow-x:auto">
+        <div class="report-subject-row report-header-row">
+          <div>Subject</div><div>Test (/100)</div><div>Exam (/100)</div><div>Total (/100)</div><div>Rank</div><div>Grade</div>
+        </div>
+        ${subjectData.map(r=>`<div class="report-subject-row">
+          <div style="font-weight:600">${r.s}</div>
+          <div>${r.test}</div>
+          <div>${r.exam}</div>
+          <div><b>${r.total}</b></div>
+          <div style="color:var(--muted);font-size:.75rem">—</div>
+          <div><span class="badge ${r.gc}" style="font-size:.65rem">${r.grade}</span></div>
+        </div>`).join('')}
+        <div class="report-subject-row" style="background:rgba(13,61,31,.06);font-weight:700;border-top:2px solid var(--forest)">
+          <div style="font-weight:800;color:var(--forest)">OVERALL</div>
+          <div>—</div><div>—</div>
+          <div><b>${avg}%</b></div>
+          <div style="font-weight:800;color:var(--forest)">${rank} / ${classSize}</div>
+          <div><span class="badge ${conductColor}">${avg>=90?'A+':avg>=80?'A':avg>=70?'B':avg>=60?'C':'D'}</span></div>
+        </div>
+      </div>
+      <div style="padding:1rem 1.5rem;border-top:1px solid var(--border)">
+        <div style="display:flex;flex-wrap:wrap;gap:2rem;font-size:.82rem;margin-bottom:.75rem">
+          <div><b style="color:var(--forest)">Overall Average:</b> ${avg}%</div>
+          <div><b style="color:var(--forest)">Class Rank:</b> ${rank} out of ${classSize}</div>
+          <div><b style="color:var(--forest)">Conduct:</b> <span class="badge ${conductColor}">${conduct}</span></div>
+          <div><b style="color:var(--forest)">Attendance:</b> 93%</div>
+        </div>
+        <div style="font-size:.8rem;color:var(--muted);line-height:1.7;background:var(--cream2);padding:.65rem 1rem;border-radius:var(--r2);border:1px solid var(--border)">
+          <b>Teacher's Comment:</b> ${avg>=80?student.split(' ')[0]+' has performed exceptionally well this term. A diligent and motivated student who sets a great example to peers. Keep up the outstanding work!':avg>=65?student.split(' ')[0]+' has shown good progress this term with consistent effort across most subjects. Continued focus on weaker areas will lead to excellent results.':student.split(' ')[0]+' has shown some progress but needs to apply more effort consistently. With dedication and support, improvement is very achievable next term.'}
+        </div>
+      </div>
+      <div class="rc-footer">
+        <div>
+          <div class="rc-sig-line">Class Teacher</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:.75rem;color:var(--forest);font-weight:700;margin-bottom:.5rem">Official School Stamp</div>
+          <div style="width:80px;height:80px;border:2px dashed var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto">✝</div>
+        </div>
+        <div style="text-align:right">
+          <div class="rc-sig-line" style="margin-left:auto">Head Teacher</div>
+        </div>
+      </div>
+    </div>
+    <div class="rc-print-actions" style="margin-top:1rem;justify-content:center">
+      <button class="print-btn" onclick="printReportCard()">🖨️ Print / Save as PDF</button>
+      <button class="btn btn-ghost" onclick="copyReportAsText('${student}','${cls}','${term}',${avg},${rank},${classSize})">📋 Copy as Text</button>
+    </div>
+  `;
+  const out = document.getElementById('report-card-output');
+  if(out) { out.innerHTML = html; out.scrollIntoView({behavior:'smooth',block:'start'}); }
+  logActivity('Report card generated for '+student+' ('+cls+')', 'gold');
+  toast('Report card generated for '+student+' ✓');
+}
+
+function printReportCard() {
+  const content = document.getElementById('printable-report');
+  if(!content) return;
+  const w = window.open('','_blank','width=900,height=700');
+  w.document.write(`<!DOCTYPE html><html><head><title>Report Card</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}body{font-family:'Outfit',sans-serif;background:#fff;color:#1A1408}
+    .report-card-full{border:2px solid #DDD8CC;border-radius:12px;overflow:hidden;max-width:800px;margin:20px auto}
+    .report-card-top{background:linear-gradient(135deg,#0D3D1F,#246634);color:#fff;padding:1.5rem 2rem;text-align:center}
+    .rc-school{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#E4B84A}
+    .rc-sub{font-size:.75rem;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;margin-top:.25rem}
+    .rc-student-bar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.75rem;padding:1rem 1.5rem;background:#F5F0E8;border-bottom:1px solid #DDD8CC}
+    .rc-student-field{font-size:.8rem} .rc-student-field label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#5C5440;display:block;margin-bottom:.15rem} .rc-student-field span{font-weight:700;color:#0D3D1F}
+    .report-subject-row{display:grid;grid-template-columns:1fr 80px 80px 80px 80px 70px;border-bottom:1px solid #DDD8CC}
+    .report-subject-row>*{padding:.55rem .75rem;font-size:.8rem;border-right:1px solid #DDD8CC} .report-subject-row>*:last-child{border-right:none}
+    .report-header-row{background:#0D3D1F;color:#fff;font-size:.68rem;font-weight:700;text-transform:uppercase}
+    .badge{display:inline-flex;padding:.2rem .65rem;border-radius:100px;font-size:.67rem;font-weight:700}
+    .bg-green{background:#DCFCE7;color:#15803D} .bg-blue{background:#DBEAFE;color:#1D4ED8} .bg-amber{background:#FEF3C7;color:#92400E} .bg-red{background:#FEE2E2;color:#B91C1C}
+    .rc-footer{padding:1.25rem 1.5rem;background:#F5F0E8;border-top:2px solid #DDD8CC;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.8rem;color:#5C5440}
+    .rc-sig-line{border-top:1.5px solid #0D3D1F;width:150px;padding-top:.35rem;text-align:center;font-size:.7rem;font-weight:700;color:#0D3D1F}
+    @media print{.no-print{display:none!important}@page{margin:15mm}}
+  </style></head><body>${content.outerHTML}<script>window.onload=()=>{window.print();}<\/script></body></html>`);
+  w.document.close();
+}
+
+function copyReportAsText(student, cls, term, avg, rank, classSize) {
+  const text = `SAINT FRANCOIS DE SALES SCHOOL\nACADEMIC REPORT CARD — ${term}\n\nStudent: ${student}\nClass: ${cls}\nOverall Average: ${avg}%\nClass Rank: ${rank} / ${classSize}\n\nGenerated on ${new Date().toLocaleDateString('fr-FR')}`;
+  navigator.clipboard.writeText(text).then(()=>toast('Report copied to clipboard ✓')).catch(()=>toast('Could not copy — please print instead'));
+}
+
+function buildPermissionsPage() {
+  const perms = {
+    'Director (Super Admin)': ['Add/Remove Teachers','Add/Remove Students','Manage All Accounts','Change Passwords','View All Data','Generate Reports','Edit Website','Monitor Activity','Assign Roles'],
+    'Head Teacher': ['Add/Remove Teachers','Add/Remove Students','Create User Accounts','Generate Reports','Edit Website','Post Announcements','View All Dashboards'],
+    'Teacher': ['Upload Notes','Set Homework','Enter Grades','Mark Attendance','Manage Quiz','Upload Materials'],
+    'Student': ['View Grades','View Notes','Download Materials','Take Morning Quiz','View Timetable','Listen to Notes (TTS)'],
+    'Parent': ['View Child Grades','View Attendance','View Timetable','View Homework','View Notices'],
+  };
+  const colors = {'Director (Super Admin)':'#7C3AED','Head Teacher':'var(--forest)','Teacher':'var(--blue)','Student':'var(--amber)','Parent':'var(--green)'};
+  return Object.entries(perms).map(([role, list])=>`
+    <div class="card reveal" style="margin-bottom:1.25rem">
+      <div class="card-head" style="border-left:4px solid ${colors[role]}"><h3>${role}</h3></div>
+      <div class="card-body">
+        <div class="perm-grid">
+          ${list.map(p=>`<div class="perm-item"><span>✓ ${p}</span><span class="badge bg-green">Allowed</span></div>`).join('')}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function buildWebsiteEditorHTML() {
+  return `
+    <div class="callout cl-tip"><span>🌐</span><p>Changes here update the public school website immediately. Visitors to the homepage will see your updates in real time.</p></div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-head"><h3>🖊️ School Information</h3></div>
+        <div class="settings-form">
+          <div class="mfield"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">About Text</label><textarea id="ws-about" rows="4" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;resize:vertical" placeholder="School description...">${DB.schoolInfo.about}</textarea></div>
+          <div class="mfield"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Address & Contact</label><input type="text" id="ws-address" value="${DB.schoolInfo.address}" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
+          <div class="mrow" style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+            <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Phone</label><input type="text" id="ws-phone" value="${DB.schoolInfo.phone}" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
+            <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Email</label><input type="email" id="ws-email" value="${DB.schoolInfo.email}" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
+          </div>
+          <div class="mfield"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Mission Statement</label><textarea id="ws-mission" rows="3" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;resize:vertical">${DB.schoolInfo.mission}</textarea></div>
+          <div class="mrow" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem">
+            <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Hours</label><input type="text" id="ws-hours" value="${DB.schoolInfo.hours}" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
+            <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Founded</label><input type="text" id="ws-founded" value="${DB.schoolInfo.founded}" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
+            <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Students</label><input type="text" id="ws-students" value="${DB.schoolInfo.students}" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
+          </div>
+          <div class="mfield"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">📸 School Photo URL</label><input type="url" id="ws-photo" placeholder="https://..." style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
+          <button class="btn btn-gold" onclick="saveWebsiteInfo()">💾 Save & Publish to Website</button>
+          <button class="btn btn-ghost" onclick="saveSchoolPhoto()" style="margin-top:.5rem">📸 Update School Photo</button>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-head"><h3>📰 Add News / Event</h3></div>
+          <div class="card-body">
+            <div class="mfield"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Headline</label><input type="text" id="ws-news-title" placeholder="News headline..." style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
+            <div class="mfield"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Summary</label><textarea id="ws-news-body" rows="3" placeholder="Brief description..." style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;resize:vertical"></textarea></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+              <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Icon</label><input type="text" id="ws-news-icon" value="📰" maxlength="4" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
+              <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Date</label><input type="date" id="ws-news-date" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
+            </div>
+            <button class="btn btn-primary" style="margin-top:1rem;width:100%" onclick="publishNewsFromWebsiteEditor()">📰 Publish to Homepage</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function publishNewsFromWebsiteEditor() {
+  const title = document.getElementById('ws-news-title')?.value.trim();
+  const body = document.getElementById('ws-news-body')?.value.trim();
+  const icon = document.getElementById('ws-news-icon')?.value || '📰';
+  const date = document.getElementById('ws-news-date')?.value;
+  if(!title){toast('Please enter a headline.');return;}
+  const dateStr = date ? new Date(date).toLocaleDateString('fr-FR') : todayStr();
+  const card = `<div class="news-card"><div class="news-card-img">${icon}</div><div class="news-card-body"><div class="news-card-date">${dateStr}</div><div class="news-card-title">${title}</div><div class="news-card-excerpt">${body}</div></div></div>`;
+  const grid = document.getElementById('pubNewsGrid');
+  if(grid) grid.insertAdjacentHTML('afterbegin', card);
+  toast('News published to homepage ✓');
+  logActivity('News item published: '+title, 'gold');
+}
+
+function changePwdModal(role, user) {
+  toast('Password management: In a live system, this would update the '+role+' password securely in the database.');
+}
+
+function logActivity(msg, type='blue') {
+  ACTIVITY_LOG.unshift({ time: new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}), msg, type });
+}
+
+/* ══════════════════════════════════════════════════════
+   TEXT-TO-SPEECH (AUDIO LEARNING)
+══════════════════════════════════════════════════════ */
+let ttsUtterance = null;
+let ttsPlaying = false;
+
+function ttsRead(text, btnEl) {
+  if(!('speechSynthesis' in window)) { toast('Text-to-speech is not supported in your browser.'); return; }
+  if(ttsPlaying) { ttsStop(); return; }
+  const clean = text.replace(/\n/g,' ').replace(/\'/g,"'").trim();
+  ttsUtterance = new SpeechSynthesisUtterance(clean);
+  ttsUtterance.lang = 'fr-FR';
+  ttsUtterance.rate = parseFloat(document.getElementById('tts-speed')?.value || 1);
+  ttsUtterance.pitch = 1;
+  ttsUtterance.volume = 1;
+  ttsUtterance.onstart = () => {
+    ttsPlaying = true;
+    if(btnEl) { btnEl.textContent = '⏹ Stop'; btnEl.classList.add('playing'); }
+    const statusEl = document.getElementById('tts-status-text');
+    if(statusEl) statusEl.textContent = '🔊 Reading aloud...';
+  };
+  ttsUtterance.onend = ttsUtterance.onerror = () => {
+    ttsPlaying = false;
+    if(btnEl) { btnEl.textContent = '🔊 Listen'; btnEl.classList.remove('playing'); }
+    const statusEl = document.getElementById('tts-status-text');
+    if(statusEl) statusEl.textContent = 'Click Listen to hear the content read aloud';
+  };
+  window.speechSynthesis.speak(ttsUtterance);
+}
+
+
+function ttsReadInline(text, btnEl) {
+  if(ttsPlaying && btnEl && btnEl.classList.contains('playing')) { ttsStop(); return; }
+  if(ttsPlaying) ttsStop();
+  ttsRead(text, btnEl);
+}
+
+function ttsStop() {
+  window.speechSynthesis.cancel();
+  ttsPlaying = false;
+  document.querySelectorAll('.tts-btn.playing').forEach(b=>{ b.textContent='🔊 Listen'; b.classList.remove('playing'); });
+  const statusEl = document.getElementById('tts-status-text');
+  if(statusEl) statusEl.textContent = 'Stopped.';
+}
+
+function ttsBarHTML(content, title) {
+  const safe = (content||'').replace(/'/g,"\'").replace(/"/g,'&quot;');
+  return `<div class="tts-bar">
+    <button class="tts-btn" id="tts-btn-${Math.random().toString(36).substr(2,6)}" onclick="ttsRead('${safe}',this)">🔊 Listen</button>
+    <button class="tts-btn stop-btn" onclick="ttsStop()">⏹ Stop</button>
+    <span class="tts-status" id="tts-status-text">Click Listen to hear "${title||'this content'}" read aloud</span>
+    <select class="tts-speed" id="tts-speed" title="Reading speed">
+      <option value="0.7">Slow</option>
+      <option value="1" selected>Normal</option>
+      <option value="1.3">Fast</option>
+      <option value="1.6">Very Fast</option>
+    </select>
+  </div>`;
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
   initReveal();
   updateClock();
