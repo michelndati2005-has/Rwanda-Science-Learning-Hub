@@ -943,9 +943,18 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
 </div>
 
 <script>
-/* ══════════════════════════════════════════════════════
-   DATA STORE
-══════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════════
+   §1 · DATA STORE
+   ─────────────────────────────────────────────────────────────────────────
+   Contains all runtime data: class list, credentials, student roster,
+   teacher list, announcements, materials, timetables, quiz questions.
+
+   HOW TO EXTEND:
+   • Add a new data key inside DB{}  →  DB.myFeature = {};
+   • Add new credentials             →  CREDS.newRole = { user, pass, role, name, av }
+   • Add more students to STUDENTS{} →  STUDENTS['P3A'].push('New Student')
+   • Add more classes to CLASSES[]   →  CLASSES.push('P6A')
+   ════════════════════════════════════════════════════════════════════════════ */
 const CLASSES = ['P1A','P1B','P2A','P2B','P3A','P3B','P4A','P4B','P5A','P5B','P5C'];
 
 // Credentials
@@ -1048,9 +1057,15 @@ function generateDefaultTimetable(cls) {
   return tt;
 }
 
-/* ══════════════════════════════════════════════════════
-   CLOCK
-══════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════════
+   §2 · CLOCK & LIVE TIME
+   ─────────────────────────────────────────────────────────────────────────
+   Updates all .live-time and .live-date elements every second.
+
+   HOW TO EXTEND:
+   • Add more live elements by giving them class="live-time" or "live-date"
+   • Change locale by editing 'fr-FR' to another locale string (e.g. 'en-RW')
+   ════════════════════════════════════════════════════════════════════════════ */
 function updateClock() {
   const now = new Date();
   const t = now.toLocaleTimeString('fr-FR');
@@ -1060,9 +1075,19 @@ function updateClock() {
 }
 setInterval(updateClock,1000); updateClock();
 
-/* ══════════════════════════════════════════════════════
-   LOGIN
-══════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════════
+   §3 · AUTHENTICATION & LOGIN
+   ─────────────────────────────────────────────────────────────────────────
+   Handles role selection, credential validation, and portal launch.
+
+   HOW TO EXTEND:
+   • Add a new role tab   →  add a .rtab button in the HTML login overlay
+                          →  add hints[newRole] and labels[newRole] in selectRole()
+                          →  add an if/else branch in doLogin()
+   • Connect to a backend →  replace the credential checks in doLogin()
+                             with a fetch('/api/login', ...) call
+   • Add forgot-password  →  add a link below login-btn that calls a new fn
+   ════════════════════════════════════════════════════════════════════════════ */
 let _selectedRole = 'ht';
 function openLoginOverlay() { document.getElementById('loginOverlay').classList.add('open'); }
 function closeLoginOverlay() { document.getElementById('loginOverlay').classList.remove('open'); }
@@ -1135,9 +1160,22 @@ function doSignOut() {
   window.scrollTo(0,0);
 }
 
-/* ══════════════════════════════════════════════════════
-   SIDEBAR BUILDER
-══════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════════
+   §4 · SIDEBAR BUILDER
+   ─────────────────────────────────────────────────────────────────────────
+   Builds the left navigation menu for each role dynamically.
+
+   HOW TO EXTEND:
+   • Add a new sidebar item for Head Teacher:
+       In menus.ht, add:
+       <button class="sitem" onclick="showPage('ht-newpage',this)">
+         <span class="si">🆕</span> New Feature
+       </button>
+   • Add a new role sidebar:
+       Add menus.newrole = `...html...` inside buildSidebar()
+   • Add a notification badge:
+       <span class="sbadge">3</span>  (after the label text)
+   ════════════════════════════════════════════════════════════════════════════ */
 function buildSidebar(role, cls) {
   const sb = document.getElementById('appSidebar');
   const menus = {
@@ -1216,9 +1254,37 @@ function buildSidebar(role, cls) {
   sb.innerHTML = menus[role] || '';
 }
 
-/* ══════════════════════════════════════════════════════
-   MAIN CONTENT BUILDER
-══════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════════
+   §5 · DASHBOARD & PAGE BUILDERS
+   ─────────────────────────────────────────────────────────────────────────
+   Each function builds and returns the full HTML for a role's portal pages.
+   All pages for a role are rendered at login and hidden/shown via showPage().
+
+   HOW TO EXTEND:
+   • Add a new Head Teacher page:
+       1. Add a sidebar button in §4 pointing to 'ht-mypage'
+       2. Inside buildHTPages(), add:
+            html += `<div class="page" id="ht-mypage">
+              <div class="phd"><h2>My Page</h2><div class="phd-line"></div></div>
+              ... your content ...
+            </div>`;
+   • Add a new Student page:
+       1. Add sidebar button → 's-mypage'
+       2. Inside buildStudentDashboard(), add a new page div
+
+   ── Sub-builders (each returns an HTML string) ───────────────────────────
+   buildHTDashboard()        → Head Teacher main dashboard
+   buildHTPages()            → All other HT pages (classes, students, etc.)
+   buildClassPage(cls, role) → Individual class detail page
+   buildTimetableHTML(cls)   → Editable timetable grid
+   buildAttendanceTable(cls) → Attendance sheet with dropdowns
+   buildGradesTable(cls)     → Editable grade book table
+   buildSchoolReport()       → School-wide report overview
+   buildTeacherDashboard()   → Teacher portal pages
+   buildStudentDashboard()   → Student portal pages
+   buildParentDashboard()    → Parent portal pages
+   buildDirectorDashboard()  → Director (super admin) portal pages
+   ════════════════════════════════════════════════════════════════════════════ */
 function buildMainContent(role, cls, studentName) {
   const main = document.getElementById('appMain');
   if(role === 'director') main.innerHTML = buildDirectorDashboard();
@@ -1896,9 +1962,18 @@ function renderWebsiteNewsList() {
   return '<p style="font-size:.8rem;color:var(--muted)">3 news items currently visible on homepage. Add more below.</p>';
 }
 
-/* ══════════════════════════════════════════════════════
-   PAGE NAVIGATION
-══════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════════
+   §6 · PAGE NAVIGATION
+   ─────────────────────────────────────────────────────────────────────────
+   showPage(id, btn) — hides all .page divs, shows the one with matching id,
+   marks the sidebar button as active, and scrolls to top.
+
+   HOW TO EXTEND:
+   • To navigate programmatically (e.g. from a button click):
+       showPage('ht-students', document.querySelector('[onclick*="ht-students"]'))
+   • To run code when a page opens, add a check inside showPage():
+       if(id === 'ht-mypage') initMyPageData();
+   ════════════════════════════════════════════════════════════════════════════ */
 function showPage(id, btn) {
   document.querySelectorAll('#appMain .page').forEach(p=>p.classList.remove('on'));
   const target = document.getElementById(id);
@@ -1914,9 +1989,21 @@ function navigateToClass(cls) {
   showPage(`ht-class-${cls}`, btn);
 }
 
-/* ══════════════════════════════════════════════════════
-   TAB SWITCHERS
-══════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════════
+   §7 · TAB SWITCHERS
+   ─────────────────────────────────────────────────────────────────────────
+   Generic helpers that activate a .tab-pane within a parent page.
+   Each function scoped to its own page to avoid conflicts.
+
+   HOW TO EXTEND:
+   • Add a new tab switcher for your page:
+       function switchMyPageTab(id, btn) {
+         document.querySelectorAll('#my-page-id .tab-btn').forEach(b=>b.classList.remove('active'));
+         btn.classList.add('active');
+         document.querySelectorAll('#my-page-id .tab-pane').forEach(p=>p.classList.remove('active'));
+         document.getElementById(id)?.classList.add('active');
+       }
+   ════════════════════════════════════════════════════════════════════════════ */
 function switchClassTab(cls, btn, targetId) {
   const page = btn.closest('.page');
   page.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
@@ -1942,9 +2029,30 @@ function switchProcTab(cls, btn) {
   if(t) t.classList.add('active');
 }
 
-/* ══════════════════════════════════════════════════════
-   MODALS
-══════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════════
+   §8 · MODAL SYSTEM
+   ─────────────────────────────────────────────────────────────────────────
+   openModal(id)  — opens overlay with id="modal-{id}"
+   closeModal(id) — closes it. ESC key also closes all open modals.
+
+   HOW TO EXTEND:
+   • Add a new modal:
+       1. In the HTML (below the existing modals), add:
+            <div class="modal-overlay" id="modal-myModal">
+              <div class="modal">
+                <div class="modal-hd"><h3>My Modal</h3>
+                  <button class="modal-close" onclick="closeModal('myModal')">✕</button>
+                </div>
+                ... your form fields ...
+                <div class="modal-foot">
+                  <button class="btn btn-ghost" onclick="closeModal('myModal')">Cancel</button>
+                  <button class="btn btn-primary" onclick="saveMyModal()">Save</button>
+                </div>
+              </div>
+            </div>
+       2. Open it from anywhere: openModal('myModal')
+       3. Add saveMyModal() function in §9 (CRUD ACTIONS)
+   ════════════════════════════════════════════════════════════════════════════ */
 let lastFocus;
 function openModal(id) {
   lastFocus = document.activeElement;
@@ -1968,9 +2076,45 @@ function openAddMaterial(cls, type) {
   openModal('addMaterial');
 }
 
-/* ══════════════════════════════════════════════════════
-   CRUD ACTIONS
-══════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════════
+   §9 · CRUD ACTIONS
+   ─────────────────────────────────────────────────────────────────────────
+   All create / read / update / delete operations on DB data.
+   Grouped by feature: Teachers, Students, Materials, Announcements,
+   Proclamations, Quiz, Subjects, Timetable, Attendance, Website.
+
+   HOW TO EXTEND:
+   • Follow this pattern for any new feature:
+
+       // ── MY FEATURE ──────────────────────────────────────────
+       function addMyFeature() {
+         const val = document.getElementById('mf-input').value.trim();
+         if(!val) { toast('Please fill the field.'); return; }
+         DB.myFeature.push({ id: Date.now(), value: val });
+         refreshMyFeatureList();
+         closeModal('addMyFeature');
+         toast('Added successfully ✓');
+       }
+       function removeMyFeature(i) {
+         if(!confirm('Delete?')) return;
+         DB.myFeature.splice(i, 1);
+         refreshMyFeatureList();
+         toast('Deleted.');
+       }
+
+   ── Existing action groups ────────────────────────────────────────────────
+   Teachers:      addTeacher(), removeTeacher()
+   Students:      addStudent(), removeStudent()
+   Materials:     saveMaterial(), deleteMaterial(), viewMaterial()
+   Announcements: postAnnounce()
+   Proclamations: saveProclamation()
+   Quiz:          saveQuiz(), removeQuiz()
+   Subjects:      addSubjectToClass(), removeSubject()
+   Timetable:     editTimetableCell(), saveCell(), resetTimetable()
+   Attendance:    updateAttStyle(), recalcAttPct(), saveAttendance()
+   Website:       saveWebsiteInfo(), saveSchoolPhoto(), addNews()
+   Grades:        recalcGradeRow()
+   ════════════════════════════════════════════════════════════════════════════ */
 function addTeacher() {
   const name=document.getElementById('at-name').value.trim();
   const cls=document.getElementById('at-class').value;
@@ -2360,9 +2504,9 @@ function printHTReport() {
   w.document.close();
 }
 
-/* ══════════════════════════════════════════════════════
-   SIDEBAR TOGGLE
-══════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════════
+   §12 · UI HELPERS — SIDEBAR & PASSWORD TOGGLE
+   ════════════════════════════════════════════════════════════════════════════ */
 function toggleSidebar() {
   const sb=document.getElementById('appSidebar');
   const bd=document.getElementById('sidebarBackdrop');
@@ -2381,9 +2525,23 @@ function togglePass(inputId, btn) {
   else{inp.type='password';btn.textContent='👁';}
 }
 
-/* ══════════════════════════════════════════════════════
-   UTILS
-══════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════════
+   §13 · UTILITIES
+   ─────────────────────────────────────────────────────────────────────────
+   Shared helpers used across the entire application.
+
+   todayStr()         → formatted date string (fr-FR locale)
+   toast(msg)         → shows a bottom-right notification for 3.2s
+   delRow(el)         → removes closest <tr> after confirmation
+   initReveal()       → triggers .reveal → .vis animation on .reveal elements
+   saveAbout()        → saves the Edit Website modal form (HT version)
+
+   HOW TO EXTEND:
+   • Add a new utility:
+       function myHelper(param) { ... }
+   • Add a new toast type (currently single style):
+       You can call toast() from anywhere — just pass the message string.
+   ════════════════════════════════════════════════════════════════════════════ */
 function todayStr() { return new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'}); }
 let toastTimer;
 function toast(msg) {
@@ -2416,13 +2574,89 @@ function saveAbout() {
   toast('Website updated and published ✓');
 }
 
-/* ══════════════════════════════════════════════════════
-   INIT
-══════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════════
+   §14 · INITIALISATION
+   ─────────────────────────────────────────────────────────────────────────
+   Runs once on DOMContentLoaded. Sets up clock, smooth scroll, Escape key.
 
-/* ══════════════════════════════════════════════════════
-   DIRECTOR (SUPER ADMIN) DASHBOARD
-══════════════════════════════════════════════════════ */
+   HOW TO EXTEND:
+   • Run code at startup: add your call inside the DOMContentLoaded callback
+       
+/* ════════════════════════════════════════════════════════════════════════════
+   §15 · CUSTOM EXTENSIONS — ADD YOUR NEW FEATURES HERE
+   ─────────────────────────────────────────────────────────────────────────
+   This section is reserved for your future additions. Each new feature
+   should follow the structure below. When this section grows large,
+   split it into numbered sub-sections: §15.1, §15.2, etc.
+
+   QUICK GUIDE — Adding a complete new feature:
+   ┌─────────────────────────────────────────────────────────────────────┐
+   │  1. DATA     →  Add to DB{} in §1                                   │
+   │  2. SIDEBAR  →  Add .sitem button in §4 buildSidebar()              │
+   │  3. PAGE     →  Add <div class="page" id="..."> in §5               │
+   │  4. MODAL    →  Add <div class="modal-overlay"> in HTML (§8 notes)  │
+   │  5. LOGIC    →  Add your functions below in this §15 section        │
+   │  6. INIT     →  Call any setup function inside DOMContentLoaded §14  │
+   └─────────────────────────────────────────────────────────────────────┘
+
+   EXAMPLE SKELETON — Fee Management feature:
+   ─────────────────────────────────────────────────────────────────────
+   // §15.1 · FEE MANAGEMENT
+   // DB.fees = {};  ← add this line in §1 inside DB{}
+
+   function buildFeePage(cls) {
+     // returns HTML string for the fee tracking page
+     return `<div class="card">...</div>`;
+   }
+
+   function addFeeRecord(cls, studentName, amount) {
+     if(!DB.fees[cls]) DB.fees[cls] = [];
+     DB.fees[cls].push({ student: studentName, amount, date: todayStr(), paid: false });
+     toast('Fee record added ✓');
+   }
+
+   function markFeePaid(cls, index) {
+     if(DB.fees[cls]?.[index]) DB.fees[cls][index].paid = true;
+     toast('Marked as paid ✓');
+   }
+   ─────────────────────────────────────────────────────────────────────
+════════════════════════════════════════════════════════════════════════════ */
+
+/* ── §15.1 · ADD YOUR FIRST CUSTOM FEATURE HERE ─────────────────────────── */
+
+
+/* ── §15.2 · ADD YOUR SECOND CUSTOM FEATURE HERE ────────────────────────── */
+
+
+/* ── §15.3 · ADD YOUR THIRD CUSTOM FEATURE HERE ─────────────────────────── */
+
+
+document.addEventListener('DOMContentLoaded', () => {
+         initReveal();
+         updateClock();
+         initAttPcts();
+         myNewInitFunction();  // ← add here
+         ...
+       });
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* ════════════════════════════════════════════════════════════════════════════
+   §10 · DIRECTOR (SUPER ADMIN) MODULE
+   ─────────────────────────────────────────────────────────────────────────
+   Handles the School Director portal: full dashboard, all teachers/students,
+   user account management, permissions viewer, activity log, and report cards.
+
+   Login: username = director  |  password = director2026
+
+   HOW TO EXTEND:
+   • Add a new Director page:
+       1. In buildDirectorDashboard(), add inside the template:
+            <div class="page" id="dir-mypage">...</div>
+       2. Add a sidebar button in §4 → menus.director pointing to 'dir-mypage'
+       3. Add a builder function: function buildMyDirectorPage() { return `...`; }
+   • Add to activity log:
+       logActivity('Something happened', 'blue'|'gold'|'red')
+   ════════════════════════════════════════════════════════════════════════════ */
 const ACTIVITY_LOG = [
   { time:'09:14', msg:'Head Teacher posted announcement: Term 2 Exams', type:'gold' },
   { time:'09:02', msg:'Teacher M. Kapenda uploaded notes for P4B', type:'blue' },
@@ -2844,9 +3078,21 @@ function logActivity(msg, type='blue') {
   ACTIVITY_LOG.unshift({ time: new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}), msg, type });
 }
 
-/* ══════════════════════════════════════════════════════
-   TEXT-TO-SPEECH (AUDIO LEARNING)
-══════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════════════════
+   §11 · AUDIO LEARNING — TEXT-TO-SPEECH (TTS)
+   ─────────────────────────────────────────────────────────────────────────
+   Uses the Web Speech API (built into all modern browsers, no external API).
+   Students and teachers can listen to any note or material read aloud.
+
+   HOW TO EXTEND:
+   • Add a Listen button to any text block:
+       <button onclick="ttsRead('Your text here', this)">🔊 Listen</button>
+   • Add a full TTS control bar (with speed selector):
+       ${ttsBarHTML(myTextVariable, 'My Note Title')}
+   • Change default language (currently fr-FR):
+       In ttsRead(), change: ttsUtterance.lang = 'rw-RW'; // Kinyarwanda
+   • Change default speed: ttsUtterance.rate = 1.2;
+   ════════════════════════════════════════════════════════════════════════════ */
 let ttsUtterance = null;
 let ttsPlaying = false;
 
