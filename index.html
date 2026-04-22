@@ -475,42 +475,64 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
 .perm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.65rem;margin-top:.75rem}
 .perm-item{display:flex;align-items:center;justify-content:space-between;background:var(--cream2);border:1px solid var(--border);border-radius:var(--r2);padding:.6rem .9rem;font-size:.79rem;font-weight:600;color:var(--forest)}
 
-/* DIRECTOR */
-.director-badge{background:linear-gradient(135deg,#7C3AED,#4F46E5);color:#fff;border-radius:100px;padding:.2rem .85rem;font-size:.68rem;font-weight:700;letter-spacing:.06em;display:inline-block}
-.activity-log{max-height:280px;overflow-y:auto;font-size:.78rem}
-.log-item{display:flex;gap:.75rem;padding:.55rem 0;border-bottom:1px solid var(--border);align-items:flex-start}
-.log-item:last-child{border-bottom:none}
-.log-dot{width:8px;height:8px;border-radius:50%;background:var(--forest3);flex-shrink:0;margin-top:.35rem}
-.log-dot.red{background:var(--red)}.log-dot.gold{background:var(--gold)}.log-dot.blue{background:var(--blue)}
-.log-time{font-size:.68rem;color:var(--muted2);white-space:nowrap;margin-top:.1rem}
-
-/* AUDIO / TTS */
-.tts-bar{display:flex;align-items:center;gap:.65rem;background:rgba(13,61,31,.06);border:1px solid rgba(13,61,31,.14);border-radius:var(--r2);padding:.55rem .9rem;margin-top:.75rem;flex-wrap:wrap}
-.tts-btn{display:inline-flex;align-items:center;gap:.35rem;background:var(--forest2);color:#fff;border:none;border-radius:var(--r2);padding:.38rem .85rem;font-size:.74rem;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--ease)}
-.tts-btn:hover{background:var(--forest3)}.tts-btn.playing{background:var(--red)}
-.tts-btn.stop-btn{background:rgba(185,28,28,.1);color:var(--red);border:1.5px solid var(--red)}
-.tts-status{font-size:.72rem;color:var(--muted);flex:1;min-width:0}
-.tts-speed{padding:.28rem .5rem;border:1.5px solid var(--border);border-radius:var(--rsm);font-size:.73rem;font-family:inherit;background:var(--surface);color:var(--text);cursor:pointer}
-
-/* REPORT CARD ENHANCED */
-.rc-print-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center}
-.report-subject-row{display:grid;grid-template-columns:1fr 80px 80px 80px 80px 70px;gap:0;border-bottom:1px solid var(--border)}
-.report-subject-row>*{padding:.55rem .75rem;font-size:.8rem;border-right:1px solid var(--border)}
-.report-subject-row>*:last-child{border-right:none}
-.report-header-row{background:var(--forest);color:#fff;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
-.report-card-full{background:#fff;border:2px solid var(--border);border-radius:var(--r);overflow:hidden;max-width:800px;margin:0 auto}
-.report-card-top{background:linear-gradient(135deg,var(--forest),var(--forest3));color:#fff;padding:1.5rem 2rem;text-align:center}
-.report-card-top .rc-school{font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:var(--gold2)}
-.report-card-top .rc-sub{font-size:.75rem;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;margin-top:.25rem}
-.rc-student-bar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.75rem;padding:1rem 1.5rem;background:var(--cream2);border-bottom:1px solid var(--border)}
-.rc-student-field{font-size:.8rem}
-.rc-student-field label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:.15rem}
-.rc-student-field span{font-weight:700;color:var(--forest)}
-.rc-footer{padding:1.25rem 1.5rem;background:var(--cream2);border-top:2px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.8rem;color:var(--muted)}
-.rc-sig-line{border-top:1.5px solid var(--forest);width:150px;padding-top:.35rem;text-align:center;font-size:.7rem;font-weight:700;color:var(--forest)}
-
 /* LIVE DOT */
 .live-dot{display:inline-block;width:7px;height:7px;background:var(--green);border-radius:50%;margin-right:.3rem;animation:pulse 2s infinite}
+/* ══ MAT CARD (materials) ══ */
+.mat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:.85rem;box-shadow:var(--shadow);transition:var(--ease)}
+.mat-card:hover{box-shadow:var(--shadow-lg)}
+.mat-card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.5rem}
+.mat-title{font-family:var(--font-serif);font-size:1rem;font-weight:700;color:var(--forest);margin-bottom:.25rem}
+.mat-meta{display:flex;gap:.35rem;align-items:center;flex-wrap:wrap}
+.mat-preview{font-size:.8rem;color:var(--muted);line-height:1.6;padding:.45rem .65rem;background:var(--cream2);border-radius:var(--r2);border:1px solid var(--border)}
+
+/* ══ TTS AUDIO BAR ══ */
+.tts-bar{display:flex;align-items:center;gap:.6rem;background:linear-gradient(135deg,var(--forest),var(--forest3));border-radius:var(--r2);padding:.6rem 1rem;margin:.75rem 0;color:#fff;font-size:.8rem}
+.tts-bar button{background:var(--gold);color:var(--forest);border:none;border-radius:var(--r2);padding:.3rem .85rem;font-size:.75rem;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--ease)}
+.tts-bar button:hover{background:var(--gold2)}
+
+/* ══ REPORT CARD ══ */
+.rc-viewer{background:#fff;border:2px solid var(--forest);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg)}
+
+/* ══ GRADE ENTRY ══ */
+.grade-input{width:50px;text-align:center;padding:.3rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.8rem;font-family:inherit;transition:var(--ease)}
+.grade-input:focus{border-color:var(--forest3);outline:none}
+
+/* ══ PERMISSIONS GRID ══ */
+.perm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.65rem}
+.perm-item{display:flex;justify-content:space-between;align-items:center;background:var(--cream2);border:1px solid var(--border);border-radius:var(--r2);padding:.5rem .85rem;font-size:.8rem;font-weight:600;color:var(--forest)}
+
+/* ══ MESSAGING ══ */
+.msg-layout{display:grid;grid-template-columns:300px 1fr;gap:0;height:calc(100vh - 180px);min-height:500px;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.msg-sidebar{background:var(--cream2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.msg-sidebar-hd{padding:.85rem 1rem;font-size:.82rem;font-weight:700;color:var(--forest);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--surface)}
+.msg-thread{display:flex;gap:.65rem;padding:.75rem 1rem;border-bottom:1px solid var(--border);cursor:pointer;transition:var(--ease);align-items:flex-start}
+.msg-thread:hover{background:var(--parchment)}
+.msg-thread.active{background:rgba(13,61,31,.06);border-left:3px solid var(--forest)}
+.msg-thread-avatar{font-size:1.3rem;flex-shrink:0;margin-top:.1rem}
+.msg-thread-info{flex:1;min-width:0}
+.msg-thread-name{font-size:.82rem;font-weight:700;color:var(--forest);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.msg-thread-preview{font-size:.72rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:.15rem}
+.msg-thread-meta{font-size:.65rem;color:var(--muted2);white-space:nowrap;flex-shrink:0}
+.msg-main{display:flex;flex-direction:column;overflow:hidden}
+.msg-empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;padding:2rem;color:var(--muted)}
+.msg-thread-header{padding:.85rem 1.25rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--surface);flex-shrink:0}
+.msg-thread-title{font-weight:700;font-size:.92rem;color:var(--forest)}
+.msg-body{flex:1;overflow-y:auto;padding:1rem 1.25rem;display:flex;flex-direction:column;gap:.85rem;background:var(--cream)}
+.msg-bubble{max-width:75%;padding:.75rem 1rem;border-radius:var(--r);font-size:.83rem;line-height:1.55}
+.msg-bubble-teacher{background:var(--forest);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.msg-bubble-other{background:var(--surface);color:var(--text);border:1px solid var(--border);align-self:flex-start;border-bottom-left-radius:4px;box-shadow:var(--shadow)}
+.msg-bubble-name{font-size:.68rem;font-weight:700;margin-bottom:.25rem;opacity:.75}
+.msg-bubble-text{line-height:1.55}
+.msg-bubble-time{font-size:.65rem;margin-top:.35rem;opacity:.6}
+.msg-composer{padding:1rem 1.25rem;border-top:1px solid var(--border);background:var(--surface);flex-shrink:0}
+.msg-composer textarea{width:100%;padding:.65rem .85rem;border:2px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;resize:none;outline:none;transition:var(--ease)}
+.msg-composer textarea:focus{border-color:var(--forest3);box-shadow:0 0 0 3px rgba(13,61,31,.1)}
+@media(max-width:640px){.msg-layout{grid-template-columns:1fr}.msg-sidebar{max-height:200px}}
+
+/* ══ LANGUAGE TOGGLE ══ */
+.lang-btn{background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.15);border-radius:var(--r2);padding:.32rem .85rem;font-size:.72rem;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--ease)}
+.lang-btn:hover{background:rgba(255,255,255,.18);color:#fff}
+
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
 
 /* ══ ANIMATIONS ══ */
@@ -532,9 +554,24 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
   .pub-hamburger{display:block}
 }
 @media print{
+  body { background: #fff !important; }
   .appnav,.sidebar,.add-btn,.print-btn,.action-btn,.modal-overlay,#toast,.app-hamburger,
-  .tab-bar,.btn,.edit-inline-btn{display:none!important}
-  .main{padding:0}.page{display:block!important}
+  .tab-bar,.btn,.edit-inline-btn,.tts-bar,.callout,.phd-line,.sgroup,
+  #publicSite, #loginOverlay, .sidebar-backdrop { display:none!important; }
+  .main { padding:0 !important; }
+  .page { display:block!important; }
+  .shell { display:block !important; }
+  #appShell { display:block !important; }
+  /* Report card print styles */
+  #printable-report-card {
+    border: 2px solid #0d3d1f !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    page-break-inside: avoid;
+  }
+  .report-card { box-shadow: none !important; }
+  @page { margin: 1cm; size: A4 portrait; }
 }
 </style>
 </head>
@@ -563,7 +600,10 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
       <a class="pub-nav-link" href="#news">News</a>
       <a class="pub-nav-link" href="#contact">Contact</a>
     </div>
-    <button class="pub-nav-portal" onclick="openLoginOverlay()">🔐 Portal Login</button>
+    <div style="display:flex;align-items:center;gap:.6rem">
+      <button class="lang-btn" id="langToggleBtn" onclick="toggleLanguage()">🌍 Français</button>
+      <button class="pub-nav-portal" onclick="openLoginOverlay()">🔐 Portal Login</button>
+    </div>
   </nav>
 
   <!-- HERO -->
@@ -708,6 +748,7 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
       </div>
       <div>
         <h4>Portal Access</h4>
+        <a onclick="openLoginOverlay()" style="cursor:pointer">👔 Director Portal</a><br/>
         <a onclick="openLoginOverlay()" style="cursor:pointer">🏫 Head Teacher Portal</a><br/>
         <a onclick="openLoginOverlay()" style="cursor:pointer">👩‍🏫 Teacher Portal</a><br/>
         <a onclick="openLoginOverlay()" style="cursor:pointer">👨‍🎓 Student Portal</a><br/>
@@ -732,18 +773,19 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
     </div>
 
     <!-- Role Tabs -->
-    <div class="role-tabs" id="roleTabs">
+    <div class="role-tabs" id="roleTabs" style="grid-template-columns:repeat(3,1fr)">
+      <button class="rtab" onclick="selectRole('director',this)"><span class="tab-icon">👔</span>Director</button>
       <button class="rtab on" onclick="selectRole('ht',this)"><span class="tab-icon">🏫</span>Head<br/>Teacher</button>
       <button class="rtab" onclick="selectRole('teacher',this)"><span class="tab-icon">👩‍🏫</span>Teacher</button>
-      <button class="rtab" onclick="selectRole('student',this)"><span class="tab-icon">👨‍🎓</span>Student</button>
     </div>
-    <div class="role-tabs" style="margin-top:-.75rem" id="roleTabs2">
-      <button class="rtab" style="grid-column:span 1" onclick="selectRole('parent',this)"><span class="tab-icon">👪</span>Parent</button>
-      <button class="rtab" style="grid-column:span 2;background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);color:#6D28D9" onclick="selectRole('director',this)"><span class="tab-icon">👑</span>Director (Super Admin)</button>
+    <div class="role-tabs" style="margin-top:-.75rem;grid-template-columns:repeat(3,1fr)" id="roleTabs2">
+      <button class="rtab" onclick="selectRole('student',this)"><span class="tab-icon">👨‍🎓</span>Student</button>
+      <button class="rtab" onclick="selectRole('parent',this)"><span class="tab-icon">👪</span>Parent</button>
+      <div style="display:flex;align-items:center;justify-content:center;font-size:.72rem;color:var(--muted);font-style:italic;padding:.3rem">Select role ↑</div>
     </div>
 
     <div class="login-hint-box" id="loginHintBox">
-      <b>👑 Director:</b> Username: <b>director</b> · Password: <b>director2026</b>
+      <b>Head Teacher:</b> Username: <b>headteacher</b> · Password: <b>sfds2026</b>
     </div>
 
     <div class="field">
@@ -778,6 +820,9 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
       <div class="appnav-name">Saint François de <span>Sales</span></div>
     </div>
     <div class="appnav-right">
+      <button class="lang-btn" onclick="openTTSPanel()" title="Audio Settings" style="padding:.3rem .6rem;font-size:.8rem">🔊</button>
+      <button class="lang-btn" onclick="openChangePassword()" title="Change Password" style="padding:.3rem .6rem;font-size:.8rem">🔑</button>
+      <button class="lang-btn" onclick="openModal('helpGuide')" title="Help & Guide" style="padding:.3rem .6rem;font-size:.8rem">❓</button>
       <div class="user-chip">
         <div class="user-av" id="navAv">H</div>
         <div><div class="user-nm" id="navName">Head Teacher</div><div class="user-rl" id="navRole">Head Teacher</div></div>
@@ -864,19 +909,9 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
 <div class="modal-overlay" id="modal-viewMaterial">
   <div class="modal modal-wide">
     <div class="modal-hd"><h3 id="vm-title">📄 Content</h3><button class="modal-close" onclick="closeModal('viewMaterial')">✕</button></div>
+    <div class="tts-bar"><span>🔊</span><span style="flex:1">Audio Reading</span><button onclick="speakText((document.getElementById('vm-title')?.textContent||'')+'. '+(document.getElementById('vm-content')?.textContent||''),this)">🔊 Read Aloud</button></div>
     <div class="note-viewer" id="vm-content"></div>
-    <div class="tts-bar" style="margin-top:.75rem">
-      <button class="tts-btn" id="vm-tts-btn" onclick="ttsRead(document.getElementById('vm-content').textContent, document.getElementById('vm-tts-btn'))">🔊 Listen</button>
-      <button class="tts-btn stop-btn" onclick="ttsStop()">⏹ Stop</button>
-      <span class="tts-status" id="tts-status-text">Click Listen to hear this content read aloud</span>
-      <select class="tts-speed" id="tts-speed" title="Reading speed">
-        <option value="0.7">Slow</option>
-        <option value="1" selected>Normal</option>
-        <option value="1.3">Fast</option>
-        <option value="1.6">Very Fast</option>
-      </select>
-    </div>
-    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('viewMaterial')">Close</button></div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('viewMaterial');if(window.speechSynthesis)window.speechSynthesis.cancel()">Close</button></div>
   </div>
 </div>
 
@@ -938,28 +973,174 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
     <div class="modal-hd"><h3>📝 Register for Morning Quiz</h3><button class="modal-close" onclick="closeModal('quizRegister')">✕</button></div>
     <div class="mfield"><label>Your Name</label><input type="text" id="qr-name" placeholder="Full name"/></div>
     <div class="mfield"><label>Class</label><select id="qr-class"><option>P1A</option><option>P1B</option><option>P2A</option><option>P2B</option><option>P3A</option><option>P3B</option><option>P4A</option><option>P4B</option><option>P5A</option><option>P5B</option><option>P5C</option></select></div>
-    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('quizRegister')">Cancel</button><button class="btn btn-gold" onclick="registerQuiz()">Register &amp; Start Quiz</button></div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('quizRegister')">Cancel</button><button class="btn btn-gold" onclick="closeModal('quizRegister');startQuiz()">Register &amp; Start Quiz</button></div>
+  </div>
+</div>
+
+<!-- Change Password Modal -->
+<div class="modal-overlay" id="modal-changePassword">
+  <div class="modal">
+    <div class="modal-hd"><h3>🔑 Change Password</h3><button class="modal-close" onclick="closeModal('changePassword')">✕</button></div>
+    <div class="callout cl-tip" style="margin-bottom:1rem"><span>🔒</span><p>Your new password must be at least 6 characters long.</p></div>
+    <div class="mfield"><label>Current Password</label><div class="field-wrap"><input type="password" id="cp-current" placeholder="Enter current password"/><button type="button" class="pass-toggle" onclick="togglePass('cp-current',this)">👁</button></div></div>
+    <div class="mfield"><label>New Password</label><div class="field-wrap"><input type="password" id="cp-new" placeholder="Enter new password"/><button type="button" class="pass-toggle" onclick="togglePass('cp-new',this)">👁</button></div></div>
+    <div class="mfield"><label>Confirm New Password</label><div class="field-wrap"><input type="password" id="cp-confirm" placeholder="Confirm new password"/><button type="button" class="pass-toggle" onclick="togglePass('cp-confirm',this)">👁</button></div></div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('changePassword')">Cancel</button><button class="btn btn-primary" onclick="saveNewPassword()">✅ Change Password</button></div>
+  </div>
+</div>
+
+<!-- TTS Controls Modal -->
+<div class="modal-overlay" id="modal-ttsControls">
+  <div class="modal">
+    <div class="modal-hd"><h3>🔊 Audio Reading Settings</h3><button class="modal-close" onclick="closeModal('ttsControls')">✕</button></div>
+    <div class="callout cl-gold" style="margin-bottom:1rem"><span>🎧</span><p>Configure the text-to-speech voice used when reading notes, homework and reports aloud.</p></div>
+    <div class="mfield">
+      <label>Reading Speed</label>
+      <div style="display:flex;align-items:center;gap:1rem">
+        <input type="range" id="tts-rate" min="0.5" max="2" step="0.1" value="0.92" style="flex:1" oninput="document.getElementById('tts-rate-val').textContent=parseFloat(this.value).toFixed(1)+'x'"/>
+        <span id="tts-rate-val" style="font-weight:700;color:var(--forest);min-width:36px">0.9x</span>
+      </div>
+    </div>
+    <div class="mfield">
+      <label>Voice Pitch</label>
+      <div style="display:flex;align-items:center;gap:1rem">
+        <input type="range" id="tts-pitch" min="0.5" max="2" step="0.1" value="1" style="flex:1" oninput="document.getElementById('tts-pitch-val').textContent=parseFloat(this.value).toFixed(1)"/>
+        <span id="tts-pitch-val" style="font-weight:700;color:var(--forest);min-width:36px">1.0</span>
+      </div>
+    </div>
+    <div class="mfield">
+      <label>Voice</label>
+      <select id="tts-voice-sel" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit">
+        <option>Loading voices…</option>
+      </select>
+    </div>
+    <div class="mfield">
+      <button class="btn btn-ghost" style="width:100%" onclick="speakText('Hello! This is a test of the audio reading system for Saint François de Sales School.')">🔊 Test Voice</button>
+    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('ttsControls')">Cancel</button><button class="btn btn-primary" onclick="applyTTSSettings()">✅ Save Settings</button></div>
+  </div>
+</div>
+
+<!-- Marks Upload Modal -->
+<div class="modal-overlay" id="modal-marksUpload">
+  <div class="modal modal-wide">
+    <div class="modal-hd"><h3>📤 Upload Marks — Class <span id="mu-class"></span></h3><button class="modal-close" onclick="closeModal('marksUpload')">✕</button></div>
+    <input type="hidden" id="mu-cls-hidden"/>
+    <div class="callout cl-tip" style="margin-bottom:1rem"><span>📊</span><p>Upload an <b>Excel (.xlsx)</b> or <b>CSV</b> file with student marks. Columns should be: <b>Student Name · Subject · Test Mark · Exam Mark</b>.</p></div>
+    <div class="mfield">
+      <label>Download Blank Template First</label>
+      <button class="btn btn-ghost" onclick="downloadMarksTemplate()">⬇️ Download Excel Template</button>
+    </div>
+    <div class="mfield">
+      <label>Upload Completed Marks File</label>
+      <input type="file" id="mu-file" accept=".xlsx,.xls,.csv" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit;background:var(--cream2)"/>
+    </div>
+    <div class="mfield">
+      <label>Term</label>
+      <select id="mu-term" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit">
+        <option>Term 1 · 2025–2026</option><option>Term 2 · 2025–2026</option><option>Term 3 · 2025–2026</option>
+      </select>
+    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" onclick="closeModal('marksUpload')">Cancel</button><button class="btn btn-primary" onclick="processMarksFile()">📤 Upload & Process</button></div>
+  </div>
+</div>
+
+<!-- Help Guide Modal -->
+<div class="modal-overlay" id="modal-helpGuide">
+  <div class="modal modal-wide" style="max-width:680px;max-height:85vh;overflow-y:auto">
+    <div class="modal-hd"><h3>❓ Portal Help & User Guide</h3><button class="modal-close" onclick="closeModal('helpGuide')">✕</button></div>
+    <div style="padding:.25rem 0">
+
+      <div style="background:linear-gradient(135deg,var(--forest),var(--forest3));color:#fff;border-radius:var(--r2);padding:1rem 1.25rem;margin-bottom:1.25rem">
+        <div style="font-weight:800;font-size:1rem;margin-bottom:.35rem">✝ Saint François de Sales School Portal</div>
+        <div style="font-size:.8rem;opacity:.8">Your complete school management system. Use the sidebar to navigate between sections.</div>
+      </div>
+
+      <div style="margin-bottom:1.25rem">
+        <div style="font-weight:700;color:var(--forest);font-size:.88rem;margin-bottom:.65rem;border-bottom:1px solid var(--border);padding-bottom:.35rem">🔑 Login Credentials</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;font-size:.8rem">
+          <div style="background:var(--cream2);border-radius:var(--r2);padding:.65rem .85rem"><div style="font-weight:700;color:var(--forest)">👔 Director</div><div style="color:var(--muted)">User: <b>director</b> · Pass: <b>director2026</b></div></div>
+          <div style="background:var(--cream2);border-radius:var(--r2);padding:.65rem .85rem"><div style="font-weight:700;color:var(--forest)">🏫 Head Teacher</div><div style="color:var(--muted)">User: <b>headteacher</b> · Pass: <b>sfds2026</b></div></div>
+          <div style="background:var(--cream2);border-radius:var(--r2);padding:.65rem .85rem"><div style="font-weight:700;color:var(--forest)">👩‍🏫 Teacher</div><div style="color:var(--muted)">User: <b>teacher</b> · Pass: <b>teach2026</b></div></div>
+          <div style="background:var(--cream2);border-radius:var(--r2);padding:.65rem .85rem"><div style="font-weight:700;color:var(--forest)">👨‍🎓 Student</div><div style="color:var(--muted)">User: <b>student</b> · Pass: <b>student2026</b></div></div>
+          <div style="background:var(--cream2);border-radius:var(--r2);padding:.65rem .85rem;grid-column:span 2"><div style="font-weight:700;color:var(--forest)">👪 Parent</div><div style="color:var(--muted)">Username = <b>Class name</b> (e.g. P4B) · Password = <b>Child's full name</b> (e.g. Jean-Paul Mutombo)</div></div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:1.25rem">
+        <div style="font-weight:700;color:var(--forest);font-size:.88rem;margin-bottom:.65rem;border-bottom:1px solid var(--border);padding-bottom:.35rem">📋 Role Capabilities</div>
+        <div style="font-size:.8rem;color:var(--muted);line-height:1.8">
+          <div style="margin-bottom:.4rem"><span style="font-weight:700;color:var(--forest)">👔 Director:</span> Full super-admin control. Add/remove all users, view all reports, generate report cards, manage website, view activity log.</div>
+          <div style="margin-bottom:.4rem"><span style="font-weight:700;color:var(--forest)">🏫 Head Teacher:</span> Full portal access. Manage teachers, students, classes, quiz, proclamations, announcements, and public website.</div>
+          <div style="margin-bottom:.4rem"><span style="font-weight:700;color:var(--forest)">👩‍🏫 Teacher:</span> Manage own class — upload notes, set homework, record attendance, enter grades, generate report cards, message parents/students.</div>
+          <div style="margin-bottom:.4rem"><span style="font-weight:700;color:var(--forest)">👨‍🎓 Student:</span> View notes, homework, grades, report card, timetable, take quiz, send messages. Use 🔊 Listen on any note for audio reading.</div>
+          <div><span style="font-weight:700;color:var(--forest)">👪 Parent:</span> View child's grades, attendance, homework, report card, timetable, announcements, and message the teacher.</div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:1.25rem">
+        <div style="font-weight:700;color:var(--forest);font-size:.88rem;margin-bottom:.65rem;border-bottom:1px solid var(--border);padding-bottom:.35rem">🔊 Audio Learning (Text-to-Speech)</div>
+        <div style="font-size:.8rem;color:var(--muted);line-height:1.8">
+          Every note, homework and classwork card has a <b>🔊 Listen</b> button. Click it to hear the content read aloud.<br/>
+          • Click again to <b>stop</b> the audio at any time.<br/>
+          • Click the <b>🔊 icon</b> in the top navigation bar to adjust reading <b>speed, pitch, and voice</b>.<br/>
+          • Works in Chrome, Edge, and Safari. Best experience with Chrome.<br/>
+          • Report cards can also be read aloud using the <b>🔊 Read Report Aloud</b> button.
+        </div>
+      </div>
+
+      <div style="margin-bottom:1.25rem">
+        <div style="font-weight:700;color:var(--forest);font-size:.88rem;margin-bottom:.65rem;border-bottom:1px solid var(--border);padding-bottom:.35rem">📄 Report Cards</div>
+        <div style="font-size:.8rem;color:var(--muted);line-height:1.8">
+          <b>Generating a report card:</b> Go to <b>Report Cards</b> in the sidebar → Select class and student → Choose term → Add a teacher comment → Click <b>Generate Report Card</b>.<br/><br/>
+          <b>Exporting:</b><br/>
+          • <b>🖨️ Print / Save PDF</b> — opens a clean print window. Use your browser's "Save as PDF" option.<br/>
+          • <b>📝 Export Word</b> — downloads a .doc file you can open in Microsoft Word.<br/>
+          • <b>🔊 Read Aloud</b> — the system will read the report card summary aloud.
+        </div>
+      </div>
+
+      <div style="margin-bottom:1.25rem">
+        <div style="font-weight:700;color:var(--forest);font-size:.88rem;margin-bottom:.65rem;border-bottom:1px solid var(--border);padding-bottom:.35rem">📊 Entering Marks</div>
+        <div style="font-size:.8rem;color:var(--muted);line-height:1.8">
+          <b>Manual entry:</b> Go to <b>Grades</b> → Click any mark cell to edit it → Averages update automatically.<br/><br/>
+          <b>Excel upload:</b> Click <b>📤 Upload Excel</b> → Download the blank template first → Fill in marks → Upload the completed file.<br/>
+          The template format is: <code style="background:var(--cream2);padding:.1rem .3rem;border-radius:3px">Student Name | Subject Test | Subject Exam</code>
+        </div>
+      </div>
+
+      <div style="margin-bottom:1.25rem">
+        <div style="font-weight:700;color:var(--forest);font-size:.88rem;margin-bottom:.65rem;border-bottom:1px solid var(--border);padding-bottom:.35rem">💬 Messaging</div>
+        <div style="font-size:.8rem;color:var(--muted);line-height:1.8">
+          Click <b>Messages</b> in the sidebar to open the messaging centre.<br/>
+          • Click any conversation thread on the left to open it.<br/>
+          • Type your message and click <b>Send Message</b>.<br/>
+          • Click <b>+ New</b> to start a new conversation.<br/>
+          • All messages between teachers, students, and parents are kept here.
+        </div>
+      </div>
+
+      <div style="margin-bottom:.5rem">
+        <div style="font-weight:700;color:var(--forest);font-size:.88rem;margin-bottom:.65rem;border-bottom:1px solid var(--border);padding-bottom:.35rem">🌍 Language / Langue</div>
+        <div style="font-size:.8rem;color:var(--muted);line-height:1.8">
+          Click the <b>🌍 Français / English</b> button in the top navigation bar to switch the public website interface language between English and French.
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-foot"><button class="btn btn-primary" onclick="closeModal('helpGuide')">Got it — Close Guide</button></div>
   </div>
 </div>
 
 <script>
-/* ════════════════════════════════════════════════════════════════════════════
-   §1 · DATA STORE
-   ─────────────────────────────────────────────────────────────────────────
-   Contains all runtime data: class list, credentials, student roster,
-   teacher list, announcements, materials, timetables, quiz questions.
-
-   HOW TO EXTEND:
-   • Add a new data key inside DB{}  →  DB.myFeature = {};
-   • Add new credentials             →  CREDS.newRole = { user, pass, role, name, av }
-   • Add more students to STUDENTS{} →  STUDENTS['P3A'].push('New Student')
-   • Add more classes to CLASSES[]   →  CLASSES.push('P6A')
-   ════════════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   DATA STORE
+══════════════════════════════════════════════════════ */
 const CLASSES = ['P1A','P1B','P2A','P2B','P3A','P3B','P4A','P4B','P5A','P5B','P5C'];
 
 // Credentials
 const CREDS = {
-  director: { user:'director', pass:'director2026', role:'School Director', name:'School Director', av:'D' },
+  director: { user:'director',   pass:'director2026', role:'School Director', name:'School Director', av:'D' },
   ht:       { user:'headteacher', pass:'sfds2026', role:'Head Teacher', name:'Head Teacher', av:'H' },
   teacher:  { user:'teacher',     pass:'teach2026', role:'Teacher', name:'Mrs. Okonkwo', av:'T' },
   student:  { user:'student',     pass:'student2026', role:'Student', name:'Jean-Paul Mutombo', av:'J' },
@@ -1016,11 +1197,29 @@ const DB = {
   proclamations: {},
   // Quiz questions
   quizQuestions: [
-    { id:1, q:'What is the capital of France?', a:'Paris', b:'London', c:'Rome', d:'Madrid', correct:'a', subject:'Geography' },
-    { id:2, q:'What is 7 × 8?', a:'54', b:'56', c:'58', d:'52', correct:'b', subject:'Mathematics' },
-    { id:3, q:'Which gas do plants absorb during photosynthesis?', a:'Oxygen', b:'Nitrogen', c:'Carbon Dioxide', d:'Hydrogen', correct:'c', subject:'Science' },
+    { id:1,  q:'What is the capital of France?',                          a:'Paris',          b:'London',         c:'Rome',            d:'Madrid',        correct:'a', subject:'Geography'   },
+    { id:2,  q:'What is 7 × 8?',                                          a:'54',             b:'56',             c:'58',              d:'52',            correct:'b', subject:'Mathematics' },
+    { id:3,  q:'Which gas do plants absorb during photosynthesis?',       a:'Oxygen',         b:'Nitrogen',       c:'Carbon Dioxide',  d:'Hydrogen',      correct:'c', subject:'Science'     },
+    { id:4,  q:'What is the largest planet in our solar system?',         a:'Saturn',         b:'Earth',          c:'Jupiter',         d:'Neptune',       correct:'c', subject:'Science'     },
+    { id:5,  q:'How many sides does a hexagon have?',                     a:'5',              b:'7',              c:'8',               d:'6',             correct:'d', subject:'Mathematics' },
+    { id:6,  q:'What is the capital of the Democratic Republic of Congo?',a:'Lubumbashi',     b:'Kisangani',      c:'Kinshasa',        d:'Goma',          correct:'c', subject:'Geography'   },
+    { id:7,  q:'Who wrote "Romeo and Juliet"?',                           a:'Charles Dickens',b:'William Shakespeare',c:'Victor Hugo', d:'Molière',       correct:'b', subject:'Literature'  },
+    { id:8,  q:'What is 144 ÷ 12?',                                       a:'11',             b:'14',             c:'12',              d:'13',            correct:'c', subject:'Mathematics' },
+    { id:9,  q:'In which continent is Rwanda located?',                   a:'Asia',           b:'Europe',         c:'South America',   d:'Africa',        correct:'d', subject:'Geography'   },
+    { id:10, q:'What organ pumps blood around the body?',                 a:'Liver',          b:'Kidney',         c:'Heart',           d:'Lungs',         correct:'c', subject:'Science'     },
+    { id:11, q:'What is the French word for "water"?',                    a:'Pain',           b:'Mer',            c:'Eau',             d:'Feu',           correct:'c', subject:'French'      },
+    { id:12, q:'What is the chemical symbol for Gold?',                   a:'Gd',             b:'Go',             c:'Gl',              d:'Au',            correct:'d', subject:'Science'     },
+    { id:13, q:'How many degrees are in a right angle?',                  a:'45',             b:'90',             c:'180',             d:'360',           correct:'b', subject:'Mathematics' },
+    { id:14, q:'Which is the longest river in Africa?',                   a:'Congo River',    b:'Niger River',    c:'Nile River',      d:'Zambezi River', correct:'c', subject:'Geography'   },
+    { id:15, q:'What does "CPU" stand for in computing?',                 a:'Central Process Unit',b:'Computer Program Utility',c:'Central Processing Unit',d:'Control Processing Unit', correct:'c', subject:'Technology' },
   ],
-  quizRegistrations: [],
+  quizRegistrations: [
+    { name:'Jean-Paul Mutombo', cls:'P4B', score:12, total:15, date:'22 Apr 2026' },
+    { name:'Rachel Kasonya',    cls:'P4B', score:10, total:15, date:'22 Apr 2026' },
+    { name:'Beatrice Kibwe',    cls:'P3A', score:14, total:15, date:'22 Apr 2026' },
+    { name:'Arsene Mulunda',    cls:'P5A', score:15, total:15, date:'22 Apr 2026' },
+    { name:'Sylvie Mukendi',    cls:'P4B', score:11, total:15, date:'21 Apr 2026' },
+  ],
   // School public info
   schoolInfo: {
     about: 'Saint François de Sales School is a distinguished Catholic primary school dedicated to the holistic development of every child. Founded on the teachings of Saint François de Sales — the patron saint of writers, educators and the deaf — our school fosters intellectual curiosity, spiritual growth and moral integrity.',
@@ -1040,6 +1239,44 @@ CLASSES.forEach(c => {
   DB.timetable[c] = generateDefaultTimetable(c);
 });
 
+// ── SAMPLE CONTENT: Notes, Homework, Classwork, Proclamations ──
+// P4B — the default student login class
+DB.materials['P4B'] = [
+  { id:101, title:'Fractions — Introduction', subject:'Mathematics', content:'A fraction represents a part of a whole. It is written as two numbers separated by a line:\n\n• The TOP number is called the NUMERATOR — it shows how many parts we have.\n• The BOTTOM number is called the DENOMINATOR — it shows how many equal parts the whole is divided into.\n\nExamples:\n1/2 = one half (the whole is divided into 2 equal parts, we have 1)\n3/4 = three quarters (the whole is divided into 4 equal parts, we have 3)\n\nAdding fractions with the same denominator:\n1/5 + 2/5 = 3/5 (add the numerators, keep the denominator)\n\nAlways remember: fractions must have the SAME denominator before you can add or subtract them.\n\nPractice: Write three fractions you can see in everyday life (sharing a pizza, cutting a cake, measuring water).', type:'note', date:'21 Apr 2026' },
+  { id:102, title:'Photosynthesis — How Plants Make Food', subject:'Science', content:'PHOTOSYNTHESIS is the process by which green plants make their own food using sunlight.\n\nThe Formula:\nCarbon Dioxide + Water + Sunlight → Glucose + Oxygen\nCO₂ + H₂O + Light → C₆H₁₂O₆ + O₂\n\nWhere does it happen?\nPhotosynthesis takes place inside CHLOROPLASTS — tiny structures found in plant cells. Chloroplasts contain a green pigment called CHLOROPHYLL which absorbs sunlight.\n\nWhy is photosynthesis important?\n1. It produces OXYGEN which all animals (including humans) breathe.\n2. It produces GLUCOSE (sugar) which gives the plant energy to grow.\n3. Plants are at the base of almost all food chains.\n\nConditions needed:\n• Sunlight (light energy)\n• Carbon dioxide (from air through stomata)\n• Water (absorbed through roots)\n• Chlorophyll (green pigment in leaves)\n\nFun Fact: A single large tree can produce enough oxygen for two people to breathe for a full year!', type:'note', date:'20 Apr 2026' },
+  { id:103, title:'The French Revolution — Key Events', subject:'History', content:'The French Revolution (1789–1799) was a period of major political and social change in France.\n\nMain Causes:\n• Inequality between social classes (Clergy, Nobility, Common people)\n• Financial crisis — France was bankrupt after helping America\n• Food shortages — bad harvests led to bread prices rising\n• Enlightenment ideas — thinkers like Voltaire and Rousseau questioned royal power\n\nKey Events:\n1789 — Storming of the Bastille (14 July) — the prison was a symbol of royal tyranny\n1789 — Declaration of the Rights of Man — all men are free and equal\n1792 — France becomes a Republic\n1793 — King Louis XVI executed by guillotine\n1793–1794 — The Reign of Terror — thousands executed\n1799 — Napoleon Bonaparte takes power\n\nLegacy:\nThe Revolution spread ideas of Liberty, Equality, and Fraternity that influenced revolutions worldwide.', type:'note', date:'19 Apr 2026' },
+  { id:104, title:'Maths HW — Fractions Worksheet', subject:'Mathematics', content:'Complete the following exercises in your exercise book. Show all working clearly.\n\n1. Write these fractions in order from smallest to largest:\n   3/8, 1/2, 5/8, 1/4, 7/8\n\n2. Calculate:\n   a) 2/7 + 3/7 = ?\n   b) 5/9 – 2/9 = ?\n   c) 1/3 + 1/3 + 1/3 = ?\n\n3. Draw a diagram to show:\n   a) 3/4 of a rectangle\n   b) 2/5 of a circle\n\n4. Word problem:\n   Marie has a chocolate bar divided into 12 equal pieces. She eats 4 pieces. What fraction of the chocolate bar did she eat? What fraction is left?\n\n5. Challenge: Can you find a fraction equivalent to 1/2 that has a denominator of 10?\n\nDue: Friday 24 April 2026. Bring your completed work to class.', type:'hw', due:'24 Apr 2026', date:'21 Apr 2026' },
+  { id:105, title:'Science HW — Photosynthesis Diagram', subject:'Science', content:'Draw and label a diagram of a leaf showing the process of photosynthesis.\n\nYour diagram must include:\n• Arrow showing sunlight coming in from above\n• Arrow showing CO₂ entering through the stomata (tiny holes on the underside of the leaf)\n• Arrow showing H₂O being absorbed from the stem\n• A chloroplast labelled inside a leaf cell\n• Arrow showing O₂ being released\n• Arrow showing glucose being stored\n\nUse coloured pencils if possible. Write one sentence under the diagram explaining what photosynthesis is in your own words.\n\nDue: Thursday 23 April 2026', type:'hw', due:'23 Apr 2026', date:'20 Apr 2026' },
+  { id:106, title:'Classwork — Writing a Paragraph (French)', subject:'French', content:'In-class writing exercise:\n\nWrite a paragraph of at least 8 sentences describing your ideal school. Use the following vocabulary:\n\nMon école idéale = My ideal school\nLes salles de classe = The classrooms\nLa bibliothèque = The library\nLa cantine = The canteen/dining hall\nLe terrain de sport = The sports field\nLes professeurs = The teachers\nLes élèves = The students\nAprès les cours = After lessons\n\nRemember to:\n• Use capital letters at the start of sentences\n• Use full stops at the end\n• Check your spelling before submitting\n• Write neatly\n\nThis is an in-class exercise. Complete it during the lesson and hand to the teacher before the end of class.', type:'cw', date:'18 Apr 2026' },
+];
+
+DB.materials['P3A'] = [
+  { id:201, title:'Multiplication Tables — Complete Guide', subject:'Mathematics', content:'Master these multiplication tables — they are the foundation of all mathematics!\n\nThe 6 times table:\n6×1=6, 6×2=12, 6×3=18, 6×4=24, 6×5=30, 6×6=36, 6×7=42, 6×8=48, 6×9=54, 6×10=60\n\nThe 7 times table:\n7×1=7, 7×2=14, 7×3=21, 7×4=28, 7×5=35, 7×6=42, 7×7=49, 7×8=56, 7×9=63, 7×10=70\n\nThe 8 times table:\n8×1=8, 8×2=16, 8×3=24, 8×4=32, 8×5=40, 8×6=48, 8×7=56, 8×8=64, 8×9=72, 8×10=80\n\nTips to remember:\n• "6×7=42" — Six times seven is forty-two. Try saying: "Six sevens are forty-two!"\n• "8×8=64" — Remember: I ate and I ate until I was sick on the floor — 8×8=64\n• Practice for 5 minutes every morning before school.\n\nTest yourself every day using the quiz in the portal!', type:'note', date:'18 Apr 2026' },
+  { id:202, title:'Homework — Multiplication Practice', subject:'Mathematics', content:'Complete all 20 questions in your exercise book. Show your working.\n\n1. 6 × 7 =\n2. 8 × 9 =\n3. 7 × 7 =\n4. 6 × 8 =\n5. 9 × 9 =\n6. 7 × 8 =\n7. 6 × 6 =\n8. 8 × 8 =\n9. 9 × 7 =\n10. 6 × 9 =\n11. A box has 8 rows of 7 chocolates. How many chocolates in total?\n12. A classroom has 6 rows of 9 desks. How many desks?\n13. Write the entire 9 times table from 9×1 to 9×12.\n14. Which is bigger: 7×8 or 6×9? By how much?\n15–20. Create your own word problems using the 6, 7, and 8 times tables.\n\nDue: Wednesday 23 April 2026', type:'hw', due:'23 Apr 2026', date:'18 Apr 2026' },
+];
+
+DB.materials['P5A'] = [
+  { id:301, title:'Essay Writing — Structure and Techniques', subject:'French', content:'A well-written essay has THREE main parts:\n\n1. INTRODUCTION\n• Introduces the topic\n• States your main argument (thesis)\n• Grabs the reader\'s attention\n• Usually 3–5 sentences\n\n2. BODY PARAGRAPHS (at least 3)\nEach paragraph should have:\n• A topic sentence (states the main idea of the paragraph)\n• Evidence or examples to support your point\n• An explanation connecting the evidence to your argument\n• A linking sentence to the next paragraph\n\nUseful linking words:\nFirstly... Secondly... Furthermore... In addition... However... On the other hand... In conclusion...\n\n3. CONCLUSION\n• Restates your main argument\n• Summarises your key points\n• Ends with a strong final statement\n• Does NOT introduce new ideas\n\nRemember: ONE idea per paragraph. Quality over quantity.', type:'note', date:'17 Apr 2026' },
+  { id:302, title:'Homework — Write an Essay: "The Importance of Education"', subject:'French', content:'Write an essay of at least 4 paragraphs (introduction + 2 body paragraphs + conclusion) on the topic:\n\n"WHY IS EDUCATION IMPORTANT?"\n\nYour essay must include:\n• A strong introduction with a clear thesis\n• At least 2 body paragraphs with specific examples\n• A clear conclusion\n• Correct spelling and punctuation throughout\n• Minimum 200 words\n\nThink about:\n- How education helps you in daily life\n- Famous people who succeeded through education\n- What life would be like without schools\n- Your own personal reasons for valuing education\n\nDue: Monday 27 April 2026. Write in your French exercise book.', type:'hw', due:'27 Apr 2026', date:'17 Apr 2026' },
+];
+
+// Proclamations for multiple classes
+DB.proclamations['P4B'] = [
+  { name:'Jean-Paul Mutombo', cls:'P4B', award:'1st in Class', avg:'87%' },
+  { name:'Rachel Kasonya', cls:'P4B', award:'2nd in Class', avg:'83%' },
+  { name:'Sylvie Mukendi', cls:'P4B', award:'Best in Mathematics', avg:'91%' },
+  { name:'Didier Nkeba', cls:'P4B', award:'Most Improved Student', avg:'76%' },
+];
+DB.proclamations['P5A'] = [
+  { name:'Arsene Mulunda', cls:'P5A', award:'1st in Class', avg:'92%' },
+  { name:'Prisca Kabeya', cls:'P5A', award:'2nd in Class', avg:'89%' },
+  { name:'Henriette Kazadi', cls:'P5A', award:'Best in Science', avg:'94%' },
+];
+DB.proclamations['P3A'] = [
+  { name:'Beatrice Kibwe', cls:'P3A', award:'1st in Class', avg:'88%' },
+  { name:'Elie Mwamba', cls:'P3A', award:'Best in Mathematics', avg:'90%' },
+];
+
 function generateDefaultTimetable(cls) {
   const subjects = ['French','Maths','Science','Religion','History','Geo','English','P.E.','Drawing','Music'];
   const teachers = DB.teachers.find(t=>t.cls===cls)?.name || 'Teacher';
@@ -1057,15 +1294,9 @@ function generateDefaultTimetable(cls) {
   return tt;
 }
 
-/* ════════════════════════════════════════════════════════════════════════════
-   §2 · CLOCK & LIVE TIME
-   ─────────────────────────────────────────────────────────────────────────
-   Updates all .live-time and .live-date elements every second.
-
-   HOW TO EXTEND:
-   • Add more live elements by giving them class="live-time" or "live-date"
-   • Change locale by editing 'fr-FR' to another locale string (e.g. 'en-RW')
-   ════════════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   CLOCK
+══════════════════════════════════════════════════════ */
 function updateClock() {
   const now = new Date();
   const t = now.toLocaleTimeString('fr-FR');
@@ -1075,19 +1306,9 @@ function updateClock() {
 }
 setInterval(updateClock,1000); updateClock();
 
-/* ════════════════════════════════════════════════════════════════════════════
-   §3 · AUTHENTICATION & LOGIN
-   ─────────────────────────────────────────────────────────────────────────
-   Handles role selection, credential validation, and portal launch.
-
-   HOW TO EXTEND:
-   • Add a new role tab   →  add a .rtab button in the HTML login overlay
-                          →  add hints[newRole] and labels[newRole] in selectRole()
-                          →  add an if/else branch in doLogin()
-   • Connect to a backend →  replace the credential checks in doLogin()
-                             with a fetch('/api/login', ...) call
-   • Add forgot-password  →  add a link below login-btn that calls a new fn
-   ════════════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   LOGIN
+══════════════════════════════════════════════════════ */
 let _selectedRole = 'ht';
 function openLoginOverlay() { document.getElementById('loginOverlay').classList.add('open'); }
 function closeLoginOverlay() { document.getElementById('loginOverlay').classList.remove('open'); }
@@ -1097,7 +1318,7 @@ function selectRole(role, btn) {
   document.querySelectorAll('.rtab').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   const hints = {
-    director:'<b>🏛️ Director:</b> Username: <b>director</b> · Password: <b>director2026</b>',
+    director:'<b>Director:</b> Username: <b>director</b> · Password: <b>director2026</b>',
     ht:      '<b>Head Teacher:</b> Username: <b>headteacher</b> · Password: <b>sfds2026</b>',
     teacher: '<b>Teacher:</b> Username: <b>teacher</b> · Password: <b>teach2026</b>',
     student: '<b>Student:</b> Username: <b>student</b> · Password: <b>student2026</b>',
@@ -1160,39 +1381,27 @@ function doSignOut() {
   window.scrollTo(0,0);
 }
 
-/* ════════════════════════════════════════════════════════════════════════════
-   §4 · SIDEBAR BUILDER
-   ─────────────────────────────────────────────────────────────────────────
-   Builds the left navigation menu for each role dynamically.
-
-   HOW TO EXTEND:
-   • Add a new sidebar item for Head Teacher:
-       In menus.ht, add:
-       <button class="sitem" onclick="showPage('ht-newpage',this)">
-         <span class="si">🆕</span> New Feature
-       </button>
-   • Add a new role sidebar:
-       Add menus.newrole = `...html...` inside buildSidebar()
-   • Add a notification badge:
-       <span class="sbadge">3</span>  (after the label text)
-   ════════════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   SIDEBAR BUILDER
+══════════════════════════════════════════════════════ */
 function buildSidebar(role, cls) {
   const sb = document.getElementById('appSidebar');
   const menus = {
     director: `
-      <div class="sgroup" style="color:#7C3AED;font-weight:800">👑 SUPER ADMIN</div>
+      <div class="sgroup">Overview</div>
       <button class="sitem on" onclick="showPage('dir-dashboard',this)"><span class="si">📊</span> Dashboard</button>
-      <div class="sgroup">System Management</div>
-      <button class="sitem" onclick="showPage('dir-teachers',this)"><span class="si">👩‍🏫</span> All Teachers</button>
-      <button class="sitem" onclick="showPage('dir-students',this)"><span class="si">👨‍🎓</span> All Students</button>
-      <button class="sitem" onclick="showPage('dir-users',this)"><span class="si">🔐</span> User Accounts</button>
+      <div class="sgroup">School Management</div>
+      <button class="sitem" onclick="showPage('dir-teachers',this)"><span class="si">👩‍🏫</span> Teachers</button>
+      <button class="sitem" onclick="showPage('dir-students',this)"><span class="si">👨‍🎓</span> Students</button>
+      <button class="sitem" onclick="showPage('dir-parents',this)"><span class="si">👪</span> Parents</button>
       <div class="sgroup">Academic</div>
       <button class="sitem" onclick="showPage('dir-reports',this)"><span class="si">📋</span> School Reports</button>
-      <button class="sitem" onclick="showPage('dir-activity',this)"><span class="si">📜</span> Activity Log</button>
-      <div class="sgroup">Permissions</div>
-      <button class="sitem" onclick="showPage('dir-permissions',this)"><span class="si">🛡️</span> Roles & Permissions</button>
-      <div class="sgroup">Website</div>
+      <button class="sitem" onclick="showPage('dir-reportcard',this)"><span class="si">📄</span> Report Cards</button>
+      <div class="sgroup">Administration</div>
+      <button class="sitem" onclick="showPage('dir-accounts',this)"><span class="si">🔑</span> User Accounts</button>
+      <button class="sitem" onclick="showPage('dir-activity',this)"><span class="si">📈</span> Activity Log</button>
       <button class="sitem" onclick="showPage('dir-website',this)"><span class="si">🌐</span> Edit Website</button>
+      <button class="sitem" onclick="showPage('dir-settings',this)"><span class="si">⚙️</span> Settings</button>
     `,
     ht: `
       <div class="sgroup">Overview</div>
@@ -1206,9 +1415,12 @@ function buildSidebar(role, cls) {
       <div class="sgroup">Academic</div>
       <button class="sitem" onclick="showPage('ht-quiz',this)"><span class="si">🧠</span> Morning Quiz</button>
       <button class="sitem" onclick="showPage('ht-proclamation',this)"><span class="si">🏆</span> Proclamations</button>
+      <button class="sitem" onclick="showPage('ht-reportcard',this)"><span class="si">📄</span> Report Cards</button>
       <button class="sitem" onclick="showPage('ht-reports',this)"><span class="si">📋</span> Reports</button>
       <div class="sgroup">Website</div>
       <button class="sitem" onclick="showPage('ht-website',this)"><span class="si">🌐</span> Edit Website</button>
+      <div class="sgroup">Communication</div>
+      <button class="sitem" onclick="showPage('ht-messages',this)"><span class="si">💬</span> Messages</button>
       <div class="sgroup">Settings</div>
       <button class="sitem" onclick="showPage('ht-settings',this)"><span class="si">⚙️</span> Settings</button>
     `,
@@ -1225,7 +1437,10 @@ function buildSidebar(role, cls) {
       <button class="sitem" onclick="showPage('t-classwork',this)"><span class="si">✏️</span> Classwork</button>
       <button class="sitem" onclick="showPage('t-attendance',this)"><span class="si">✅</span> Attendance</button>
       <button class="sitem" onclick="showPage('t-grades',this)"><span class="si">📊</span> Grades</button>
+      <button class="sitem" onclick="showPage('t-reportcard',this)"><span class="si">📄</span> Report Cards</button>
       <button class="sitem" onclick="showPage('t-proclamation',this)"><span class="si">🏆</span> Proclamation List</button>
+      <div class="sgroup">Communication</div>
+      <button class="sitem" onclick="showPage('t-messages',this)"><span class="si">💬</span> Messages</button>
     `,
     student: `
       <div class="sgroup">My Portal</div>
@@ -1236,9 +1451,12 @@ function buildSidebar(role, cls) {
       <button class="sitem" onclick="showPage('s-classwork',this)"><span class="si">✏️</span> Classwork</button>
       <button class="sitem" onclick="showPage('s-attendance',this)"><span class="si">✅</span> My Attendance</button>
       <button class="sitem" onclick="showPage('s-grades',this)"><span class="si">📊</span> My Grades</button>
+      <button class="sitem" onclick="showPage('s-reportcard',this)"><span class="si">📄</span> My Report Card</button>
       <button class="sitem" onclick="showPage('s-proclamation',this)"><span class="si">🏆</span> Proclamation</button>
       <button class="sitem" onclick="showPage('s-quiz',this)"><span class="si">🧠</span> Morning Quiz</button>
       <button class="sitem" onclick="showPage('s-announcements',this)"><span class="si">📢</span> Notices</button>
+      <div class="sgroup">Communication</div>
+      <button class="sitem" onclick="showPage('s-messages',this)"><span class="si">💬</span> Messages</button>
     `,
     parent: `
       <div class="sgroup">My Child</div>
@@ -1249,42 +1467,17 @@ function buildSidebar(role, cls) {
       <button class="sitem" onclick="showPage('p-homework',this)"><span class="si">📝</span> Homework</button>
       <button class="sitem" onclick="showPage('p-proclamation',this)"><span class="si">🏆</span> Proclamation</button>
       <button class="sitem" onclick="showPage('p-announcements',this)"><span class="si">📢</span> Notices</button>
+      <button class="sitem" onclick="showPage('p-reportcard',this)"><span class="si">📄</span> Report Card</button>
+      <div class="sgroup">Communication</div>
+      <button class="sitem" onclick="showPage('p-messages',this)"><span class="si">💬</span> Message Teacher</button>
     `,
   };
   sb.innerHTML = menus[role] || '';
 }
 
-/* ════════════════════════════════════════════════════════════════════════════
-   §5 · DASHBOARD & PAGE BUILDERS
-   ─────────────────────────────────────────────────────────────────────────
-   Each function builds and returns the full HTML for a role's portal pages.
-   All pages for a role are rendered at login and hidden/shown via showPage().
-
-   HOW TO EXTEND:
-   • Add a new Head Teacher page:
-       1. Add a sidebar button in §4 pointing to 'ht-mypage'
-       2. Inside buildHTPages(), add:
-            html += `<div class="page" id="ht-mypage">
-              <div class="phd"><h2>My Page</h2><div class="phd-line"></div></div>
-              ... your content ...
-            </div>`;
-   • Add a new Student page:
-       1. Add sidebar button → 's-mypage'
-       2. Inside buildStudentDashboard(), add a new page div
-
-   ── Sub-builders (each returns an HTML string) ───────────────────────────
-   buildHTDashboard()        → Head Teacher main dashboard
-   buildHTPages()            → All other HT pages (classes, students, etc.)
-   buildClassPage(cls, role) → Individual class detail page
-   buildTimetableHTML(cls)   → Editable timetable grid
-   buildAttendanceTable(cls) → Attendance sheet with dropdowns
-   buildGradesTable(cls)     → Editable grade book table
-   buildSchoolReport()       → School-wide report overview
-   buildTeacherDashboard()   → Teacher portal pages
-   buildStudentDashboard()   → Student portal pages
-   buildParentDashboard()    → Parent portal pages
-   buildDirectorDashboard()  → Director (super admin) portal pages
-   ════════════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   MAIN CONTENT BUILDER
+══════════════════════════════════════════════════════ */
 function buildMainContent(role, cls, studentName) {
   const main = document.getElementById('appMain');
   if(role === 'director') main.innerHTML = buildDirectorDashboard();
@@ -1297,6 +1490,136 @@ function buildMainContent(role, cls, studentName) {
 /* ── Clock Widget ── */
 function cwHtml() {
   return `<div class="clock-widget reveal"><div><div class="cw-time live-time"></div><div class="cw-date live-date"></div></div><div class="cw-term"><div class="cw-term-badge">📅 Term 1 · 2026</div><div class="cw-quiz-next">🧠 Morning Quiz: Every Mon & Wed · 7:10 AM</div></div></div>`;
+}
+
+/* ── DIRECTOR DASHBOARD ── */
+function buildDirectorDashboard() {
+  const totalStudents = Object.values(STUDENTS).flat().length;
+  return `
+  <div class="page on" id="dir-dashboard">
+    ${cwHtml()}
+    <div class="phd"><h2>School Director Dashboard 👔</h2><p>Saint François de Sales School — Super Admin Control Panel</p><div class="phd-line"></div></div>
+    <div class="callout cl-gold"><span>👔</span><p><b>Director View:</b> You have full super-administrator access. Add or remove teachers, students, parents and administrators. Monitor all platform activity and generate school reports.</p></div>
+    <div class="sgrid">
+      <div class="scard reveal"><div class="sc-icon">👨‍🎓</div><div class="sc-num">${totalStudents}</div><div class="sc-lbl">Total Students</div></div>
+      <div class="scard reveal"><div class="sc-icon">👩‍🏫</div><div class="sc-num">${DB.teachers.length}</div><div class="sc-lbl">Teachers</div></div>
+      <div class="scard reveal"><div class="sc-icon">🏫</div><div class="sc-num">${CLASSES.length}</div><div class="sc-lbl">Classes</div></div>
+      <div class="scard reveal"><div class="sc-icon">📢</div><div class="sc-num">${DB.announcements.length}</div><div class="sc-lbl">Announcements</div></div>
+      <div class="scard reveal"><div class="sc-icon">📊</div><div class="sc-num">89%</div><div class="sc-lbl">Avg Attendance</div></div>
+      <div class="scard reveal"><div class="sc-icon">📋</div><div class="sc-num">${totalStudents}</div><div class="sc-lbl">Report Cards</div></div>
+    </div>
+    <div class="g2">
+      <div class="card reveal">
+        <div class="card-head"><h3>🏫 Class Overview</h3></div>
+        <div class="tbl"><table>
+          <thead><tr><th>Class</th><th>Teacher</th><th>Students</th><th>Avg</th></tr></thead>
+          <tbody>${CLASSES.map(c=>{
+            const t = DB.teachers.find(x=>x.cls===c);
+            const count = (STUDENTS[c]||[]).length;
+            const avg = Math.floor(75+Math.random()*18);
+            return `<tr><td><b>${c}</b></td><td>${t?t.name:'—'}</td><td>${count}</td><td><span class="badge ${avg>=80?'bg-green':avg>=70?'bg-blue':'bg-amber'}">${avg}%</span></td></tr>`;
+          }).join('')}</tbody>
+        </table></div>
+      </div>
+      <div class="card reveal">
+        <div class="card-head"><h3>🔑 User Accounts</h3><button class="add-btn" onclick="openModal('addTeacher')">+ Add User</button></div>
+        <div class="tbl"><table>
+          <thead><tr><th>Role</th><th>Username</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Head Teacher</td><td>headteacher</td><td><span class="badge bg-green">Active</span></td></tr>
+            ${DB.teachers.slice(0,6).map(t=>`<tr><td>Teacher</td><td>${t.user}</td><td><span class="badge bg-green">Active</span></td></tr>`).join('')}
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+  </div>
+  <!-- Director pages -->
+  <div class="page" id="dir-teachers">
+    <div class="ptop"><div class="phd"><h2>👩‍🏫 Manage Teachers</h2><div class="phd-line"></div></div><button class="add-btn" onclick="openModal('addTeacher')">+ Add Teacher</button></div>
+    <div class="card reveal"><div class="tbl"><table>
+      <thead><tr><th>Name</th><th>Class</th><th>Subject</th><th>Username</th><th>Actions</th></tr></thead>
+      <tbody>${DB.teachers.map((t,i)=>`<tr><td><b>${t.name}</b></td><td><span class="badge bg-forest">${t.cls}</span></td><td>${t.subject}</td><td>${t.user}</td><td><button class="action-btn" onclick="removeTeacher(${i})">🗑️</button></td></tr>`).join('')}</tbody>
+    </table></div></div>
+  </div>
+  <div class="page" id="dir-students">
+    <div class="ptop"><div class="phd"><h2>👨‍🎓 All Students</h2><div class="phd-line"></div></div><button class="add-btn" onclick="openModal('addStudent')">+ Enrol Student</button></div>
+    <div class="card reveal"><div class="tbl"><table>
+      <thead><tr><th>Name</th><th>Class</th><th>Login</th></tr></thead>
+      <tbody>${Object.entries(STUDENTS).flatMap(([cls,names])=>names.map(n=>`<tr><td><b>${n}</b></td><td><span class="badge bg-forest">${cls}</span></td><td>Class: <b>${cls}</b> · Pass: <b>${n}</b></td></tr>`)).join('')}</tbody>
+    </table></div></div>
+  </div>
+  <div class="page" id="dir-parents">
+    <div class="phd"><h2>👪 Parent Accounts</h2><p>Parents log in using child's class + full name</p><div class="phd-line"></div></div>
+    <div class="callout cl-tip"><span>ℹ️</span><p><b>Parent Login:</b> Username = Class (e.g. P3A) · Password = Student's full name. Each student's parent has automatic access.</p></div>
+    <div class="card reveal"><div class="tbl"><table>
+      <thead><tr><th>Parent Of</th><th>Class</th><th>Login Username</th><th>Login Password</th></tr></thead>
+      <tbody>${Object.entries(STUDENTS).flatMap(([cls,names])=>names.map(n=>`<tr><td>${n}</td><td>${cls}</td><td><b>${cls}</b></td><td><b>${n}</b></td></tr>`)).join('')}</tbody>
+    </table></div></div>
+  </div>
+  <div class="page" id="dir-reports">
+    <div class="phd"><h2>📋 School Reports</h2><div class="phd-line"></div></div>
+    ${buildSchoolReport()}
+  </div>
+  <div class="page" id="dir-reportcard">
+    <div class="phd"><h2>📄 Generate Report Cards</h2><p>Select a student and generate their official report card</p><div class="phd-line"></div></div>
+    ${buildReportCardGenerator()}
+  </div>
+  <div class="page" id="dir-accounts">
+    <div class="phd"><h2>🔑 User Account Management</h2><div class="phd-line"></div></div>
+    <div class="g2">
+      <div class="card reveal"><div class="card-head"><h3>System Accounts</h3></div>
+        <div class="tbl"><table><thead><tr><th>Role</th><th>Username</th><th>Password</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Director</td><td>director</td><td>director2026</td><td><button class="btn btn-ghost" style="font-size:.72rem" onclick="alert('Password change: contact system admin')">🔑 Change</button></td></tr>
+            <tr><td>Head Teacher</td><td>headteacher</td><td>sfds2026</td><td><button class="btn btn-ghost" style="font-size:.72rem" onclick="alert('Password change: contact system admin')">🔑 Change</button></td></tr>
+            <tr><td>Teacher (default)</td><td>teacher</td><td>teach2026</td><td><button class="btn btn-ghost" style="font-size:.72rem" onclick="alert('Password change: contact system admin')">🔑 Change</button></td></tr>
+            <tr><td>Student (default)</td><td>student</td><td>student2026</td><td><button class="btn btn-ghost" style="font-size:.72rem" onclick="alert('Password change: contact system admin')">🔑 Change</button></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="card reveal"><div class="card-head"><h3>Permissions Matrix</h3></div>
+        <div class="tbl"><table><thead><tr><th>Feature</th><th>Dir</th><th>HT</th><th>Tchr</th><th>Std</th><th>Parent</th></tr></thead>
+          <tbody>
+            <tr><td>Add/Remove Users</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+            <tr><td>Enter Marks</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td></tr>
+            <tr><td>View Reports</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+            <tr><td>Generate Report Card</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td></tr>
+            <tr><td>Edit Website</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+            <tr><td>Post Announcements</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+            <tr><td>Audio Listening (TTS)</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+  </div>
+  <div class="page" id="dir-activity">
+    <div class="phd"><h2>📈 Activity Log</h2><div class="phd-line"></div></div>
+    <div class="card reveal"><div class="tbl"><table>
+      <thead><tr><th>Time</th><th>User</th><th>Role</th><th>Action</th></tr></thead>
+      <tbody id="activity-log-tbody">
+        <tr><td>${new Date().toLocaleTimeString('fr-FR')}</td><td>Director</td><td>Director</td><td>Logged into portal</td></tr>
+        <tr><td>—</td><td>Head Teacher</td><td>Head Teacher</td><td>Posted announcement: Term 2 Exams</td></tr>
+        <tr><td>—</td><td>teacher</td><td>Teacher</td><td>Uploaded notes to P4B</td></tr>
+      </tbody>
+    </table></div></div>
+  </div>
+  <div class="page" id="dir-website">
+    <div class="phd"><h2>🌐 Edit Public Website</h2><div class="phd-line"></div></div>
+    ${buildWebsiteEditor()}
+  </div>
+  <div class="page" id="dir-settings">
+    <div class="phd"><h2>⚙️ System Settings</h2><div class="phd-line"></div></div>
+    <div class="callout cl-tip"><span>⚙️</span><p>System settings control school-wide configurations including term dates, grading system, and branding. More settings coming soon.</p></div>
+    <div class="card reveal"><div class="card-head"><h3>Academic Year Settings</h3></div>
+      <div class="card-body">
+        <div class="mfield"><label>School Name</label><input type="text" value="Saint François de Sales School" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/></div>
+        <div class="mfield"><label>Current Term</label><select style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"><option>Term 1 · 2025–2026</option><option>Term 2 · 2025–2026</option><option>Term 3 · 2025–2026</option></select></div>
+        <div class="mfield"><label>Grading Scale</label><select style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"><option>A+ (90-100%), A (80-89%), B (70-79%), C (60-69%), D (50-59%), F (below 50)</option></select></div>
+        <button class="btn btn-primary" onclick="toast('Settings saved ✓')">💾 Save Settings</button>
+      </div>
+    </div>
+  </div>
+  `;
 }
 
 /* ── HEAD TEACHER DASHBOARD ── */
@@ -1395,15 +1718,22 @@ function buildHTPages() {
     </div>`).join('')}
   </div>`;
 
+  // Report Cards page
+  html += `<div class="page" id="ht-reportcard">
+    <div class="phd"><h2>📄 Generate Report Cards</h2><p>Select a class and student to generate their official report card</p><div class="phd-line"></div></div>
+    ${buildReportCardGenerator()}
+  </div>`;
+
   // Reports
   html += `<div class="page" id="ht-reports">
-    <div class="phd"><h2>📋 School Reports</h2><p>Academic performance overview and report card generation</p><div class="phd-line"></div></div>
-    <div class="tab-bar">
-      <button class="tab-btn active" id="ht-rep-tab1" onclick="switchHTRepTab('ht-rep-overview',this)">📊 Overview</button>
-      <button class="tab-btn" onclick="switchHTRepTab('ht-rep-card',this)">📋 Report Cards</button>
-    </div>
-    <div class="tab-pane active" id="ht-rep-overview">${buildSchoolReport()}</div>
-    <div class="tab-pane" id="ht-rep-card">${buildHTReportCardSection()}</div>
+    <div class="ptop"><div class="phd"><h2>📋 School Reports</h2><p>Academic performance summary</p><div class="phd-line"></div></div><button class="print-btn" onclick="window.print()">🖨️ Print</button></div>
+    ${buildSchoolReport()}
+  </div>`;
+
+  // Messages
+  html += `<div class="page" id="ht-messages">
+    <div class="phd"><h2>💬 Messages</h2><p>School-wide communication between teachers, students and parents</p><div class="phd-line"></div></div>
+    ${buildMessaging('ht', null)}
   </div>`;
 
   // Website editor
@@ -1717,8 +2047,10 @@ function buildTeacherDashboard(cls) {
   <div class="page" id="t-homework"><div class="ptop"><div class="phd"><h2>📝 Homework</h2><div class="phd-line"></div></div><button class="add-btn" onclick="openAddMaterial('${cls}','hw')">+ Set Homework</button></div><div id="hw-list-t-${cls}">${renderMaterials(cls,'hw')}</div></div>
   <div class="page" id="t-classwork"><div class="ptop"><div class="phd"><h2>✏️ Classwork</h2><div class="phd-line"></div></div><button class="add-btn" onclick="openAddMaterial('${cls}','cw')">+ Add Classwork</button></div><div id="cw-list-t-${cls}">${renderMaterials(cls,'cw')}</div></div>
   <div class="page" id="t-attendance"><div class="phd"><h2>✅ Attendance — ${cls}</h2><div class="phd-line"></div></div>${buildAttendanceTable(cls)}</div>
-  <div class="page" id="t-grades"><div class="phd"><h2>📊 Grades — ${cls}</h2><div class="phd-line"></div></div>${buildGradesTable(cls)}</div>
+  <div class="page" id="t-grades"><div class="phd"><h2>📊 Grades — ${cls}</h2><div class="phd-line"></div></div>${buildGradebook(cls)}</div>
+  <div class="page" id="t-reportcard"><div class="phd"><h2>📄 Generate Report Cards — ${cls}</h2><p>Generate and print official report cards for your students</p><div class="phd-line"></div></div>${buildReportCardGenerator()}</div>
   <div class="page" id="t-proclamation"><div class="ptop"><div class="phd"><h2>🏆 Proclamation List — ${cls}</h2><div class="phd-line"></div></div><button class="add-btn" onclick="openModal('addProclamation')">+ Add</button></div><div id="proc-t-${cls}">${renderProclamations(cls)}</div></div>
+  <div class="page" id="t-messages"><div class="phd"><h2>💬 Messages</h2><p>Communicate with students and parents</p><div class="phd-line"></div></div>${buildMessaging('teacher', cls)}</div>
   `;
 }
 
@@ -1739,16 +2071,29 @@ function buildStudentDashboard(cls, name) {
       <div class="card reveal"><div class="card-head"><h3>📝 Pending Homework</h3></div>${renderMaterials(cls,'hw','compact')}</div>
     </div>
     <div class="callout cl-gold"><span>🧠</span><p><b>Morning Quiz:</b> The weekly quiz runs on Monday and Wednesday at 7:10 AM. Click <b>Morning Quiz</b> in the sidebar to register and participate!</p></div>
+    <div class="callout cl-tip"><span>🔊</span><p><b>Audio Learning:</b> Click the <b>🔊 Listen</b> button on any note or homework to have it read aloud. Works in your Class Notes and Homework sections.</p></div>
+    <div class="card reveal">
+      <div class="card-head"><h3>📊 Subject Performance</h3><button class="btn btn-ghost" style="font-size:.72rem" onclick="showPage('s-grades',null)">Full Report →</button></div>
+      <div class="card-body" style="padding:.75rem 1.25rem">
+        ${(DB.subjects[cls]||['French','Mathematics','Science','Religion','History','English']).slice(0,6).map(s=>{
+          const pct = Math.floor(55+Math.random()*42);
+          const gc = pct>=80?'var(--forest3)':pct>=70?'var(--blue)':pct>=60?'var(--gold)':'var(--red)';
+          return `<div class="prog-item"><div class="prog-label" style="min-width:130px;font-size:.78rem">${s}</div><div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:${gc}"></div></div><div class="prog-pct" style="font-weight:700;color:${gc}">${pct}%</div></div>`;
+        }).join('')}
+      </div>
+    </div>
   </div>
   <div class="page" id="s-timetable"><div class="phd"><h2>📅 My Timetable — ${cls}</h2><div class="phd-line"></div></div>${buildTimetableHTML(cls)}</div>
-  <div class="page" id="s-notes"><div class="phd"><h2>📄 Class Notes</h2><div class="phd-line"></div></div>${renderMaterials(cls,'note')}</div>
+  <div class="page" id="s-notes"><div class="phd"><h2>📄 Class Notes</h2><p>Click 🔊 Listen on any note to hear it read aloud</p><div class="phd-line"></div></div>${renderMaterials(cls,'note')}</div>
   <div class="page" id="s-homework"><div class="phd"><h2>📝 Homework</h2><div class="phd-line"></div></div>${renderMaterials(cls,'hw')}</div>
   <div class="page" id="s-classwork"><div class="phd"><h2>✏️ Classwork</h2><div class="phd-line"></div></div>${renderMaterials(cls,'cw')}</div>
   <div class="page" id="s-attendance"><div class="phd"><h2>✅ My Attendance</h2><div class="phd-line"></div></div>${buildStudentAttendance(cls,name)}</div>
   <div class="page" id="s-grades"><div class="phd"><h2>📊 My Grades</h2><div class="phd-line"></div></div>${buildStudentGrades(cls,name)}</div>
+  <div class="page" id="s-reportcard"><div class="phd"><h2>📄 My Report Card</h2><p>Official academic report — print or save as PDF</p><div class="phd-line"></div></div>${buildStudentGrades(cls,name)}</div>
   <div class="page" id="s-proclamation"><div class="phd"><h2>🏆 Proclamation List — ${cls}</h2><div class="phd-line"></div></div>${renderProclamations(cls)}</div>
   <div class="page" id="s-quiz">${buildQuizPage()}</div>
   <div class="page" id="s-announcements"><div class="phd"><h2>📢 School Notices</h2><div class="phd-line"></div></div>${renderAnnouncements()}</div>
+  <div class="page" id="s-messages"><div class="phd"><h2>💬 Messages</h2><p>Send messages to your teacher</p><div class="phd-line"></div></div>${buildMessaging('student', cls)}</div>
   `;
 }
 
@@ -1775,6 +2120,8 @@ function buildParentDashboard(cls, studentName) {
   <div class="page" id="p-homework"><div class="phd"><h2>📝 Homework — ${cls}</h2><div class="phd-line"></div></div>${renderMaterials(cls,'hw')}</div>
   <div class="page" id="p-proclamation"><div class="phd"><h2>🏆 Proclamation List — ${cls}</h2><div class="phd-line"></div></div>${renderProclamations(cls)}</div>
   <div class="page" id="p-announcements"><div class="phd"><h2>📢 School Notices</h2><div class="phd-line"></div></div>${renderAnnouncements()}</div>
+  <div class="page" id="p-reportcard"><div class="phd"><h2>📄 ${studentName}'s Report Card</h2><p>Official academic report — print or save as PDF</p><div class="phd-line"></div></div>${buildStudentGrades(cls,studentName)}</div>
+  <div class="page" id="p-messages"><div class="phd"><h2>💬 Message the Teacher</h2><p>Send a message to your child's class teacher</p><div class="phd-line"></div></div>${buildMessaging('parent', cls)}</div>
   `;
 }
 
@@ -1819,7 +2166,10 @@ function buildStudentGrades(cls, name) {
     <div class="report-summary"><div><strong>Average:</strong> ${avg}%</div><div><strong>Attendance:</strong> 93%</div><div><strong>Position:</strong> 3rd of ${(STUDENTS[cls]||[]).length}</div></div>
     <div class="report-comment">This report reflects the student's academic performance during Term 1. For any queries, please contact the class teacher.</div>
     <div class="report-stamp"><strong>Head Teacher Signature:</strong> ___________&nbsp;&nbsp;&nbsp;<strong>Date:</strong> ${new Date().toLocaleDateString('fr-FR')}</div>
-    <button class="print-btn" style="margin-top:1rem" onclick="window.print()">🖨️ Print Report</button>
+    <div style="display:flex;gap:.75rem;margin-top:1rem;flex-wrap:wrap">
+      <button class="print-btn" onclick="window.print()">🖨️ Print Report</button>
+      <button class="btn btn-primary" style="font-size:.78rem" onclick="speakText('Academic report for ${name}. Average ${avg} percent. Attendance 93 percent. Position 3rd in class.',this)">🔊 Read Summary</button>
+    </div>
   </div>`;
 }
 
@@ -1917,26 +2267,6 @@ function renderAnnouncements(limit) {
   </div>`).join('');
 }
 
-function renderMaterials(cls, type, mode) {
-  const items = (DB.materials[cls]||[]).filter(m=>m.type===type);
-  const labels = {note:'📄 Class Note',hw:'📝 Homework',cw:'✏️ Classwork'};
-  const cardClass = {note:'note-card',hw:'hw-card',cw:'cw-card'};
-  if(!items.length) return `<div class="callout cl-tip"><span>${type==='note'?'📄':type==='hw'?'📝':'✏️'}</span><p>No ${labels[type]||'material'}s yet for class ${cls}.</p></div>`;
-  return items.map((m,i)=>`<div class="material-card ${cardClass[type]}">
-    <div class="mat-icon">${type==='note'?'📄':type==='hw'?'📝':'✏️'}</div>
-    <div class="mat-info">
-      <div class="mat-title">${m.title}</div>
-      <div class="mat-meta">${m.subject}${m.due?' · Due: <b>'+m.due+'</b>':''} · ${m.date}</div>
-      ${mode!=='compact'?`<div class="mat-desc">${m.content.substring(0,120)}${m.content.length>120?'...':''}</div>`:''}
-    </div>
-    <div class="mat-actions">
-      <button class="btn btn-ghost" style="font-size:.72rem;padding:.28rem .6rem" onclick="viewMaterial('${m.title.replace(/'/g,"\\'")}','${m.content.replace(/'/g,"\\'").replace(/\n/g,'\\n')}')">👁 View</button>
-      <button class="tts-btn" style="font-size:.7rem;padding:.28rem .6rem;border-radius:var(--r2)" onclick="ttsReadInline('${m.content.replace(/'/g,"\\'").replace(/\n/g,' ').replace(/"/g,'').substring(0,500)}',this)">🔊</button>
-      ${currentRole==='ht'||currentRole==='teacher'?`<button class="action-btn" onclick="deleteMaterial('${cls}','${type}',${i})">🗑️</button>`:''}
-    </div>
-  </div>`).join('');
-}
-
 function renderProclamations(cls) {
   const list = DB.proclamations[cls]||[];
   if(!list.length) return `<div class="callout cl-tip"><span>🏆</span><p>No proclamations yet for class ${cls}. Add top-performing students to the honour roll.</p></div>`;
@@ -1962,18 +2292,9 @@ function renderWebsiteNewsList() {
   return '<p style="font-size:.8rem;color:var(--muted)">3 news items currently visible on homepage. Add more below.</p>';
 }
 
-/* ════════════════════════════════════════════════════════════════════════════
-   §6 · PAGE NAVIGATION
-   ─────────────────────────────────────────────────────────────────────────
-   showPage(id, btn) — hides all .page divs, shows the one with matching id,
-   marks the sidebar button as active, and scrolls to top.
-
-   HOW TO EXTEND:
-   • To navigate programmatically (e.g. from a button click):
-       showPage('ht-students', document.querySelector('[onclick*="ht-students"]'))
-   • To run code when a page opens, add a check inside showPage():
-       if(id === 'ht-mypage') initMyPageData();
-   ════════════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   PAGE NAVIGATION
+══════════════════════════════════════════════════════ */
 function showPage(id, btn) {
   document.querySelectorAll('#appMain .page').forEach(p=>p.classList.remove('on'));
   const target = document.getElementById(id);
@@ -1989,21 +2310,9 @@ function navigateToClass(cls) {
   showPage(`ht-class-${cls}`, btn);
 }
 
-/* ════════════════════════════════════════════════════════════════════════════
-   §7 · TAB SWITCHERS
-   ─────────────────────────────────────────────────────────────────────────
-   Generic helpers that activate a .tab-pane within a parent page.
-   Each function scoped to its own page to avoid conflicts.
-
-   HOW TO EXTEND:
-   • Add a new tab switcher for your page:
-       function switchMyPageTab(id, btn) {
-         document.querySelectorAll('#my-page-id .tab-btn').forEach(b=>b.classList.remove('active'));
-         btn.classList.add('active');
-         document.querySelectorAll('#my-page-id .tab-pane').forEach(p=>p.classList.remove('active'));
-         document.getElementById(id)?.classList.add('active');
-       }
-   ════════════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   TAB SWITCHERS
+══════════════════════════════════════════════════════ */
 function switchClassTab(cls, btn, targetId) {
   const page = btn.closest('.page');
   page.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
@@ -2029,30 +2338,9 @@ function switchProcTab(cls, btn) {
   if(t) t.classList.add('active');
 }
 
-/* ════════════════════════════════════════════════════════════════════════════
-   §8 · MODAL SYSTEM
-   ─────────────────────────────────────────────────────────────────────────
-   openModal(id)  — opens overlay with id="modal-{id}"
-   closeModal(id) — closes it. ESC key also closes all open modals.
-
-   HOW TO EXTEND:
-   • Add a new modal:
-       1. In the HTML (below the existing modals), add:
-            <div class="modal-overlay" id="modal-myModal">
-              <div class="modal">
-                <div class="modal-hd"><h3>My Modal</h3>
-                  <button class="modal-close" onclick="closeModal('myModal')">✕</button>
-                </div>
-                ... your form fields ...
-                <div class="modal-foot">
-                  <button class="btn btn-ghost" onclick="closeModal('myModal')">Cancel</button>
-                  <button class="btn btn-primary" onclick="saveMyModal()">Save</button>
-                </div>
-              </div>
-            </div>
-       2. Open it from anywhere: openModal('myModal')
-       3. Add saveMyModal() function in §9 (CRUD ACTIONS)
-   ════════════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   MODALS
+══════════════════════════════════════════════════════ */
 let lastFocus;
 function openModal(id) {
   lastFocus = document.activeElement;
@@ -2076,45 +2364,9 @@ function openAddMaterial(cls, type) {
   openModal('addMaterial');
 }
 
-/* ════════════════════════════════════════════════════════════════════════════
-   §9 · CRUD ACTIONS
-   ─────────────────────────────────────────────────────────────────────────
-   All create / read / update / delete operations on DB data.
-   Grouped by feature: Teachers, Students, Materials, Announcements,
-   Proclamations, Quiz, Subjects, Timetable, Attendance, Website.
-
-   HOW TO EXTEND:
-   • Follow this pattern for any new feature:
-
-       // ── MY FEATURE ──────────────────────────────────────────
-       function addMyFeature() {
-         const val = document.getElementById('mf-input').value.trim();
-         if(!val) { toast('Please fill the field.'); return; }
-         DB.myFeature.push({ id: Date.now(), value: val });
-         refreshMyFeatureList();
-         closeModal('addMyFeature');
-         toast('Added successfully ✓');
-       }
-       function removeMyFeature(i) {
-         if(!confirm('Delete?')) return;
-         DB.myFeature.splice(i, 1);
-         refreshMyFeatureList();
-         toast('Deleted.');
-       }
-
-   ── Existing action groups ────────────────────────────────────────────────
-   Teachers:      addTeacher(), removeTeacher()
-   Students:      addStudent(), removeStudent()
-   Materials:     saveMaterial(), deleteMaterial(), viewMaterial()
-   Announcements: postAnnounce()
-   Proclamations: saveProclamation()
-   Quiz:          saveQuiz(), removeQuiz()
-   Subjects:      addSubjectToClass(), removeSubject()
-   Timetable:     editTimetableCell(), saveCell(), resetTimetable()
-   Attendance:    updateAttStyle(), recalcAttPct(), saveAttendance()
-   Website:       saveWebsiteInfo(), saveSchoolPhoto(), addNews()
-   Grades:        recalcGradeRow()
-   ════════════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   CRUD ACTIONS
+══════════════════════════════════════════════════════ */
 function addTeacher() {
   const name=document.getElementById('at-name').value.trim();
   const cls=document.getElementById('at-class').value;
@@ -2302,7 +2554,481 @@ function saveAttendance(cls) {
 }
 function initAttPcts() { document.querySelectorAll('.att-days-input').forEach(i=>recalcAttPct(i)); }
 
-/* ── WEBSITE EDITOR ── */
+/* ══════════════════════════════════════════════════════
+   REPORT CARD GENERATOR
+══════════════════════════════════════════════════════ */
+function buildReportCardGenerator() {
+  const classOpts = CLASSES.map(c=>`<option value="${c}">${c}</option>`).join('');
+  return `
+  <div class="card reveal" style="max-width:700px">
+    <div class="card-head"><h3>🎓 Report Card Generator</h3></div>
+    <div class="card-body">
+      <div class="mrow">
+        <div class="mfield"><label>Select Class</label>
+          <select id="rc-class" onchange="populateRCStudents()" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit">
+            ${classOpts}
+          </select>
+        </div>
+        <div class="mfield"><label>Select Student</label>
+          <select id="rc-student" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit">
+            ${(STUDENTS['P1A']||[]).map(s=>`<option>${s}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <div class="mrow">
+        <div class="mfield"><label>Term</label>
+          <select id="rc-term" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit">
+            <option>Term 1 · 2025–2026</option>
+            <option>Term 2 · 2025–2026</option>
+            <option>Term 3 · 2025–2026</option>
+          </select>
+        </div>
+        <div class="mfield"><label>Conduct</label>
+          <select id="rc-conduct" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit">
+            <option>Excellent</option><option>Very Good</option><option>Good</option><option>Satisfactory</option><option>Needs Improvement</option>
+          </select>
+        </div>
+      </div>
+      <div class="mfield"><label>Teacher Comment</label>
+        <textarea id="rc-comment" rows="2" placeholder="E.g. A dedicated student who shows great enthusiasm..." style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit;resize:vertical"></textarea>
+      </div>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="generateReportCard()">📄 Generate Report Card</button>
+        <button class="btn btn-gold" onclick="printReportCard()">🖨️ Print / Save PDF</button>
+        <button class="btn btn-ghost" onclick="exportReportCardWord()">📝 Export Word (.doc)</button>
+      </div>
+    </div>
+  </div>
+  <div id="rc-output" style="margin-top:1.5rem"></div>`;
+}
+
+function populateRCStudents() {
+  const cls = document.getElementById('rc-class')?.value;
+  const sel = document.getElementById('rc-student');
+  if(!sel || !cls) return;
+  sel.innerHTML = (STUDENTS[cls]||[]).map(s=>`<option>${s}</option>`).join('');
+}
+
+function generateReportCard() {
+  const cls = document.getElementById('rc-class')?.value || 'P1A';
+  const name = document.getElementById('rc-student')?.value || '';
+  const term = document.getElementById('rc-term')?.value || 'Term 1 · 2025–2026';
+  const conduct = document.getElementById('rc-conduct')?.value || 'Good';
+  const comment = document.getElementById('rc-comment')?.value || 'A hardworking student who shows continued improvement.';
+  const subjects = DB.subjects[cls] || ['French','Mathematics','Science','Religion','History','Geography','English','Physical Education'];
+  const teacher = DB.teachers.find(t=>t.cls===cls);
+  const classSize = (STUDENTS[cls]||[]).length;
+
+  const rows = subjects.map(s=>{
+    const testMark  = Math.floor(60+Math.random()*38);
+    const examMark  = Math.floor(55+Math.random()*42);
+    const total     = Math.round((testMark + examMark) / 2);
+    const grade     = total>=90?'A+':total>=80?'A':total>=70?'B':total>=60?'C':total>=50?'D':'F';
+    const gc        = total>=80?'bg-green':total>=70?'bg-blue':total>=60?'bg-amber':'bg-red';
+    return { s, testMark, examMark, total, grade, gc };
+  });
+
+  const avg = Math.round(rows.reduce((a,r)=>a+r.total,0)/rows.length);
+  const rank = Math.floor(1 + Math.random() * Math.floor(classSize/3));
+  const attendance = 85 + Math.floor(Math.random()*14);
+
+  const tableRows = rows.map((r,i)=>`
+    <tr>
+      <td style="padding:.55rem .75rem;border-bottom:1px solid #e8e4d8;font-size:.85rem">${i+1}</td>
+      <td style="padding:.55rem .75rem;border-bottom:1px solid #e8e4d8;font-weight:600;font-size:.85rem">${r.s}</td>
+      <td style="padding:.55rem .75rem;border-bottom:1px solid #e8e4d8;text-align:center;font-size:.85rem">${r.testMark}</td>
+      <td style="padding:.55rem .75rem;border-bottom:1px solid #e8e4d8;text-align:center;font-size:.85rem">${r.examMark}</td>
+      <td style="padding:.55rem .75rem;border-bottom:1px solid #e8e4d8;text-align:center;font-weight:700;font-size:.85rem">${r.total}</td>
+      <td style="padding:.55rem .75rem;border-bottom:1px solid #e8e4d8;text-align:center;font-size:.85rem"><span style="background:${r.total>=80?'#dcfce7':r.total>=70?'#dbeafe':r.total>=60?'#fef3c7':'#fee2e2'};color:${r.total>=80?'#15803d':r.total>=70?'#1d4ed8':r.total>=60?'#92400e':'#b91c1c'};padding:.2rem .55rem;border-radius:4px;font-weight:700">${r.grade}</span></td>
+      <td style="padding:.55rem .75rem;border-bottom:1px solid #e8e4d8;font-size:.78rem;color:#5c5440">${r.total>=90?'Outstanding':r.total>=80?'Very Good':r.total>=70?'Good':r.total>=60?'Satisfactory':r.total>=50?'Needs Effort':'Below Standard'}</td>
+    </tr>`).join('');
+
+  const card = `
+  <div id="printable-report-card" style="background:#fff;max-width:750px;margin:0 auto;border:2px solid #0d3d1f;border-radius:12px;overflow:hidden;font-family:'Outfit',sans-serif;box-shadow:0 8px 32px rgba(13,61,31,.14)">
+    <!-- Header -->
+    <div style="background:linear-gradient(135deg,#0D3D1F,#246634);color:#fff;padding:1.5rem 2rem;text-align:center">
+      <div style="width:60px;height:60px;background:linear-gradient(135deg,#C8972A,#E4B84A);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto .75rem;box-shadow:0 4px 16px rgba(200,151,42,.4)">✝</div>
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;font-weight:700;letter-spacing:-.01em">Saint François de Sales School</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.7);margin-top:.2rem;letter-spacing:.1em;text-transform:uppercase">Primary School · Academic Report Card</div>
+      <div style="font-size:.78rem;color:#E4B84A;margin-top:.4rem;font-style:italic">"Qui s'humilie sera exalté"</div>
+    </div>
+    <!-- Student Info Bar -->
+    <div style="background:#f5f0e8;padding:.85rem 2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;border-bottom:2px solid #0d3d1f">
+      <div><div style="font-size:.62rem;font-weight:700;color:#5c5440;text-transform:uppercase;letter-spacing:.1em">Student Name</div><div style="font-weight:800;color:#0d3d1f;font-size:.92rem;margin-top:.15rem">${name}</div></div>
+      <div><div style="font-size:.62rem;font-weight:700;color:#5c5440;text-transform:uppercase;letter-spacing:.1em">Class</div><div style="font-weight:800;color:#0d3d1f;font-size:.92rem;margin-top:.15rem">${cls}</div></div>
+      <div><div style="font-size:.62rem;font-weight:700;color:#5c5440;text-transform:uppercase;letter-spacing:.1em">Term</div><div style="font-weight:700;color:#0d3d1f;font-size:.85rem;margin-top:.15rem">${term}</div></div>
+      <div><div style="font-size:.62rem;font-weight:700;color:#5c5440;text-transform:uppercase;letter-spacing:.1em">Class Teacher</div><div style="font-weight:700;color:#0d3d1f;font-size:.82rem;margin-top:.15rem">${teacher?teacher.name:'—'}</div></div>
+    </div>
+    <!-- Marks Table -->
+    <div style="padding:1.25rem 2rem">
+      <table style="width:100%;border-collapse:collapse">
+        <thead>
+          <tr style="background:#0d3d1f;color:#fff">
+            <th style="padding:.65rem .75rem;text-align:left;font-size:.72rem;font-weight:700;letter-spacing:.06em">#</th>
+            <th style="padding:.65rem .75rem;text-align:left;font-size:.72rem;font-weight:700;letter-spacing:.06em">SUBJECT</th>
+            <th style="padding:.65rem .75rem;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.06em">TEST</th>
+            <th style="padding:.65rem .75rem;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.06em">EXAM</th>
+            <th style="padding:.65rem .75rem;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.06em">TOTAL</th>
+            <th style="padding:.65rem .75rem;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.06em">GRADE</th>
+            <th style="padding:.65rem .75rem;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.06em">REMARK</th>
+          </tr>
+        </thead>
+        <tbody>${tableRows}</tbody>
+      </table>
+    </div>
+    <!-- Summary Bar -->
+    <div style="background:#f5f0e8;padding:.85rem 2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;border-top:1.5px solid #ddd8cc;border-bottom:1.5px solid #ddd8cc">
+      <div style="text-align:center"><div style="font-size:.62rem;font-weight:700;color:#5c5440;text-transform:uppercase;letter-spacing:.08em">Average</div><div style="font-size:1.4rem;font-weight:800;color:${avg>=80?'#15803d':avg>=70?'#1d4ed8':avg>=60?'#92400e':'#b91c1c'};margin-top:.1rem">${avg}%</div></div>
+      <div style="text-align:center"><div style="font-size:.62rem;font-weight:700;color:#5c5440;text-transform:uppercase;letter-spacing:.08em">Rank</div><div style="font-size:1.4rem;font-weight:800;color:#0d3d1f;margin-top:.1rem">${rank}<sup style="font-size:.6em">${rank===1?'st':rank===2?'nd':rank===3?'rd':'th'}</sup> / ${classSize}</div></div>
+      <div style="text-align:center"><div style="font-size:.62rem;font-weight:700;color:#5c5440;text-transform:uppercase;letter-spacing:.08em">Attendance</div><div style="font-size:1.4rem;font-weight:800;color:${attendance>=90?'#15803d':'#92400e'};margin-top:.1rem">${attendance}%</div></div>
+      <div style="text-align:center"><div style="font-size:.62rem;font-weight:700;color:#5c5440;text-transform:uppercase;letter-spacing:.08em">Conduct</div><div style="font-size:.95rem;font-weight:800;color:#0d3d1f;margin-top:.3rem">${conduct}</div></div>
+    </div>
+    <!-- Comment & Signatures -->
+    <div style="padding:1.25rem 2rem">
+      <div style="background:#fbf8f2;border:1px solid #ddd8cc;border-left:4px solid #C8972A;border-radius:8px;padding:.85rem 1rem;margin-bottom:1.25rem">
+        <div style="font-size:.65rem;font-weight:700;color:#5c5440;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.35rem">Class Teacher's Comment</div>
+        <div style="font-size:.85rem;color:#1a1408;font-style:italic;line-height:1.65">${comment}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;margin-top:1rem">
+        <div style="border-top:1.5px solid #0d3d1f;padding-top:.5rem">
+          <div style="font-size:.65rem;font-weight:700;color:#5c5440;text-transform:uppercase;letter-spacing:.08em">Class Teacher</div>
+          <div style="font-size:.75rem;color:#5c5440;margin-top:.25rem">${teacher?teacher.name:'_______________'}</div>
+        </div>
+        <div style="border-top:1.5px solid #0d3d1f;padding-top:.5rem">
+          <div style="font-size:.65rem;font-weight:700;color:#5c5440;text-transform:uppercase;letter-spacing:.08em">Head Teacher</div>
+          <div style="font-size:.75rem;color:#5c5440;margin-top:.25rem">_______________</div>
+        </div>
+        <div style="border-top:1.5px solid #0d3d1f;padding-top:.5rem">
+          <div style="font-size:.65rem;font-weight:700;color:#5c5440;text-transform:uppercase;letter-spacing:.08em">Date Issued</div>
+          <div style="font-size:.75rem;color:#5c5440;margin-top:.25rem">${new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})}</div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div style="background:#0d3d1f;color:rgba(255,255,255,.55);font-size:.68rem;text-align:center;padding:.6rem 2rem">
+      Saint François de Sales School · Primary School · This is an official academic document
+    </div>
+  </div>
+  <div style="display:flex;gap:.75rem;margin-top:1rem;max-width:750px">
+    <button class="btn btn-gold" onclick="printReportCard()">🖨️ Print / Save as PDF</button>
+    <button class="btn btn-ghost" onclick="exportReportCardWord()">📝 Export Word (.doc)</button>
+    <button class="btn btn-primary" onclick="speakText(document.getElementById('printable-report-card')?.innerText)">🔊 Read Report Aloud</button>
+  </div>`;
+
+  const out = document.getElementById('rc-output');
+  if(out) { out.innerHTML = card; out.scrollIntoView({behavior:'smooth',block:'start'}); }
+  toast('Report card generated for ' + name + ' ✓');
+}
+
+function printReportCard() {
+  const rc = document.getElementById('printable-report-card');
+  if(!rc){ toast('Please generate a report card first.'); return; }
+  const w = window.open('','_blank','width=900,height=700');
+  w.document.write(`<!DOCTYPE html><html><head><title>Report Card — Saint François de Sales</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+  <style>
+    body{margin:2rem;font-family:'Outfit',sans-serif;background:#fff}
+    @page{margin:1cm;size:A4 portrait}
+    @media print{body{margin:0}.no-print{display:none!important}}
+  </style>
+  </head><body>
+  <div class="no-print" style="margin-bottom:1rem;display:flex;gap:.75rem">
+    <button onclick="window.print()" style="padding:.5rem 1.25rem;background:#0D3D1F;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:700">🖨️ Print / Save PDF</button>
+    <button onclick="window.close()" style="padding:.5rem 1.25rem;background:#e5e7eb;color:#374151;border:none;border-radius:8px;cursor:pointer;font-size:.85rem">✕ Close</button>
+  </div>
+  ${rc.outerHTML}
+  </body></html>`);
+  w.document.close();
+}
+
+function exportReportCardWord() {
+  const rc = document.getElementById('printable-report-card');
+  if(!rc){ toast('Please generate a report card first.'); return; }
+  const studentName = document.getElementById('rc-student')?.value || 'Student';
+  const cls = document.getElementById('rc-class')?.value || 'Class';
+  // Build a clean Word-compatible HTML document
+  const wordHtml = `
+<html xmlns:o='urn:schemas-microsoft-com:office:office'
+      xmlns:w='urn:schemas-microsoft-com:office:word'
+      xmlns='http://www.w3.org/TR/REC-html40'>
+<head><meta charset='utf-8'>
+<title>Report Card — ${studentName}</title>
+<!--[if gte mso 9]>
+<xml><w:WordDocument><w:View>Print</w:View><w:Zoom>90</w:Zoom></w:WordDocument></xml>
+<![endif]-->
+<style>
+  body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; margin: 2cm; }
+  h1 { color: #0D3D1F; font-size: 18pt; text-align: center; margin-bottom: 4pt; }
+  h2 { color: #0D3D1F; font-size: 13pt; text-align: center; margin-bottom: 2pt; }
+  table { border-collapse: collapse; width: 100%; margin: 12pt 0; }
+  th { background: #0D3D1F; color: #fff; padding: 6pt 8pt; font-size: 9pt; text-align: left; border: 1pt solid #0D3D1F; }
+  td { padding: 5pt 8pt; border: 1pt solid #DDD8CC; font-size: 10pt; }
+  tr:nth-child(even) td { background: #F5F0E8; }
+  .summary-box { border: 2pt solid #0D3D1F; padding: 10pt; margin: 12pt 0; background: #FBF8F2; }
+  .summary-grid { display: flex; gap: 20pt; }
+  .summary-item { flex: 1; text-align: center; }
+  .summary-label { font-size: 8pt; color: #5C5440; text-transform: uppercase; letter-spacing: 1pt; }
+  .summary-value { font-size: 18pt; font-weight: bold; color: #0D3D1F; }
+  .comment-box { border-left: 4pt solid #C8972A; padding: 8pt 12pt; margin: 12pt 0; background: #FBF8F2; font-style: italic; }
+  .sig-line { border-top: 1pt solid #0D3D1F; padding-top: 6pt; margin-top: 20pt; }
+  .footer { text-align: center; font-size: 8pt; color: #888; margin-top: 20pt; border-top: 1pt solid #DDD8CC; padding-top: 8pt; }
+  .header-logo { text-align: center; padding: 12pt; background: #0D3D1F; color: white; margin-bottom: 12pt; }
+  .header-logo h1 { color: white; }
+  .header-logo p { color: rgba(255,255,255,0.75); font-size: 9pt; margin: 0; }
+</style>
+</head><body>
+<div class="header-logo">
+  <h1>✝ Saint François de Sales School</h1>
+  <p>Primary School · Academic Report Card · ${document.getElementById('rc-term')?.value||'Term 1 · 2025-2026'}</p>
+</div>
+${rc.querySelector('table') ? `
+<table style="margin-bottom:12pt;border:none">
+  <tr><td style="border:none;font-size:10pt"><b>Student:</b> ${studentName}</td><td style="border:none;font-size:10pt"><b>Class:</b> ${cls}</td></tr>
+  <tr><td style="border:none;font-size:10pt"><b>Teacher:</b> ${rc.querySelector('[style*="font-size:.82rem"]')?.textContent||'—'}</td><td style="border:none;font-size:10pt"><b>Date:</b> ${new Date().toLocaleDateString('fr-FR')}</td></tr>
+</table>
+<table>${rc.querySelector('table').innerHTML}</table>
+` : rc.innerHTML}
+<div class="footer">Saint François de Sales School · Official Academic Document · ${new Date().getFullYear()}</div>
+</body></html>`;
+  const blob = new Blob([wordHtml], { type: 'application/msword' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `ReportCard_${studentName.replace(/\s+/g,'_')}_${cls}.doc`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast(`📄 Word document downloaded for ${studentName} ✓`);
+}
+
+/* ── WEBSITE EDITOR BUILDER (shared HT + Director) ── */
+function buildWebsiteEditor() {
+  return `<div class="callout cl-tip"><span>🖊️</span><p>All changes update the public school website immediately. No coding required.</p></div>
+  <div class="g2">
+    <div class="settings-section">
+      <div class="settings-section-hd">School Information</div>
+      <div class="settings-form">
+        <div class="mfield"><label>About Text</label><textarea id="ws-about2" rows="4">${DB.schoolInfo.about}</textarea></div>
+        <div class="mfield"><label>Address & Contact</label><input type="text" id="ws-address2" value="${DB.schoolInfo.address}"/></div>
+        <div class="mfield"><label>Phone</label><input type="text" id="ws-phone2" value="${DB.schoolInfo.phone}"/></div>
+        <div class="mfield"><label>Email</label><input type="text" id="ws-email2" value="${DB.schoolInfo.email}"/></div>
+        <div class="mfield"><label>Mission</label><textarea id="ws-mission2" rows="3">${DB.schoolInfo.mission}</textarea></div>
+        <div class="mfield"><label>School Hours</label><input type="text" id="ws-hours2" value="${DB.schoolInfo.hours}"/></div>
+        <div class="mrow"><div class="mfield"><label>Founded</label><input type="text" id="ws-founded2" value="${DB.schoolInfo.founded}"/></div><div class="mfield"><label>Student Count</label><input type="text" id="ws-students2" value="${DB.schoolInfo.students}"/></div></div>
+        <button class="btn btn-gold" onclick="saveWebsiteInfo2()">💾 Save & Publish</button>
+      </div>
+    </div>
+    <div>
+      <div class="settings-section">
+        <div class="settings-section-hd">News & Events</div>
+        <div class="settings-form">
+          <div id="ws-news-list2" style="margin-bottom:.75rem">${renderWebsiteNewsList()}</div>
+          <button class="add-btn" onclick="openModal('addNews')">+ Add News</button>
+        </div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-section-hd">School Photo</div>
+        <div class="settings-form">
+          <div class="mfield"><label>Photo URL</label><input type="url" id="ws-photo2" placeholder="https://..."/></div>
+          <button class="btn btn-primary" onclick="saveSchoolPhoto2()">Update Photo</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function saveWebsiteInfo2() {
+  DB.schoolInfo.about   = document.getElementById('ws-about2')?.value   || DB.schoolInfo.about;
+  DB.schoolInfo.address = document.getElementById('ws-address2')?.value || DB.schoolInfo.address;
+  DB.schoolInfo.phone   = document.getElementById('ws-phone2')?.value   || DB.schoolInfo.phone;
+  DB.schoolInfo.email   = document.getElementById('ws-email2')?.value   || DB.schoolInfo.email;
+  DB.schoolInfo.mission = document.getElementById('ws-mission2')?.value || DB.schoolInfo.mission;
+  DB.schoolInfo.hours   = document.getElementById('ws-hours2')?.value   || DB.schoolInfo.hours;
+  DB.schoolInfo.founded = document.getElementById('ws-founded2')?.value || DB.schoolInfo.founded;
+  DB.schoolInfo.students= document.getElementById('ws-students2')?.value|| DB.schoolInfo.students;
+  const fields = { 'pub-about-text':'about','pub-address':'address','pub-phone':'phone','pub-email':'email','pub-mission':'mission','pub-hours':'hours','pub-founded':'founded','pub-student-count':'students' };
+  Object.entries(fields).forEach(([id,key])=>{ const el=document.getElementById(id); if(el) el.textContent=DB.schoolInfo[key]; });
+  toast('Website updated and published ✓');
+}
+
+function saveSchoolPhoto2() {
+  const url = document.getElementById('ws-photo2')?.value.trim();
+  if(!url){ toast('Please enter a photo URL.'); return; }
+  const box = document.getElementById('pub-school-photo');
+  if(box) box.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover;border-radius:var(--r)" onerror="this.parentElement.innerHTML='<div class=\\'about-img-inner\\'><span class=\\'big-icon\\'>🏫</span><p>Image could not load</p></div>'"/>`;
+  toast('School photo updated ✓');
+}
+
+/* ══════════════════════════════════════════════════════
+   🔊 TEXT-TO-SPEECH (AUDIO LEARNING)
+══════════════════════════════════════════════════════ */
+let _ttsUtterance = null;
+let _ttsPaused = false;
+
+function speakText(text, btn) {
+  if(!('speechSynthesis' in window)){
+    alert('Text-to-Speech is not supported in this browser. Please use Chrome, Edge, or Safari.');
+    return;
+  }
+  if(_ttsUtterance && window.speechSynthesis.speaking) {
+    window.speechSynthesis.cancel();
+    _ttsUtterance = null;
+    _ttsPaused = false;
+    if(btn){ btn.textContent='🔊 Listen'; btn.style.background=''; }
+    toast('Audio stopped.');
+    return;
+  }
+  const clean = text ? text.replace(/[📄📝✏️📊🏆🔊🖨️🎓👨‍🎓👩‍🏫👔🏫✅❌]/g,'').trim() : '';
+  if(!clean){ toast('No text to read.'); return; }
+  _ttsUtterance = new SpeechSynthesisUtterance(clean);
+  _ttsUtterance.lang = 'en-US';
+  _ttsUtterance.rate  = _ttsRate  || 0.92;
+  _ttsUtterance.pitch = _ttsPitch || 1;
+  _ttsUtterance.volume = 1;
+  // Apply selected voice
+  const voices = window.speechSynthesis.getVoices();
+  if(voices.length && _ttsVoiceIdx < voices.length) {
+    _ttsUtterance.voice = voices[_ttsVoiceIdx];
+  }
+  _ttsUtterance.onend = () => {
+    _ttsUtterance = null; _ttsPaused = false;
+    if(btn){ btn.textContent='🔊 Listen'; btn.style.background=''; btn.style.color=''; }
+    toast('Audio finished ✓');
+  };
+  _ttsUtterance.onerror = () => {
+    _ttsUtterance = null;
+    if(btn){ btn.textContent='🔊 Listen'; btn.style.background=''; btn.style.color=''; }
+  };
+  window.speechSynthesis.speak(_ttsUtterance);
+  if(btn){ btn.textContent='⏹ Stop'; btn.style.background='var(--red)'; btn.style.color='#fff'; }
+  toast('🔊 Reading aloud — click again to stop.');
+}
+
+function speakMaterial(title, content, btn) {
+  const text = title + '. ' + content;
+  speakText(text, btn);
+}
+
+/* ══════════════════════════════════════════════════════
+   ENHANCED renderMaterials — with 🔊 Listen button
+══════════════════════════════════════════════════════ */
+function renderMaterials(cls, type, mode) {
+  const list = (DB.materials[cls]||[]).filter(m=>m.type===type);
+  if(!list.length) {
+    const labels = { note:'class notes', hw:'homework', cw:'classwork' };
+    return `<div class="empty-state"><div style="font-size:2rem;margin-bottom:.5rem">${type==='note'?'📄':type==='hw'?'📝':'✏️'}</div><p>No ${labels[type]||'materials'} yet.</p></div>`;
+  }
+  if(mode==='compact') {
+    return list.slice(0,3).map(m=>`<div style="padding:.6rem .75rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+      <div><div style="font-size:.82rem;font-weight:600;color:var(--forest)">${m.title}</div><div style="font-size:.72rem;color:var(--muted)">${m.subject||''}${m.due?' · Due: '+m.due:''}</div></div>
+      <button class="btn btn-ghost" style="font-size:.68rem;padding:.2rem .5rem" onclick="viewMaterial('${m.title.replace(/'/g,"\\'")}','${m.content.replace(/'/g,"\\'").replace(/\n/g,' ')}')">View</button>
+    </div>`).join('');
+  }
+  return list.map((m,i)=>`
+  <div class="mat-card reveal">
+    <div class="mat-card-header">
+      <div>
+        <div class="mat-title">${m.title}</div>
+        <div class="mat-meta">${m.subject?`<span class="badge bg-forest" style="font-size:.65rem">${m.subject}</span> `:''}${m.date?`<span style="font-size:.72rem;color:var(--muted)">${m.date}</span>`:''}${m.due?`<span class="badge bg-amber" style="font-size:.65rem;margin-left:.3rem">Due: ${m.due}</span>`:''}</div>
+      </div>
+      <div style="display:flex;gap:.4rem;flex-wrap:wrap;align-items:center">
+        <button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .65rem" onclick="viewMaterial('${m.title.replace(/'/g,"\\'")}','${m.content.replace(/'/g,"\\'").replace(/\n/g,' ')}')">👁 View</button>
+        <button class="btn btn-tts" id="tts-btn-${cls}-${type}-${i}" style="font-size:.72rem;padding:.3rem .65rem;background:var(--forest);color:#fff;border:none;border-radius:var(--r2);cursor:pointer;font-family:inherit;transition:var(--ease)" onclick="speakMaterial('${m.title.replace(/'/g,"\\'")}','${m.content.replace(/'/g,"\\'").replace(/\n/g,' ')}',this)">🔊 Listen</button>
+        ${(currentRole==='ht'||currentRole==='teacher'||currentRole==='director')?`<button class="action-btn" onclick="deleteMaterial('${cls}','${type}',${i})">🗑️</button>`:''}
+      </div>
+    </div>
+    <div class="mat-preview">${m.content.substring(0,160)}${m.content.length>160?'…':''}</div>
+  </div>`).join('');
+}
+
+/* ══════════════════════════════════════════════════════
+   ENHANCED viewMaterial modal — with 🔊 Listen button
+══════════════════════════════════════════════════════ */
+function viewMaterial(title, content) {
+  document.getElementById('vm-title').textContent = title;
+  document.getElementById('vm-content').textContent = content;
+  // Add listen button dynamically
+  const foot = document.querySelector('#modal-viewMaterial .modal-foot');
+  if(foot && !foot.querySelector('.vm-listen-btn')) {
+    const listenBtn = document.createElement('button');
+    listenBtn.className = 'btn btn-primary vm-listen-btn';
+    listenBtn.textContent = '🔊 Read Aloud';
+    listenBtn.onclick = function(){ speakText(title + '. ' + content, this); };
+    foot.insertBefore(listenBtn, foot.firstChild);
+  }
+  openModal('viewMaterial');
+}
+
+/* ══════════════════════════════════════════════════════
+   ENHANCED GRADEBOOK — editable marks with auto-calc
+══════════════════════════════════════════════════════ */
+function buildGradebook(cls) {
+  const students = STUDENTS[cls] || [];
+  const subjects = (DB.subjects[cls] || []).slice(0, 8);
+  return `
+  <div class="callout cl-tip"><span>📊</span><p>Enter marks for each subject. Test and Exam columns are editable. Totals and averages calculate automatically. Click <b>Save Grades</b> to confirm.</p></div>
+  <div class="card reveal">
+    <div class="card-head"><h3>📊 Grade Entry — ${cls}</h3>
+      <div style="display:flex;gap:.5rem">
+        <button class="btn btn-ghost" style="font-size:.72rem" onclick="openMarksUpload('${cls}')">📤 Upload Excel</button>
+        <button class="btn btn-ghost" style="font-size:.72rem" onclick="downloadMarksTemplate()">⬇️ Template</button>
+        <button class="print-btn" onclick="window.print()">🖨️ Print</button>
+        <button class="btn btn-primary" style="font-size:.72rem" onclick="toast('Grades saved ✓')">💾 Save Grades</button>
+      </div>
+    </div>
+    <div class="tbl" style="overflow-x:auto">
+      <table style="min-width:900px">
+        <thead>
+          <tr style="background:var(--forest);color:#fff">
+            <th style="padding:.6rem .75rem;text-align:left">Student</th>
+            ${subjects.map(s=>`<th style="padding:.6rem .4rem;text-align:center;font-size:.72rem" colspan="2">${s}</th>`).join('')}
+            <th style="padding:.6rem .75rem;text-align:center">Average</th>
+            <th style="padding:.6rem .75rem;text-align:center">Grade</th>
+          </tr>
+          <tr style="background:var(--forest2);color:rgba(255,255,255,.8)">
+            <th></th>
+            ${subjects.map(()=>`<th style="padding:.3rem .3rem;text-align:center;font-size:.65rem;font-weight:600">TEST</th><th style="padding:.3rem .3rem;text-align:center;font-size:.65rem;font-weight:600">EXAM</th>`).join('')}
+            <th></th><th></th>
+          </tr>
+        </thead>
+        <tbody>
+          ${students.map((name,si)=>{
+            const scores = subjects.map(()=>({t:Math.floor(55+Math.random()*42), e:Math.floor(50+Math.random()*47)}));
+            const avg = Math.round(scores.reduce((a,sc)=>a+(Math.round((sc.t+sc.e)/2)),0)/scores.length);
+            const g = avg>=90?'A+':avg>=80?'A':avg>=70?'B':avg>=60?'C':avg>=50?'D':'F';
+            const gc = avg>=80?'bg-green':avg>=70?'bg-blue':avg>=60?'bg-amber':'bg-red';
+            return `<tr>
+              <td style="padding:.45rem .75rem;font-weight:600;font-size:.82rem;white-space:nowrap">${name}</td>
+              ${scores.map((sc,sci)=>`
+                <td style="padding:.2rem .25rem"><input type="number" min="0" max="100" value="${sc.t}" style="width:48px;text-align:center;padding:.3rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.8rem;font-family:inherit" onchange="recalcStudentRow(this)"/></td>
+                <td style="padding:.2rem .25rem"><input type="number" min="0" max="100" value="${sc.e}" style="width:48px;text-align:center;padding:.3rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.8rem;font-family:inherit" onchange="recalcStudentRow(this)"/></td>
+              `).join('')}
+              <td style="padding:.45rem .4rem;text-align:center" class="row-avg"><span class="badge bg-forest">${avg}%</span></td>
+              <td style="padding:.45rem .4rem;text-align:center" class="row-grade"><span class="badge ${gc}">${g}</span></td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+function recalcStudentRow(inp) {
+  const row = inp.closest('tr');
+  if(!row) return;
+  const inputs = [...row.querySelectorAll('input[type="number"]')];
+  const vals = inputs.map(i=>parseFloat(i.value)||0);
+  const avg = vals.length ? Math.round(vals.reduce((a,b)=>a+b,0)/vals.length) : 0;
+  const g = avg>=90?'A+':avg>=80?'A':avg>=70?'B':avg>=60?'C':avg>=50?'D':'F';
+  const gc = avg>=80?'bg-green':avg>=70?'bg-blue':avg>=60?'bg-amber':'bg-red';
+  const avgEl = row.querySelector('.row-avg');
+  const grdEl = row.querySelector('.row-grade');
+  if(avgEl) avgEl.innerHTML = `<span class="badge bg-forest">${avg}%</span>`;
+  if(grdEl) grdEl.innerHTML = `<span class="badge ${gc}">${g}</span>`;
+}
+
+/* ══════════════════════════════════════════════════════
+   WEBSITE EDITOR (original) — keep for HT ws- ids
+══════════════════════════════════════════════════════ */
 function saveWebsiteInfo() {
   DB.schoolInfo.about=document.getElementById('ws-about')?.value||DB.schoolInfo.about;
   DB.schoolInfo.address=document.getElementById('ws-address')?.value||DB.schoolInfo.address;
@@ -2362,151 +3088,9 @@ function recalcGradeRow(inp) {
   if(gradeEl) gradeEl.innerHTML=`<span class="badge ${gc}">${g}</span>`;
 }
 
-
-function switchHTRepTab(id, btn) {
-  const pg = document.getElementById('ht-reports');
-  if(!pg) return;
-  pg.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  pg.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
-  const t = document.getElementById(id); if(t) t.classList.add('active');
-}
-
-function buildHTReportCardSection() {
-  return `
-    <div class="callout cl-info"><span>📋</span><p>Generate individual student report cards. Each card includes Subject, Test, Exam, Total, Rank, Average, Conduct and Teacher Comment. Click 🖨️ Print to save as PDF.</p></div>
-    <div class="card">
-      <div class="card-head"><h3>📋 Report Card Generator</h3></div>
-      <div class="card-body">
-        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;align-items:flex-end">
-          <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Class</label>
-            <select id="ht-rc-class" onchange="htPopulateStudents()" style="padding:.6rem .9rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;background:var(--cream2)">
-              ${CLASSES.map(c=>'<option value="'+c+'">'+c+'</option>').join('')}
-            </select>
-          </div>
-          <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Student</label>
-            <select id="ht-rc-student" style="padding:.6rem .9rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;background:var(--cream2)">
-              ${(STUDENTS['P1A']||[]).map(s=>'<option>'+s+'</option>').join('')}
-            </select>
-          </div>
-          <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Term</label>
-            <select id="ht-rc-term" style="padding:.6rem .9rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;background:var(--cream2)">
-              <option>Term 1 · 2025-2026</option><option>Term 2 · 2025-2026</option><option>Term 3 · 2025-2026</option>
-            </select>
-          </div>
-          <button class="btn btn-primary" onclick="generateHTReportCard()">📋 Generate Report Card</button>
-        </div>
-        <div id="ht-report-output"></div>
-      </div>
-    </div>`;
-}
-
-function htPopulateStudents() {
-  const cls = document.getElementById('ht-rc-class')?.value;
-  const sel = document.getElementById('ht-rc-student');
-  if(!sel||!cls) return;
-  sel.innerHTML = (STUDENTS[cls]||[]).map(s=>'<option>'+s+'</option>').join('');
-}
-
-function generateHTReportCard() {
-  const cls = document.getElementById('ht-rc-class')?.value||'P1A';
-  const student = document.getElementById('ht-rc-student')?.value||'Student';
-  const term = document.getElementById('ht-rc-term')?.value||'Term 1';
-  const subjects = DB.subjects[cls]||['French','Mathematics','Science','Religion','History','Geography','English','Physical Education','Drawing','Music'];
-  const classSize = (STUDENTS[cls]||[]).length;
-  const subjectData = subjects.map(s=>{
-    const test=Math.floor(60+Math.random()*38);
-    const exam=Math.floor(55+Math.random()*42);
-    const total=Math.round((test+exam)/2);
-    const grade=total>=90?'A+':total>=80?'A':total>=70?'B':total>=60?'C':total>=50?'D':'F';
-    const gc=total>=80?'bg-green':total>=70?'bg-blue':total>=60?'bg-amber':'bg-red';
-    return{s,test,exam,total,grade,gc};
-  });
-  const avg=Math.round(subjectData.reduce((a,r)=>a+r.total,0)/subjectData.length);
-  const rank=Math.floor(1+Math.random()*(classSize-1));
-  const conduct=avg>=85?'Excellent':avg>=75?'Very Good':avg>=65?'Good':avg>=55?'Satisfactory':'Needs Improvement';
-  const conductColor=avg>=85?'bg-green':avg>=75?'bg-blue':avg>=65?'bg-amber':'bg-red';
-  const comment=avg>=80?student.split(' ')[0]+' has performed exceptionally well this term. A diligent and motivated student who is a great example to peers.':avg>=65?student.split(' ')[0]+' has shown good progress with consistent effort. Continued focus will yield excellent results.':student.split(' ')[0]+' needs to apply more effort consistently. With dedication, improvement is very achievable.';
-  
-  const rows = subjectData.map(r=>`<div class="report-subject-row"><div style="font-weight:600">${r.s}</div><div>${r.test}</div><div>${r.exam}</div><div><b>${r.total}</b></div><div style="color:var(--muted);font-size:.75rem">—</div><div><span class="badge ${r.gc}" style="font-size:.65rem">${r.grade}</span></div></div>`).join('');
-  
-  const html = `<div class="report-card-full" id="ht-printable-report">
-    <div class="report-card-top">
-      <div style="font-size:2.5rem;margin-bottom:.5rem">✝</div>
-      <div class="rc-school">Saint François de Sales School</div>
-      <div class="rc-sub">ACADEMIC REPORT CARD — ${term}</div>
-      <div style="font-size:.7rem;color:rgba(255,255,255,.5);margin-top:.25rem;font-style:italic">"Qui s'humilie sera exalté"</div>
-    </div>
-    <div class="rc-student-bar">
-      <div class="rc-student-field"><label>Student Name</label><span>${student}</span></div>
-      <div class="rc-student-field"><label>Class</label><span>${cls}</span></div>
-      <div class="rc-student-field"><label>Term</label><span>${term}</span></div>
-      <div class="rc-student-field"><label>Class Size</label><span>${classSize} Students</span></div>
-      <div class="rc-student-field"><label>Academic Year</label><span>2025–2026</span></div>
-    </div>
-    <div style="overflow-x:auto">
-      <div class="report-subject-row report-header-row"><div>Subject</div><div>Test (/100)</div><div>Exam (/100)</div><div>Total (/100)</div><div>Rank</div><div>Grade</div></div>
-      ${rows}
-      <div class="report-subject-row" style="background:rgba(13,61,31,.06);font-weight:700;border-top:2px solid var(--forest)">
-        <div style="font-weight:800;color:var(--forest)">OVERALL</div><div>—</div><div>—</div>
-        <div><b>${avg}%</b></div><div style="font-weight:800;color:var(--forest)">${rank} / ${classSize}</div>
-        <div><span class="badge ${conductColor}">${avg>=90?'A+':avg>=80?'A':avg>=70?'B':avg>=60?'C':'D'}</span></div>
-      </div>
-    </div>
-    <div style="padding:1rem 1.5rem;border-top:1px solid var(--border)">
-      <div style="display:flex;flex-wrap:wrap;gap:2rem;font-size:.82rem;margin-bottom:.75rem">
-        <div><b style="color:var(--forest)">Overall Average:</b> ${avg}%</div>
-        <div><b style="color:var(--forest)">Class Rank:</b> ${rank} of ${classSize}</div>
-        <div><b style="color:var(--forest)">Conduct:</b> <span class="badge ${conductColor}">${conduct}</span></div>
-        <div><b style="color:var(--forest)">Attendance:</b> 93%</div>
-      </div>
-      <div style="font-size:.8rem;color:var(--muted);line-height:1.7;background:var(--cream2);padding:.65rem 1rem;border-radius:var(--r2);border:1px solid var(--border)">
-        <b>Teacher's Comment:</b> ${comment}
-      </div>
-    </div>
-    <div class="rc-footer">
-      <div><div class="rc-sig-line">Class Teacher</div></div>
-      <div style="text-align:center"><div style="font-size:.75rem;color:var(--forest);font-weight:700;margin-bottom:.5rem">School Stamp</div><div style="width:80px;height:80px;border:2px dashed var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto">✝</div></div>
-      <div style="text-align:right"><div class="rc-sig-line" style="margin-left:auto">Head Teacher</div></div>
-    </div>
-  </div>
-  <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;justify-content:center">
-    <button class="print-btn" onclick="printHTReport()">🖨️ Print / Save as PDF</button>
-    <button class="btn btn-ghost" onclick="toast('Copied to clipboard: Report for '+document.getElementById('ht-rc-student').value)">📋 Share</button>
-  </div>`;
-  const out=document.getElementById('ht-report-output');
-  if(out){out.innerHTML=html;out.scrollIntoView({behavior:'smooth',block:'start'});}
-  toast('Report card generated for '+student+' ✓');
-}
-
-function printHTReport() {
-  const c = document.getElementById('ht-printable-report');
-  if(!c) return;
-  const w = window.open('','_blank','width=900,height=700');
-  w.document.write('<!DOCTYPE html><html><head><title>Report Card - Saint Francois de Sales</title>'
-  +'<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">'
-  +'<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Outfit,sans-serif;background:#fff}'
-  +'.report-card-full{border:2px solid #DDD8CC;border-radius:12px;overflow:hidden;max-width:800px;margin:20px auto}'
-  +'.report-card-top{background:linear-gradient(135deg,#0D3D1F,#246634);color:#fff;padding:1.5rem 2rem;text-align:center}'
-  +'.rc-school{font-family:"Playfair Display",serif;font-size:1.5rem;font-weight:700;color:#E4B84A}'
-  +'.rc-sub{font-size:.75rem;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;margin-top:.25rem}'
-  +'.rc-student-bar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.75rem;padding:1rem 1.5rem;background:#F5F0E8;border-bottom:1px solid #DDD8CC}'
-  +'.rc-student-field{font-size:.8rem}.rc-student-field label{font-size:.65rem;font-weight:700;text-transform:uppercase;color:#5C5440;display:block;margin-bottom:.15rem}.rc-student-field span{font-weight:700;color:#0D3D1F}'
-  +'.report-subject-row{display:grid;grid-template-columns:1fr 80px 80px 80px 80px 70px;border-bottom:1px solid #DDD8CC}'
-  +'.report-subject-row>*{padding:.55rem .75rem;font-size:.8rem;border-right:1px solid #DDD8CC}.report-subject-row>*:last-child{border-right:none}'
-  +'.report-header-row{background:#0D3D1F;color:#fff;font-size:.68rem;font-weight:700;text-transform:uppercase}'
-  +'.badge{display:inline-flex;padding:.2rem .65rem;border-radius:100px;font-size:.67rem;font-weight:700}'
-  +'.bg-green{background:#DCFCE7;color:#15803D}.bg-blue{background:#DBEAFE;color:#1D4ED8}.bg-amber{background:#FEF3C7;color:#92400E}.bg-red{background:#FEE2E2;color:#B91C1C}'
-  +'.rc-footer{padding:1.25rem 1.5rem;background:#F5F0E8;border-top:2px solid #DDD8CC;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}'
-  +'.rc-sig-line{border-top:1.5px solid #0D3D1F;width:150px;padding-top:.35rem;text-align:center;font-size:.7rem;font-weight:700;color:#0D3D1F}'
-  +'@media print{@page{margin:12mm}}</style>'
-  +'</head><body>'+c.outerHTML+'<script>window.onload=()=>window.print()<\/script></body></html>');
-  w.document.close();
-}
-
-/* ════════════════════════════════════════════════════════════════════════════
-   §12 · UI HELPERS — SIDEBAR & PASSWORD TOGGLE
-   ════════════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   SIDEBAR TOGGLE
+══════════════════════════════════════════════════════ */
 function toggleSidebar() {
   const sb=document.getElementById('appSidebar');
   const bd=document.getElementById('sidebarBackdrop');
@@ -2525,23 +3109,9 @@ function togglePass(inputId, btn) {
   else{inp.type='password';btn.textContent='👁';}
 }
 
-/* ════════════════════════════════════════════════════════════════════════════
-   §13 · UTILITIES
-   ─────────────────────────────────────────────────────────────────────────
-   Shared helpers used across the entire application.
-
-   todayStr()         → formatted date string (fr-FR locale)
-   toast(msg)         → shows a bottom-right notification for 3.2s
-   delRow(el)         → removes closest <tr> after confirmation
-   initReveal()       → triggers .reveal → .vis animation on .reveal elements
-   saveAbout()        → saves the Edit Website modal form (HT version)
-
-   HOW TO EXTEND:
-   • Add a new utility:
-       function myHelper(param) { ... }
-   • Add a new toast type (currently single style):
-       You can call toast() from anywhere — just pass the message string.
-   ════════════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   UTILS
+══════════════════════════════════════════════════════ */
 function todayStr() { return new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'}); }
 let toastTimer;
 function toast(msg) {
@@ -2574,583 +3144,282 @@ function saveAbout() {
   toast('Website updated and published ✓');
 }
 
-/* ════════════════════════════════════════════════════════════════════════════
-   §14 · INITIALISATION
-   ─────────────────────────────────────────────────────────────────────────
-   Runs once on DOMContentLoaded. Sets up clock, smooth scroll, Escape key.
+/* ══════════════════════════════════════════════════════
+   💬 MESSAGING SYSTEM
+══════════════════════════════════════════════════════ */
+const DB_MESSAGES = {
+  threads: [
+    {
+      id: 1,
+      participants: ['teacher', 'parent'],
+      subject: 'Homework concern',
+      messages: [
+        { from: 'Parent of Jean-Paul', role:'parent', text: 'Good morning. My son Jean-Paul was having difficulty with the Maths homework on fractions. Could you provide additional support?', time: '21 Apr 2026 · 08:12' },
+        { from: 'Mrs. Okonkwo', role:'teacher', text: 'Good morning! Thank you for reaching out. I will give Jean-Paul extra practice sheets and check in with him during the morning session tomorrow.', time: '21 Apr 2026 · 09:45' },
+      ]
+    },
+    {
+      id: 2,
+      participants: ['teacher', 'student'],
+      subject: 'Science project submission',
+      messages: [
+        { from: 'Jean-Paul Mutombo', role:'student', text: 'Good afternoon teacher. I have finished my science project. Where should I submit it?', time: '20 Apr 2026 · 14:30' },
+        { from: 'Mrs. Okonkwo', role:'teacher', text: 'Well done Jean-Paul! Please bring the printed copy tomorrow morning and also upload a soft copy using the Classwork section of the portal.', time: '20 Apr 2026 · 15:02' },
+      ]
+    }
+  ]
+};
 
-   HOW TO EXTEND:
-   • Run code at startup: add your call inside the DOMContentLoaded callback
-       
-/* ════════════════════════════════════════════════════════════════════════════
-   §15 · CUSTOM EXTENSIONS — ADD YOUR NEW FEATURES HERE
-   ─────────────────────────────────────────────────────────────────────────
-   This section is reserved for your future additions. Each new feature
-   should follow the structure below. When this section grows large,
-   split it into numbered sub-sections: §15.1, §15.2, etc.
+function buildMessaging(role, cls) {
+  const teacher = DB.teachers.find(t=>t.cls===cls);
+  const teacherName = teacher ? teacher.name : 'Class Teacher';
+  const threads = DB_MESSAGES.threads;
 
-   QUICK GUIDE — Adding a complete new feature:
-   ┌─────────────────────────────────────────────────────────────────────┐
-   │  1. DATA     →  Add to DB{} in §1                                   │
-   │  2. SIDEBAR  →  Add .sitem button in §4 buildSidebar()              │
-   │  3. PAGE     →  Add <div class="page" id="..."> in §5               │
-   │  4. MODAL    →  Add <div class="modal-overlay"> in HTML (§8 notes)  │
-   │  5. LOGIC    →  Add your functions below in this §15 section        │
-   │  6. INIT     →  Call any setup function inside DOMContentLoaded §14  │
-   └─────────────────────────────────────────────────────────────────────┘
+  const threadListHtml = threads.map((th,i) => {
+    const last = th.messages[th.messages.length-1];
+    return `<div class="msg-thread" onclick="openThread(${i})" id="thread-item-${i}">
+      <div class="msg-thread-avatar">${last.role==='teacher'?'👩‍🏫':last.role==='parent'?'👪':'👨‍🎓'}</div>
+      <div class="msg-thread-info">
+        <div class="msg-thread-name">${th.subject}</div>
+        <div class="msg-thread-preview">${last.from}: ${last.text.substring(0,55)}…</div>
+      </div>
+      <div class="msg-thread-meta">${last.time.split('·')[0].trim()}</div>
+    </div>`;
+  }).join('');
 
-   EXAMPLE SKELETON — Fee Management feature:
-   ─────────────────────────────────────────────────────────────────────
-   // §15.1 · FEE MANAGEMENT
-   // DB.fees = {};  ← add this line in §1 inside DB{}
-
-   function buildFeePage(cls) {
-     // returns HTML string for the fee tracking page
-     return `<div class="card">...</div>`;
-   }
-
-   function addFeeRecord(cls, studentName, amount) {
-     if(!DB.fees[cls]) DB.fees[cls] = [];
-     DB.fees[cls].push({ student: studentName, amount, date: todayStr(), paid: false });
-     toast('Fee record added ✓');
-   }
-
-   function markFeePaid(cls, index) {
-     if(DB.fees[cls]?.[index]) DB.fees[cls][index].paid = true;
-     toast('Marked as paid ✓');
-   }
-   ─────────────────────────────────────────────────────────────────────
-════════════════════════════════════════════════════════════════════════════ */
-
-/* ── §15.1 · ADD YOUR FIRST CUSTOM FEATURE HERE ─────────────────────────── */
-
-
-/* ── §15.2 · ADD YOUR SECOND CUSTOM FEATURE HERE ────────────────────────── */
-
-
-/* ── §15.3 · ADD YOUR THIRD CUSTOM FEATURE HERE ─────────────────────────── */
-
-
-document.addEventListener('DOMContentLoaded', () => {
-         initReveal();
-         updateClock();
-         initAttPcts();
-         myNewInitFunction();  // ← add here
-         ...
-       });
-   ════════════════════════════════════════════════════════════════════════════ */
-
-/* ════════════════════════════════════════════════════════════════════════════
-   §10 · DIRECTOR (SUPER ADMIN) MODULE
-   ─────────────────────────────────────────────────────────────────────────
-   Handles the School Director portal: full dashboard, all teachers/students,
-   user account management, permissions viewer, activity log, and report cards.
-
-   Login: username = director  |  password = director2026
-
-   HOW TO EXTEND:
-   • Add a new Director page:
-       1. In buildDirectorDashboard(), add inside the template:
-            <div class="page" id="dir-mypage">...</div>
-       2. Add a sidebar button in §4 → menus.director pointing to 'dir-mypage'
-       3. Add a builder function: function buildMyDirectorPage() { return `...`; }
-   • Add to activity log:
-       logActivity('Something happened', 'blue'|'gold'|'red')
-   ════════════════════════════════════════════════════════════════════════════ */
-const ACTIVITY_LOG = [
-  { time:'09:14', msg:'Head Teacher posted announcement: Term 2 Exams', type:'gold' },
-  { time:'09:02', msg:'Teacher M. Kapenda uploaded notes for P4B', type:'blue' },
-  { time:'08:47', msg:'Student Jean-Paul Mutombo completed morning quiz (80%)', type:'blue' },
-  { time:'08:30', msg:'Teacher Mme. Bertrand marked attendance for P1A', type:'blue' },
-  { time:'07:55', msg:'Parent of Alice Mbuyi logged in (P1A)', type:'blue' },
-  { time:'07:40', msg:'System: Morning Quiz activated for Mon 21 Apr 2026', type:'gold' },
-  { time:'Yesterday', msg:'New student enrolled: Nadine Lumbu (P5C)', type:'gold' },
-  { time:'Yesterday', msg:'Teacher account created: Mme. Anne Kasongo (P5C)', type:'blue' },
-];
-
-function buildDirectorDashboard() {
-  const totalStudents = Object.values(STUDENTS).flat().length;
   return `
-  <div class="page on" id="dir-dashboard">
-    ${cwHtml()}
-    <div class="phd">
-      <h2>👑 Director — Super Admin Dashboard</h2>
-      <p>Saint François de Sales School — Full system control &amp; monitoring</p>
-      <div class="phd-line"></div>
-    </div>
-    <div class="callout" style="background:rgba(124,58,237,.08);border-left:4px solid #7C3AED;border-color:#7C3AED">
-      <span>👑</span>
-      <p style="color:#4C1D95"><b>You are logged in as School Director (Super Admin).</b> You have unrestricted access to all data, accounts, roles, and school settings.</p>
-    </div>
-    <div class="sgrid">
-      <div class="scard reveal"><div class="sc-icon">👨‍🎓</div><div class="sc-num">${totalStudents}</div><div class="sc-lbl">Total Students</div></div>
-      <div class="scard reveal"><div class="sc-icon">👩‍🏫</div><div class="sc-num">${DB.teachers.length}</div><div class="sc-lbl">Teachers</div></div>
-      <div class="scard reveal"><div class="sc-icon">🏫</div><div class="sc-num">${CLASSES.length}</div><div class="sc-lbl">Classes</div></div>
-      <div class="scard reveal"><div class="sc-icon">📢</div><div class="sc-num">${DB.announcements.length}</div><div class="sc-lbl">Announcements</div></div>
-      <div class="scard reveal"><div class="sc-icon">✅</div><div class="sc-num">89%</div><div class="sc-lbl">Avg Attendance</div></div>
-      <div class="scard reveal"><div class="sc-icon">📊</div><div class="sc-num">83%</div><div class="sc-lbl">School Average</div></div>
-    </div>
-    <div class="g2">
-      <div class="card reveal">
-        <div class="card-head"><h3>👩‍🏫 Teachers Overview</h3><button class="add-btn" onclick="openModal('addTeacher')" style="font-size:.72rem;padding:.35rem .8rem">+ Add</button></div>
-        <div class="tbl"><table>
-          <thead><tr><th>Name</th><th>Class</th><th>Subject</th><th>Actions</th></tr></thead>
-          <tbody id="dir-teachers-tbody">${DB.teachers.map((t,i)=>`<tr><td><b>${t.name}</b></td><td><span class="badge bg-forest">${t.cls}</span></td><td>${t.subject}</td><td><button class="action-btn" onclick="removeTeacher(${i})">🗑️</button></td></tr>`).join('')}</tbody>
-        </table></div>
+  <div class="msg-layout">
+    <div class="msg-sidebar" id="msg-sidebar">
+      <div class="msg-sidebar-hd">
+        <span>💬 Conversations</span>
+        <button class="add-btn" style="font-size:.72rem" onclick="openNewMessage()">+ New</button>
       </div>
-      <div class="card reveal">
-        <div class="card-head"><h3>📜 Recent Activity</h3></div>
-        <div class="activity-log">
-          ${ACTIVITY_LOG.map(l=>`<div class="log-item"><div class="log-dot ${l.type}"></div><div style="flex:1"><div style="font-size:.79rem;color:var(--text)">${l.msg}</div><div class="log-time">${l.time}</div></div></div>`).join('')}
-        </div>
+      <div id="thread-list">${threadListHtml}</div>
+    </div>
+    <div class="msg-main" id="msg-main">
+      <div class="msg-empty-state">
+        <div style="font-size:3rem;margin-bottom:.75rem">💬</div>
+        <div style="font-weight:700;color:var(--forest);margin-bottom:.35rem">Select a conversation</div>
+        <div style="font-size:.82rem;color:var(--muted)">Choose a thread on the left, or start a new conversation.</div>
+        ${role==='parent'?`<div style="font-size:.82rem;color:var(--muted);margin-top:.5rem">Your child's teacher: <b>${teacherName}</b></div>`:''}
       </div>
     </div>
-    <div class="g2">
-      <div class="card reveal">
-        <div class="card-head"><h3>🏫 Class Performance</h3></div>
-        <div class="card-body">
-          ${CLASSES.map(c=>{const pct=75+Math.floor(Math.random()*20);return `<div class="prog-item"><div class="prog-label">${c}</div><div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:var(--forest3)"></div></div><div class="prog-pct">${pct}%</div></div>`}).join('')}
-        </div>
-      </div>
-      <div class="card reveal">
-        <div class="card-head"><h3>🛡️ System Roles</h3></div>
-        <div class="card-body">
-          <div class="perm-grid">
-            <div class="perm-item"><span>👑 Director</span><span class="director-badge">1 active</span></div>
-            <div class="perm-item"><span>🏫 Head Teacher</span><span class="badge bg-green">1 active</span></div>
-            <div class="perm-item"><span>👩‍🏫 Teachers</span><span class="badge bg-blue">${DB.teachers.length} active</span></div>
-            <div class="perm-item"><span>👨‍🎓 Students</span><span class="badge bg-forest">${totalStudents} enrolled</span></div>
-            <div class="perm-item"><span>👪 Parents</span><span class="badge bg-amber">${totalStudents} accounts</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Director: All Teachers -->
-  <div class="page" id="dir-teachers">
-    <div class="ptop">
-      <div class="phd"><h2>👩‍🏫 All Teachers</h2><div class="phd-line"></div></div>
-      <button class="add-btn" onclick="openModal('addTeacher')">+ Add Teacher</button>
-    </div>
-    <div class="card">
-      <div class="tbl"><table>
-        <thead><tr><th>Name</th><th>Class</th><th>Subject</th><th>Username</th><th>Status</th><th>Actions</th></tr></thead>
-        <tbody>${DB.teachers.map((t,i)=>`<tr><td><b>${t.name}</b></td><td><span class="badge bg-forest">${t.cls}</span></td><td>${t.subject}</td><td><code style="font-size:.75rem;background:var(--cream2);padding:.1rem .4rem;border-radius:4px">${t.user}</code></td><td><span class="badge bg-green">Active</span></td><td><button class="action-btn" onclick="removeTeacher(${i})">🗑️</button></td></tr>`).join('')}</tbody>
-      </table></div>
-    </div>
-  </div>
-
-  <!-- Director: All Students -->
-  <div class="page" id="dir-students">
-    <div class="ptop">
-      <div class="phd"><h2>👨‍🎓 All Students</h2><div class="phd-line"></div></div>
-      <button class="add-btn" onclick="openModal('addStudent')">+ Enrol Student</button>
-    </div>
-    <div class="tab-bar">${CLASSES.map((c,i)=>`<button class="tab-btn${i===0?' active':''}" onclick="switchDirStudentTab('${c}',this)">Class ${c}</button>`).join('')}</div>
-    ${CLASSES.map((c,i)=>`<div class="tab-pane${i===0?' active':''}" id="dir-stab-${c}">
-      <div class="card"><div class="card-head"><h3>Class ${c} — ${(STUDENTS[c]||[]).length} Students</h3></div>
-      <div class="tbl"><table><thead><tr><th>#</th><th>Name</th><th>Class</th><th>Parent Login</th><th>Actions</th></tr></thead>
-      <tbody>${(STUDENTS[c]||[]).map((s,j)=>`<tr><td>${j+1}</td><td><b>${s}</b></td><td><span class="badge bg-forest">${c}</span></td><td><span style="font-size:.72rem;color:var(--muted)">Class: ${c} / Name: ${s}</span></td><td><button class="action-btn" onclick="removeStudent('${c}',${j})">🗑️</button></td></tr>`).join('')}
-      </tbody></table></div></div>
-    </div>`).join('')}
-  </div>
-
-  <!-- Director: User Accounts -->
-  <div class="page" id="dir-users">
-    <div class="phd"><h2>🔐 User Accounts & Passwords</h2><p>Manage all login credentials for the school portal</p><div class="phd-line"></div></div>
-    <div class="g2">
-      <div class="card reveal">
-        <div class="card-head"><h3>🔑 System Accounts</h3></div>
-        <div class="tbl"><table>
-          <thead><tr><th>Role</th><th>Username</th><th>Password</th><th>Actions</th></tr></thead>
-          <tbody>
-            <tr><td><span class="director-badge">Director</span></td><td>director</td><td><span class="badge bg-muted">director2026</span></td><td><button class="btn btn-ghost" style="font-size:.72rem;padding:.25rem .6rem" onclick="changePwdModal('Director','director')">Change</button></td></tr>
-            <tr><td><span class="badge bg-forest">Head Teacher</span></td><td>headteacher</td><td><span class="badge bg-muted">sfds2026</span></td><td><button class="btn btn-ghost" style="font-size:.72rem;padding:.25rem .6rem" onclick="changePwdModal('Head Teacher','headteacher')">Change</button></td></tr>
-            <tr><td><span class="badge bg-blue">Teacher (default)</span></td><td>teacher</td><td><span class="badge bg-muted">teach2026</span></td><td><button class="btn btn-ghost" style="font-size:.72rem;padding:.25rem .6rem" onclick="changePwdModal('Teacher','teacher')">Change</button></td></tr>
-            <tr><td><span class="badge bg-amber">Student (demo)</span></td><td>student</td><td><span class="badge bg-muted">student2026</span></td><td><button class="btn btn-ghost" style="font-size:.72rem;padding:.25rem .6rem" onclick="changePwdModal('Student','student')">Change</button></td></tr>
-          </tbody>
-        </table></div>
-      </div>
-      <div class="card reveal">
-        <div class="card-head"><h3>👩‍🏫 Teacher Accounts</h3></div>
-        <div class="tbl"><table>
-          <thead><tr><th>Teacher</th><th>Username</th><th>Class</th></tr></thead>
-          <tbody>${DB.teachers.map(t=>`<tr><td><b>${t.name}</b></td><td><code style="font-size:.75rem">${t.user}</code></td><td><span class="badge bg-forest">${t.cls}</span></td></tr>`).join('')}</tbody>
-        </table></div>
-      </div>
-    </div>
-    <div class="callout cl-tip"><span>👪</span><p><b>Parent Login:</b> Username = class name (e.g. <b>P3A</b>), Password = student's full name. No setup needed — auto-generated for all enrolled students.</p></div>
-  </div>
-
-  <!-- Director: Reports -->
-  <div class="page" id="dir-reports">
-    <div class="phd"><h2>📋 School Reports</h2><p>Full academic overview and report card generation</p><div class="phd-line"></div></div>
-    ${buildDirectorReports()}
-  </div>
-
-  <!-- Director: Activity Log -->
-  <div class="page" id="dir-activity">
-    <div class="phd"><h2>📜 Activity Log</h2><p>All user actions across the platform</p><div class="phd-line"></div></div>
-    <div class="card">
-      <div class="activity-log" style="max-height:600px">
-        ${[...ACTIVITY_LOG, ...ACTIVITY_LOG].map(l=>`<div class="log-item"><div class="log-dot ${l.type}"></div><div style="flex:1"><div style="font-size:.82rem;color:var(--text)">${l.msg}</div><div class="log-time">${l.time}</div></div></div>`).join('')}
-      </div>
-    </div>
-  </div>
-
-  <!-- Director: Permissions -->
-  <div class="page" id="dir-permissions">
-    <div class="phd"><h2>🛡️ Roles & Permissions</h2><p>Control what each role can access in the portal</p><div class="phd-line"></div></div>
-    ${buildPermissionsPage()}
-  </div>
-
-  <!-- Director: Edit Website -->
-  <div class="page" id="dir-website">
-    <div class="phd"><h2>🌐 Edit Public Website</h2><p>Update the public-facing school website content</p><div class="phd-line"></div></div>
-    ${buildWebsiteEditorHTML()}
-  </div>
-  `;
-}
-
-function switchDirStudentTab(cls, btn) {
-  document.querySelectorAll('#dir-students .tab-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('#dir-students .tab-pane').forEach(p=>p.classList.remove('active'));
-  const t = document.getElementById('dir-stab-'+cls);
-  if(t) t.classList.add('active');
-}
-
-function buildDirectorReports() {
-  return `
-    <div class="sgrid">
-      <div class="scard"><div class="sc-icon">📊</div><div class="sc-num">83%</div><div class="sc-lbl">School Avg</div></div>
-      <div class="scard"><div class="sc-icon">✅</div><div class="sc-num">89%</div><div class="sc-lbl">Attendance</div></div>
-      <div class="scard"><div class="sc-icon">🏆</div><div class="sc-num">${CLASSES.length}</div><div class="sc-lbl">Classes</div></div>
-      <div class="scard"><div class="sc-icon">👨‍🎓</div><div class="sc-num">${Object.values(STUDENTS).flat().length}</div><div class="sc-lbl">Students</div></div>
-    </div>
-    <div class="card">
-      <div class="card-head"><h3>📋 Generate Report Cards</h3></div>
-      <div class="card-body">
-        <div class="callout cl-info"><span>ℹ️</span><p>Select a class and student to generate a full report card with Test, Exam, Total, Rank, Average, and Conduct. Export as PDF or printable format.</p></div>
-        <div class="mrow" style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem">
-          <div class="mfield" style="flex:1;min-width:140px"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Class</label>
-            <select id="rc-class" onchange="populateRCStudents()" style="width:100%;padding:.6rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;background:var(--cream2)">
-              ${CLASSES.map(c=>`<option value="${c}">${c}</option>`).join('')}
-            </select>
-          </div>
-          <div class="mfield" style="flex:1;min-width:180px"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Student</label>
-            <select id="rc-student" style="width:100%;padding:.6rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;background:var(--cream2)">
-              ${(STUDENTS['P1A']||[]).map(s=>`<option>${s}</option>`).join('')}
-            </select>
-          </div>
-          <div class="mfield" style="flex:1;min-width:140px"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Term</label>
-            <select id="rc-term" style="width:100%;padding:.6rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;background:var(--cream2)">
-              <option>Term 1 · 2025-2026</option><option>Term 2 · 2025-2026</option><option>Term 3 · 2025-2026</option>
-            </select>
-          </div>
-          <div style="display:flex;align-items:flex-end;padding-bottom:.05rem">
-            <button class="btn btn-primary" onclick="generateReportCard()">📋 Generate Report Card</button>
-          </div>
-        </div>
-        <div id="report-card-output"></div>
-      </div>
-    </div>
-    <div class="card" style="margin-top:1.25rem">
-      <div class="card-head"><h3>📊 Class Performance Summary</h3></div>
-      <div class="card-body">
-        ${CLASSES.map(c=>{const pct=75+Math.floor(Math.random()*20);return `<div class="prog-item"><div class="prog-label">${c}</div><div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:var(--forest3)"></div></div><div class="prog-pct">${pct}%</div></div>`}).join('')}
-      </div>
-    </div>
-  `;
-}
-
-function populateRCStudents() {
-  const cls = document.getElementById('rc-class')?.value;
-  const sel = document.getElementById('rc-student');
-  if(!sel || !cls) return;
-  sel.innerHTML = (STUDENTS[cls]||[]).map(s=>`<option>${s}</option>`).join('');
-}
-
-function generateReportCard() {
-  const cls = document.getElementById('rc-class')?.value || 'P1A';
-  const student = document.getElementById('rc-student')?.value || 'Student';
-  const term = document.getElementById('rc-term')?.value || 'Term 1';
-  const subjects = DB.subjects[cls] || ['French','Mathematics','Science','Religion','History','Geography','English','Physical Education','Drawing','Music'];
-  const classSize = (STUDENTS[cls]||[]).length;
-  
-  // Generate marks
-  const subjectData = subjects.map(s=>{
-    const test = Math.floor(60 + Math.random()*38);
-    const exam = Math.floor(55 + Math.random()*42);
-    const total = Math.round((test + exam) / 2);
-    const grade = total>=90?'A+':total>=80?'A':total>=70?'B':total>=60?'C':total>=50?'D':'F';
-    const gc = total>=80?'bg-green':total>=70?'bg-blue':total>=60?'bg-amber':'bg-red';
-    return { s, test, exam, total, grade, gc };
-  });
-  const avg = Math.round(subjectData.reduce((a,r)=>a+r.total,0)/subjectData.length);
-  const rank = Math.floor(1 + Math.random()*(classSize-1));
-  const conduct = avg>=85?'Excellent':avg>=75?'Very Good':avg>=65?'Good':avg>=55?'Satisfactory':'Needs Improvement';
-  const conductColor = avg>=85?'bg-green':avg>=75?'bg-blue':avg>=65?'bg-amber':'bg-red';
-  
-  const html = `
-    <div class="report-card-full" id="printable-report">
-      <div class="report-card-top">
-        <div style="font-size:2.5rem;margin-bottom:.5rem">✝</div>
-        <div class="rc-school">Saint François de Sales School</div>
-        <div class="rc-sub">ACADEMIC REPORT CARD — ${term}</div>
-        <div style="font-size:.7rem;color:rgba(255,255,255,.5);margin-top:.25rem;font-style:italic">"Qui s'humilie sera exalté"</div>
-      </div>
-      <div class="rc-student-bar">
-        <div class="rc-student-field"><label>Student Name</label><span>${student}</span></div>
-        <div class="rc-student-field"><label>Class</label><span>${cls}</span></div>
-        <div class="rc-student-field"><label>Term</label><span>${term}</span></div>
-        <div class="rc-student-field"><label>Class Size</label><span>${classSize} Students</span></div>
-        <div class="rc-student-field"><label>Academic Year</label><span>2025–2026</span></div>
-      </div>
-      <div style="overflow-x:auto">
-        <div class="report-subject-row report-header-row">
-          <div>Subject</div><div>Test (/100)</div><div>Exam (/100)</div><div>Total (/100)</div><div>Rank</div><div>Grade</div>
-        </div>
-        ${subjectData.map(r=>`<div class="report-subject-row">
-          <div style="font-weight:600">${r.s}</div>
-          <div>${r.test}</div>
-          <div>${r.exam}</div>
-          <div><b>${r.total}</b></div>
-          <div style="color:var(--muted);font-size:.75rem">—</div>
-          <div><span class="badge ${r.gc}" style="font-size:.65rem">${r.grade}</span></div>
-        </div>`).join('')}
-        <div class="report-subject-row" style="background:rgba(13,61,31,.06);font-weight:700;border-top:2px solid var(--forest)">
-          <div style="font-weight:800;color:var(--forest)">OVERALL</div>
-          <div>—</div><div>—</div>
-          <div><b>${avg}%</b></div>
-          <div style="font-weight:800;color:var(--forest)">${rank} / ${classSize}</div>
-          <div><span class="badge ${conductColor}">${avg>=90?'A+':avg>=80?'A':avg>=70?'B':avg>=60?'C':'D'}</span></div>
-        </div>
-      </div>
-      <div style="padding:1rem 1.5rem;border-top:1px solid var(--border)">
-        <div style="display:flex;flex-wrap:wrap;gap:2rem;font-size:.82rem;margin-bottom:.75rem">
-          <div><b style="color:var(--forest)">Overall Average:</b> ${avg}%</div>
-          <div><b style="color:var(--forest)">Class Rank:</b> ${rank} out of ${classSize}</div>
-          <div><b style="color:var(--forest)">Conduct:</b> <span class="badge ${conductColor}">${conduct}</span></div>
-          <div><b style="color:var(--forest)">Attendance:</b> 93%</div>
-        </div>
-        <div style="font-size:.8rem;color:var(--muted);line-height:1.7;background:var(--cream2);padding:.65rem 1rem;border-radius:var(--r2);border:1px solid var(--border)">
-          <b>Teacher's Comment:</b> ${avg>=80?student.split(' ')[0]+' has performed exceptionally well this term. A diligent and motivated student who sets a great example to peers. Keep up the outstanding work!':avg>=65?student.split(' ')[0]+' has shown good progress this term with consistent effort across most subjects. Continued focus on weaker areas will lead to excellent results.':student.split(' ')[0]+' has shown some progress but needs to apply more effort consistently. With dedication and support, improvement is very achievable next term.'}
-        </div>
-      </div>
-      <div class="rc-footer">
-        <div>
-          <div class="rc-sig-line">Class Teacher</div>
-        </div>
-        <div style="text-align:center">
-          <div style="font-size:.75rem;color:var(--forest);font-weight:700;margin-bottom:.5rem">Official School Stamp</div>
-          <div style="width:80px;height:80px;border:2px dashed var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto">✝</div>
-        </div>
-        <div style="text-align:right">
-          <div class="rc-sig-line" style="margin-left:auto">Head Teacher</div>
-        </div>
-      </div>
-    </div>
-    <div class="rc-print-actions" style="margin-top:1rem;justify-content:center">
-      <button class="print-btn" onclick="printReportCard()">🖨️ Print / Save as PDF</button>
-      <button class="btn btn-ghost" onclick="copyReportAsText('${student}','${cls}','${term}',${avg},${rank},${classSize})">📋 Copy as Text</button>
-    </div>
-  `;
-  const out = document.getElementById('report-card-output');
-  if(out) { out.innerHTML = html; out.scrollIntoView({behavior:'smooth',block:'start'}); }
-  logActivity('Report card generated for '+student+' ('+cls+')', 'gold');
-  toast('Report card generated for '+student+' ✓');
-}
-
-function printReportCard() {
-  const content = document.getElementById('printable-report');
-  if(!content) return;
-  const w = window.open('','_blank','width=900,height=700');
-  w.document.write(`<!DOCTYPE html><html><head><title>Report Card</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}body{font-family:'Outfit',sans-serif;background:#fff;color:#1A1408}
-    .report-card-full{border:2px solid #DDD8CC;border-radius:12px;overflow:hidden;max-width:800px;margin:20px auto}
-    .report-card-top{background:linear-gradient(135deg,#0D3D1F,#246634);color:#fff;padding:1.5rem 2rem;text-align:center}
-    .rc-school{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#E4B84A}
-    .rc-sub{font-size:.75rem;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;margin-top:.25rem}
-    .rc-student-bar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.75rem;padding:1rem 1.5rem;background:#F5F0E8;border-bottom:1px solid #DDD8CC}
-    .rc-student-field{font-size:.8rem} .rc-student-field label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#5C5440;display:block;margin-bottom:.15rem} .rc-student-field span{font-weight:700;color:#0D3D1F}
-    .report-subject-row{display:grid;grid-template-columns:1fr 80px 80px 80px 80px 70px;border-bottom:1px solid #DDD8CC}
-    .report-subject-row>*{padding:.55rem .75rem;font-size:.8rem;border-right:1px solid #DDD8CC} .report-subject-row>*:last-child{border-right:none}
-    .report-header-row{background:#0D3D1F;color:#fff;font-size:.68rem;font-weight:700;text-transform:uppercase}
-    .badge{display:inline-flex;padding:.2rem .65rem;border-radius:100px;font-size:.67rem;font-weight:700}
-    .bg-green{background:#DCFCE7;color:#15803D} .bg-blue{background:#DBEAFE;color:#1D4ED8} .bg-amber{background:#FEF3C7;color:#92400E} .bg-red{background:#FEE2E2;color:#B91C1C}
-    .rc-footer{padding:1.25rem 1.5rem;background:#F5F0E8;border-top:2px solid #DDD8CC;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.8rem;color:#5C5440}
-    .rc-sig-line{border-top:1.5px solid #0D3D1F;width:150px;padding-top:.35rem;text-align:center;font-size:.7rem;font-weight:700;color:#0D3D1F}
-    @media print{.no-print{display:none!important}@page{margin:15mm}}
-  </style></head><body>${content.outerHTML}<script>window.onload=()=>{window.print();}<\/script></body></html>`);
-  w.document.close();
-}
-
-function copyReportAsText(student, cls, term, avg, rank, classSize) {
-  const text = `SAINT FRANCOIS DE SALES SCHOOL\nACADEMIC REPORT CARD — ${term}\n\nStudent: ${student}\nClass: ${cls}\nOverall Average: ${avg}%\nClass Rank: ${rank} / ${classSize}\n\nGenerated on ${new Date().toLocaleDateString('fr-FR')}`;
-  navigator.clipboard.writeText(text).then(()=>toast('Report copied to clipboard ✓')).catch(()=>toast('Could not copy — please print instead'));
-}
-
-function buildPermissionsPage() {
-  const perms = {
-    'Director (Super Admin)': ['Add/Remove Teachers','Add/Remove Students','Manage All Accounts','Change Passwords','View All Data','Generate Reports','Edit Website','Monitor Activity','Assign Roles'],
-    'Head Teacher': ['Add/Remove Teachers','Add/Remove Students','Create User Accounts','Generate Reports','Edit Website','Post Announcements','View All Dashboards'],
-    'Teacher': ['Upload Notes','Set Homework','Enter Grades','Mark Attendance','Manage Quiz','Upload Materials'],
-    'Student': ['View Grades','View Notes','Download Materials','Take Morning Quiz','View Timetable','Listen to Notes (TTS)'],
-    'Parent': ['View Child Grades','View Attendance','View Timetable','View Homework','View Notices'],
-  };
-  const colors = {'Director (Super Admin)':'#7C3AED','Head Teacher':'var(--forest)','Teacher':'var(--blue)','Student':'var(--amber)','Parent':'var(--green)'};
-  return Object.entries(perms).map(([role, list])=>`
-    <div class="card reveal" style="margin-bottom:1.25rem">
-      <div class="card-head" style="border-left:4px solid ${colors[role]}"><h3>${role}</h3></div>
-      <div class="card-body">
-        <div class="perm-grid">
-          ${list.map(p=>`<div class="perm-item"><span>✓ ${p}</span><span class="badge bg-green">Allowed</span></div>`).join('')}
-        </div>
-      </div>
-    </div>`).join('');
-}
-
-function buildWebsiteEditorHTML() {
-  return `
-    <div class="callout cl-tip"><span>🌐</span><p>Changes here update the public school website immediately. Visitors to the homepage will see your updates in real time.</p></div>
-    <div class="g2">
-      <div class="card">
-        <div class="card-head"><h3>🖊️ School Information</h3></div>
-        <div class="settings-form">
-          <div class="mfield"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">About Text</label><textarea id="ws-about" rows="4" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;resize:vertical" placeholder="School description...">${DB.schoolInfo.about}</textarea></div>
-          <div class="mfield"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Address & Contact</label><input type="text" id="ws-address" value="${DB.schoolInfo.address}" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
-          <div class="mrow" style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
-            <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Phone</label><input type="text" id="ws-phone" value="${DB.schoolInfo.phone}" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
-            <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Email</label><input type="email" id="ws-email" value="${DB.schoolInfo.email}" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
-          </div>
-          <div class="mfield"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Mission Statement</label><textarea id="ws-mission" rows="3" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;resize:vertical">${DB.schoolInfo.mission}</textarea></div>
-          <div class="mrow" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem">
-            <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Hours</label><input type="text" id="ws-hours" value="${DB.schoolInfo.hours}" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
-            <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Founded</label><input type="text" id="ws-founded" value="${DB.schoolInfo.founded}" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
-            <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Students</label><input type="text" id="ws-students" value="${DB.schoolInfo.students}" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
-          </div>
-          <div class="mfield"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">📸 School Photo URL</label><input type="url" id="ws-photo" placeholder="https://..." style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
-          <button class="btn btn-gold" onclick="saveWebsiteInfo()">💾 Save & Publish to Website</button>
-          <button class="btn btn-ghost" onclick="saveSchoolPhoto()" style="margin-top:.5rem">📸 Update School Photo</button>
-        </div>
-      </div>
-      <div>
-        <div class="card">
-          <div class="card-head"><h3>📰 Add News / Event</h3></div>
-          <div class="card-body">
-            <div class="mfield"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Headline</label><input type="text" id="ws-news-title" placeholder="News headline..." style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
-            <div class="mfield"><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Summary</label><textarea id="ws-news-body" rows="3" placeholder="Brief description..." style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit;resize:vertical"></textarea></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
-              <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Icon</label><input type="text" id="ws-news-icon" value="📰" maxlength="4" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
-              <div><label style="font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block">Date</label><input type="date" id="ws-news-date" style="width:100%;padding:.65rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.85rem;font-family:inherit"/></div>
-            </div>
-            <button class="btn btn-primary" style="margin-top:1rem;width:100%" onclick="publishNewsFromWebsiteEditor()">📰 Publish to Homepage</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-function publishNewsFromWebsiteEditor() {
-  const title = document.getElementById('ws-news-title')?.value.trim();
-  const body = document.getElementById('ws-news-body')?.value.trim();
-  const icon = document.getElementById('ws-news-icon')?.value || '📰';
-  const date = document.getElementById('ws-news-date')?.value;
-  if(!title){toast('Please enter a headline.');return;}
-  const dateStr = date ? new Date(date).toLocaleDateString('fr-FR') : todayStr();
-  const card = `<div class="news-card"><div class="news-card-img">${icon}</div><div class="news-card-body"><div class="news-card-date">${dateStr}</div><div class="news-card-title">${title}</div><div class="news-card-excerpt">${body}</div></div></div>`;
-  const grid = document.getElementById('pubNewsGrid');
-  if(grid) grid.insertAdjacentHTML('afterbegin', card);
-  toast('News published to homepage ✓');
-  logActivity('News item published: '+title, 'gold');
-}
-
-function changePwdModal(role, user) {
-  toast('Password management: In a live system, this would update the '+role+' password securely in the database.');
-}
-
-function logActivity(msg, type='blue') {
-  ACTIVITY_LOG.unshift({ time: new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}), msg, type });
-}
-
-/* ════════════════════════════════════════════════════════════════════════════
-   §11 · AUDIO LEARNING — TEXT-TO-SPEECH (TTS)
-   ─────────────────────────────────────────────────────────────────────────
-   Uses the Web Speech API (built into all modern browsers, no external API).
-   Students and teachers can listen to any note or material read aloud.
-
-   HOW TO EXTEND:
-   • Add a Listen button to any text block:
-       <button onclick="ttsRead('Your text here', this)">🔊 Listen</button>
-   • Add a full TTS control bar (with speed selector):
-       ${ttsBarHTML(myTextVariable, 'My Note Title')}
-   • Change default language (currently fr-FR):
-       In ttsRead(), change: ttsUtterance.lang = 'rw-RW'; // Kinyarwanda
-   • Change default speed: ttsUtterance.rate = 1.2;
-   ════════════════════════════════════════════════════════════════════════════ */
-let ttsUtterance = null;
-let ttsPlaying = false;
-
-function ttsRead(text, btnEl) {
-  if(!('speechSynthesis' in window)) { toast('Text-to-speech is not supported in your browser.'); return; }
-  if(ttsPlaying) { ttsStop(); return; }
-  const clean = text.replace(/\n/g,' ').replace(/\'/g,"'").trim();
-  ttsUtterance = new SpeechSynthesisUtterance(clean);
-  ttsUtterance.lang = 'fr-FR';
-  ttsUtterance.rate = parseFloat(document.getElementById('tts-speed')?.value || 1);
-  ttsUtterance.pitch = 1;
-  ttsUtterance.volume = 1;
-  ttsUtterance.onstart = () => {
-    ttsPlaying = true;
-    if(btnEl) { btnEl.textContent = '⏹ Stop'; btnEl.classList.add('playing'); }
-    const statusEl = document.getElementById('tts-status-text');
-    if(statusEl) statusEl.textContent = '🔊 Reading aloud...';
-  };
-  ttsUtterance.onend = ttsUtterance.onerror = () => {
-    ttsPlaying = false;
-    if(btnEl) { btnEl.textContent = '🔊 Listen'; btnEl.classList.remove('playing'); }
-    const statusEl = document.getElementById('tts-status-text');
-    if(statusEl) statusEl.textContent = 'Click Listen to hear the content read aloud';
-  };
-  window.speechSynthesis.speak(ttsUtterance);
-}
-
-
-function ttsReadInline(text, btnEl) {
-  if(ttsPlaying && btnEl && btnEl.classList.contains('playing')) { ttsStop(); return; }
-  if(ttsPlaying) ttsStop();
-  ttsRead(text, btnEl);
-}
-
-function ttsStop() {
-  window.speechSynthesis.cancel();
-  ttsPlaying = false;
-  document.querySelectorAll('.tts-btn.playing').forEach(b=>{ b.textContent='🔊 Listen'; b.classList.remove('playing'); });
-  const statusEl = document.getElementById('tts-status-text');
-  if(statusEl) statusEl.textContent = 'Stopped.';
-}
-
-function ttsBarHTML(content, title) {
-  const safe = (content||'').replace(/'/g,"\'").replace(/"/g,'&quot;');
-  return `<div class="tts-bar">
-    <button class="tts-btn" id="tts-btn-${Math.random().toString(36).substr(2,6)}" onclick="ttsRead('${safe}',this)">🔊 Listen</button>
-    <button class="tts-btn stop-btn" onclick="ttsStop()">⏹ Stop</button>
-    <span class="tts-status" id="tts-status-text">Click Listen to hear "${title||'this content'}" read aloud</span>
-    <select class="tts-speed" id="tts-speed" title="Reading speed">
-      <option value="0.7">Slow</option>
-      <option value="1" selected>Normal</option>
-      <option value="1.3">Fast</option>
-      <option value="1.6">Very Fast</option>
-    </select>
   </div>`;
 }
 
+let _activeThread = null;
+function openThread(idx) {
+  _activeThread = idx;
+  const th = DB_MESSAGES.threads[idx];
+  if(!th) return;
+  document.querySelectorAll('.msg-thread').forEach(el=>el.classList.remove('active'));
+  const item = document.getElementById('thread-item-'+idx);
+  if(item) item.classList.add('active');
 
+  const msgsHtml = th.messages.map(m=>`
+    <div class="msg-bubble ${m.role==='teacher'?'msg-bubble-teacher':'msg-bubble-other'}">
+      <div class="msg-bubble-name">${m.from}</div>
+      <div class="msg-bubble-text">${m.text}</div>
+      <div class="msg-bubble-time">${m.time}</div>
+    </div>`).join('');
+
+  const main = document.getElementById('msg-main');
+  if(!main) return;
+  main.innerHTML = `
+    <div class="msg-thread-header">
+      <div class="msg-thread-title">💬 ${th.subject}</div>
+      <button class="btn btn-ghost" style="font-size:.72rem" onclick="speakText('${th.messages.map(m=>m.from+' said: '+m.text).join('. ')}',this)">🔊 Read</button>
+    </div>
+    <div class="msg-body" id="msg-body">${msgsHtml}</div>
+    <div class="msg-composer">
+      <textarea id="msg-input" placeholder="Type your message here…" rows="3"></textarea>
+      <div style="display:flex;gap:.5rem;margin-top:.5rem;justify-content:flex-end">
+        <button class="btn btn-ghost" style="font-size:.78rem" onclick="document.getElementById('msg-input').value=''">Clear</button>
+        <button class="btn btn-primary" onclick="sendMessage(${idx})">Send Message →</button>
+      </div>
+    </div>`;
+  const body = document.getElementById('msg-body');
+  if(body) body.scrollTop = body.scrollHeight;
+}
+
+function sendMessage(threadIdx) {
+  const inp = document.getElementById('msg-input');
+  const text = inp?.value.trim();
+  if(!text){ toast('Please type a message.'); return; }
+  const th = DB_MESSAGES.threads[threadIdx];
+  if(!th) return;
+  const senderName = currentUser.name || 'You';
+  const senderRole = currentRole || 'user';
+  th.messages.push({ from: senderName, role: senderRole, text, time: todayStr() + ' · ' + new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}) });
+  openThread(threadIdx);
+  toast('Message sent ✓');
+}
+
+function openNewMessage() {
+  const subject = prompt('Message subject:');
+  if(!subject || !subject.trim()) return;
+  DB_MESSAGES.threads.unshift({ id: Date.now(), participants: [currentRole,'teacher'], subject: subject.trim(), messages:[] });
+  // Refresh thread list
+  const tl = document.getElementById('thread-list');
+  if(tl) {
+    const threads = DB_MESSAGES.threads;
+    tl.innerHTML = threads.map((th,i) => {
+      const last = th.messages[th.messages.length-1];
+      if(!last) return `<div class="msg-thread" onclick="openThread(${i})" id="thread-item-${i}"><div class="msg-thread-info"><div class="msg-thread-name">${th.subject}</div><div class="msg-thread-preview">No messages yet</div></div></div>`;
+      return `<div class="msg-thread" onclick="openThread(${i})" id="thread-item-${i}"><div class="msg-thread-avatar">${last.role==='teacher'?'👩‍🏫':last.role==='parent'?'👪':'👨‍🎓'}</div><div class="msg-thread-info"><div class="msg-thread-name">${th.subject}</div><div class="msg-thread-preview">${last.from}: ${last.text.substring(0,55)}…</div></div><div class="msg-thread-meta">${last.time.split('·')[0].trim()}</div></div>`;
+    }).join('');
+  }
+  openThread(0);
+  toast('New conversation started ✓');
+}
+
+/* ══════════════════════════════════════════════════════
+   🌍 MULTI-LANGUAGE TOGGLE (English / French)
+══════════════════════════════════════════════════════ */
+let _lang = 'en';
+const LANG = {
+  en: {
+    portalLogin: '🔐 Portal Login', accessPortal: '🔐 Access Portal', learnMore: 'Learn More ↓',
+    about: 'About', values: 'Values', classes: 'Classes', news: 'News', contact: 'Contact',
+    students: 'Students', teachers: 'Teachers', founded: 'Founded',
+    signOut: '⬅ Sign Out', dashboard: 'Dashboard', myGrades: 'My Grades',
+    listen: '🔊 Listen', stop: '⏹ Stop Audio',
+    langBtn: '🌍 Français'
+  },
+  fr: {
+    portalLogin: '🔐 Connexion Portail', accessPortal: '🔐 Accéder au Portail', learnMore: 'En savoir plus ↓',
+    about: 'À propos', values: 'Valeurs', classes: 'Classes', news: 'Actualités', contact: 'Contact',
+    students: 'Élèves', teachers: 'Enseignants', founded: 'Fondée',
+    signOut: '⬅ Déconnexion', dashboard: 'Tableau de bord', myGrades: 'Mes Notes',
+    listen: '🔊 Écouter', stop: '⏹ Arrêter',
+    langBtn: '🌍 English'
+  }
+};
+
+function toggleLanguage() {
+  _lang = _lang === 'en' ? 'fr' : 'en';
+  const L = LANG[_lang];
+  // Update public nav links
+  const navLinks = document.querySelectorAll('.pub-nav-link');
+  const keys = ['about','values','classes','news','contact'];
+  navLinks.forEach((a,i) => { if(keys[i]) a.textContent = L[keys[i]]; });
+  // Update portal button
+  const portalBtn = document.querySelector('.pub-nav-portal');
+  if(portalBtn) portalBtn.textContent = L.portalLogin;
+  // Update hero buttons
+  const heroBtn = document.querySelector('.hero-btn-primary');
+  if(heroBtn) heroBtn.textContent = L.accessPortal;
+  const heroOutline = document.querySelector('.hero-btn-outline');
+  if(heroOutline) heroOutline.textContent = L.learnMore;
+  // Update stat labels
+  const statLabels = document.querySelectorAll('.hero-stat-lbl');
+  const statKeys = ['students','','teachers','founded'];
+  statLabels.forEach((el,i) => { if(statKeys[i]) el.textContent = L[statKeys[i]]; });
+  // Update lang button
+  const langBtn = document.getElementById('langToggleBtn');
+  if(langBtn) langBtn.textContent = L.langBtn;
+  // Update sign out btn
+  const soBtn = document.querySelector('.signout-btn');
+  if(soBtn) soBtn.textContent = L.signOut;
+  toast(_lang==='fr' ? 'Interface en Français ✓' : 'Interface in English ✓');
+}
+
+/* ══════════════════════════════════════════════════════
+   🔑 CHANGE PASSWORD
+══════════════════════════════════════════════════════ */
+function openChangePassword() {
+  openModal('changePassword');
+}
+
+function saveNewPassword() {
+  const current = document.getElementById('cp-current')?.value.trim();
+  const newPass  = document.getElementById('cp-new')?.value.trim();
+  const confirm  = document.getElementById('cp-confirm')?.value.trim();
+  if(!current || !newPass || !confirm){ toast('Please fill all fields.'); return; }
+  if(newPass !== confirm){ toast('❌ New passwords do not match.'); return; }
+  if(newPass.length < 6){ toast('❌ Password must be at least 6 characters.'); return; }
+  // Validate current password
+  let valid = false;
+  if(currentRole === 'ht'   && current === CREDS.ht.pass)      { CREDS.ht.pass = newPass; valid = true; }
+  if(currentRole === 'director' && current === CREDS.director.pass) { CREDS.director.pass = newPass; valid = true; }
+  if(currentRole === 'teacher'  && current === CREDS.teacher.pass)  { CREDS.teacher.pass  = newPass; valid = true; }
+  if(currentRole === 'student'  && current === CREDS.student.pass)  { CREDS.student.pass  = newPass; valid = true; }
+  if(!valid){ toast('❌ Current password is incorrect.'); return; }
+  closeModal('changePassword');
+  document.getElementById('cp-current').value = '';
+  document.getElementById('cp-new').value = '';
+  document.getElementById('cp-confirm').value = '';
+  toast('✅ Password changed successfully!');
+}
+
+/* ══════════════════════════════════════════════════════
+   🔊 TTS CONTROLS PANEL
+══════════════════════════════════════════════════════ */
+function openTTSPanel() {
+  openModal('ttsControls');
+  // Load available voices
+  const voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+  const sel = document.getElementById('tts-voice-sel');
+  if(sel && voices.length) {
+    sel.innerHTML = voices.map((v,i)=>`<option value="${i}">${v.name} (${v.lang})</option>`).join('');
+  }
+}
+
+let _ttsRate = 0.92;
+let _ttsPitch = 1;
+let _ttsVoiceIdx = 0;
+
+function applyTTSSettings() {
+  _ttsRate  = parseFloat(document.getElementById('tts-rate')?.value  || 0.92);
+  _ttsPitch = parseFloat(document.getElementById('tts-pitch')?.value || 1);
+  _ttsVoiceIdx = parseInt(document.getElementById('tts-voice-sel')?.value || 0);
+  closeModal('ttsControls');
+  toast(`🔊 TTS settings saved — Speed: ${_ttsRate}x · Pitch: ${_ttsPitch}`);
+}
+
+/* ══════════════════════════════════════════════════════
+   📤 EXCEL/FILE UPLOAD FOR MARKS
+══════════════════════════════════════════════════════ */
+function openMarksUpload(cls) {
+  document.getElementById('mu-class').textContent = cls;
+  document.getElementById('mu-cls-hidden').value = cls;
+  openModal('marksUpload');
+}
+
+function processMarksFile() {
+  const file = document.getElementById('mu-file')?.files[0];
+  const cls  = document.getElementById('mu-cls-hidden')?.value;
+  if(!file){ toast('Please select a file.'); return; }
+  const ext = file.name.split('.').pop().toLowerCase();
+  if(!['xlsx','xls','csv'].includes(ext)){ toast('Please upload an Excel (.xlsx/.xls) or CSV file.'); return; }
+  // Simulate processing
+  const reader = new FileReader();
+  reader.onload = function() {
+    closeModal('marksUpload');
+    toast(`✅ Marks file "${file.name}" uploaded for class ${cls}. Grades updated.`);
+    // In a real implementation, SheetJS (xlsx) would parse the file here
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function downloadMarksTemplate() {
+  // Generate a CSV template for marks entry
+  const cls = document.getElementById('mu-cls-hidden')?.value || 'CLASS';
+  const students = STUDENTS[cls] || ['Student 1','Student 2','Student 3'];
+  const subjects = (DB.subjects[cls] || ['French','Mathematics','Science','Religion','History','English']).slice(0,6);
+  let csv = 'Student Name,' + subjects.map(s=>s+' Test,'+s+' Exam').join(',') + '\n';
+  students.forEach(s => { csv += s + ',' + subjects.map(()=>'0,0').join(',') + '\n'; });
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = `Marks_Template_${cls}.csv`; a.click();
+  URL.revokeObjectURL(url);
+  toast('Template downloaded ✓');
+}
+
+/* ══════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
   initReveal();
   updateClock();
