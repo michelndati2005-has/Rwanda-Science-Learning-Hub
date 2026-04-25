@@ -219,6 +219,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .pass-toggle:hover{color:var(--forest)}
 .login-hint-box{background:var(--cream2);border:1px solid var(--border);border-radius:var(--r2);padding:.6rem .9rem;font-size:.72rem;color:var(--muted);margin-bottom:.9rem;line-height:1.8}
 .login-hint-box b{color:var(--forest)}
+.show-pass-btn{background:var(--forest);color:#fff;border:none;border-radius:4px;padding:.15rem .55rem;font-size:.65rem;cursor:pointer;font-family:inherit;margin-left:.3rem}
+.show-pass-btn:hover{background:var(--forest3)}
 .login-btn{width:100%;padding:.88rem;background:linear-gradient(135deg,var(--forest),var(--forest3));color:#fff;border:none;border-radius:var(--r2);font-size:.92rem;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(13,61,31,.3);transition:var(--ease)}
 .login-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(13,61,31,.4)}
 .login-msg{border-radius:var(--r2);padding:.6rem .9rem;font-size:.79rem;font-weight:700;text-align:center;margin-top:.75rem;display:none}
@@ -533,6 +535,299 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
 .lang-btn{background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.15);border-radius:var(--r2);padding:.32rem .85rem;font-size:.72rem;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--ease)}
 .lang-btn:hover{background:rgba(255,255,255,.18);color:#fff}
 
+/* ══ DARK MODE ══ */
+body.dark-mode{--bg:#0f1a0f;--surface:#1a2e1a;--surface2:#1e351e;--border:#2d4d2d;--border2:#3a5e3a;--text:#e8f5e8;--muted:#9ab89a;--muted2:#6a8c6a;--cream:#111e11;--cream2:#162416;--warm:#1a2e1a;--parchment:#1a2e1a;--shadow:0 2px 8px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3);--shadow-lg:0 12px 40px rgba(0,0,0,.5)}
+body.dark-mode .pub-nav{background:rgba(5,12,5,.97)}
+body.dark-mode .hero{background:linear-gradient(160deg,#060e06 0%,#0d1a0d 45%,#111f11 100%)}
+body.dark-mode .appnav{background:#0a150a;border-bottom-color:rgba(150,200,150,.15)}
+body.dark-mode .sidebar{background:#0f1a0f}
+body.dark-mode .sitem.on{background:linear-gradient(90deg,rgba(150,220,150,.1) 0%,var(--surface) 100%)}
+body.dark-mode input:not([type=range]),body.dark-mode textarea,body.dark-mode select{background:var(--surface2)!important;color:var(--text)!important;border-color:var(--border)!important}
+body.dark-mode .modal{background:var(--surface)}
+body.dark-mode .modal-overlay{background:rgba(0,0,0,.85)}
+body.dark-mode .login-card{background:var(--surface);border-color:var(--border)}
+body.dark-mode .role-tabs{background:var(--surface2);border-color:var(--border)}
+body.dark-mode .rtab.on{background:var(--surface)}
+body.dark-mode .callout{background:var(--surface2);border-color:var(--border)}
+body.dark-mode .mat-card,.dark-mode .mat-preview{background:var(--surface2)}
+body.dark-mode .pub-section-full{background:var(--surface2)}
+body.dark-mode .about-card{background:var(--surface)}
+body.dark-mode .value-card,.dark-mode .news-card{background:var(--surface)}
+body.dark-mode .msg-body{background:var(--surface2)}
+body.dark-mode .msg-sidebar{background:var(--surface2)}
+body.dark-mode .tbl table tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+body.dark-mode .hero-btn-outline{border-color:rgba(200,255,200,.25);color:rgba(255,255,255,.8)}
+.dm-toggle{background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.15);border-radius:var(--r2);padding:.32rem .6rem;font-size:.85rem;cursor:pointer;font-family:inherit;transition:var(--ease);line-height:1}
+.dm-toggle:hover{background:rgba(255,255,255,.18)}
+
+/* ══ VIRTUAL CLASSROOM ══ */
+.vc-room{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-lg)}
+.vc-header{background:linear-gradient(135deg,var(--forest),var(--forest3));color:#fff;padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center}
+.vc-header h3{font-size:1rem;font-weight:700;margin:0}
+.vc-live-badge{display:flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.15);border-radius:100px;padding:.25rem .65rem;font-size:.7rem;font-weight:700}
+.vc-live-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;animation:pulse 1.5s infinite}
+.vc-body{display:grid;grid-template-columns:1fr 280px;min-height:480px}
+@media(max-width:640px){.vc-body{grid-template-columns:1fr}}
+.vc-stage{background:#060e06;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;min-height:320px}
+.vc-stage-placeholder{text-align:center;color:rgba(255,255,255,.4);padding:2rem}
+.vc-stage-placeholder .vc-icon{font-size:3.5rem;margin-bottom:.75rem;display:block}
+.vc-toolbar{position:absolute;bottom:0;left:0;right:0;padding:.75rem 1rem;background:rgba(0,0,0,.65);display:flex;justify-content:center;gap:.65rem;flex-wrap:wrap}
+.vc-ctrl{width:42px;height:42px;border-radius:50%;border:2px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:var(--ease)}
+.vc-ctrl:hover{background:rgba(255,255,255,.25)}
+.vc-ctrl.on{background:rgba(74,222,128,.25);border-color:rgba(74,222,128,.6)}
+.vc-ctrl.end{background:rgba(220,38,38,.8);border-color:rgba(220,38,38,.6)}
+.vc-panel{display:flex;flex-direction:column;border-left:1px solid var(--border);background:var(--surface)}
+.vc-ptabs{display:flex;border-bottom:1px solid var(--border)}
+.vc-ptab{flex:1;padding:.5rem .25rem;text-align:center;font-size:.7rem;font-weight:700;cursor:pointer;border:none;background:none;font-family:inherit;color:var(--muted);transition:var(--ease);border-bottom:2px solid transparent}
+.vc-ptab.on{color:var(--forest);border-bottom-color:var(--forest);background:var(--cream2)}
+.vc-list{flex:1;overflow-y:auto;padding:.5rem}
+.vc-person{display:flex;align-items:center;gap:.5rem;padding:.4rem .5rem;border-radius:var(--r2);font-size:.78rem;margin-bottom:.2rem}
+.vc-person:hover{background:var(--cream2)}
+.vc-pav{width:28px;height:28px;border-radius:50%;background:var(--forest2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;flex-shrink:0}
+.vc-chat-area{flex:1;overflow-y:auto;padding:.65rem;font-size:.78rem;display:flex;flex-direction:column;gap:.4rem}
+.vc-chat-bubble{padding:.4rem .65rem;border-radius:var(--r2);max-width:90%;word-break:break-word}
+.vc-chat-bubble.me{background:var(--forest);color:#fff;align-self:flex-end}
+.vc-chat-bubble.other{background:var(--cream2);align-self:flex-start}
+.vc-chat-name{font-size:.62rem;opacity:.7;margin-bottom:.1rem}
+.vc-composer{display:flex;gap:.35rem;padding:.5rem;border-top:1px solid var(--border)}
+.vc-composer input{flex:1;padding:.38rem .6rem;border:1.5px solid var(--border);border-radius:var(--r2);font-size:.75rem;font-family:inherit;background:var(--cream2);color:var(--text)}
+.vc-composer button{background:var(--forest);color:#fff;border:none;border-radius:var(--r2);padding:.38rem .65rem;font-size:.72rem;cursor:pointer}
+.vc-whiteboard{width:100%;height:100%;min-height:300px;background:#1a1a2e;position:relative}
+.vc-whiteboard canvas{width:100%;height:100%;cursor:crosshair}
+
+/* ══ CALCULATOR ══ */
+.calc-outer{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;max-width:280px;box-shadow:var(--shadow-lg)}
+.calc-screen{background:#0a150a;padding:1rem 1rem .6rem;text-align:right}
+.calc-hist{font-size:.68rem;color:rgba(255,255,255,.35);min-height:16px;font-family:'Courier New',monospace}
+.calc-num{font-size:2rem;color:#fff;font-family:'Courier New',monospace;font-weight:300;word-break:break-all;line-height:1.2}
+.calc-pad{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.cb{padding:.8rem .4rem;font-size:.9rem;font-weight:600;border:none;cursor:pointer;font-family:inherit;transition:background .15s;background:var(--surface);color:var(--text);text-align:center}
+.cb:hover{background:var(--cream2)}
+.cb.fn{background:var(--cream2);color:var(--muted);font-size:.75rem}
+.cb.op{background:rgba(200,151,42,.12);color:var(--gold)}
+.cb.eq{background:var(--forest);color:#fff;font-size:1.1rem}
+.cb.eq:hover{background:var(--forest3)}
+.cb.del{background:var(--red-bg);color:var(--red)}
+
+/* ══ ALARM CLOCK ══ */
+.clock-face{width:160px;height:160px;border-radius:50%;border:5px solid var(--forest);background:var(--surface);margin:0 auto 1rem;position:relative;box-shadow:var(--shadow-lg)}
+.clock-tick{position:absolute;bottom:50%;left:50%;transform-origin:bottom center;border-radius:3px}
+.ht{width:4px;height:45px;background:var(--forest);margin-left:-2px}
+.mt{width:2px;height:58px;background:var(--forest3);margin-left:-1px}
+.st{width:1.5px;height:62px;background:var(--gold);margin-left:-.75px}
+.clock-dot{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:8px;height:8px;border-radius:50%;background:var(--gold)}
+
+/* ══ ALARM ITEM ══ */
+.alarm-item{display:flex;align-items:center;justify-content:space-between;padding:.6rem .85rem;border:1px solid var(--border);border-radius:var(--r2);margin-bottom:.5rem;background:var(--surface)}
+.alarm-time{font-size:1.1rem;font-weight:700;color:var(--forest);font-family:monospace}
+.alarm-label{font-size:.72rem;color:var(--muted);margin-top:.1rem}
+
+/* ══ AI SEARCH ══ */
+.ai-search-wrap{background:var(--surface);border:2px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.ai-search-row{display:flex;align-items:center;padding:.65rem 1rem;border-bottom:1px solid var(--border);gap:.5rem}
+.ai-search-row input{flex:1;border:none;background:transparent;font-size:.92rem;font-family:inherit;color:var(--text);outline:none}
+.ai-search-row input::placeholder{color:var(--muted2)}
+.ai-srch-btn{padding:.38rem .85rem;border:none;border-radius:var(--r2);font-size:.75rem;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--ease)}
+.ai-srch-btn.ai{background:var(--forest);color:#fff}
+.ai-srch-btn.g{background:#4285F4;color:#fff}
+.ai-answer{padding:1rem 1.25rem;min-height:100px;font-size:.85rem;line-height:1.75;color:var(--text)}
+.ai-cursor{display:inline-block;width:2px;height:14px;background:var(--forest);vertical-align:middle;animation:pulse .7s infinite}
+
+/* ══ QUIZ BUILDER TYPES ══ */
+.qtype-sel{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;margin-bottom:1rem}
+.qtype-opt{border:2px solid var(--border);border-radius:var(--r2);padding:.6rem .75rem;cursor:pointer;font-size:.8rem;display:flex;align-items:center;gap:.5rem;transition:var(--ease);font-weight:600;color:var(--muted)}
+.qtype-opt:hover,.qtype-opt.sel{border-color:var(--forest);background:rgba(13,61,31,.06);color:var(--forest)}
+
+/* ══ SUBMISSION ══ */
+.sub-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0 1rem}
+.sub-tab{border:2px solid var(--border);border-radius:var(--r2);padding:.4rem .85rem;font-size:.78rem;cursor:pointer;font-family:inherit;background:var(--surface);color:var(--muted);font-weight:600;transition:var(--ease)}
+.sub-tab.sel,.sub-tab:hover{border-color:var(--forest);background:rgba(13,61,31,.06);color:var(--forest)}
+
+/* ══ CALENDAR ══ */
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
+.cal-nav h3{font-size:.92rem;font-weight:700;color:var(--forest)}
+.cal-nav button{background:none;border:1px solid var(--border);border-radius:var(--r2);padding:.25rem .6rem;cursor:pointer;font-size:.85rem;color:var(--muted);font-family:inherit;transition:var(--ease)}
+.cal-nav button:hover{background:var(--cream2)}
+.cal-head{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:.25rem}
+.cal-hd{text-align:center;font-size:.6rem;font-weight:700;color:var(--muted);padding:.2rem;text-transform:uppercase}
+.cal-body{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-cell{min-height:52px;border:1px solid var(--border);border-radius:var(--r2);padding:.25rem .3rem;font-size:.72rem;background:var(--surface);transition:var(--ease);cursor:pointer}
+.cal-cell:hover{background:var(--cream2)}
+.cal-cell.today{border-color:var(--gold);background:rgba(200,151,42,.06)}
+.cal-cell.empty{background:transparent;border-color:transparent;cursor:default}
+.cal-cell-num{font-weight:700;color:var(--muted)}
+.cal-evt{background:var(--forest2);color:#fff;border-radius:2px;padding:.1rem .2rem;font-size:.58rem;margin-top:.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ══ PROFILE ══ */
+.profile-av{width:80px;height:80px;border-radius:50%;border:3px solid var(--gold);overflow:hidden;cursor:pointer;position:relative;flex-shrink:0;box-shadow:var(--shadow-gold)}
+.profile-av img{width:100%;height:100%;object-fit:cover}
+.profile-av .av-lens{position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;opacity:0;transition:var(--ease);font-size:.62rem;color:#fff;font-weight:700;text-align:center}
+.profile-av:hover .av-lens{opacity:1}
+
+/* ══ TEACHER CREDS TABLE (no passwords shown) ══ */
+.cred-row td:nth-child(4){filter:blur(6px);transition:filter .2s;cursor:pointer;user-select:none}
+.cred-row td:nth-child(4):hover{filter:none}
+
+/* ══ DARK MODE ══ */
+body.dark-mode {
+  --cream:#1a1a1a; --cream2:#222; --parchment:#1e1e1e; --surface:#252525;
+  --border:#333; --text:#e8e8e8; --muted:#999; --muted2:#666;
+  --forest:#4ade80; --forest2:#166534; --forest3:#22c55e; --gold:#fbbf24; --gold2:#f59e0b;
+}
+body.dark-mode .appnav{ background:#111; border-bottom-color:#333; }
+body.dark-mode .sidebar{ background:#1a1a1a; border-right-color:#333; }
+body.dark-mode .card,.dark-mode .scard{ background:#252525; border-color:#333; }
+body.dark-mode input,body.dark-mode textarea,body.dark-mode select{ background:#333;color:#e8e8e8;border-color:#444; }
+body.dark-mode .login-card{ background:#1e1e1e; }
+body.dark-mode #loginOverlay{ background:rgba(0,0,0,.85); }
+body.dark-mode .pub-nav{ background:rgba(10,10,10,.97); }
+body.dark-mode .callout{ background:#2a2a2a; border-color:#444; }
+
+/* ══ PROFILE PICTURE ══ */
+.profile-avatar{width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid var(--forest);display:block}
+.profile-avatar-sm{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid var(--forest);display:inline-block;vertical-align:middle}
+.user-av-img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)}
+.upload-avatar-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .85rem;background:var(--forest);color:#fff;border:none;border-radius:var(--r2);font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--ease)}
+.upload-avatar-btn:hover{background:var(--forest3)}
+
+/* ══ VIRTUAL CLASSROOM ══ */
+.vc-room{background:linear-gradient(160deg,#0d1b2a,#1a3350);border-radius:var(--r);overflow:hidden;min-height:500px;display:flex;flex-direction:column;color:#fff}
+.vc-header{padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.3);border-bottom:1px solid rgba(255,255,255,.1)}
+.vc-title{font-weight:800;font-size:1rem;display:flex;align-items:center;gap:.5rem}
+.vc-status{display:flex;align-items:center;gap:.4rem;font-size:.75rem;color:rgba(255,255,255,.6)}
+.vc-status.live{color:#4ade80}
+.vc-status.live::before{content:'';width:8px;height:8px;background:#4ade80;border-radius:50%;animation:pulse 1.5s infinite}
+.vc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.75rem;padding:1rem;flex:1}
+.vc-participant{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.25rem;text-align:center;transition:var(--ease);cursor:pointer;position:relative}
+.vc-participant:hover{background:rgba(255,255,255,.1)}
+.vc-participant.speaking{border-color:#4ade80;box-shadow:0 0 0 2px rgba(74,222,128,.3)}
+.vc-participant.hand-raised::after{content:'✋';position:absolute;top:.5rem;right:.5rem;font-size:1rem}
+.vc-participant-av{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--forest),var(--gold));display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto .5rem;font-weight:700}
+.vc-participant-name{font-size:.75rem;font-weight:700;color:#fff;margin-bottom:.2rem}
+.vc-participant-status{font-size:.65rem;color:rgba(255,255,255,.5)}
+.vc-controls{padding:.85rem 1.5rem;background:rgba(0,0,0,.35);border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap}
+.vc-btn{padding:.5rem 1.1rem;border:none;border-radius:99px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--ease);display:flex;align-items:center;gap:.3rem}
+.vc-btn-red{background:#ef4444;color:#fff}
+.vc-btn-red:hover{background:#dc2626}
+.vc-btn-green{background:#22c55e;color:#fff}
+.vc-btn-green:hover{background:#16a34a}
+.vc-btn-gray{background:rgba(255,255,255,.12);color:#fff}
+.vc-btn-gray:hover{background:rgba(255,255,255,.22)}
+.vc-btn-muted{background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3)}
+.vc-btn.active{background:var(--gold);color:#1a1a1a}
+.vc-chat{width:280px;background:rgba(0,0,0,.4);border-left:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;flex-shrink:0}
+.vc-chat-messages{flex:1;overflow-y:auto;padding:.75rem;display:flex;flex-direction:column;gap:.5rem;max-height:320px}
+.vc-chat-msg{background:rgba(255,255,255,.07);border-radius:8px;padding:.45rem .6rem;font-size:.75rem}
+.vc-chat-msg-name{font-weight:700;font-size:.68rem;color:var(--gold);margin-bottom:.15rem}
+.vc-chat-input{padding:.65rem;border-top:1px solid rgba(255,255,255,.1);display:flex;gap:.4rem}
+.vc-chat-input input{flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:99px;padding:.35rem .75rem;font-size:.78rem;font-family:inherit;outline:none}
+.vc-chat-input input::placeholder{color:rgba(255,255,255,.35)}
+.vc-whiteboard{flex:1;background:#fff;border-radius:8px;margin:.75rem;cursor:crosshair;display:block}
+.vc-board-area{flex:1;display:flex;flex-direction:column;padding:.5rem}
+.vc-tabs{display:flex;gap:.25rem;padding:.5rem 1rem 0}
+.vc-tab{padding:.35rem .85rem;border-radius:8px 8px 0 0;font-size:.75rem;font-weight:700;cursor:pointer;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);border:none;font-family:inherit;transition:var(--ease)}
+.vc-tab.on{background:#fff;color:#0d1b2a}
+.vc-layout{display:flex;flex:1;overflow:hidden}
+.vc-screen{flex:1;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;font-size:3rem;border-right:1px solid rgba(255,255,255,.1);min-height:280px}
+.vc-sidebar-panel{width:280px;background:rgba(0,0,0,.3);display:flex;flex-direction:column}
+.vc-participants-list{flex:1;overflow-y:auto;padding:.5rem}
+.vc-participant-row{display:flex;align-items:center;gap:.5rem;padding:.4rem .5rem;border-radius:6px;transition:var(--ease)}
+.vc-participant-row:hover{background:rgba(255,255,255,.06)}
+
+/* ══ QUIZ BUILDER ══ */
+.qb-question{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem 1.25rem;margin-bottom:1rem;position:relative}
+.qb-question-num{position:absolute;top:-10px;left:1rem;background:var(--forest);color:#fff;font-size:.65rem;font-weight:800;padding:.2rem .6rem;border-radius:99px;letter-spacing:.05em}
+.qb-q-type{display:inline-flex;gap:.4rem;margin-bottom:.75rem;flex-wrap:wrap}
+.qb-type-btn{padding:.28rem .7rem;border:1.5px solid var(--border);border-radius:99px;font-size:.72rem;font-weight:700;cursor:pointer;background:transparent;font-family:inherit;color:var(--muted);transition:var(--ease)}
+.qb-type-btn.on{background:var(--forest);color:#fff;border-color:var(--forest)}
+.qb-fill-blank{background:var(--cream2);border-radius:var(--r2);padding:.6rem .85rem;font-size:.85rem;color:var(--muted);text-align:center;border:2px dashed var(--border)}
+.qb-match-pair{display:grid;grid-template-columns:1fr auto 1fr;gap:.5rem;align-items:center;margin-bottom:.35rem}
+.qb-order-item{background:var(--cream2);border:1px solid var(--border);border-radius:var(--r2);padding:.45rem .75rem;margin-bottom:.3rem;display:flex;align-items:center;gap:.5rem;cursor:grab;font-size:.82rem}
+.qb-order-item::before{content:'⠿';color:var(--muted);font-size:.9rem}
+
+/* ══ CALCULATOR ══ */
+.calc-wrap{background:linear-gradient(160deg,#1a1a2e,#16213e);border-radius:16px;overflow:hidden;width:100%;max-width:340px;box-shadow:0 8px 40px rgba(0,0,0,.4);margin:0 auto}
+.calc-display{background:#0a0a1a;padding:1rem 1.25rem .6rem;text-align:right}
+.calc-expr{font-size:.75rem;color:rgba(255,255,255,.4);min-height:1.2em;word-break:break-all}
+.calc-val{font-size:2.2rem;font-weight:300;color:#fff;letter-spacing:-.02em;word-break:break-all;line-height:1.1}
+.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#111}
+.calc-btn{padding:1rem;font-size:.95rem;font-weight:600;border:none;cursor:pointer;font-family:inherit;transition:background .1s;background:#1e1e3a;color:#fff}
+.calc-btn:hover{background:#2a2a4a}
+.calc-btn:active{background:#333}
+.calc-btn.op{background:#2d1b4e;color:#c084fc}
+.calc-btn.op:hover{background:#3d2560}
+.calc-btn.eq{background:#0d3d1f;color:#4ade80;grid-row:span 2}
+.calc-btn.eq:hover{background:#166534}
+.calc-btn.clr{background:#3d1515;color:#f87171}
+.calc-btn.zero{grid-column:span 2}
+.calc-btn.sci{background:#1a2a1a;color:#86efac;font-size:.78rem}
+.calc-btn.sci:hover{background:#1e3a1e}
+.calc-sci-row{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:#111}
+
+/* ══ AI SEARCH ══ */
+.ai-search-box{background:linear-gradient(135deg,var(--forest),var(--forest3));border-radius:var(--r);padding:1.5rem;color:#fff;margin-bottom:1.25rem}
+.ai-search-input-wrap{display:flex;gap:.5rem;margin-top:.85rem}
+.ai-search-input{flex:1;padding:.75rem 1rem;border:none;border-radius:var(--r2);font-size:.88rem;font-family:inherit;outline:none;background:rgba(255,255,255,.15);color:#fff;caret-color:#fff}
+.ai-search-input::placeholder{color:rgba(255,255,255,.5)}
+.ai-search-btn{padding:.75rem 1.25rem;background:var(--gold);color:var(--forest);border:none;border-radius:var(--r2);font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--ease);white-space:nowrap}
+.ai-search-btn:hover{background:var(--gold2)}
+.ai-response-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;margin-top:1rem;min-height:120px}
+.ai-response-typing{display:flex;align-items:center;gap:.5rem;color:var(--muted);font-size:.82rem;font-style:italic}
+.ai-response-typing span{display:flex;gap:3px}
+.ai-response-typing span i{width:6px;height:6px;background:var(--forest3);border-radius:50%;animation:pulse .6s ease-in-out infinite}
+.ai-response-typing span i:nth-child(2){animation-delay:.2s}
+.ai-response-typing span i:nth-child(3){animation-delay:.4s}
+.ai-result-text{font-size:.88rem;line-height:1.75;color:var(--text)}
+.ai-source-btns{display:flex;gap:.5rem;margin-top:.85rem;flex-wrap:wrap}
+.ai-src-btn{padding:.35rem .85rem;border-radius:99px;border:1.5px solid var(--border);font-size:.72rem;font-weight:700;cursor:pointer;background:transparent;font-family:inherit;color:var(--muted);transition:var(--ease)}
+.ai-src-btn:hover{background:var(--forest);color:#fff;border-color:var(--forest)}
+
+/* ══ SCIENTIFIC ALARM CLOCK ══ */
+.clock-face{width:220px;height:220px;border-radius:50%;background:linear-gradient(135deg,#0D3D1F,#246634);border:6px solid var(--gold);margin:0 auto;position:relative;box-shadow:0 8px 40px rgba(13,61,31,.4),inset 0 2px 8px rgba(255,255,255,.1)}
+.clock-hand{position:absolute;bottom:50%;left:50%;transform-origin:bottom center;border-radius:99px;transition:transform .5s cubic-bezier(.4,2.08,.55,.44)}
+.clock-hour{width:5px;height:55px;background:var(--gold);margin-left:-2.5px}
+.clock-minute{width:3px;height:75px;background:#fff;margin-left:-1.5px}
+.clock-second{width:1.5px;height:82px;background:#ef4444;margin-left:-.75px;transition:transform .2s linear}
+.clock-center{position:absolute;top:50%;left:50%;width:12px;height:12px;background:var(--gold);border-radius:50%;transform:translate(-50%,-50%);z-index:10;box-shadow:0 0 0 2px rgba(200,151,42,.4)}
+.clock-number{position:absolute;font-size:.72rem;font-weight:800;color:rgba(255,255,255,.8);transform:translate(-50%,-50%);font-family:var(--font-serif)}
+.alarm-time-display{font-size:3.5rem;font-weight:800;letter-spacing:.04em;color:var(--forest);font-family:var(--font-serif);text-align:center;margin:.5rem 0}
+.alarm-date-display{font-size:.85rem;color:var(--muted);text-align:center;margin-bottom:1rem}
+.alarm-controls{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-top:.75rem}
+.alarm-item{background:var(--cream2);border:1px solid var(--border);border-radius:var(--r2);padding:.5rem .85rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-size:.82rem}
+.alarm-active{border-left:3px solid var(--forest3)}
+
+/* ══ CLASS MANAGEMENT ══ */
+.class-chip-edit{display:inline-flex;align-items:center;gap:.35rem;background:var(--forest);color:#fff;border-radius:8px;padding:.3rem .75rem;font-size:.8rem;font-weight:700;margin:.2rem}
+.class-chip-edit button{background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:4px;width:18px;height:18px;font-size:.65rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit;padding:0;flex-shrink:0}
+.class-chip-edit button:hover{background:rgba(255,255,255,.4)}
+
+/* ══ HOMEWORK SUBMISSION ══ */
+.submission-method{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:.75rem 0}
+.sub-method-btn{padding:.85rem .5rem;border:2px solid var(--border);border-radius:var(--r2);text-align:center;cursor:pointer;transition:var(--ease);background:var(--surface);font-size:.78rem;font-weight:700;color:var(--muted)}
+.sub-method-btn:hover,.sub-method-btn.on{border-color:var(--forest);color:var(--forest);background:rgba(13,61,31,.06)}
+.sub-method-icon{font-size:1.5rem;display:block;margin-bottom:.3rem}
+.submission-card{background:var(--cream2);border:1px solid var(--border);border-radius:var(--r);padding:.85rem 1rem;margin-bottom:.6rem;display:flex;justify-content:space-between;align-items:center}
+.sub-status{display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;font-weight:700;padding:.25rem .6rem;border-radius:99px}
+.sub-status.submitted{background:#dcfce7;color:#15803d}
+.sub-status.pending{background:#fef3c7;color:#92400e}
+.sub-status.late{background:#fee2e2;color:#b91c1c}
+
+/* ══ CALENDAR ══ */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-day-header{text-align:center;font-size:.65rem;font-weight:800;color:var(--muted);padding:.35rem 0;text-transform:uppercase;letter-spacing:.08em}
+.cal-day{min-height:68px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.3rem;cursor:pointer;transition:var(--ease);position:relative}
+.cal-day:hover{background:var(--cream2);border-color:var(--forest3)}
+.cal-day.today{border-color:var(--forest);background:rgba(13,61,31,.06)}
+.cal-day.other-month{opacity:.35}
+.cal-day-num{font-size:.78rem;font-weight:700;color:var(--text)}
+.cal-day.today .cal-day-num{background:var(--forest);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.72rem}
+.cal-event{font-size:.6rem;background:var(--forest);color:#fff;border-radius:3px;padding:.1rem .3rem;margin-top:.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cal-event.holiday{background:var(--gold);color:#1a1a1a}
+.cal-event.exam{background:#ef4444}
+.cal-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:.85rem}
+.cal-nav-btn{background:none;border:1.5px solid var(--border);border-radius:var(--r2);padding:.35rem .75rem;cursor:pointer;font-family:inherit;color:var(--muted);font-size:.8rem;transition:var(--ease)}
+.cal-nav-btn:hover{background:var(--forest);color:#fff;border-color:var(--forest)}
+
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
 
 /* ══ ANIMATIONS ══ */
@@ -601,6 +896,7 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
       <a class="pub-nav-link" href="#contact">Contact</a>
     </div>
     <div style="display:flex;align-items:center;gap:.6rem">
+      <button class="dm-toggle" onclick="toggleDarkMode()" id="dmBtnPub" title="Dark Mode">🌙</button>
       <button class="lang-btn" id="langToggleBtn" onclick="toggleLanguage()">🌍 Français</button>
       <button class="pub-nav-portal" onclick="openLoginOverlay()">🔐 Portal Login</button>
     </div>
@@ -785,7 +1081,7 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
     </div>
 
     <div class="login-hint-box" id="loginHintBox">
-      <b>Head Teacher:</b> Username: <b>headteacher</b> · Password: <b>sfds2026</b>
+      🏫 <b>Head Teacher Portal</b> — Enter your username and password to access the full school management system.
     </div>
 
     <div class="field">
@@ -820,7 +1116,11 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
       <div class="appnav-name">Saint François de <span>Sales</span></div>
     </div>
     <div class="appnav-right">
+      <button class="dm-toggle" onclick="toggleDarkMode()" id="dmBtn" title="Toggle Dark Mode">🌙</button>
       <button class="lang-btn" onclick="openTTSPanel()" title="Audio Settings" style="padding:.3rem .6rem;font-size:.8rem">🔊</button>
+      <button class="lang-btn" style="padding:.3rem .6rem;font-size:.8rem;position:relative" onclick="showNotifPanel()" title="Notifications">
+        🔔<span id="notif-badge" style="position:absolute;top:-4px;right:-4px;background:var(--red,#ef4444);color:#fff;border-radius:50%;width:16px;height:16px;font-size:.55rem;font-weight:800;display:none;align-items:center;justify-content:center">0</span>
+      </button>
       <button class="lang-btn" onclick="openChangePassword()" title="Change Password" style="padding:.3rem .6rem;font-size:.8rem">🔑</button>
       <button class="lang-btn" onclick="openModal('helpGuide')" title="Help & Guide" style="padding:.3rem .6rem;font-size:.8rem">❓</button>
       <div class="user-chip">
@@ -977,6 +1277,35 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
   </div>
 </div>
 
+<!-- Send Notification Modal -->
+<div class="modal-overlay" id="modal-sendNotif">
+  <div class="modal">
+    <div class="modal-hd"><h3>🔔 Send Notification</h3><button class="modal-close" onclick="closeModal('sendNotif')">✕</button></div>
+    <div class="mfield"><label>Title</label><input type="text" id="sn-title" placeholder="e.g. Exam reminder, Homework due..."/></div>
+    <div class="mfield"><label>Message</label><textarea id="sn-body" rows="3" placeholder="Write your notification message here..."></textarea></div>
+    <div class="mfield"><label>Target Audience</label>
+      <select id="sn-target" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit">
+        <option value="All School">All School</option>
+        ${(typeof CLASSES!=='undefined'?CLASSES:[]).map(c=>`<option value="${c}">Class ${c} only</option>`).join('')}
+        <option value="Teachers">Teachers only</option>
+        <option value="Parents">Parents only</option>
+      </select>
+    </div>
+    <div class="mfield"><label>Type</label>
+      <select id="sn-type" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit">
+        <option value="info">ℹ️ Information</option>
+        <option value="success">✅ Good News</option>
+        <option value="warning">⚠️ Warning / Reminder</option>
+        <option value="error">🚨 Urgent</option>
+      </select>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('sendNotif')">Cancel</button>
+      <button class="btn btn-primary" onclick="doSendNotif()">📢 Send Notification</button>
+    </div>
+  </div>
+</div>
+
 <!-- Change Password Modal -->
 <div class="modal-overlay" id="modal-changePassword">
   <div class="modal">
@@ -1059,10 +1388,10 @@ td.editable-cell input:focus,td.editable-cell select:focus{border-color:var(--fo
       <div style="margin-bottom:1.25rem">
         <div style="font-weight:700;color:var(--forest);font-size:.88rem;margin-bottom:.65rem;border-bottom:1px solid var(--border);padding-bottom:.35rem">🔑 Login Credentials</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;font-size:.8rem">
-          <div style="background:var(--cream2);border-radius:var(--r2);padding:.65rem .85rem"><div style="font-weight:700;color:var(--forest)">👔 Director</div><div style="color:var(--muted)">User: <b>director</b> · Pass: <b>director2026</b></div></div>
-          <div style="background:var(--cream2);border-radius:var(--r2);padding:.65rem .85rem"><div style="font-weight:700;color:var(--forest)">🏫 Head Teacher</div><div style="color:var(--muted)">User: <b>headteacher</b> · Pass: <b>sfds2026</b></div></div>
-          <div style="background:var(--cream2);border-radius:var(--r2);padding:.65rem .85rem"><div style="font-weight:700;color:var(--forest)">👩‍🏫 Teacher</div><div style="color:var(--muted)">User: <b>teacher</b> · Pass: <b>teach2026</b></div></div>
-          <div style="background:var(--cream2);border-radius:var(--r2);padding:.65rem .85rem"><div style="font-weight:700;color:var(--forest)">👨‍🎓 Student</div><div style="color:var(--muted)">User: <b>student</b> · Pass: <b>student2026</b></div></div>
+          <div style="background:var(--cream2);border-radius:var(--r2);padding:.65rem .85rem"><div style="font-weight:700;color:var(--forest)">👔 Director</div><div style="color:var(--muted)">User: <b>director</b> · Password set by admin</div></div>
+          <div style="background:var(--cream2);border-radius:var(--r2);padding:.65rem .85rem"><div style="font-weight:700;color:var(--forest)">🏫 Head Teacher</div><div style="color:var(--muted)">User: <b>headteacher</b> · Password set by admin</div></div>
+          <div style="background:var(--cream2);border-radius:var(--r2);padding:.65rem .85rem"><div style="font-weight:700;color:var(--forest)">👩‍🏫 Teacher</div><div style="color:var(--muted)">Username assigned by Head Teacher (e.g. <b>b.kapenda</b>)</div></div>
+          <div style="background:var(--cream2);border-radius:var(--r2);padding:.65rem .85rem"><div style="font-weight:700;color:var(--forest)">👨‍🎓 Student</div><div style="color:var(--muted)">Username and password provided by teacher</div></div>
           <div style="background:var(--cream2);border-radius:var(--r2);padding:.65rem .85rem;grid-column:span 2"><div style="font-weight:700;color:var(--forest)">👪 Parent</div><div style="color:var(--muted)">Username = <b>Class name</b> (e.g. P4B) · Password = <b>Child's full name</b> (e.g. Jean-Paul Mutombo)</div></div>
         </div>
       </div>
@@ -1141,11 +1470,25 @@ const CLASSES = ['P1A','P1B','P2A','P2B','P3A','P3B','P4A','P4B','P5A','P5B','P5
 // Credentials
 const CREDS = {
   director: { user:'director',   pass:'director2026', role:'School Director', name:'School Director', av:'D' },
-  ht:       { user:'headteacher', pass:'sfds2026', role:'Head Teacher', name:'Head Teacher', av:'H' },
-  teacher:  { user:'teacher',     pass:'teach2026', role:'Teacher', name:'Mrs. Okonkwo', av:'T' },
-  student:  { user:'student',     pass:'student2026', role:'Student', name:'Jean-Paul Mutombo', av:'J' },
+  ht:       { user:'headteacher', pass:'sfds2026',     role:'Head Teacher',   name:'Head Teacher',    av:'H' },
+  student:  { user:'student',     pass:'student2026',  role:'Student',        name:'Jean-Paul Mutombo',av:'J' },
 };
 // Parent login: username = class (e.g. P3A), password = student full name (case-insensitive)
+
+// Per-teacher credentials — each teacher has unique login, set by HT/Director
+const TEACHER_CREDS = {
+  'm.bertrand':    { pass:'bertrand2026', name:'Mme. Sophie Bertrand', cls:'P1A', id:1 },
+  'j.mbeki':       { pass:'mbeki2026',    name:'M. Jacques Mbeki',     cls:'P1B', id:2 },
+  'c.kabila':      { pass:'kabila2026',   name:'Mme. Claire Kabila',   cls:'P2A', id:3 },
+  'a.tshisekedi':  { pass:'alain2026',    name:'M. Alain Tshisekedi',  cls:'P2B', id:4 },
+  'r.nkusu':       { pass:'nkusu2026',    name:'Mme. Rose Nkusu',      cls:'P3A', id:5 },
+  'p.lubangu':     { pass:'lubangu2026',  name:'M. Paul Lubangu',      cls:'P3B', id:6 },
+  'h.yav':         { pass:'yav2026',      name:'Mme. Hortense Yav',    cls:'P4A', id:7 },
+  'b.kapenda':     { pass:'kapenda2026',  name:'M. Bruno Kapenda',     cls:'P4B', id:8 },
+  'o.mukendi':     { pass:'mukendi2026',  name:'Mme. Odette Mukendi',  cls:'P5A', id:9 },
+  'e.mwanza':      { pass:'mwanza2026',   name:'M. Emile Mwanza',      cls:'P5B', id:10 },
+  'a.kasongo':     { pass:'kasongo2026',  name:'Mme. Anne Kasongo',    cls:'P5C', id:11 },
+};
 const STUDENTS = {
   'P1A':['Marie Claire Kabila','Pierre Ngoy','Alice Mbuyi','Joseph Tshianda'],
   'P1B':['Lucie Kasongo','Samuel Ilunga','Grace Nkusu','David Banza'],
@@ -1318,11 +1661,11 @@ function selectRole(role, btn) {
   document.querySelectorAll('.rtab').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   const hints = {
-    director:'<b>Director:</b> Username: <b>director</b> · Password: <b>director2026</b>',
-    ht:      '<b>Head Teacher:</b> Username: <b>headteacher</b> · Password: <b>sfds2026</b>',
-    teacher: '<b>Teacher:</b> Username: <b>teacher</b> · Password: <b>teach2026</b>',
-    student: '<b>Student:</b> Username: <b>student</b> · Password: <b>student2026</b>',
-    parent:  '<b>Parent:</b> Username = <b>Class name</b> (e.g. P3A) · Password = <b>Student\'s full name</b>'
+    director:`👔 <b>Director Portal</b> — Enter your username and password to access full school administration.`,
+    ht:      `🏫 <b>Head Teacher Portal</b> — Enter your username and password to manage the school.`,
+    teacher: `👩‍🏫 <b>Teacher Portal</b> — Enter your personal username (e.g. <code>b.kapenda</code>) and password. Contact the Head Teacher if you need your login details.`,
+    student: `👨‍🎓 <b>Student Portal</b> — Enter your username and password. Ask your teacher for your login details.`,
+    parent:  `👪 <b>Parent Portal</b> — <b>Username:</b> your child's class (e.g. <code>P4B</code>) &nbsp;·&nbsp; <b>Password:</b> your child's full name`
   };
   const labels = { director:'Username', ht:'Username', teacher:'Username', student:'Username', parent:'Class Name (e.g. P3A)' };
   document.getElementById('loginHintBox').innerHTML = hints[role];
@@ -1341,9 +1684,13 @@ function doLogin() {
   } else if(_selectedRole === 'ht') {
     if(u===CREDS.ht.user && p===CREDS.ht.pass) { launchApp('ht',CREDS.ht,null); return; }
   } else if(_selectedRole === 'teacher') {
-    // Allow any teacher from DB or default
-    const t = DB.teachers.find(t=>t.user===u) || (u===CREDS.teacher.user&&p===CREDS.teacher.pass?{name:'Mrs. Okonkwo',cls:'P4B'}:null);
-    if(t && p===CREDS.teacher.pass) { launchApp('teacher',{name:t.name,av:'T',role:'Teacher'},t.cls); return; }
+    // Each teacher has their own username and password
+    const tc = TEACHER_CREDS[u];
+    if(tc && tc.pass === p) {
+      const av = tc.name.split(' ').filter(w=>w.length>1).map(w=>w[0]).join('').substring(0,2).toUpperCase();
+      launchApp('teacher', { name:tc.name, av, role:'Teacher' }, tc.cls);
+      return;
+    }
   } else if(_selectedRole === 'student') {
     if(u===CREDS.student.user && p===CREDS.student.pass) { launchApp('student',{name:'Jean-Paul Mutombo',av:'J',role:'Student'},'P4B'); return; }
   } else if(_selectedRole === 'parent') {
@@ -1399,8 +1746,15 @@ function buildSidebar(role, cls) {
       <button class="sitem" onclick="showPage('dir-reportcard',this)"><span class="si">📄</span> Report Cards</button>
       <div class="sgroup">Administration</div>
       <button class="sitem" onclick="showPage('dir-accounts',this)"><span class="si">🔑</span> User Accounts</button>
+      <button class="sitem" onclick="showPage('dir-teacher-passwords',this)"><span class="si">🛡️</span> Teacher Passwords</button>
+      <button class="sitem" onclick="showPage('dir-classes-mgr',this)"><span class="si">🏫</span> Manage Classes</button>
+      <button class="sitem" onclick="showPage('dir-quiz-builder',this)"><span class="si">🛠️</span> Quiz Builder</button>
+      <button class="sitem" onclick="showPage('dir-notifications',this)"><span class="si">🔔</span> Notifications</button>
+      <button class="sitem" onclick="showPage('dir-calendar',this)"><span class="si">📅</span> Calendar</button>
+      <button class="sitem" onclick="showPage('dir-clock',this)"><span class="si">⏰</span> Clock & Alarms</button>
       <button class="sitem" onclick="showPage('dir-activity',this)"><span class="si">📈</span> Activity Log</button>
       <button class="sitem" onclick="showPage('dir-website',this)"><span class="si">🌐</span> Edit Website</button>
+      <button class="sitem" onclick="showPage('dir-languages',this)"><span class="si">🌍</span> Language</button>
       <button class="sitem" onclick="showPage('dir-settings',this)"><span class="si">⚙️</span> Settings</button>
     `,
     ht: `
@@ -1414,6 +1768,7 @@ function buildSidebar(role, cls) {
       ${CLASSES.map(c=>`<button class="sitem" onclick="showPage('ht-class-${c}',this)"><span class="si">🏫</span> Class ${c}</button>`).join('')}
       <div class="sgroup">Academic</div>
       <button class="sitem" onclick="showPage('ht-quiz',this)"><span class="si">🧠</span> Morning Quiz</button>
+      <button class="sitem" onclick="showPage('ht-quiz-builder',this)"><span class="si">🛠️</span> Quiz Builder</button>
       <button class="sitem" onclick="showPage('ht-proclamation',this)"><span class="si">🏆</span> Proclamations</button>
       <button class="sitem" onclick="showPage('ht-reportcard',this)"><span class="si">📄</span> Report Cards</button>
       <button class="sitem" onclick="showPage('ht-reports',this)"><span class="si">📋</span> Reports</button>
@@ -1421,6 +1776,13 @@ function buildSidebar(role, cls) {
       <button class="sitem" onclick="showPage('ht-website',this)"><span class="si">🌐</span> Edit Website</button>
       <div class="sgroup">Communication</div>
       <button class="sitem" onclick="showPage('ht-messages',this)"><span class="si">💬</span> Messages</button>
+      <div class="sgroup">Tools</div>
+      <button class="sitem" onclick="showPage('ht-calendar',this)"><span class="si">📅</span> Calendar</button>
+      <button class="sitem" onclick="showPage('ht-clock',this)"><span class="si">⏰</span> Clock & Alarm</button>
+      <button class="sitem" onclick="showPage('ht-classes-mgr',this)"><span class="si">🏫</span> Manage Classes</button>
+      <button class="sitem" onclick="showPage('ht-teacher-passwords',this)"><span class="si">🔑</span> Teacher Passwords</button>
+      <button class="sitem" onclick="showPage('ht-notifications',this)"><span class="si">🔔</span> Notifications</button>
+      <button class="sitem" onclick="showPage('ht-languages',this)"><span class="si">🌍</span> Language</button>
       <div class="sgroup">Settings</div>
       <button class="sitem" onclick="showPage('ht-settings',this)"><span class="si">⚙️</span> Settings</button>
     `,
@@ -1439,8 +1801,17 @@ function buildSidebar(role, cls) {
       <button class="sitem" onclick="showPage('t-grades',this)"><span class="si">📊</span> Grades</button>
       <button class="sitem" onclick="showPage('t-reportcard',this)"><span class="si">📄</span> Report Cards</button>
       <button class="sitem" onclick="showPage('t-proclamation',this)"><span class="si">🏆</span> Proclamation List</button>
+      <button class="sitem" onclick="showPage('t-quiz-builder',this)"><span class="si">🛠️</span> Quiz Builder</button>
       <div class="sgroup">Communication</div>
       <button class="sitem" onclick="showPage('t-messages',this)"><span class="si">💬</span> Messages</button>
+      <button class="sitem" onclick="showPage('t-notifications',this)"><span class="si">🔔</span> Notifications</button>
+      <div class="sgroup">Tools</div>
+      <button class="sitem" onclick="showPage('t-calculator',this)"><span class="si">🔢</span> Calculator</button>
+      <button class="sitem" onclick="showPage('t-calendar',this)"><span class="si">📅</span> Calendar</button>
+      <button class="sitem" onclick="showPage('t-clock',this)"><span class="si">⏰</span> Clock & Alarm</button>
+      <button class="sitem" onclick="showPage('t-virtual',this)"><span class="si">🎥</span> Virtual Class</button>
+      <button class="sitem" onclick="showPage('t-profile',this)"><span class="si">👤</span> My Profile</button>
+      <button class="sitem" onclick="showPage('t-languages',this)"><span class="si">🌍</span> Language</button>
     `,
     student: `
       <div class="sgroup">My Portal</div>
@@ -1457,6 +1828,15 @@ function buildSidebar(role, cls) {
       <button class="sitem" onclick="showPage('s-announcements',this)"><span class="si">📢</span> Notices</button>
       <div class="sgroup">Communication</div>
       <button class="sitem" onclick="showPage('s-messages',this)"><span class="si">💬</span> Messages</button>
+      <div class="sgroup">Tools</div>
+      <button class="sitem" onclick="showPage('s-calculator',this)"><span class="si">🔢</span> Calculator</button>
+      <button class="sitem" onclick="showPage('s-ai-search',this)"><span class="si">🔍</span> Ask AI / Search</button>
+      <button class="sitem" onclick="showPage('s-calendar',this)"><span class="si">📅</span> Calendar</button>
+      <button class="sitem" onclick="showPage('s-clock',this)"><span class="si">⏰</span> Clock & Alarm</button>
+      <button class="sitem" onclick="showPage('s-virtual',this)"><span class="si">🎥</span> Virtual Class</button>
+      <div class="sgroup">My Account</div>
+      <button class="sitem" onclick="showPage('s-profile',this)"><span class="si">👤</span> My Profile</button>
+      <button class="sitem" onclick="showPage('s-languages',this)"><span class="si">🌍</span> Language</button>
     `,
     parent: `
       <div class="sgroup">My Child</div>
@@ -1570,10 +1950,9 @@ function buildDirectorDashboard() {
       <div class="card reveal"><div class="card-head"><h3>System Accounts</h3></div>
         <div class="tbl"><table><thead><tr><th>Role</th><th>Username</th><th>Password</th><th>Action</th></tr></thead>
           <tbody>
-            <tr><td>Director</td><td>director</td><td>director2026</td><td><button class="btn btn-ghost" style="font-size:.72rem" onclick="alert('Password change: contact system admin')">🔑 Change</button></td></tr>
-            <tr><td>Head Teacher</td><td>headteacher</td><td>sfds2026</td><td><button class="btn btn-ghost" style="font-size:.72rem" onclick="alert('Password change: contact system admin')">🔑 Change</button></td></tr>
-            <tr><td>Teacher (default)</td><td>teacher</td><td>teach2026</td><td><button class="btn btn-ghost" style="font-size:.72rem" onclick="alert('Password change: contact system admin')">🔑 Change</button></td></tr>
-            <tr><td>Student (default)</td><td>student</td><td>student2026</td><td><button class="btn btn-ghost" style="font-size:.72rem" onclick="alert('Password change: contact system admin')">🔑 Change</button></td></tr>
+            <tr><td>Director</td><td>director</td><td>••••••••••</td><td><button class="btn btn-ghost" style="font-size:.72rem" onclick="openChangePassword()">🔑 Change</button></td></tr>
+            <tr><td>Head Teacher</td><td>headteacher</td><td>••••••••••</td><td><button class="btn btn-ghost" style="font-size:.72rem" onclick="openChangePassword()">🔑 Change</button></td></tr>
+            ${Object.entries(TEACHER_CREDS).map(([u,t])=>`<tr><td>Teacher</td><td>${u}</td><td>••••••••••</td><td><button class="btn btn-ghost" style="font-size:.72rem" onclick="adminResetTeacherPass('${u}')">🔑 Reset</button></td></tr>`).join('')}
           </tbody>
         </table></div>
       </div>
@@ -1609,7 +1988,7 @@ function buildDirectorDashboard() {
   </div>
   <div class="page" id="dir-settings">
     <div class="phd"><h2>⚙️ System Settings</h2><div class="phd-line"></div></div>
-    <div class="callout cl-tip"><span>⚙️</span><p>System settings control school-wide configurations including term dates, grading system, and branding. More settings coming soon.</p></div>
+    <div class="callout cl-tip"><span>⚙️</span><p>System settings control school-wide configurations including term dates, grading system, and branding.</p></div>
     <div class="card reveal"><div class="card-head"><h3>Academic Year Settings</h3></div>
       <div class="card-body">
         <div class="mfield"><label>School Name</label><input type="text" value="Saint François de Sales School" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/></div>
@@ -1618,6 +1997,35 @@ function buildDirectorDashboard() {
         <button class="btn btn-primary" onclick="toast('Settings saved ✓')">💾 Save Settings</button>
       </div>
     </div>
+  </div>
+  <!-- Director: new feature pages -->
+  <div class="page" id="dir-teacher-passwords">
+    <div class="phd"><h2>🔑 Teacher Passwords & Accounts</h2><p>Manage teacher credentials securely</p><div class="phd-line"></div></div>
+    ${buildTeacherPasswordManager()}
+  </div>
+  <div class="page" id="dir-notifications">
+    <div class="phd"><h2>🔔 Notification Centre</h2><p>Send school-wide notifications</p><div class="phd-line"></div></div>
+    ${buildNotificationCenter()}
+  </div>
+  <div class="page" id="dir-languages">
+    <div class="phd"><h2>🌍 Multi-Language Settings</h2><div class="phd-line"></div></div>
+    ${buildLanguagePage()}
+  </div>
+  <div class="page" id="dir-classes-mgr">
+    <div class="phd"><h2>🏫 Manage School Classes</h2><p>Add, edit or remove classes</p><div class="phd-line"></div></div>
+    ${buildClassManager()}
+  </div>
+  <div class="page" id="dir-quiz-builder">
+    <div class="phd"><h2>🛠️ Quiz Builder</h2><p>Create all quiz question types</p><div class="phd-line"></div></div>
+    ${buildQuizBuilder()}
+  </div>
+  <div class="page" id="dir-calendar">
+    <div class="phd"><h2>📅 School Calendar</h2><div class="phd-line"></div></div>
+    ${buildCalendar()}
+  </div>
+  <div class="page" id="dir-clock">
+    <div class="phd"><h2>⏰ Clock & School Alarms</h2><div class="phd-line"></div></div>
+    ${buildClockPage()}
   </div>
   `;
 }
@@ -1735,6 +2143,23 @@ function buildHTPages() {
     <div class="phd"><h2>💬 Messages</h2><p>School-wide communication between teachers, students and parents</p><div class="phd-line"></div></div>
     ${buildMessaging('ht', null)}
   </div>`;
+
+  // Calendar
+  html += `<div class="page" id="ht-calendar"><div class="phd"><h2>📅 School Calendar</h2><div class="phd-line"></div></div>${buildCalendar()}</div>`;
+
+  // Clock
+  html += `<div class="page" id="ht-clock"><div class="phd"><h2>⏰ Clock & School Bell Alarm</h2><div class="phd-line"></div></div>${buildClockPage()}</div>`;
+
+  // Class Manager
+  html += `<div class="page" id="ht-classes-mgr"><div class="phd"><h2>🏫 Manage School Classes</h2><p>Add, edit or remove classes. Changes update the whole system immediately.</p><div class="phd-line"></div></div>${buildClassManager()}</div>`;
+
+  html += `<div class="page" id="ht-teacher-passwords"><div class="phd"><h2>🔑 Teacher Passwords & Accounts</h2><p>Manage teacher login credentials securely</p><div class="phd-line"></div></div>${buildTeacherPasswordManager()}</div>`;
+
+  html += `<div class="page" id="ht-notifications"><div class="phd"><h2>🔔 Notification Centre</h2><p>Send and manage school-wide notifications</p><div class="phd-line"></div></div>${buildNotificationCenter()}</div>`;
+
+  html += `<div class="page" id="ht-languages"><div class="phd"><h2>🌍 Multi-Language Settings</h2><p>Switch the portal interface language</p><div class="phd-line"></div></div>${buildLanguagePage()}</div>`;
+
+  html += `<div class="page" id="ht-quiz-builder"><div class="phd"><h2>🧠 Morning Quiz Builder</h2><p>Create quizzes with all question types</p><div class="phd-line"></div></div>${buildQuizBuilder()}</div>`;
 
   // Website editor
   html += `<div class="page" id="ht-website">
@@ -2051,6 +2476,16 @@ function buildTeacherDashboard(cls) {
   <div class="page" id="t-reportcard"><div class="phd"><h2>📄 Generate Report Cards — ${cls}</h2><p>Generate and print official report cards for your students</p><div class="phd-line"></div></div>${buildReportCardGenerator()}</div>
   <div class="page" id="t-proclamation"><div class="ptop"><div class="phd"><h2>🏆 Proclamation List — ${cls}</h2><div class="phd-line"></div></div><button class="add-btn" onclick="openModal('addProclamation')">+ Add</button></div><div id="proc-t-${cls}">${renderProclamations(cls)}</div></div>
   <div class="page" id="t-messages"><div class="phd"><h2>💬 Messages</h2><p>Communicate with students and parents</p><div class="phd-line"></div></div>${buildMessaging('teacher', cls)}</div>
+  <div class="page" id="t-notifications"><div class="phd"><h2>🔔 Notifications</h2><p>Send notices to students and parents</p><div class="phd-line"></div></div>${buildNotificationCenter()}</div>
+  <div class="page" id="t-quiz-builder"><div class="phd"><h2>🛠️ Quiz Builder</h2><p>Create morning quizzes with all question types</p><div class="phd-line"></div></div>${buildQuizBuilder()}</div>
+  <div class="page" id="t-calculator"><div class="phd"><h2>🔢 Scientific Calculator</h2><div class="phd-line"></div></div>${buildCalculator()}</div>
+  <div class="page" id="t-calendar"><div class="phd"><h2>📅 Class Calendar</h2><div class="phd-line"></div></div>${buildCalendar()}</div>
+  <div class="page" id="t-clock"><div class="phd"><h2>⏰ Clock & School Bell Alarm</h2><div class="phd-line"></div></div>${buildClockPage()}</div>
+  <div class="page" id="t-virtual"><div class="phd"><h2>🎥 Start Virtual Class — ${cls}</h2><p>Launch your live online classroom for ${cls}</p><div class="phd-line"></div></div>${buildVirtualClass(cls,'teacher')}</div>
+  <div class="page" id="t-profile"><div class="phd"><h2>👤 My Profile</h2><div class="phd-line"></div></div>${buildTeacherProfile()}</div>
+  <div class="page" id="t-languages"><div class="phd"><h2>🌍 Language / Langue / Lugha</h2><p>Switch your portal interface language</p><div class="phd-line"></div></div>${buildLanguagePage()}</div>
+  <div class="page" id="t-notifications"><div class="phd"><h2>🔔 Notifications</h2><div class="phd-line"></div></div>${buildNotificationCenter()}</div>
+  <div class="page" id="t-quiz-builder"><div class="phd"><h2>🛠️ Morning Quiz Builder</h2><p>Create quizzes with all question types: multiple choice, true/false, fill-in-blank, matching, ordering</p><div class="phd-line"></div></div>${buildQuizBuilder()}</div>
   `;
 }
 
@@ -2094,6 +2529,13 @@ function buildStudentDashboard(cls, name) {
   <div class="page" id="s-quiz">${buildQuizPage()}</div>
   <div class="page" id="s-announcements"><div class="phd"><h2>📢 School Notices</h2><div class="phd-line"></div></div>${renderAnnouncements()}</div>
   <div class="page" id="s-messages"><div class="phd"><h2>💬 Messages</h2><p>Send messages to your teacher</p><div class="phd-line"></div></div>${buildMessaging('student', cls)}</div>
+  <div class="page" id="s-calculator"><div class="phd"><h2>🔢 Scientific Calculator</h2><p>Use this calculator for your maths work</p><div class="phd-line"></div></div>${buildCalculator()}</div>
+  <div class="page" id="s-ai-search"><div class="phd"><h2>🔍 Ask AI or Search Google</h2><p>Ask any question you don't understand — get an answer from AI or search Google</p><div class="phd-line"></div></div>${buildAISearch()}</div>
+  <div class="page" id="s-calendar"><div class="phd"><h2>📅 School Calendar</h2><div class="phd-line"></div></div>${buildCalendar()}</div>
+  <div class="page" id="s-clock"><div class="phd"><h2>⏰ Clock & Study Alarm</h2><div class="phd-line"></div></div>${buildClockPage()}</div>
+  <div class="page" id="s-virtual"><div class="phd"><h2>🎥 Virtual Classroom — ${cls}</h2><p>Join your live online class with your teacher and classmates</p><div class="phd-line"></div></div>${buildVirtualClass(cls,'student')}</div>
+  <div class="page" id="s-profile"><div class="phd"><h2>👤 My Profile</h2><p>Your personal dashboard and achievements</p><div class="phd-line"></div></div>${buildStudentProfile(cls,name)}</div>
+  <div class="page" id="s-languages"><div class="phd"><h2>🌍 Language / Langue / Lugha</h2><p>Choose your preferred interface language</p><div class="phd-line"></div></div>${buildLanguagePage()}</div>
   `;
 }
 
@@ -3342,7 +3784,11 @@ function saveNewPassword() {
   let valid = false;
   if(currentRole === 'ht'   && current === CREDS.ht.pass)      { CREDS.ht.pass = newPass; valid = true; }
   if(currentRole === 'director' && current === CREDS.director.pass) { CREDS.director.pass = newPass; valid = true; }
-  if(currentRole === 'teacher'  && current === CREDS.teacher.pass)  { CREDS.teacher.pass  = newPass; valid = true; }
+  if(currentRole === 'teacher') {
+    // Find teacher's credentials by name
+    const entry = Object.entries(TEACHER_CREDS).find(([k,v])=>v.name === currentUser.name);
+    if(entry && entry[1].pass === current) { entry[1].pass = newPass; valid = true; }
+  }
   if(currentRole === 'student'  && current === CREDS.student.pass)  { CREDS.student.pass  = newPass; valid = true; }
   if(!valid){ toast('❌ Current password is incorrect.'); return; }
   closeModal('changePassword');
@@ -3418,12 +3864,1764 @@ function downloadMarksTemplate() {
 }
 
 /* ══════════════════════════════════════════════════════
-   INIT
+   🌙 DARK MODE
+══════════════════════════════════════════════════════ */
+let _darkMode = false;
+function toggleDarkMode() {
+  _darkMode = !_darkMode;
+  document.body.classList.toggle('dark-mode', _darkMode);
+  const icon = _darkMode ? '☀️' : '🌙';
+  document.querySelectorAll('#dmBtn,#dmBtnPub').forEach(b=>{ if(b) b.textContent=icon; });
+  toast(_darkMode ? '🌙 Dark mode on' : '☀️ Light mode on');
+}
+
+/* ══════════════════════════════════════════════════════
+   🔑 REVEAL HINT (password hidden by default)
+══════════════════════════════════════════════════════ */
+function revealHint(btn, pass) {
+  btn.outerHTML = `<span style="background:var(--cream2);border:1px solid var(--border);border-radius:4px;padding:.1rem .4rem;font-family:monospace;font-size:.75rem;color:var(--forest)">${pass}</span>`;
+}
+
+/* ══════════════════════════════════════════════════════
+   🎥 VIRTUAL CLASSROOM
+══════════════════════════════════════════════════════ */
+const VC_STATE = { micOn:false, camOn:false, screenOn:false, handUp:false, whiteboard:false };
+let _vcTab = 'participants';
+let _vcMessages = [
+  { from:'System', text:'Welcome to the virtual classroom. The teacher will start the session shortly.', me:false },
+];
+
+function buildVirtualClass(cls, role) {
+  const teacher = DB.teachers.find(t=>t.cls===cls);
+  const students = (STUDENTS[cls]||[]).slice(0,8);
+  const isTeacher = role==='teacher'||role==='ht'||role==='director';
+
+  const participantsList = [
+    ...(teacher?[{name:teacher.name,role:'teacher',av:teacher.name.split(' ').map(w=>w[0]).join('').substring(0,2)}]:[]),
+    ...students.slice(0,6).map(n=>({name:n,role:'student',av:n.split(' ').map(w=>w[0]).join('').substring(0,2)}))
+  ];
+
+  return `
+  <div class="vc-room">
+    <div class="vc-header">
+      <div>
+        <h3>🎥 ${cls} — Live Virtual Class</h3>
+        <div style="font-size:.72rem;opacity:.75;margin-top:.15rem">${teacher?teacher.name:'No teacher assigned'} · ${students.length} students enrolled</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:.75rem">
+        <div class="vc-live-badge"><div class="vc-live-dot"></div>Session Ready</div>
+        ${isTeacher?`<button class="btn btn-gold" style="font-size:.72rem" onclick="startVCSession(this)">▶ Start Session</button>`:''}
+      </div>
+    </div>
+    <div class="vc-body">
+      <div class="vc-stage" id="vc-stage-${cls}">
+        <div class="vc-stage-placeholder" id="vc-placeholder-${cls}">
+          <span class="vc-icon">🎥</span>
+          <div style="font-weight:700;margin-bottom:.35rem;color:rgba(255,255,255,.7)">Virtual Classroom — ${cls}</div>
+          <div style="font-size:.75rem;margin-bottom:1.25rem">Click <b style="color:var(--gold2)">${isTeacher?'Start Session':'Join Session'}</b> below to begin</div>
+          <button class="btn btn-gold" onclick="joinVCSession('${cls}',this)">${isTeacher?'▶ Start Live Class':'Join Class'}</button>
+        </div>
+        <div class="vc-toolbar" id="vc-toolbar-${cls}">
+          <div class="vc-ctrl ${VC_STATE.micOn?'on':''}" onclick="toggleVC('mic','${cls}',this)" title="Microphone">🎤</div>
+          <div class="vc-ctrl ${VC_STATE.camOn?'on':''}" onclick="toggleVC('cam','${cls}',this)" title="Camera">📹</div>
+          <div class="vc-ctrl" onclick="toggleVC('screen','${cls}',this)" title="Share Screen">🖥️</div>
+          <div class="vc-ctrl" onclick="toggleVC('hand','${cls}',this)" title="Raise Hand">✋</div>
+          ${isTeacher?`<div class="vc-ctrl" onclick="toggleWhiteboard('${cls}')" title="Whiteboard">✏️</div>`:''}
+          ${isTeacher?`<div class="vc-ctrl" onclick="toggleVC('record','${cls}',this)" title="Record">⏺</div>`:''}
+          <div class="vc-ctrl end" onclick="leaveVC('${cls}')" title="Leave">📵</div>
+        </div>
+      </div>
+      <div class="vc-panel">
+        <div class="vc-ptabs">
+          <button class="vc-ptab on" id="vct-part-${cls}" onclick="switchVCTab('participants','${cls}')">👥 (${participantsList.length})</button>
+          <button class="vc-ptab" id="vct-chat-${cls}" onclick="switchVCTab('chat','${cls}')">💬 Chat</button>
+          ${isTeacher?`<button class="vc-ptab" id="vct-ctrl-${cls}" onclick="switchVCTab('ctrl','${cls}')">⚙️ Controls</button>`:''}
+        </div>
+        <div id="vcp-participants-${cls}" class="vc-list">
+          ${participantsList.map(p=>`
+          <div class="vc-person">
+            <div class="vc-pav">${p.av}</div>
+            <div style="flex:1">
+              <div style="font-weight:600;font-size:.78rem">${p.name}</div>
+              <div style="font-size:.62rem;color:var(--muted)">${p.role==='teacher'?'👩‍🏫 Teacher':'👨‍🎓 Student'}</div>
+            </div>
+            ${isTeacher&&p.role!=='teacher'?`<div style="display:flex;gap:.2rem"><div style="width:18px;height:18px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:.6rem" title="Mic">🎤</div></div>`:''}
+          </div>`).join('')}
+        </div>
+        <div id="vcp-chat-${cls}" class="vc-chat-area" style="display:none">
+          ${_vcMessages.map(m=>`<div class="vc-chat-bubble ${m.me?'me':'other'}"><div class="vc-chat-name">${m.from}</div>${m.text}</div>`).join('')}
+        </div>
+        ${isTeacher?`<div id="vcp-ctrl-${cls}" style="display:none;padding:.75rem;font-size:.8rem">
+          <div style="font-weight:700;color:var(--forest);margin-bottom:.5rem">Session Controls</div>
+          <button class="btn btn-ghost" style="width:100%;margin-bottom:.4rem;font-size:.75rem" onclick="toast('Muting all students...')">🔇 Mute All Students</button>
+          <button class="btn btn-ghost" style="width:100%;margin-bottom:.4rem;font-size:.75rem" onclick="toast('Sharing screen to all...')">🖥️ Share Screen to All</button>
+          <button class="btn btn-primary" style="width:100%;margin-bottom:.4rem;font-size:.75rem" onclick="openModal('addQuiz')">🧠 Launch Quiz</button>
+          <button class="btn btn-ghost" style="width:100%;font-size:.75rem;background:var(--red-bg);color:var(--red)" onclick="leaveVC('${cls}')">⏹ End Session for All</button>
+        </div>`:''}
+        <div class="vc-composer">
+          <input type="text" placeholder="Type a message…" id="vc-input-${cls}" onkeydown="if(event.key==='Enter')sendVCChat('${cls}')"/>
+          <button onclick="sendVCChat('${cls}')">→</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="callout cl-tip" style="margin-top:1rem"><span>💡</span><p>For the best virtual class experience, use <b>Google Chrome</b> and allow microphone and camera access when prompted. The virtual classroom supports video, audio, screen sharing, chat, whiteboard, and hand-raising.</p></div>`;
+}
+
+function joinVCSession(cls, btn) {
+  const placeholder = document.getElementById('vc-placeholder-'+cls);
+  if(placeholder) placeholder.style.display='none';
+  toast('🎥 Connected to virtual classroom — '+cls);
+  if(btn) btn.textContent='✅ Connected';
+  // Simulate joining
+  VC_STATE.camOn = true; VC_STATE.micOn = true;
+  const toolbar = document.getElementById('vc-toolbar-'+cls);
+  if(toolbar) { toolbar.querySelectorAll('.vc-ctrl')[0]?.classList.add('on'); toolbar.querySelectorAll('.vc-ctrl')[1]?.classList.add('on'); }
+  sendVCChatSystem(cls, currentUser.name+' joined the class.');
+}
+
+function startVCSession(btn) { if(btn){btn.textContent='⏹ End Session';btn.style.background='var(--red)';} toast('🎥 Live class session started — students can now join.'); }
+
+function leaveVC(cls) { toast('📵 You left the virtual classroom.'); VC_STATE.micOn=false; VC_STATE.camOn=false; }
+
+function toggleVC(type, cls, el) {
+  el.classList.toggle('on');
+  const msgs = {mic:'Microphone',cam:'Camera',screen:'Screen sharing',hand:'Hand raised',record:'Recording'};
+  const isOn = el.classList.contains('on');
+  toast(`${msgs[type]||type} ${isOn?'ON':'OFF'}`);
+  if(type==='hand'&&isOn) sendVCChatSystem(cls, currentUser.name+' raised their hand ✋');
+}
+
+function toggleWhiteboard(cls) { toast('✏️ Whiteboard opened — draw on the board for your class.'); }
+
+function switchVCTab(tab, cls) {
+  ['participants','chat','ctrl'].forEach(t=>{
+    const el = document.getElementById('vcp-'+t+'-'+cls);
+    const btn = document.getElementById('vct-'+t.substring(0,4)+'-'+cls);
+    if(el) el.style.display = t===tab?'flex':'none';
+    if(btn) btn.classList.toggle('on', t===tab);
+  });
+}
+
+function sendVCChat(cls) {
+  const inp = document.getElementById('vc-input-'+cls);
+  if(!inp||!inp.value.trim()) return;
+  const text = inp.value.trim();
+  _vcMessages.push({ from:currentUser.name||'You', text, me:true });
+  const area = document.getElementById('vcp-chat-'+cls);
+  if(area) { area.innerHTML += `<div class="vc-chat-bubble me"><div class="vc-chat-name">${currentUser.name||'You'}</div>${text}</div>`; area.scrollTop=area.scrollHeight; }
+  inp.value='';
+}
+
+function sendVCChatSystem(cls, text) {
+  const area = document.getElementById('vcp-chat-'+cls);
+  if(area) { area.innerHTML += `<div class="vc-chat-bubble other" style="background:var(--cream2);font-size:.7rem;opacity:.7"><div class="vc-chat-name">System</div>${text}</div>`; area.scrollTop=area.scrollHeight; }
+}
+
+/* ══════════════════════════════════════════════════════
+   🔢 SCIENTIFIC CALCULATOR
+══════════════════════════════════════════════════════ */
+let _calcExpr = '';
+let _calcVal = '0';
+let _calcNewNum = true;
+
+function buildCalculator() {
+  return `
+  <div style="display:flex;gap:2rem;flex-wrap:wrap;align-items:flex-start">
+    <div class="calc-outer">
+      <div class="calc-screen">
+        <div class="calc-hist" id="calc-hist"></div>
+        <div class="calc-num" id="calc-val">0</div>
+      </div>
+      <div class="calc-pad">
+        <button class="cb fn" onclick="calcFn('sin')">sin</button>
+        <button class="cb fn" onclick="calcFn('cos')">cos</button>
+        <button class="cb fn" onclick="calcFn('tan')">tan</button>
+        <button class="cb fn" onclick="calcFn('sqrt')">√</button>
+        <button class="cb fn" onclick="calcFn('log')">log</button>
+        <button class="cb fn" onclick="calcFn('ln')">ln</button>
+        <button class="cb fn" onclick="calcFn('pi')">π</button>
+        <button class="cb fn" onclick="calcFn('e')">e</button>
+        <button class="cb del" onclick="calcClear()">AC</button>
+        <button class="cb del" onclick="calcBack()">⌫</button>
+        <button class="cb fn" onclick="calcFn('pct')">%</button>
+        <button class="cb op" onclick="calcOp('/')">÷</button>
+        <button class="cb" onclick="calcNum('7')">7</button>
+        <button class="cb" onclick="calcNum('8')">8</button>
+        <button class="cb" onclick="calcNum('9')">9</button>
+        <button class="cb op" onclick="calcOp('*')">×</button>
+        <button class="cb" onclick="calcNum('4')">4</button>
+        <button class="cb" onclick="calcNum('5')">5</button>
+        <button class="cb" onclick="calcNum('6')">6</button>
+        <button class="cb op" onclick="calcOp('-')">−</button>
+        <button class="cb" onclick="calcNum('1')">1</button>
+        <button class="cb" onclick="calcNum('2')">2</button>
+        <button class="cb" onclick="calcNum('3')">3</button>
+        <button class="cb op" onclick="calcOp('+')">+</button>
+        <button class="cb" onclick="calcNum('0')" style="grid-column:span 2">0</button>
+        <button class="cb" onclick="calcNum('.')">.</button>
+        <button class="cb eq" onclick="calcEquals()">=</button>
+      </div>
+    </div>
+    <div class="card" style="max-width:320px;flex:1">
+      <div class="card-head"><h3>📖 How to use</h3></div>
+      <div class="card-body" style="font-size:.8rem;color:var(--muted);line-height:1.8">
+        <p><b>sin / cos / tan</b> — press, then enter the angle in degrees</p>
+        <p><b>√</b> — press, then enter the number to find its square root</p>
+        <p><b>log</b> — logarithm base 10 &nbsp; <b>ln</b> — natural logarithm</p>
+        <p><b>π</b> — inserts Pi (3.14159…) &nbsp; <b>e</b> — Euler's number (2.718…)</p>
+        <p><b>%</b> — converts the current number to a percentage (÷100)</p>
+        <p><b>AC</b> — clears everything &nbsp; <b>⌫</b> — deletes last digit</p>
+      </div>
+    </div>
+  </div>`;
+}
+
+function calcNum(n) {
+  if(_calcNewNum){ _calcVal=n==='.'?'0.':n; _calcNewNum=false; }
+  else { if(n==='.'&&_calcVal.includes('.'))return; _calcVal=(_calcVal==='0'&&n!=='.')?n:_calcVal+n; }
+  document.getElementById('calc-val').textContent=_calcVal;
+}
+function calcOp(op) {
+  _calcExpr=(_calcExpr||'') + _calcVal + ' ' + {'/':'÷','*':'×','+':'+','-':'−'}[op]+' ';
+  document.getElementById('calc-hist').textContent=_calcExpr;
+  _calcExpr=_calcExpr.replace(/[÷×−]/g,(m)=>({'÷':'/','×':'*','−':'-'}[m]||m));
+  _calcNewNum=true;
+}
+function calcEquals() {
+  try {
+    const expr = (_calcExpr||'')+_calcVal;
+    const clean = expr.replace(/÷/g,'/').replace(/×/g,'*').replace(/−/g,'-');
+    const result = Function('"use strict";return ('+clean+')')();
+    const disp = isFinite(result)?parseFloat(result.toFixed(10)).toString():'Error';
+    document.getElementById('calc-hist').textContent=expr+' =';
+    document.getElementById('calc-val').textContent=disp;
+    _calcVal=disp; _calcExpr=''; _calcNewNum=true;
+  } catch(e){ document.getElementById('calc-val').textContent='Error'; _calcExpr=''; _calcNewNum=true; }
+}
+function calcClear() { _calcVal='0'; _calcExpr=''; _calcNewNum=true; document.getElementById('calc-val').textContent='0'; document.getElementById('calc-hist').textContent=''; }
+function calcBack() { _calcVal=_calcVal.length>1?_calcVal.slice(0,-1):'0'; document.getElementById('calc-val').textContent=_calcVal; }
+function calcFn(fn) {
+  const v=parseFloat(_calcVal)||0;
+  let r=v;
+  if(fn==='sin') r=parseFloat((Math.sin(v*Math.PI/180)).toFixed(10));
+  else if(fn==='cos') r=parseFloat((Math.cos(v*Math.PI/180)).toFixed(10));
+  else if(fn==='tan') r=parseFloat((Math.tan(v*Math.PI/180)).toFixed(10));
+  else if(fn==='sqrt') r=parseFloat(Math.sqrt(v).toFixed(10));
+  else if(fn==='log') r=parseFloat(Math.log10(v).toFixed(10));
+  else if(fn==='ln') r=parseFloat(Math.log(v).toFixed(10));
+  else if(fn==='pi') r=Math.PI;
+  else if(fn==='e') r=Math.E;
+  else if(fn==='pct') r=v/100;
+  _calcVal=r.toString(); _calcNewNum=true;
+  document.getElementById('calc-hist').textContent=fn+'('+v+') =';
+  document.getElementById('calc-val').textContent=_calcVal;
+}
+
+/* ══════════════════════════════════════════════════════
+   ⏰ CLOCK & ALARM
+══════════════════════════════════════════════════════ */
+const ALARMS = [
+  { time:'07:00', label:'Morning Assembly', on:true },
+  { time:'10:30', label:'Break Time', on:true },
+  { time:'12:00', label:'Lunch Break', on:true },
+  { time:'16:00', label:'School Ends', on:true },
+];
+let _clockInterval = null;
+
+function buildClockPage() {
+  return `
+  <div class="g2">
+    <div class="card reveal">
+      <div class="card-head"><h3>🕐 Live Clock</h3></div>
+      <div class="card-body" style="text-align:center;padding:2rem">
+        <div class="clock-face" id="analog-clock">
+          <div class="clock-tick ht" id="hand-h" style="transform:rotate(0deg)"></div>
+          <div class="clock-tick mt" id="hand-m" style="transform:rotate(0deg)"></div>
+          <div class="clock-tick st" id="hand-s" style="transform:rotate(0deg)"></div>
+          <div class="clock-dot"></div>
+        </div>
+        <div id="digital-clock" style="font-size:2.5rem;font-weight:800;color:var(--forest);font-family:monospace;margin:.75rem 0"></div>
+        <div id="clock-date" style="font-size:.82rem;color:var(--muted)"></div>
+      </div>
+    </div>
+    <div class="card reveal">
+      <div class="card-head"><h3>⏰ School Alarms</h3><button class="add-btn" onclick="addAlarm()">+ Add</button></div>
+      <div class="card-body" id="alarm-list">
+        ${ALARMS.map((a,i)=>`
+        <div class="alarm-item" id="alarm-${i}">
+          <div>
+            <div class="alarm-time">${a.time}</div>
+            <div class="alarm-label">${a.label}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <label style="display:flex;align-items:center;gap:.3rem;cursor:pointer;font-size:.75rem">
+              <input type="checkbox" ${a.on?'checked':''} onchange="ALARMS[${i}].on=this.checked;toast(this.checked?'⏰ Alarm enabled':'Alarm disabled')"/>
+              On
+            </label>
+            <button class="action-btn" onclick="ALARMS.splice(${i},1);document.getElementById('alarm-list').innerHTML=ALARMS.map((a,i)=>'<div class=\"alarm-item\"><div><div class=\"alarm-time\">'+a.time+'</div><div class=\"alarm-label\">'+a.label+'</div></div></div>').join('')">🗑️</button>
+          </div>
+        </div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function addAlarm() {
+  const time = prompt('Enter alarm time (HH:MM):','08:00');
+  if(!time||!/^\d{2}:\d{2}$/.test(time)){toast('Invalid time format. Use HH:MM');return;}
+  const label = prompt('Alarm label (optional):','Study Time') || 'Alarm';
+  ALARMS.push({time,label,on:true});
+  toast('⏰ Alarm set for '+time+' ✓');
+  // Refresh alarm list if visible
+  const el = document.getElementById('alarm-list');
+  if(el) el.innerHTML = ALARMS.map((a,i)=>`<div class="alarm-item"><div><div class="alarm-time">${a.time}</div><div class="alarm-label">${a.label}</div></div><label style="font-size:.75rem;cursor:pointer"><input type="checkbox" ${a.on?'checked':''} onchange="ALARMS[${i}].on=this.checked"/>  On</label></div>`).join('');
+}
+
+function startClock() {
+  if(_clockInterval) clearInterval(_clockInterval);
+  _clockInterval = setInterval(() => {
+    const now = new Date();
+    const h=now.getHours(), m=now.getMinutes(), s=now.getSeconds();
+    // Analog hands
+    const hEl=document.getElementById('hand-h'), mEl=document.getElementById('hand-m'), sEl=document.getElementById('hand-s');
+    if(hEl) hEl.style.transform=`rotate(${(h%12)*30+m*.5}deg)`;
+    if(mEl) mEl.style.transform=`rotate(${m*6+s*.1}deg)`;
+    if(sEl) sEl.style.transform=`rotate(${s*6}deg)`;
+    // Digital
+    const dc=document.getElementById('digital-clock');
+    if(dc) dc.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    const dd=document.getElementById('clock-date');
+    if(dd) dd.textContent=now.toLocaleDateString('fr-FR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    // Check alarms
+    const hhmm=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');
+    if(s===0) { ALARMS.filter(a=>a.on&&a.time===hhmm).forEach(a=>{ toast('⏰ ALARM: '+a.label); if('Notification' in window&&Notification.permission==='granted') new Notification('⏰ '+a.label,{body:'School alarm — '+a.time}); }); }
+    // Live time in nav
+    document.querySelectorAll('.live-time').forEach(el=>el.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0'));
+    document.querySelectorAll('.live-date').forEach(el=>el.textContent=now.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'}));
+  }, 1000);
+}
+
+/* ══════════════════════════════════════════════════════
+   🔍 AI SEARCH
+══════════════════════════════════════════════════════ */
+function buildAISearch() {
+  return `
+  <div class="callout cl-gold"><span>🤖</span><p><b>Ask AI:</b> Type any question you don't understand — about Maths, Science, History, French or any subject — and get an instant explanation. You can also search Google directly.</p></div>
+  <div class="ai-search-wrap">
+    <div class="ai-search-row">
+      <span style="font-size:1.1rem;margin-right:.2rem">🔍</span>
+      <input type="text" id="ai-q" placeholder="Ask anything… e.g. What is photosynthesis? How do I add fractions?" onkeydown="if(event.key==='Enter')askAI()"/>
+      <button class="ai-srch-btn ai" onclick="askAI()">Ask AI 🤖</button>
+      <button class="ai-srch-btn g" onclick="searchGoogle()">Google 🔍</button>
+    </div>
+    <div class="ai-answer" id="ai-answer">
+      <div style="color:var(--muted2);font-style:italic;font-size:.82rem">Your answer will appear here. Ask anything — no question is too simple!</div>
+    </div>
+  </div>
+  <div class="g2" style="margin-top:1.25rem">
+    <div class="card reveal"><div class="card-head"><h3>💡 Quick Topics</h3></div><div class="card-body">
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem">
+        ${['What is a fraction?','How does photosynthesis work?','What is the water cycle?','Explain the French Revolution','How do I multiply decimals?','What are the parts of a plant?','What is gravity?','How do I write an essay?'].map(q=>`<button class="sub-tab" onclick="document.getElementById('ai-q').value='${q}';askAI()">${q}</button>`).join('')}
+      </div>
+    </div></div>
+    <div class="card reveal"><div class="card-head"><h3>📚 Search Resources</h3></div><div class="card-body">
+      <div style="font-size:.82rem;color:var(--muted);line-height:2">
+        <a href="https://www.google.com" target="_blank" style="color:var(--blue);text-decoration:none;display:block">🌐 Google Search</a>
+        <a href="https://www.wikipedia.org" target="_blank" style="color:var(--blue);text-decoration:none;display:block">📖 Wikipedia</a>
+        <a href="https://www.khanacademy.org" target="_blank" style="color:var(--blue);text-decoration:none;display:block">🎓 Khan Academy</a>
+        <a href="https://www.bbc.co.uk/bitesize" target="_blank" style="color:var(--blue);text-decoration:none;display:block">📺 BBC Bitesize</a>
+      </div>
+    </div></div>
+  </div>`;
+}
+
+function askAI() {
+  const q = document.getElementById('ai-q')?.value.trim();
+  if(!q){ toast('Please type a question.'); return; }
+  const out = document.getElementById('ai-answer');
+  if(!out) return;
+  out.innerHTML = '<div style="color:var(--muted)">🤖 Thinking<span class="ai-cursor"></span></div>';
+
+  // Use Anthropic API for real AI answers
+  fetch('https://api.anthropic.com/v1/messages', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      model:'claude-sonnet-4-20250514',
+      max_tokens:600,
+      system:'You are a friendly, encouraging school tutor for primary school students (ages 6-12) at Saint François de Sales School. Give clear, simple, age-appropriate explanations. Use bullet points, examples, and simple language. Keep answers to 150-250 words. Always encourage the student.',
+      messages:[{role:'user', content:q}]
+    })
+  }).then(r=>r.json()).then(data=>{
+    const text = data.content?.[0]?.text || 'Sorry, I could not answer that. Please try again or search Google.';
+    out.innerHTML = `
+      <div style="background:rgba(13,61,31,.04);border-left:3px solid var(--forest);border-radius:0 var(--r2) var(--r2) 0;padding:.75rem 1rem;margin-bottom:.75rem">
+        <div style="font-size:.68rem;font-weight:700;color:var(--gold);margin-bottom:.35rem;text-transform:uppercase;letter-spacing:.08em">🤖 AI Answer</div>
+        <div style="line-height:1.75;white-space:pre-wrap">${text}</div>
+      </div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <button class="ai-srch-btn ai" onclick="speakText('${text.replace(/'/g,"\\'").replace(/\n/g,' ')}',this)">🔊 Read Aloud</button>
+        <button class="ai-srch-btn g" onclick="searchGoogle()">🔍 Also Search Google</button>
+      </div>`;
+  }).catch(()=>{
+    out.innerHTML = `<div style="color:var(--muted);font-style:italic">⚠️ Could not connect to AI. <a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank" style="color:var(--blue)">Search Google instead →</a></div>`;
+  });
+}
+
+function searchGoogle() {
+  const q = document.getElementById('ai-q')?.value.trim();
+  if(!q){ toast('Please type a question first.'); return; }
+  window.open('https://www.google.com/search?q='+encodeURIComponent(q),'_blank');
+}
+
+/* ══════════════════════════════════════════════════════
+   📅 CALENDAR
+══════════════════════════════════════════════════════ */
+const CAL_EVENTS = [
+  { date:'2026-04-24', title:'Portal Launch Day', color:'var(--forest)' },
+  { date:'2026-05-01', title:'Labour Day (Holiday)', color:'var(--gold)' },
+  { date:'2026-05-04', title:'Term 2 Exams Begin', color:'var(--red)' },
+  { date:'2026-05-15', title:'End of Term 2', color:'var(--red)' },
+  { date:'2026-06-01', title:'Term 3 Begins', color:'var(--forest)' },
+  { date:'2026-04-20', title:'Easter Monday (Holiday)', color:'var(--gold)' },
+];
+let _calYear=2026, _calMonth=3; // April 2026 (0-indexed)
+
+function buildCalendar() {
+  return `
+  <div class="g2">
+    <div class="card reveal" style="grid-column:span 2">
+      <div class="card-head">
+        <div class="cal-nav" style="width:100%">
+          <button onclick="calNav(-1)">‹</button>
+          <h3 id="cal-title"></h3>
+          <button onclick="calNav(1)">›</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="cal-head" id="cal-head"></div>
+        <div class="cal-body" id="cal-body"></div>
+      </div>
+    </div>
+    <div class="card reveal">
+      <div class="card-head"><h3>📅 Upcoming Events</h3><button class="add-btn" onclick="addCalEvent()">+ Add</button></div>
+      <div id="cal-events-list" style="padding:.75rem"></div>
+    </div>
+    <div class="card reveal">
+      <div class="card-head"><h3>🏫 Term Dates</h3></div>
+      <div style="padding:.75rem;font-size:.82rem;color:var(--muted);line-height:2">
+        <div><b>Term 1:</b> 27 Jan – 28 Mar 2026</div>
+        <div><b>Term 2:</b> 20 Apr – 30 May 2026</div>
+        <div><b>Term 3:</b> 1 Jun – 31 Jul 2026</div>
+        <div style="margin-top:.5rem"><b>Easter Holiday:</b> 29 Mar – 18 Apr 2026</div>
+        <div><b>National Holiday:</b> 1 May (Labour Day)</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderCalendar() {
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const title=document.getElementById('cal-title');
+  const head=document.getElementById('cal-head');
+  const body=document.getElementById('cal-body');
+  if(!title||!head||!body) return;
+  title.textContent=months[_calMonth]+' '+_calYear;
+  head.innerHTML=days.map(d=>`<div class="cal-hd">${d}</div>`).join('');
+  const first=new Date(_calYear,_calMonth,1).getDay();
+  const daysInMonth=new Date(_calYear,_calMonth+1,0).getDate();
+  const today=new Date(); const todayStr=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+  let html=Array(first).fill('<div class="cal-cell empty"></div>').join('');
+  for(let d=1;d<=daysInMonth;d++){
+    const ds=`${_calYear}-${String(_calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const evts=CAL_EVENTS.filter(e=>e.date===ds);
+    html+=`<div class="cal-cell${ds===todayStr?' today':''}">
+      <div class="cal-cell-num">${d}</div>
+      ${evts.slice(0,2).map(e=>`<div class="cal-evt" style="background:${e.color||'var(--forest2)'}">${e.title}</div>`).join('')}
+    </div>`;
+  }
+  body.innerHTML=html;
+  // Upcoming events list
+  const evList=document.getElementById('cal-events-list');
+  if(evList){
+    const upcoming=CAL_EVENTS.filter(e=>e.date>=todayStr).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,6);
+    evList.innerHTML=upcoming.length?upcoming.map(e=>`<div style="display:flex;gap:.6rem;align-items:center;padding:.4rem 0;border-bottom:1px solid var(--border);font-size:.8rem"><div style="width:8px;height:8px;border-radius:50%;background:${e.color||'var(--forest2)'};flex-shrink:0"></div><div><div style="font-weight:700;color:var(--forest)">${e.date}</div><div style="color:var(--muted)">${e.title}</div></div></div>`).join(''):'<div style="font-size:.8rem;color:var(--muted);padding:.5rem">No upcoming events.</div>';
+  }
+}
+
+function calNav(dir) { _calMonth+=dir; if(_calMonth<0){_calMonth=11;_calYear--;} if(_calMonth>11){_calMonth=0;_calYear++;} renderCalendar(); }
+
+function addCalEvent() {
+  const date=prompt('Event date (YYYY-MM-DD):',new Date().toISOString().slice(0,10));
+  if(!date) return;
+  const title=prompt('Event title:','School Event');
+  if(!title) return;
+  CAL_EVENTS.push({date,title,color:'var(--forest)'});
+  renderCalendar();
+  toast('📅 Event added: '+title+' on '+date+' ✓');
+}
+
+/* ══════════════════════════════════════════════════════
+   👤 TEACHER PROFILE
+══════════════════════════════════════════════════════ */
+function buildTeacherProfile() {
+  const tc = Object.entries(TEACHER_CREDS).find(([k,v])=>v.name===currentUser.name);
+  const teacherKey = tc?tc[0]:'';
+  const teacher = DB.teachers.find(t=>t.name===currentUser.name)||{};
+  const av = currentUser.av||'T';
+  return `
+  <div class="g2">
+    <div class="card reveal">
+      <div class="card-head"><h3>👤 Profile Information</h3></div>
+      <div class="card-body">
+        <div style="display:flex;gap:1.5rem;align-items:flex-start;margin-bottom:1.25rem;flex-wrap:wrap">
+          <div class="profile-av" onclick="changeProfilePic()" id="profile-av-box">
+            <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--forest),var(--forest3));display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:800;color:var(--gold2)" id="profile-av-inner">${av}</div>
+            <div class="av-lens">📷 Change Photo</div>
+          </div>
+          <div style="flex:1">
+            <div style="font-family:var(--font-serif);font-size:1.3rem;font-weight:700;color:var(--forest);margin-bottom:.25rem">${currentUser.name||'Teacher'}</div>
+            <div style="font-size:.82rem;color:var(--muted)">Class Teacher — ${teacher.cls||currentClass||'—'}</div>
+            <div style="font-size:.78rem;color:var(--muted2);margin-top:.15rem">Username: <b>${teacherKey||'—'}</b></div>
+          </div>
+        </div>
+        <div class="mfield"><label>Display Name</label><input type="text" id="prof-name" value="${currentUser.name||''}" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/></div>
+        <div class="mfield"><label>Class</label><input type="text" value="${teacher.cls||currentClass||''}" disabled style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit;background:var(--cream2);color:var(--muted)"/></div>
+        <div class="mfield"><label>Subject</label><input type="text" id="prof-subject" value="${teacher.subject||'All Subjects'}" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/></div>
+        <button class="btn btn-primary" onclick="saveTeacherProfile()">💾 Save Profile</button>
+      </div>
+    </div>
+    <div class="card reveal">
+      <div class="card-head"><h3>🔑 Change Password</h3></div>
+      <div class="card-body">
+        <div class="callout cl-tip" style="margin-bottom:1rem"><span>ℹ️</span><p>Your new password will be saved immediately and visible to the Head Teacher and Director.</p></div>
+        <div class="mfield"><label>Current Password</label><div class="field-wrap"><input type="password" id="tp-cur" placeholder="Current password"/><button class="pass-toggle" onclick="togglePass('tp-cur',this)">👁</button></div></div>
+        <div class="mfield"><label>New Password</label><div class="field-wrap"><input type="password" id="tp-new" placeholder="Min 6 characters"/><button class="pass-toggle" onclick="togglePass('tp-new',this)">👁</button></div></div>
+        <div class="mfield"><label>Confirm New Password</label><div class="field-wrap"><input type="password" id="tp-conf" placeholder="Repeat new password"/><button class="pass-toggle" onclick="togglePass('tp-conf',this)">👁</button></div></div>
+        <button class="btn btn-gold" onclick="saveTeacherPassword('${teacherKey}')">🔑 Update Password</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function changeProfilePic() {
+  const url = prompt('Enter image URL for your profile picture:','https://');
+  if(!url||!url.startsWith('http')) return;
+  const box = document.getElementById('profile-av-inner');
+  if(box) box.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%" onerror="this.parentElement.textContent='${currentUser.av||'T'}'"/>`;
+  currentUser.photoUrl = url;
+  // Update nav avatar
+  const navAv = document.getElementById('navAv');
+  if(navAv) navAv.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%" onerror="this.outerHTML='<span>${currentUser.av||'T'}</span>'"/>`;
+  toast('Profile photo updated ✓');
+}
+
+function saveTeacherProfile() {
+  const name = document.getElementById('prof-name')?.value.trim();
+  const subject = document.getElementById('prof-subject')?.value.trim();
+  if(name) { currentUser.name = name; document.getElementById('navName').textContent=name; }
+  if(subject) { const t=DB.teachers.find(t=>t.cls===currentClass); if(t) t.subject=subject; }
+  toast('Profile saved ✓');
+}
+
+function saveTeacherPassword(teacherKey) {
+  const cur=document.getElementById('tp-cur')?.value.trim();
+  const newP=document.getElementById('tp-new')?.value.trim();
+  const conf=document.getElementById('tp-conf')?.value.trim();
+  if(!cur||!newP||!conf){toast('Please fill all fields.');return;}
+  if(newP!==conf){toast('❌ Passwords do not match.');return;}
+  if(newP.length<6){toast('❌ Password must be at least 6 characters.');return;}
+  const tc=TEACHER_CREDS[teacherKey];
+  if(!tc||tc.pass!==cur){toast('❌ Current password is incorrect.');return;}
+  tc.pass=newP;
+  toast('✅ Password updated and saved to HT/Director dashboard.');
+  document.getElementById('tp-cur').value='';
+  document.getElementById('tp-new').value='';
+  document.getElementById('tp-conf').value='';
+}
+
+/* ══════════════════════════════════════════════════════
+   🏫 CLASS MANAGER (HT + Director)
+══════════════════════════════════════════════════════ */
+function buildClassManager() {
+  return `
+  <div class="g2">
+    <div class="card reveal">
+      <div class="card-head"><h3>🏫 Current Classes</h3><button class="add-btn" onclick="addClass()">+ Add Class</button></div>
+      <div class="tbl" id="classes-table">
+        <table>
+          <thead><tr><th>Class</th><th>Teacher</th><th>Students</th><th>Actions</th></tr></thead>
+          <tbody id="classes-tbody">
+            ${renderClassRows()}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card reveal">
+      <div class="card-head"><h3>📋 Class Structure</h3></div>
+      <div class="card-body" style="font-size:.82rem;color:var(--muted);line-height:1.9">
+        <p>The school currently has <b>${CLASSES.length} classes</b> across 5 primary levels.</p>
+        <p>When you add a new class, it will immediately appear in:<br/>
+        • Teacher assignment<br/>
+        • Student enrolment<br/>
+        • Report card generator<br/>
+        • Virtual classroom<br/>
+        • All portal sections</p>
+        <div class="callout cl-tip" style="margin-top:.75rem"><span>⚠️</span><p>Deleting a class cannot be undone. All student data in that class will be removed.</p></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderClassRows() {
+  return CLASSES.map((c,i)=>{
+    const t=DB.teachers.find(x=>x.cls===c);
+    const count=(STUDENTS[c]||[]).length;
+    return `<tr><td><b>${c}</b></td><td>${t?t.name:'<span style="color:var(--muted)">Not assigned</span>'}</td><td>${count}</td><td><button class="action-btn" onclick="deleteClass('${c}')">🗑️</button></td></tr>`;
+  }).join('');
+}
+
+function addClass() {
+  const name=prompt('New class name (e.g. P6A, P3C):','');
+  if(!name||!name.trim()){return;}
+  const cls=name.trim().toUpperCase();
+  if(CLASSES.includes(cls)){toast('Class '+cls+' already exists.');return;}
+  CLASSES.push(cls);
+  DB.subjects[cls]=['French','Mathematics','Science','Religion','History','Geography','Drawing','Physical Education','English','Music'];
+  DB.materials[cls]=[];
+  DB.proclamations[cls]=[];
+  DB.timetable[cls]=generateDefaultTimetable(cls);
+  STUDENTS[cls]=[];
+  const tbody=document.getElementById('classes-tbody');
+  if(tbody) tbody.innerHTML=renderClassRows();
+  toast('✅ Class '+cls+' added successfully! All portal sections updated.');
+}
+
+function deleteClass(cls) {
+  if(!confirm('Delete class '+cls+'? This cannot be undone.')) return;
+  const idx=CLASSES.indexOf(cls);
+  if(idx>-1) CLASSES.splice(idx,1);
+  delete DB.materials[cls]; delete DB.subjects[cls]; delete DB.proclamations[cls]; delete STUDENTS[cls];
+  const tbody=document.getElementById('classes-tbody');
+  if(tbody) tbody.innerHTML=renderClassRows();
+  toast('Class '+cls+' deleted.');
+}
+
+/* ══════════════════════════════════════════════════════
+   📝 ENHANCED QUIZ BUILDER (all question types)
+══════════════════════════════════════════════════════ */
+let _qbType = 'mcq'; // mcq | truefalse | short | fill | match
+
+function buildQuizBuilderPage() {
+  return `
+  <div class="phd"><h2>🧠 Quiz Builder</h2><p>Create a quiz with any question type for your class</p><div class="phd-line"></div></div>
+  <div class="callout cl-tip"><span>🎯</span><p>Choose a question type, fill in the details, then add more questions. Click <b>Save & Publish Quiz</b> when done.</p></div>
+  <div class="g2">
+    <div>
+      <div class="card reveal">
+        <div class="card-head"><h3>➕ Add Question</h3></div>
+        <div class="card-body">
+          <div class="mfield"><label>Question Type</label>
+            <div class="qtype-sel" id="qtype-sel">
+              <div class="qtype-opt sel" onclick="selectQType('mcq',this)">🔘 Multiple Choice (4 options)</div>
+              <div class="qtype-opt" onclick="selectQType('truefalse',this)">✅ True / False</div>
+              <div class="qtype-opt" onclick="selectQType('short',this)">✏️ Short Answer</div>
+              <div class="qtype-opt" onclick="selectQType('fill',this)">📝 Fill in the Blank</div>
+            </div>
+          </div>
+          <div class="mfield"><label>Subject</label>
+            <select id="qb-subject" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit">
+              ${['Mathematics','French','Science','History','Geography','Religion','English','Technology'].map(s=>`<option>${s}</option>`).join('')}
+            </select>
+          </div>
+          <div class="mfield"><label>Question</label>
+            <textarea id="qb-q" rows="2" placeholder="Type your question here…" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit;resize:vertical"></textarea>
+          </div>
+          <div id="qb-options-block">
+            <!-- MCQ options -->
+            <div id="qb-mcq" class="mfield">
+              <label>Answer Options</label>
+              <div style="display:grid;gap:.4rem">
+                <div style="display:flex;gap:.5rem;align-items:center"><span style="width:22px;text-align:center;font-weight:700;color:var(--forest)">A</span><input type="text" id="qb-a" placeholder="Option A" style="flex:1;padding:.55rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/><input type="radio" name="qb-correct" value="a" id="qb-ca" title="Mark as correct"/><label for="qb-ca" style="font-size:.72rem;color:var(--muted)">✓</label></div>
+                <div style="display:flex;gap:.5rem;align-items:center"><span style="width:22px;text-align:center;font-weight:700;color:var(--forest)">B</span><input type="text" id="qb-b" placeholder="Option B" style="flex:1;padding:.55rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/><input type="radio" name="qb-correct" value="b" id="qb-cb"/><label for="qb-cb" style="font-size:.72rem;color:var(--muted)">✓</label></div>
+                <div style="display:flex;gap:.5rem;align-items:center"><span style="width:22px;text-align:center;font-weight:700;color:var(--forest)">C</span><input type="text" id="qb-c" placeholder="Option C" style="flex:1;padding:.55rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/><input type="radio" name="qb-correct" value="c" id="qb-cc"/><label for="qb-cc" style="font-size:.72rem;color:var(--muted)">✓</label></div>
+                <div style="display:flex;gap:.5rem;align-items:center"><span style="width:22px;text-align:center;font-weight:700;color:var(--forest)">D</span><input type="text" id="qb-d" placeholder="Option D" style="flex:1;padding:.55rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/><input type="radio" name="qb-correct" value="d" id="qb-cd"/><label for="qb-cd" style="font-size:.72rem;color:var(--muted)">✓</label></div>
+              </div>
+            </div>
+            <div id="qb-tf" class="mfield" style="display:none">
+              <label>Correct Answer</label>
+              <div style="display:flex;gap:1rem">
+                <label style="cursor:pointer"><input type="radio" name="qb-tf-ans" value="true" checked/> True</label>
+                <label style="cursor:pointer"><input type="radio" name="qb-tf-ans" value="false"/> False</label>
+              </div>
+            </div>
+            <div id="qb-short" class="mfield" style="display:none">
+              <label>Model Answer / Keywords</label>
+              <input type="text" id="qb-short-ans" placeholder="e.g. photosynthesis, chlorophyll, sunlight" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/>
+              <div style="font-size:.72rem;color:var(--muted);margin-top:.25rem">Students type their answer. You can review it manually.</div>
+            </div>
+            <div id="qb-fill" class="mfield" style="display:none">
+              <label>Complete Sentence (put ___ where the blank is)</label>
+              <input type="text" id="qb-fill-q" placeholder="e.g. Plants make food by a process called ___" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit;margin-bottom:.4rem"/>
+              <label style="font-size:.7rem">Correct Answer</label>
+              <input type="text" id="qb-fill-ans" placeholder="e.g. photosynthesis" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/>
+            </div>
+          </div>
+          <div class="mfield"><label>Points for this question</label>
+            <select id="qb-pts" style="width:120px;padding:.55rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit">
+              <option value="1">1 point</option><option value="2">2 points</option><option value="3">3 points</option><option value="5">5 points</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" onclick="addQuizBuilderQuestion()">+ Add This Question</button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card reveal">
+        <div class="card-head"><h3>📋 Quiz Questions <span id="qb-count">(0)</span></h3></div>
+        <div id="qb-list" style="padding:.5rem;min-height:80px">
+          <div style="text-align:center;color:var(--muted);font-size:.8rem;padding:1.5rem">No questions yet. Add questions on the left.</div>
+        </div>
+        <div style="padding:.75rem;border-top:1px solid var(--border);display:flex;gap:.5rem;flex-wrap:wrap">
+          <div class="mfield" style="flex:1;margin-bottom:0"><label>Quiz Title</label><input type="text" id="qb-title" value="Morning Quiz" style="width:100%;padding:.55rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/></div>
+          <div class="mfield" style="margin-bottom:0;display:flex;align-items:flex-end"><button class="btn btn-gold" onclick="publishQuiz()">📢 Save & Publish</button></div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+const QB_QUESTIONS = [];
+function selectQType(type, el) {
+  _qbType=type;
+  document.querySelectorAll('.qtype-opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('qb-mcq').style.display=type==='mcq'?'block':'none';
+  document.getElementById('qb-tf').style.display=type==='truefalse'?'block':'none';
+  document.getElementById('qb-short').style.display=type==='short'?'block':'none';
+  document.getElementById('qb-fill').style.display=type==='fill'?'block':'none';
+}
+function addQuizBuilderQuestion() {
+  const q=document.getElementById('qb-q')?.value.trim();
+  const subj=document.getElementById('qb-subject')?.value||'General';
+  const pts=parseInt(document.getElementById('qb-pts')?.value||'1');
+  if(!q){toast('Please type a question.');return;}
+  let qObj={type:_qbType,q,subject:subj,pts,id:Date.now()};
+  if(_qbType==='mcq'){
+    const a=document.getElementById('qb-a')?.value.trim();
+    const b=document.getElementById('qb-b')?.value.trim();
+    const c=document.getElementById('qb-c')?.value.trim();
+    const d=document.getElementById('qb-d')?.value.trim();
+    const correct=document.querySelector('input[name="qb-correct"]:checked')?.value||'a';
+    if(!a||!b){toast('Please fill in at least options A and B.');return;}
+    Object.assign(qObj,{a,b,c,d,correct});
+  } else if(_qbType==='truefalse'){
+    qObj.correct=document.querySelector('input[name="qb-tf-ans"]:checked')?.value||'true';
+  } else if(_qbType==='short'){
+    qObj.modelAnswer=document.getElementById('qb-short-ans')?.value.trim()||'';
+  } else if(_qbType==='fill'){
+    qObj.fillQ=document.getElementById('qb-fill-q')?.value.trim()||q;
+    qObj.fillAns=document.getElementById('qb-fill-ans')?.value.trim()||'';
+  }
+  QB_QUESTIONS.push(qObj);
+  const typeLabels={mcq:'🔘 MCQ',truefalse:'✅ T/F',short:'✏️ Short',fill:'📝 Fill'};
+  const list=document.getElementById('qb-list');
+  if(list){
+    const div=document.createElement('div');
+    div.style.cssText='display:flex;justify-content:space-between;align-items:flex-start;padding:.5rem .75rem;border-bottom:1px solid var(--border);font-size:.8rem';
+    div.innerHTML=`<div><span class="badge bg-forest" style="font-size:.62rem">${typeLabels[_qbType]}</span> <b>${subj}</b> · ${pts}pt<br/><span style="color:var(--muted)">${q.substring(0,60)}${q.length>60?'…':''}</span></div><button class="action-btn" onclick="this.parentElement.remove();QB_QUESTIONS.splice(QB_QUESTIONS.findIndex(x=>x.id==${qObj.id}),1);updateQBCount()">🗑️</button>`;
+    if(list.children.length===1&&list.querySelector('[style*="No questions"]')) list.innerHTML='';
+    list.appendChild(div);
+    updateQBCount();
+    toast('Question added ✓');
+    // Clear inputs
+    ['qb-q','qb-a','qb-b','qb-c','qb-d','qb-short-ans','qb-fill-q','qb-fill-ans'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  }
+}
+function updateQBCount(){const c=document.getElementById('qb-count');if(c)c.textContent=`(${QB_QUESTIONS.length})`;}
+function publishQuiz() {
+  if(QB_QUESTIONS.length===0){toast('Please add at least one question.');return;}
+  const title=document.getElementById('qb-title')?.value.trim()||'Morning Quiz';
+  DB.quizQuestions.push(...QB_QUESTIONS.map(q=>({...q,id:Date.now()+Math.random()})));
+  toast('✅ Quiz "'+title+'" published with '+QB_QUESTIONS.length+' questions! Students can now take it.');
+  QB_QUESTIONS.length=0; updateQBCount();
+}
+
+/* ══════════════════════════════════════════════════════
+   📤 HOMEWORK SUBMISSION (enhanced)
+══════════════════════════════════════════════════════ */
+let _subMode = 'text'; // text | file | url
+
+function buildSubmissionWidget(materialId, materialTitle) {
+  return `
+  <div class="card reveal" id="sub-widget-${materialId}">
+    <div class="card-head"><h3>📤 Submit: ${materialTitle}</h3></div>
+    <div class="card-body">
+      <div class="mfield"><label>Submission Method</label>
+        <div class="sub-tabs">
+          <button class="sub-tab sel" onclick="selectSubMode('text',this,'${materialId}')">✍️ Type Online</button>
+          <button class="sub-tab" onclick="selectSubMode('file',this,'${materialId}')">📎 Upload File (Word/PDF)</button>
+          <button class="sub-tab" onclick="selectSubMode('url',this,'${materialId}')">🔗 Share Link</button>
+        </div>
+      </div>
+      <div id="sub-text-${materialId}">
+        <div class="mfield"><label>Your Answer / Work</label>
+          <textarea rows="6" id="sub-answer-${materialId}" placeholder="Type your complete answer here…" style="width:100%;padding:.75rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit;resize:vertical"></textarea>
+        </div>
+      </div>
+      <div id="sub-file-${materialId}" style="display:none">
+        <div class="mfield"><label>Upload File (Word .docx or PDF)</label>
+          <input type="file" id="sub-file-inp-${materialId}" accept=".docx,.doc,.pdf" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit;background:var(--cream2)"/>
+          <div style="font-size:.72rem;color:var(--muted);margin-top:.3rem">Accepted formats: Microsoft Word (.docx, .doc) and PDF</div>
+        </div>
+      </div>
+      <div id="sub-url-${materialId}" style="display:none">
+        <div class="mfield"><label>Link to your work (Google Docs, etc.)</label>
+          <input type="url" id="sub-url-inp-${materialId}" placeholder="https://docs.google.com/…" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/>
+        </div>
+      </div>
+      <div class="mfield"><label>Comment (optional)</label>
+        <input type="text" id="sub-comment-${materialId}" placeholder="Any note for your teacher…" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/>
+      </div>
+      <button class="btn btn-primary" onclick="submitWork('${materialId}','${materialTitle.replace(/'/g,"\\'").replace(/"/g,'&quot;')}')">📤 Submit My Work</button>
+    </div>
+  </div>`;
+}
+
+function selectSubMode(mode, btn, id) {
+  ['text','file','url'].forEach(m=>{
+    const el=document.getElementById('sub-'+m+'-'+id);
+    if(el) el.style.display=m===mode?'block':'none';
+  });
+  btn.closest('.sub-tabs')?.querySelectorAll('.sub-tab').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+
+function submitWork(materialId, title) {
+  const textEl=document.getElementById('sub-answer-'+materialId);
+  const fileEl=document.getElementById('sub-file-inp-'+materialId);
+  const urlEl=document.getElementById('sub-url-inp-'+materialId);
+  const comment=document.getElementById('sub-comment-'+materialId)?.value.trim();
+
+  let hasContent=false;
+  let submissionSummary='';
+  if(textEl&&textEl.style.display!=='none'&&textEl.value.trim()) { hasContent=true; submissionSummary=`Text (${textEl.value.trim().length} chars)`; }
+  if(fileEl&&fileEl.style.display!=='none'&&fileEl.files?.[0]) { hasContent=true; submissionSummary=`File: ${fileEl.files[0].name}`; }
+  if(urlEl&&urlEl.style.display!=='none'&&urlEl.value.trim()) { hasContent=true; submissionSummary=`Link: ${urlEl.value.trim()}`; }
+
+  if(!hasContent){toast('Please add your work before submitting.');return;}
+
+  const widget=document.getElementById('sub-widget-'+materialId);
+  if(widget) widget.innerHTML=`<div class="callout cl-gold"><span>✅</span><p><b>Submitted successfully!</b> "${title}" has been sent to your teacher.<br/><b>${submissionSummary}</b>${comment?' · Note: '+comment:''}<br/>Submitted: ${new Date().toLocaleString('fr-FR')}</p></div>`;
+  toast('✅ Work submitted: '+title);
+}
+
+  toast('✅ Work submitted: '+title);
+}
+
+/* ══════════════════════════════════════════════════════
+   🌙 DARK MODE
+══════════════════════════════════════════════════════ */
+function toggleDarkMode(){
+  const on = document.body.classList.toggle('dark-mode');
+  const btn = document.getElementById('dmBtn');
+  if(btn) btn.textContent = on ? '☀️' : '🌙';
+  try{ localStorage.setItem('sfds_dark', on?'1':''); }catch(e){}
+  toast(on ? '🌙 Dark mode on' : '☀️ Light mode on');
+}
+(function(){ try{ if(localStorage.getItem('sfds_dark')) document.body.classList.add('dark-mode'); }catch(e){} })();
+
+/* ══════════════════════════════════════════════════════
+   🖼️ PROFILE PICTURES
+══════════════════════════════════════════════════════ */
+const PROFILE_PICS = {};
+function openProfilePicUpload(){
+  const input = document.createElement('input');
+  input.type='file'; input.accept='image/*';
+  input.onchange=function(e){
+    const file=e.target.files[0]; if(!file) return;
+    const reader=new FileReader();
+    reader.onload=function(ev){
+      const key=currentUser.user||currentRole;
+      PROFILE_PICS[key]=ev.target.result;
+      updateNavAvatar();
+      toast('Profile picture updated ✓');
+      // Also update teacher record
+      const t=DB.teachers.find(x=>x.user===key);
+      if(t) t.photo=ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  };
+  input.click();
+}
+function updateNavAvatar(){
+  const key=currentUser.user||currentRole;
+  const pic=PROFILE_PICS[key]||(DB.teachers.find(x=>x.user===key)||{}).photo;
+  const av=document.getElementById('navAv');
+  if(!av) return;
+  if(pic){ av.innerHTML=`<img src="${pic}" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)" alt=""/>`;av.style.background='none';av.style.padding='0'; }
+}
+
+/* ══════════════════════════════════════════════════════
+   🏫 CLASS MANAGEMENT
+══════════════════════════════════════════════════════ */
+function buildClassManagement(){
+  return `<div class="card reveal">
+    <div class="card-head"><h3>🏫 Manage School Classes</h3><button class="add-btn" onclick="addClass()">+ Add Class</button></div>
+    <div class="card-body">
+      <div class="callout cl-tip"><span>ℹ️</span><p>Add or remove classes as needed. New classes become immediately available for teacher and student assignment.</p></div>
+      <div id="class-chips-edit" style="margin:.75rem 0">
+        ${CLASSES.map(c=>`<span class="class-chip-edit" id="cc-${c}">${c}<button onclick="removeClassConfirm('${c}')">✕</button></span>`).join('')}
+      </div>
+      <div style="font-size:.78rem;color:var(--muted)">Total classes: <b id="class-count">${CLASSES.length}</b></div>
+    </div>
+  </div>`;
+}
+function addClass(){
+  const name=prompt('New class name (e.g. P6A):'); if(!name||!name.trim()) return;
+  const cls=name.trim().toUpperCase();
+  if(CLASSES.includes(cls)){ toast('Class '+cls+' already exists.'); return; }
+  CLASSES.push(cls);
+  DB.subjects[cls]=['French','Mathematics','Science','Religion','History','Geography','Drawing','Physical Education','English','Music'];
+  DB.materials[cls]=[]; DB.proclamations[cls]=[]; DB.timetable[cls]=generateDefaultTimetable(cls); STUDENTS[cls]=[];
+  const wrap=document.getElementById('class-chips-edit');
+  if(wrap) wrap.innerHTML+=`<span class="class-chip-edit" id="cc-${cls}">${cls}<button onclick="removeClassConfirm('${cls}')">✕</button></span>`;
+  const cnt=document.getElementById('class-count'); if(cnt) cnt.textContent=CLASSES.length;
+  const strip=document.querySelector('.classes-strip');
+  if(strip) strip.innerHTML=CLASSES.map(c=>`<div class="class-chip">${c}</div>`).join('');
+  toast('Class '+cls+' added ✓');
+}
+function removeClassConfirm(cls){
+  if(!confirm('Remove class '+cls+'? This cannot be undone.')) return;
+  const i=CLASSES.indexOf(cls); if(i>-1) CLASSES.splice(i,1);
+  delete DB.subjects[cls]; delete DB.materials[cls]; delete DB.proclamations[cls]; delete DB.timetable[cls]; delete STUDENTS[cls];
+  const chip=document.getElementById('cc-'+cls); if(chip) chip.remove();
+  const cnt=document.getElementById('class-count'); if(cnt) cnt.textContent=CLASSES.length;
+  toast('Class '+cls+' removed.');
+}
+
+/* ══════════════════════════════════════════════════════
+   🎓 ADVANCED QUIZ BUILDER
+══════════════════════════════════════════════════════ */
+function buildQuizBuilder(){
+  return `<div class="card reveal">
+    <div class="card-head"><h3>🧠 Morning Quiz Builder</h3><button class="add-btn" onclick="addQuizQuestion()">+ Add Question</button></div>
+    <div class="card-body">
+      <div class="callout cl-tip"><span>💡</span><p>Build quizzes with <b>multiple choice</b>, <b>true/false</b>, <b>fill in the blank</b>, <b>matching pairs</b>, and <b>ordering</b> question types.</p></div>
+      <div class="mrow">
+        <div class="mfield"><label>Quiz Title</label><input type="text" id="qb-title" value="Morning Quiz — ${todayStr()}" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/></div>
+        <div class="mfield"><label>Target Class</label><select id="qb-target" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"><option value="all">All Classes</option>${CLASSES.map(c=>`<option value="${c}">${c}</option>`).join('')}</select></div>
+        <div class="mfield"><label>Time Limit</label><select id="qb-time" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"><option value="0">No limit</option><option value="600">10 minutes</option><option value="900" selected>15 minutes</option><option value="1200">20 minutes</option><option value="1800">30 minutes</option></select></div>
+      </div>
+      <div id="quiz-builder-questions" style="margin-top:1rem">${DB.quizQuestions.slice(0,3).map((q,i)=>renderQBQuestion(q,i)).join('')}</div>
+      <div style="display:flex;gap:.6rem;margin-top:1rem;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="toast('Quiz saved and published to students ✓')">📢 Save & Publish</button>
+        <button class="btn btn-ghost" onclick="addQuizQuestion()">+ Add Question</button>
+      </div>
+    </div>
+  </div>
+  <div class="card reveal" style="margin-top:1rem">
+    <div class="card-head"><h3>📊 Recent Quiz Results</h3></div>
+    <div class="tbl"><table><thead><tr><th>Student</th><th>Class</th><th>Score</th><th>Date</th><th>Grade</th></tr></thead>
+    <tbody>${DB.quizRegistrations.map(r=>`<tr><td><b>${r.name}</b></td><td>${r.cls}</td><td>${r.score}/${r.total}</td><td>${r.date}</td><td><span class="badge ${r.score/r.total>=.8?'bg-green':r.score/r.total>=.6?'bg-blue':'bg-amber'}">${Math.round(r.score/r.total*100)}%</span></td></tr>`).join('')}</tbody></table></div>
+  </div>`;
+}
+function renderQBQuestion(q,idx){
+  const types=['multiple','truefalse','fillblank','matching','ordering','shortanswer'];
+  const tlabels={multiple:'Multiple Choice',truefalse:'True/False',fillblank:'Fill Blank',matching:'Matching',ordering:'Ordering',shortanswer:'Short Answer'};
+  const qType=q.type||'multiple';
+  let optionsHtml='';
+  if(qType==='multiple') optionsHtml=`<div class="g2">${['a','b','c','d'].map(k=>`<div class="mfield"><label>Option ${k.toUpperCase()}</label><div style="display:flex;gap:.4rem;align-items:center"><input type="radio" name="correct-${idx}" value="${k}" ${q.correct===k?'checked':''}/><input type="text" value="${q[k]||''}" style="flex:1;padding:.45rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit;font-size:.82rem"/></div></div>`).join('')}</div>`;
+  if(qType==='truefalse') optionsHtml=`<div class="g2"><div style="background:var(--cream2);border:2px solid ${q.correct==='true'?'var(--forest)':'var(--border)'};border-radius:var(--r2);padding:.65rem;text-align:center;cursor:pointer;font-weight:700" onclick="if(DB.quizQuestions[${idx}])DB.quizQuestions[${idx}].correct='true';this.style.borderColor='var(--forest)';this.nextElementSibling.style.borderColor='var(--border)'">✅ TRUE</div><div style="background:var(--cream2);border:2px solid ${q.correct==='false'?'var(--red)':'var(--border)'};border-radius:var(--r2);padding:.65rem;text-align:center;cursor:pointer;font-weight:700" onclick="if(DB.quizQuestions[${idx}])DB.quizQuestions[${idx}].correct='false';this.style.borderColor='var(--red)';this.previousElementSibling.style.borderColor='var(--border)'">❌ FALSE</div></div>`;
+  if(qType==='fillblank') optionsHtml=`<div class="callout cl-tip" style="margin:.5rem 0"><span>✏️</span><p>Write the sentence using <b>___</b> to mark the blank. Set the correct answer below.</p></div><div class="mfield"><label>Correct Answer</label><input type="text" value="${q.answer||''}" placeholder="The correct word or phrase" style="width:100%;padding:.5rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/></div>`;
+  if(qType==='matching') optionsHtml=`<div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">Enter matching pairs:</div>${(q.pairs||[['',''],['',''],['','']]).map(p=>`<div class="qb-match-pair"><input type="text" value="${p[0]||''}" placeholder="Left item" style="padding:.45rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit;font-size:.82rem"/><span style="color:var(--muted)">↔</span><input type="text" value="${p[1]||''}" placeholder="Right match" style="padding:.45rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit;font-size:.82rem"/></div>`).join('')}`;
+  if(qType==='ordering') optionsHtml=`<div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">Enter items in correct order (students will see them shuffled):</div>${(q.items||['First step','Second step','Third step']).map((item,ii)=>`<div class="qb-order-item"><span style="background:var(--forest);color:#fff;border-radius:4px;padding:.1rem .4rem;font-size:.65rem;font-weight:700">${ii+1}</span><input type="text" value="${item}" style="flex:1;border:none;background:transparent;font-family:inherit;font-size:.82rem;outline:none;color:var(--text)"/></div>`).join('')}`;
+  if(qType==='shortanswer') optionsHtml=`<div class="callout cl-tip" style="margin:.5rem 0"><span>✍️</span><p><b>Short Answer</b> — Students type their own answer. You review and mark it manually.</p></div><div class="mfield"><label>Model Answer (teacher reference only)</label><textarea rows="2" style="width:100%;padding:.5rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit;resize:vertical" placeholder="Enter expected answer...">${q.modelAnswer||''}</textarea></div><div class="mfield"><label>Max Marks</label><input type="number" min="1" max="20" value="${q.maxMarks||5}" style="width:80px;padding:.45rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/></div>`;
+  return `<div class="qb-question" id="qbq-${idx}">
+    <div class="qb-question-num">Q${idx+1} · ${q.subject||'General'}</div>
+    <div class="qb-q-type">${types.map(t=>`<button class="qb-type-btn ${qType===t?'on':''}" onclick="setQType(${idx},'${t}')">${tlabels[t]}</button>`).join('')}</div>
+    <div class="mfield"><textarea rows="2" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit;resize:vertical" placeholder="Type the question here...">${q.q||''}</textarea></div>
+    ${optionsHtml}
+    <div style="display:flex;justify-content:flex-end;margin-top:.5rem"><button class="action-btn" onclick="DB.quizQuestions.splice(${idx},1);document.getElementById('qbq-${idx}').remove();toast('Question removed')">🗑️ Remove</button></div>
+  </div>`;
+}
+function setQType(idx,type){
+  if(!DB.quizQuestions[idx]) return;
+  DB.quizQuestions[idx].type=type;
+  const el=document.getElementById('qbq-'+idx);
+  if(el){ const d=document.createElement('div'); d.innerHTML=renderQBQuestion(DB.quizQuestions[idx],idx); el.replaceWith(d.firstElementChild); }
+}
+function addQuizQuestion(){
+  const nq={id:Date.now(),q:'',a:'',b:'',c:'',d:'',correct:'a',subject:'General',type:'multiple'};
+  DB.quizQuestions.push(nq);
+  const wrap=document.getElementById('quiz-builder-questions');
+  if(wrap){ const d=document.createElement('div'); d.innerHTML=renderQBQuestion(nq,DB.quizQuestions.length-1); wrap.appendChild(d.firstElementChild); }
+  toast('New question added');
+}
+
+/* ══════════════════════════════════════════════════════
+   🎥 VIRTUAL CLASSROOM
+══════════════════════════════════════════════════════ */
+function buildVirtualClassroom(cls,role){
+  const students=STUDENTS[cls]||[];
+  const teacher=DB.teachers.find(t=>t.cls===cls);
+  const participants=[{name:teacher?teacher.name:'Teacher',role:'teacher',av:'👩‍🏫',speaking:true},...students.map((s,i)=>({name:s,role:'student',av:s.charAt(0),speaking:i===1,handRaised:i===2}))];
+  const pHTML=participants.map(p=>`<div class="vc-participant ${p.speaking?'speaking':''} ${p.handRaised?'hand-raised':''}"><div class="vc-participant-av">${p.role==='teacher'?'👩‍🏫':p.av}</div><div class="vc-participant-name">${p.name.split(' ')[0]}</div><div class="vc-participant-status">${p.speaking?'🎙️ Speaking':p.handRaised?'✋ Hand raised':'🔇 Muted'}</div></div>`).join('');
+  const chatMsgs=[{from:teacher?teacher.name.split(' ')[0]:'Teacher',text:'Good morning everyone! Please open your textbook.'},{from:'Jean-Paul',text:'Good morning teacher!'}];
+  return `
+  <div class="callout cl-gold"><span>🎥</span><p><b>Virtual Class — ${cls}</b> · Simulated live classroom. Integrate with <b>Jitsi Meet</b> or <b>Google Meet</b> for live video in production. The whiteboard, chat, and controls are fully functional.</p></div>
+  <div class="vc-room" id="vc-room-${cls}">
+    <div class="vc-header">
+      <div class="vc-title">🎥 Virtual Class — ${cls} <div class="vc-status live">● LIVE</div></div>
+      <div style="display:flex;align-items:center;gap:.75rem">
+        <span id="vc-timer-${cls}" style="font-size:.72rem;color:rgba(255,255,255,.5)">00:00</span>
+        <span style="font-size:.72rem;color:rgba(255,255,255,.5)">${participants.length} participants</span>
+        ${role!=='student'&&role!=='parent'?`<button class="vc-btn vc-btn-red" style="padding:.35rem .75rem" onclick="toast('Class ended. Students notified.')">End</button>`:''}
+      </div>
+    </div>
+    <div class="vc-tabs" id="vc-tabs-${cls}">
+      <button class="vc-tab on" onclick="vcTab('${cls}','participants',this)">👥 Participants (${participants.length})</button>
+      <button class="vc-tab" onclick="vcTab('${cls}','whiteboard',this)">🖊️ Whiteboard</button>
+      <button class="vc-tab" onclick="vcTab('${cls}','screen',this)">🖥️ Screen Share</button>
+    </div>
+    <div class="vc-layout">
+      <div class="vc-board-area" id="vc-board-${cls}">
+        <div id="vc-view-participants-${cls}" class="vc-grid">${pHTML}</div>
+        <div id="vc-view-whiteboard-${cls}" style="display:none;flex:1;padding:.5rem;flex-direction:column">
+          <canvas id="vc-canvas-${cls}" width="680" height="300" style="background:#fff;border-radius:8px;cursor:crosshair;display:block;width:100%"></canvas>
+          <div style="display:flex;gap:.35rem;margin-top:.4rem;flex-wrap:wrap">
+            ${['#000000','#ef4444','#3b82f6','#22c55e','#f59e0b','#a855f7'].map(c=>`<button class="vc-btn vc-btn-gray" style="padding:.3rem .5rem;background:${c};width:28px" onclick="vcSetColor('${cls}','${c}')"></button>`).join('')}
+            <button class="vc-btn vc-btn-gray" onclick="vcSetSize('${cls}',2)">Thin</button>
+            <button class="vc-btn vc-btn-gray" onclick="vcSetSize('${cls}',5)">Med</button>
+            <button class="vc-btn vc-btn-gray" onclick="vcSetSize('${cls}',12)">Thick</button>
+            <button class="vc-btn vc-btn-gray" onclick="vcClearBoard('${cls}')">🗑️ Clear</button>
+            <button class="vc-btn vc-btn-green" onclick="vcSaveBoard('${cls}')">💾 Save</button>
+          </div>
+        </div>
+        <div id="vc-view-screen-${cls}" style="display:none;flex:1;align-items:center;justify-content:center;padding:1rem">
+          <div style="text-align:center;color:rgba(255,255,255,.5)"><div style="font-size:3rem">🖥️</div><div style="font-size:.85rem;margin-top:.5rem">${role==='teacher'||role==='ht'||role==='director'?`<button class="vc-btn vc-btn-green" onclick="toast('Screen sharing requires browser API support. Use Chrome for best results.')">📡 Share Screen</button>`:'Waiting for teacher to share screen...'}</div></div>
+        </div>
+      </div>
+      <div class="vc-sidebar-panel">
+        <div style="padding:.5rem .75rem;font-size:.72rem;font-weight:700;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.08)">👥 Participants</div>
+        <div class="vc-participants-list">${participants.map(p=>`<div class="vc-participant-row"><div style="width:28px;height:28px;background:rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0">${p.role==='teacher'?'👩‍🏫':p.av}</div><div style="flex:1;font-size:.72rem"><div style="font-weight:700;color:#fff">${p.name.split(' ')[0]}</div><div style="color:rgba(255,255,255,.4);font-size:.65rem">${p.role}</div></div><span>${p.speaking?'🎙️':p.handRaised?'✋':'🔇'}</span></div>`).join('')}</div>
+        <div style="padding:.5rem .75rem;font-size:.72rem;font-weight:700;color:rgba(255,255,255,.5);border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)">💬 Chat</div>
+        <div class="vc-chat-messages" id="vc-chat-${cls}">${chatMsgs.map(m=>`<div class="vc-chat-msg"><div class="vc-chat-msg-name">${m.from}</div>${m.text}</div>`).join('')}</div>
+        <div class="vc-chat-input">
+          <input type="text" id="vc-msg-${cls}" placeholder="Type message..." onkeydown="if(event.key==='Enter')vcSendMsg('${cls}')"/>
+          <button class="vc-btn vc-btn-green" style="padding:.3rem .55rem;font-size:.72rem" onclick="vcSendMsg('${cls}')">→</button>
+        </div>
+      </div>
+    </div>
+    <div class="vc-controls">
+      <button class="vc-btn vc-btn-gray" id="vc-mic-${cls}" onclick="vcToggle('mic','${cls}',this)">🎙️ Mic On</button>
+      <button class="vc-btn vc-btn-gray" id="vc-cam-${cls}" onclick="vcToggle('cam','${cls}',this)">📷 Cam On</button>
+      <button class="vc-btn vc-btn-gray" id="vc-hand-${cls}" onclick="vcToggle('hand','${cls}',this)">✋ Raise Hand</button>
+      ${role!=='student'&&role!=='parent'?`<button class="vc-btn vc-btn-green" onclick="toast('🧠 Quiz launched to all students in ${cls}!')">🧠 Launch Quiz</button><button class="vc-btn vc-btn-gray" onclick="toast('All participants muted.')">🔇 Mute All</button>`:''}
+      <button class="vc-btn vc-btn-red" onclick="toast('You have left the class.');if(_vcTimers['${cls}'])clearInterval(_vcTimers['${cls}'])">📴 Leave</button>
+    </div>
+  </div>`;
+}
+const _vcTimers={};
+const _wb={};
+function vcTab(cls,tab,btn){
+  ['participants','whiteboard','screen'].forEach(t=>{ const el=document.getElementById(`vc-view-${t}-${cls}`); if(el) el.style.display=t===tab?'flex':'none'; });
+  document.querySelectorAll(`#vc-tabs-${cls} .vc-tab`).forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  if(tab==='whiteboard') setTimeout(()=>initWhiteboard(cls),50);
+}
+function initWhiteboard(cls){
+  const canvas=document.getElementById('vc-canvas-'+cls);
+  if(!canvas||_wb[cls]) return;
+  const ctx=canvas.getContext('2d');
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,canvas.width,canvas.height);
+  _wb[cls]={drawing:false,color:'#000',size:3,ctx};
+  const wb=_wb[cls];
+  const getPos=(e)=>{ const r=canvas.getBoundingClientRect(); const sc=canvas.width/r.width; return {x:(e.clientX-r.left)*sc,y:(e.clientY-r.top)*sc}; };
+  canvas.addEventListener('mousedown',e=>{ wb.drawing=true; const p=getPos(e); wb.ctx.beginPath(); wb.ctx.moveTo(p.x,p.y); });
+  canvas.addEventListener('mousemove',e=>{ if(!wb.drawing) return; const p=getPos(e); wb.ctx.lineTo(p.x,p.y); wb.ctx.strokeStyle=wb.color; wb.ctx.lineWidth=wb.size; wb.ctx.lineCap='round'; wb.ctx.stroke(); });
+  canvas.addEventListener('mouseup',()=>wb.drawing=false);
+  canvas.addEventListener('mouseleave',()=>wb.drawing=false);
+}
+function vcSetColor(cls,c){ if(_wb[cls]) _wb[cls].color=c; }
+function vcSetSize(cls,s){ if(_wb[cls]) _wb[cls].size=s; }
+function vcClearBoard(cls){ const c=document.getElementById('vc-canvas-'+cls); if(c&&_wb[cls]){ _wb[cls].ctx.fillStyle='#fff'; _wb[cls].ctx.fillRect(0,0,c.width,c.height); } }
+function vcSaveBoard(cls){ const c=document.getElementById('vc-canvas-'+cls); if(!c) return; const a=document.createElement('a'); a.href=c.toDataURL(); a.download=`Whiteboard_${cls}.png`; a.click(); toast('Whiteboard saved ✓'); }
+function vcToggle(type,cls,btn){
+  const s={mic:['🎙️ Mic On','🔇 Mic Off'],cam:['📷 Cam On','📷 Cam Off'],hand:['✋ Hand Down','✋ Raise Hand']};
+  const [on,off]=s[type]; btn.textContent=btn.textContent.trim()===on?off:on;
+}
+function vcSendMsg(cls){
+  const inp=document.getElementById('vc-msg-'+cls);
+  const text=inp?.value.trim(); if(!text) return;
+  const chat=document.getElementById('vc-chat-'+cls);
+  if(chat){ chat.innerHTML+=`<div class="vc-chat-msg"><div class="vc-chat-msg-name" style="color:#86efac">${currentUser.name||'You'}</div>${text}</div>`; chat.scrollTop=9999; }
+  inp.value='';
+}
+
+function startScreenShare(cls){
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia){
+    toast('Screen sharing requires a modern browser. Please use Chrome or Edge.');
+    return;
+  }
+  navigator.mediaDevices.getDisplayMedia({video:true}).then(stream=>{
+    const screen = document.getElementById('vc-view-screen-'+cls);
+    if(screen){
+      screen.innerHTML = `<video autoplay style="width:100%;height:100%;object-fit:contain;border-radius:8px" id="vc-screen-video-${cls}"></video>`;
+      const video = document.getElementById('vc-screen-video-'+cls);
+      if(video){ video.srcObject = stream; }
+      stream.getVideoTracks()[0].onended = () => {
+        screen.innerHTML = `<div style="text-align:center;color:rgba(255,255,255,.5)"><div style="font-size:3rem">🖥️</div><div style="font-size:.85rem;margin-top:.5rem">Screen sharing ended.</div><button class="vc-btn vc-btn-green" style="margin-top:.75rem" onclick="startScreenShare('${cls}')">📡 Share Again</button></div>`;
+        toast('Screen sharing stopped.');
+      };
+    }
+    toast('🖥️ Screen sharing started ✓');
+  }).catch(e=>{ toast('Screen share cancelled or denied.'); });
+}
+
+/* ══════════════════════════════════════════════════════
+   🧮 SCIENTIFIC CALCULATOR
+══════════════════════════════════════════════════════ */
+let _calcExpr='',_calcVal='0',_calcNewEntry=true;
+function buildCalculator(){
+  return `<div class="calc-wrap">
+    <div class="calc-display"><div class="calc-expr" id="calc-expr"></div><div class="calc-val" id="calc-val">0</div></div>
+    <div class="calc-sci-row">
+      <button class="calc-btn sci" onclick="calcSci('sin')">sin</button><button class="calc-btn sci" onclick="calcSci('cos')">cos</button>
+      <button class="calc-btn sci" onclick="calcSci('tan')">tan</button><button class="calc-btn sci" onclick="calcSci('sqrt')">√</button>
+      <button class="calc-btn sci" onclick="calcSci('pow2')">x²</button>
+    </div>
+    <div class="calc-sci-row">
+      <button class="calc-btn sci" onclick="calcSci('log')">log</button><button class="calc-btn sci" onclick="calcSci('ln')">ln</button>
+      <button class="calc-btn sci" onclick="calcSci('pi')">π</button><button class="calc-btn sci" onclick="calcSci('e')">e</button>
+      <button class="calc-btn sci" onclick="calcSci('inv')">1/x</button>
+    </div>
+    <div class="calc-grid">
+      <button class="calc-btn clr" onclick="calcClear()">AC</button><button class="calc-btn op" onclick="calcOp('(')">(</button><button class="calc-btn op" onclick="calcOp(')')">)</button><button class="calc-btn op" onclick="calcOp('%')">%</button>
+      <button class="calc-btn" onclick="calcDigit('7')">7</button><button class="calc-btn" onclick="calcDigit('8')">8</button><button class="calc-btn" onclick="calcDigit('9')">9</button><button class="calc-btn op" onclick="calcOp('/')">÷</button>
+      <button class="calc-btn" onclick="calcDigit('4')">4</button><button class="calc-btn" onclick="calcDigit('5')">5</button><button class="calc-btn" onclick="calcDigit('6')">6</button><button class="calc-btn op" onclick="calcOp('*')">×</button>
+      <button class="calc-btn" onclick="calcDigit('1')">1</button><button class="calc-btn" onclick="calcDigit('2')">2</button><button class="calc-btn" onclick="calcDigit('3')">3</button><button class="calc-btn op" onclick="calcOp('-')">−</button>
+      <button class="calc-btn zero" onclick="calcDigit('0')">0</button><button class="calc-btn" onclick="calcDigit('.')">.</button><button class="calc-btn op" onclick="calcOp('+')">+</button><button class="calc-btn eq" onclick="calcEquals()">=</button>
+    </div>
+    <div style="display:flex;gap:1px;background:#111">
+      <button class="calc-btn" style="flex:1;padding:.6rem" onclick="calcBackspace()">⌫</button>
+      <button class="calc-btn sci" style="flex:1;padding:.6rem" onclick="calcOp('^')">xⁿ</button>
+      <button class="calc-btn sci" style="flex:1;padding:.6rem" onclick="calcSci('abs')">|x|</button>
+    </div>
+  </div>`;
+}
+function calcDisp(){ const e=document.getElementById('calc-expr');const v=document.getElementById('calc-val'); if(e)e.textContent=_calcExpr; if(v)v.textContent=_calcVal; }
+function calcDigit(d){ if(_calcNewEntry){_calcVal=d==='.'?'0.':d;_calcNewEntry=false;}else{if(d==='.'&&_calcVal.includes('.'))return;_calcVal=(_calcVal==='0'&&d!=='.')?d:_calcVal+d;} calcDisp(); }
+function calcOp(op){_calcExpr+=_calcVal+op;_calcVal='0';_calcNewEntry=true;calcDisp();}
+function calcClear(){_calcExpr='';_calcVal='0';_calcNewEntry=true;calcDisp();}
+function calcBackspace(){if(_calcVal.length>1)_calcVal=_calcVal.slice(0,-1);else _calcVal='0';calcDisp();}
+function calcEquals(){
+  try{
+    const expr=(_calcExpr+_calcVal).replace(/÷/g,'/').replace(/×/g,'*').replace(/−/g,'-').replace(/\^/g,'**');
+    const result=Function('"use strict";return('+expr+')')();
+    _calcExpr=(_calcExpr+_calcVal)+' ='; _calcVal=String(parseFloat(result.toFixed(10))); _calcNewEntry=true;
+  }catch(e){_calcVal='Error';_calcNewEntry=true;}
+  calcDisp();
+}
+function calcSci(fn){
+  const v=parseFloat(_calcVal)||0;
+  const R={sin:()=>Math.sin(v*Math.PI/180),cos:()=>Math.cos(v*Math.PI/180),tan:()=>Math.tan(v*Math.PI/180),sqrt:()=>Math.sqrt(v),pow2:()=>v*v,log:()=>Math.log10(v),ln:()=>Math.log(v),pi:()=>Math.PI,e:()=>Math.E,inv:()=>1/v,abs:()=>Math.abs(v)};
+  const result=R[fn]?R[fn]():v;
+  _calcExpr=fn+'('+v+') ='; _calcVal=String(parseFloat(result.toFixed(10))); _calcNewEntry=true; calcDisp();
+}
+
+/* ══════════════════════════════════════════════════════
+   ⏰ SCIENTIFIC ALARM CLOCK
+══════════════════════════════════════════════════════ */
+const _alarms=[
+  {id:1,label:'Morning Assembly',time:'07:00',days:['Mon','Tue','Wed','Thu','Fri'],active:true},
+  {id:2,label:'First Lesson',time:'07:30',days:['Mon','Tue','Wed','Thu','Fri'],active:true},
+  {id:3,label:'Break Time',time:'10:00',days:['Mon','Tue','Wed','Thu','Fri'],active:false},
+  {id:4,label:'Lunch',time:'12:00',days:['Mon','Tue','Wed','Thu','Fri'],active:true},
+];
+function buildAlarmClock(){
+  const nums=[12,1,2,3,4,5,6,7,8,9,10,11];
+  const numHTML=nums.map((n,i)=>{const a=i*(30)*(Math.PI/180);const r=82;const x=50+r*Math.sin(a);const y=50-r*Math.cos(a);return `<div class="clock-number" style="left:${x}%;top:${y}%">${n}</div>`;}).join('');
+  return `<div class="g2" style="align-items:start">
+    <div class="card reveal"><div class="card-head"><h3>⏰ Live Clock</h3></div>
+      <div class="card-body" style="text-align:center;padding:1.5rem">
+        <div class="clock-face" style="position:relative">${numHTML}
+          <div class="clock-hand clock-hour" id="hand-hour" style="transform:rotate(0deg)"></div>
+          <div class="clock-hand clock-minute" id="hand-minute" style="transform:rotate(0deg)"></div>
+          <div class="clock-hand clock-second" id="hand-second" style="transform:rotate(0deg)"></div>
+          <div class="clock-center"></div>
+        </div>
+        <div class="alarm-time-display" id="clock-digital">00:00:00</div>
+        <div class="alarm-date-display" id="clock-date"></div>
+        <div style="display:flex;gap:.5rem;justify-content:center;margin-top:.75rem">
+          <button class="btn btn-primary" onclick="openAddAlarm()">+ Add Alarm</button>
+          <button class="btn btn-ghost" onclick="testAlarmSound()">🔔 Test</button>
+        </div>
+      </div>
+    </div>
+    <div class="card reveal"><div class="card-head"><h3>🔔 School Alarms</h3></div>
+      <div id="alarms-list">${renderAlarmList()}</div>
+    </div>
+  </div>`;
+}
+function renderAlarmList(){
+  return _alarms.map((a,i)=>`<div class="alarm-item ${a.active?'alarm-active':''}">
+    <div><div style="font-weight:700;font-size:.85rem">${a.label}</div><div style="font-size:.72rem;color:var(--muted)">${a.time} · ${a.days.slice(0,3).join(', ')}${a.days.length>3?'…':''}</div></div>
+    <div style="display:flex;align-items:center;gap:.5rem">
+      <input type="checkbox" ${a.active?'checked':''} onchange="toggleAlarm(${i},this.checked)" style="width:18px;height:18px;cursor:pointer;accent-color:var(--forest)"/>
+      <button class="action-btn" onclick="_alarms.splice(${i},1);document.getElementById('alarms-list').innerHTML=renderAlarmList()">🗑️</button>
+    </div>
+  </div>`).join('');
+}
+function toggleAlarm(i,v){ _alarms[i].active=v; document.getElementById('alarms-list').innerHTML=renderAlarmList(); toast(v?'Alarm on ✓':'Alarm off'); }
+function openAddAlarm(){
+  const label=prompt('Alarm label:'); if(!label) return;
+  const time=prompt('Time (HH:MM):'); if(!time||!/^\d{2}:\d{2}$/.test(time)){ toast('Please use format HH:MM'); return; }
+  _alarms.push({id:Date.now(),label,time,days:['Mon','Tue','Wed','Thu','Fri'],active:true});
+  document.getElementById('alarms-list').innerHTML=renderAlarmList();
+  toast('Alarm added ✓');
+}
+function testAlarmSound(){ if('speechSynthesis' in window){const u=new SpeechSynthesisUtterance('Attention. School alarm. Please proceed as instructed.');u.rate=0.9;window.speechSynthesis.speak(u);}else toast('🔔 Alarm bell would play here'); }
+function startClock(){
+  function tick(){
+    const now=new Date();
+    const h=now.getHours(),m=now.getMinutes(),s=now.getSeconds();
+    const dig=document.getElementById('clock-digital'); if(dig) dig.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    const dt=document.getElementById('clock-date'); if(dt) dt.textContent=now.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+    const secDeg=s*6, minDeg=m*6+s*0.1, hourDeg=(h%12)*30+m*0.5;
+    const hh=document.getElementById('hand-hour'); if(hh) hh.style.transform=`rotate(${hourDeg}deg)`;
+    const mh=document.getElementById('hand-minute'); if(mh) mh.style.transform=`rotate(${minDeg}deg)`;
+    const sh=document.getElementById('hand-second'); if(sh) sh.style.transform=`rotate(${secDeg}deg)`;
+    const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const today=days[now.getDay()];
+    const nowStr=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');
+    _alarms.forEach(a=>{ if(a.active&&a.time===nowStr&&s===0&&a.days.includes(today)){ testAlarmSound(); toast('🔔 '+a.label); } });
+  }
+  setInterval(tick,1000); tick();
+}
+
+/* ══════════════════════════════════════════════════════
+   📅 CALENDAR
+══════════════════════════════════════════════════════ */
+let _calY=new Date().getFullYear(),_calM=new Date().getMonth();
+const _calEvents=[
+  {date:'2026-04-15',title:'Term 2 Exams',type:'exam'},{date:'2026-04-18',title:'Good Friday',type:'holiday'},
+  {date:'2026-04-21',title:'Easter Monday',type:'holiday'},{date:'2026-05-01',title:'Labour Day',type:'holiday'},
+  {date:'2026-05-15',title:'Sports Day',type:'event'},{date:'2026-06-01',title:'End of Term 2',type:'exam'},
+];
+function buildCalendar(){return `<div id="calendar-widget">${renderCalendar()}</div>`;}
+function renderCalendar(){
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const first=new Date(_calY,_calM,1).getDay();
+  const dim=new Date(_calY,_calM+1,0).getDate();
+  const today=new Date();
+  let html=days.map(d=>`<div class="cal-day-header">${d}</div>`).join('');
+  for(let i=0;i<first;i++) html+=`<div class="cal-day other-month"></div>`;
+  for(let d=1;d<=dim;d++){
+    const ds=`${_calY}-${String(_calM+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday=today.getFullYear()===_calY&&today.getMonth()===_calM&&today.getDate()===d;
+    const evts=_calEvents.filter(e=>e.date===ds);
+    html+=`<div class="cal-day ${isToday?'today':''}" onclick="calClick('${ds}',${d})">
+      <div class="cal-day-num">${isToday?`<div style="background:var(--forest);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.72rem">${d}</div>`:d}</div>
+      ${evts.map(e=>`<div class="cal-event ${e.type||''}">${e.title}</div>`).join('')}
+    </div>`;
+  }
+  return `<div class="cal-nav"><button class="cal-nav-btn" onclick="calNav(-1)">← Prev</button><div style="font-family:var(--font-serif);font-weight:700;font-size:1.05rem;color:var(--forest)">${months[_calM]} ${_calY}</div><button class="cal-nav-btn" onclick="calNav(1)">Next →</button></div>
+  <div class="cal-grid">${html}</div>
+  <div style="display:flex;gap:.5rem;margin-top:.65rem;flex-wrap:wrap;font-size:.72rem;align-items:center">
+    <span><span style="display:inline-block;width:10px;height:10px;background:var(--forest);border-radius:2px"></span> Event</span>
+    <span><span style="display:inline-block;width:10px;height:10px;background:var(--gold);border-radius:2px"></span> Holiday</span>
+    <span><span style="display:inline-block;width:10px;height:10px;background:#ef4444;border-radius:2px"></span> Exam</span>
+    <button class="btn btn-ghost" style="font-size:.72rem;padding:.2rem .6rem;margin-left:auto" onclick="addCalEvent()">+ Add Event</button>
+  </div>`;
+}
+function calNav(d){_calM+=d;if(_calM>11){_calM=0;_calY++;}if(_calM<0){_calM=11;_calY--;}const w=document.getElementById('calendar-widget');if(w)w.innerHTML=renderCalendar();}
+function calClick(date,d){
+  const evt=_calEvents.find(e=>e.date===date);
+  if(evt) toast('📅 '+date+': '+evt.title); else if(confirm('Add event on '+date+'?')) addCalEvent(date);
+}
+function addCalEvent(date){
+  const d=date||prompt('Date (YYYY-MM-DD):'); if(!d) return;
+  const title=prompt('Event title:'); if(!title) return;
+  const type=prompt('Type (event/holiday/exam):','event')||'event';
+  _calEvents.push({date:d,title,type});
+  const w=document.getElementById('calendar-widget'); if(w) w.innerHTML=renderCalendar();
+  toast('Event added ✓');
+}
+
+/* ══════════════════════════════════════════════════════
+   🔍 AI & GOOGLE SEARCH HELPER
+══════════════════════════════════════════════════════ */
+function buildAISearchPage(){
+  return `<div class="ai-search-box">
+    <div style="font-size:1.1rem;font-weight:800;margin-bottom:.2rem">🔍 AI Learning Assistant + Search</div>
+    <div style="font-size:.82rem;opacity:.8">Ask any question about your studies. Get AI explanations or search Google, Wikipedia, and more.</div>
+    <div class="ai-search-input-wrap">
+      <input class="ai-search-input" id="ai-query" placeholder="e.g. What is photosynthesis? Why does ice melt?" onkeydown="if(event.key==='Enter')doAISearch()"/>
+      <button class="ai-search-btn" onclick="doAISearch()">Ask AI →</button>
+    </div>
+  </div>
+  <div class="ai-source-btns">
+    <button class="ai-src-btn" onclick="openGoogleSearch()">🔍 Google</button>
+    <button class="ai-src-btn" onclick="openWikipedia()">📖 Wikipedia</button>
+    <button class="ai-src-btn" onclick="openKhanAcademy()">🎓 Khan Academy</button>
+    <button class="ai-src-btn" onclick="openYoutube()">▶️ YouTube</button>
+    <button class="ai-src-btn" onclick="window.open('https://www.bbc.co.uk/bitesize','_blank')">🍎 BBC Bitesize</button>
+  </div>
+  <div class="ai-response-box" id="ai-response-box">
+    <div style="text-align:center;color:var(--muted);font-size:.82rem;padding:2rem">
+      <div style="font-size:2.5rem;margin-bottom:.5rem">💬</div>
+      Ask a question above to get an AI explanation, or click any of the search buttons to look it up online.
+    </div>
+  </div>`;
+}
+async function doAISearch(){
+  const query=document.getElementById('ai-query')?.value.trim();
+  if(!query){toast('Please type a question.');return;}
+  const box=document.getElementById('ai-response-box');
+  if(!box) return;
+  box.innerHTML=`<div class="ai-response-typing">🤔 Thinking... <span><i></i><i></i><i></i></span></div>`;
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,messages:[{role:'user',content:`You are a helpful school assistant for primary school students (ages 6-12) at Saint François de Sales School. Answer this question simply and clearly, appropriate for a primary school child. Use examples they can relate to. Be encouraging and educational. Keep it to 3-4 paragraphs maximum.\n\nQuestion: ${query}`}]})});
+    const data=await resp.json();
+    const text=data.content?.map(c=>c.text||'').join('')||'I could not get an answer. Please try again.';
+    box.innerHTML=`<div class="ai-result-text">${text.replace(/\n/g,'<br/>')}</div>
+    <div style="margin-top:.85rem;padding-top:.65rem;border-top:1px solid var(--border);display:flex;gap:.5rem;flex-wrap:wrap">
+      <button class="btn btn-ghost" style="font-size:.72rem" onclick="speakText(document.getElementById('ai-response-box').innerText,this)">🔊 Read Aloud</button>
+      <button class="btn btn-ghost" style="font-size:.72rem" onclick="document.getElementById('ai-response-box').innerHTML='<div style=\\'text-align:center;color:var(--muted);padding:2rem\\'>Ask a new question above.</div>'">🗑️ Clear</button>
+      <button class="ai-src-btn" onclick="openGoogleSearch()">🔍 Google it</button>
+      <button class="ai-src-btn" onclick="openWikipedia()">📖 Wikipedia</button>
+    </div>`;
+  }catch(e){ box.innerHTML=`<div style="padding:1rem"><div style="color:#b91c1c;font-weight:700;margin-bottom:.5rem">⚠️ AI unavailable right now.</div><div style="font-size:.82rem;color:var(--muted);margin-bottom:.75rem">Use the search buttons below to find your answer online.</div><div class="ai-source-btns"><button class="ai-src-btn" onclick="openGoogleSearch()">🔍 Google</button><button class="ai-src-btn" onclick="openWikipedia()">📖 Wikipedia</button><button class="ai-src-btn" onclick="openKhanAcademy()">🎓 Khan Academy</button></div></div>`; }
+}
+function openGoogleSearch(){const q=document.getElementById('ai-query')?.value.trim()||'';window.open('https://www.google.com/search?q='+encodeURIComponent(q||'primary school help'),'_blank');}
+function openWikipedia(){const q=document.getElementById('ai-query')?.value.trim()||'';window.open('https://en.wikipedia.org/w/index.php?search='+encodeURIComponent(q),'_blank');}
+function openKhanAcademy(){window.open('https://www.khanacademy.org','_blank');}
+function openYoutube(){const q=document.getElementById('ai-query')?.value.trim()||'';window.open('https://www.youtube.com/results?search_query='+encodeURIComponent((q||'primary school lesson')+' educational'),'_blank');}
+
+/* ══════════════════════════════════════════════════════
+   🔑 ADMIN PASSWORD MANAGEMENT
+══════════════════════════════════════════════════════ */
+function adminResetTeacherPass(username){
+  const newPass=prompt(`Set new password for teacher "${username}":\n(minimum 6 characters)`);
+  if(!newPass||newPass.length<6){toast('Password must be at least 6 characters.');return;}
+  if(TEACHER_CREDS[username]) TEACHER_CREDS[username].pass=newPass;
+  toast(`✅ Password for ${username} updated`);
+}
+
+/* ══════════════════════════════════════════════════════
+   📤 ENHANCED SUBMISSION
+══════════════════════════════════════════════════════ */
+const _submissions={};
+function buildSubmissionUI(cls,matTitle,matId){
+  const subs=_submissions[cls+'-'+matId]||[];
+  return `<div class="card reveal" id="sub-card-${matId}">
+    <div class="card-head"><h3>📤 Submit: ${matTitle}</h3></div>
+    <div class="card-body">
+      <div style="font-size:.82rem;font-weight:700;color:var(--forest);margin-bottom:.5rem">Choose how to submit:</div>
+      <div class="submission-method">
+        <div class="sub-method-btn on" id="sub-m-text-${matId}" onclick="subMethod('text','${matId}')"><span class="sub-method-icon">✏️</span>Type Online</div>
+        <div class="sub-method-btn" id="sub-m-file-${matId}" onclick="subMethod('file','${matId}')"><span class="sub-method-icon">📄</span>Upload File<br/><span style="font-size:.65rem">.docx / .pdf</span></div>
+        <div class="sub-method-btn" id="sub-m-both-${matId}" onclick="subMethod('both','${matId}')"><span class="sub-method-icon">🔗</span>Both</div>
+      </div>
+      <div id="sub-text-area-${matId}"><textarea id="sub-text-${matId}" rows="5" placeholder="Type your answer here..." style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit;resize:vertical;margin-top:.5rem"></textarea></div>
+      <div id="sub-file-area-${matId}" style="display:none;margin-top:.5rem">
+        <input type="file" id="sub-file-${matId}" accept=".pdf,.docx,.doc,.txt" style="width:100%;padding:.65rem;border:2px dashed var(--border);border-radius:var(--r2);font-family:inherit;background:var(--cream2)"/>
+        <div style="font-size:.72rem;color:var(--muted);margin-top:.2rem">Accepted: PDF (.pdf), Word (.docx/.doc), Text (.txt)</div>
+      </div>
+      <button class="btn btn-primary" style="margin-top:.75rem" onclick="submitWork('${cls}','${matTitle}','${matId}')">📤 Submit Work</button>
+      ${subs.length?`<div style="margin-top:1rem;font-size:.78rem;font-weight:700;color:var(--muted)">Submissions:</div>${subs.map(s=>`<div class="submission-card"><div><div style="font-size:.82rem;font-weight:700">${s.name}</div><div style="font-size:.7rem;color:var(--muted)">${s.date} · ${s.method}</div></div><span class="sub-status submitted">✅ Submitted</span></div>`).join('')}`:''}
+    </div>
+  </div>`;
+}
+function subMethod(method,matId){
+  const ta=document.getElementById('sub-text-area-'+matId);
+  const fa=document.getElementById('sub-file-area-'+matId);
+  ['text','file','both'].forEach(m=>{const el=document.getElementById('sub-m-'+m+'-'+matId);if(el)el.classList.toggle('on',m===method);});
+  if(ta) ta.style.display=(method==='text'||method==='both')?'block':'none';
+  if(fa) fa.style.display=(method==='file'||method==='both')?'block':'none';
+}
+function submitWork(cls,matTitle,matId){
+  const text=document.getElementById('sub-text-'+matId)?.value.trim();
+  const file=document.getElementById('sub-file-'+matId)?.files?.[0];
+  if(!text&&!file){toast('Please type your answer or upload a file first.');return;}
+  const key=cls+'-'+matId;
+  if(!_submissions[key]) _submissions[key]=[];
+  _submissions[key].push({name:currentUser.name||'Student',date:todayStr(),method:file?'File: '+file.name:'Online text',status:'submitted'});
+  toast('✅ Work submitted for "'+matTitle+'" ✓');
+}
+
+/* ══════════════════════════════════════════════════════
+   🌍 MULTI-LANGUAGE SYSTEM (8 Languages)
+══════════════════════════════════════════════════════ */
+const LANG_DATA = {
+  en: {
+    name:'English', flag:'🇬🇧',
+    portal:'School Portal', signIn:'Sign In to Portal →', username:'Username', password:'Password',
+    dashboard:'Dashboard', myGrades:'My Grades', myNotes:'Class Notes', homework:'Homework',
+    timetable:'Timetable', attendance:'Attendance', announcements:'Notices', signOut:'Sign Out',
+    search:'Search', ask:'Ask AI →', welcome:'Welcome back', goodMorning:'Good Morning',
+    grades:'Grades', submit:'Submit Work', calendar:'Calendar', calculator:'Calculator',
+    virtualClass:'Virtual Class', messages:'Messages', reportCard:'Report Card',
+    morning:'Morning', quiz:'Quiz', profile:'My Profile', darkMode:'Dark Mode',
+  },
+  fr: {
+    name:'Français', flag:'🇫🇷',
+    portal:'Portail Scolaire', signIn:'Se connecter →', username:'Nom d\'utilisateur', password:'Mot de passe',
+    dashboard:'Tableau de bord', myGrades:'Mes notes', myNotes:'Cours', homework:'Devoirs',
+    timetable:'Emploi du temps', attendance:'Présences', announcements:'Annonces', signOut:'Déconnexion',
+    search:'Rechercher', ask:'Demander à l\'IA →', welcome:'Bienvenue', goodMorning:'Bonjour',
+    grades:'Notes', submit:'Soumettre', calendar:'Calendrier', calculator:'Calculatrice',
+    virtualClass:'Classe virtuelle', messages:'Messages', reportCard:'Bulletin',
+    morning:'Matin', quiz:'Quiz', profile:'Mon profil', darkMode:'Mode sombre',
+  },
+  rw: {
+    name:'Kinyarwanda', flag:'🇷🇼',
+    portal:'Ikibaho cy\'Ishuri', signIn:'Injira →', username:'Izina ry\'ukoresha', password:'Ijambo banga',
+    dashboard:'Ikibaho', myGrades:'Amanota yanjye', myNotes:'Amasomo', homework:'Imirimo y\'urugo',
+    timetable:'Gahunda', attendance:'Uburyo bwo kwitabira', announcements:'Amakuru', signOut:'Sohoka',
+    search:'Shakisha', ask:'Baza AI →', welcome:'Murakaza neza', goodMorning:'Mwaramutse',
+    grades:'Amanota', submit:'Tanga akazi', calendar:'Kalendari', calculator:'Kalkulateri',
+    virtualClass:'Icyumba cy\'inyigisho', messages:'Ubutumwa', reportCard:'Iporogaramu',
+    morning:'Mu gitondo', quiz:'Ikizamini', profile:'Profilo yanjye', darkMode:'Imiterere y\'ijoro',
+  },
+  sw: {
+    name:'Kiswahili', flag:'🇹🇿',
+    portal:'Lango la Shule', signIn:'Ingia →', username:'Jina la mtumiaji', password:'Nywila',
+    dashboard:'Dashibodi', myGrades:'Alama zangu', myNotes:'Maelezo', homework:'Kazi ya nyumbani',
+    timetable:'Ratiba', attendance:'Mahudhurio', announcements:'Matangazo', signOut:'Toka',
+    search:'Tafuta', ask:'Uliza AI →', welcome:'Karibu tena', goodMorning:'Habari za asubuhi',
+    grades:'Alama', submit:'Tuma kazi', calendar:'Kalenda', calculator:'Kalkuleta',
+    virtualClass:'Darasa la mtandaoni', messages:'Ujumbe', reportCard:'Kadi ya ripoti',
+    morning:'Asubuhi', quiz:'Jaribio', profile:'Wasifu wangu', darkMode:'Hali ya giza',
+  },
+  es: {
+    name:'Español', flag:'🇪🇸',
+    portal:'Portal Escolar', signIn:'Iniciar sesión →', username:'Usuario', password:'Contraseña',
+    dashboard:'Panel', myGrades:'Mis notas', myNotes:'Apuntes', homework:'Tarea',
+    timetable:'Horario', attendance:'Asistencia', announcements:'Avisos', signOut:'Cerrar sesión',
+    search:'Buscar', ask:'Preguntar a IA →', welcome:'Bienvenido', goodMorning:'Buenos días',
+    grades:'Notas', submit:'Entregar', calendar:'Calendario', calculator:'Calculadora',
+    virtualClass:'Clase virtual', messages:'Mensajes', reportCard:'Boletín',
+    morning:'Mañana', quiz:'Examen', profile:'Mi perfil', darkMode:'Modo oscuro',
+  },
+  zh: {
+    name:'中文', flag:'🇨🇳',
+    portal:'学校门户', signIn:'登录 →', username:'用户名', password:'密码',
+    dashboard:'仪表盘', myGrades:'我的成绩', myNotes:'课堂笔记', homework:'家庭作业',
+    timetable:'课程表', attendance:'出勤', announcements:'公告', signOut:'退出',
+    search:'搜索', ask:'问AI →', welcome:'欢迎回来', goodMorning:'早上好',
+    grades:'成绩', submit:'提交作业', calendar:'日历', calculator:'计算器',
+    virtualClass:'虚拟课堂', messages:'消息', reportCard:'成绩单',
+    morning:'早上', quiz:'测验', profile:'我的资料', darkMode:'深色模式',
+  },
+  la: {
+    name:'Latina', flag:'🏛️',
+    portal:'Porta Scholae', signIn:'Intra →', username:'Nomen', password:'Signum',
+    dashboard:'Tabula', myGrades:'Gradus mei', myNotes:'Notae', homework:'Exercitationes',
+    timetable:'Orarium', attendance:'Praesentia', announcements:'Nuntii', signOut:'Exi',
+    search:'Quaere', ask:'Roga AI →', welcome:'Salve iterum', goodMorning:'Bonum mane',
+    grades:'Gradus', submit:'Mittere opus', calendar:'Calendarium', calculator:'Calculator',
+    virtualClass:'Classis virtualis', messages:'Epistulae', reportCard:'Tabula graduum',
+    morning:'Mane', quiz:'Interrogatio', profile:'Effigies mea', darkMode:'Modus obscurus',
+  },
+};
+
+let _currentLang = 'en';
+
+function buildLangSwitcher(){
+  return `<div style="display:flex;gap:.35rem;flex-wrap:wrap;align-items:center">
+    ${Object.entries(LANG_DATA).map(([code,lang])=>`
+      <button onclick="setLanguage('${code}')" id="lang-btn-${code}"
+        style="padding:.28rem .65rem;border:1.5px solid ${code===_currentLang?'var(--forest)':'var(--border)'};background:${code===_currentLang?'var(--forest)':'transparent'};color:${code===_currentLang?'#fff':'var(--muted)'};border-radius:99px;font-size:.7rem;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--ease)"
+        title="${lang.name}">
+        ${lang.flag} ${lang.name}
+      </button>`).join('')}
+  </div>`;
+}
+
+function setLanguage(code){
+  if(!LANG_DATA[code]) return;
+  _currentLang = code;
+  const L = LANG_DATA[code];
+  // Update sidebar items
+  const sitemMap = {
+    'si-dashboard': L.dashboard, 'si-grades': L.myGrades, 'si-notes': L.myNotes,
+    'si-homework': L.homework, 'si-timetable': L.timetable, 'si-attendance': L.attendance,
+    'si-announcements': L.announcements, 'si-calendar': L.calendar, 'si-calculator': L.calculator,
+    'si-virtual': L.virtualClass, 'si-messages': L.messages, 'si-profile': L.profile,
+    'si-quiz': L.quiz, 'si-reportcard': L.reportCard,
+  };
+  Object.entries(sitemMap).forEach(([id,text])=>{ const el=document.getElementById(id); if(el) el.textContent=text; });
+  // Update sign out button
+  const so = document.querySelector('.signout-btn'); if(so) so.textContent = '⬅ ' + L.signOut;
+  // Update page headers
+  document.querySelectorAll('.lang-key').forEach(el => {
+    const key = el.dataset.langKey;
+    if(key && L[key]) el.textContent = L[key];
+  });
+  // Update lang buttons styling
+  Object.keys(LANG_DATA).forEach(c=>{
+    const btn=document.getElementById('lang-btn-'+c);
+    if(!btn) return;
+    btn.style.borderColor = c===code?'var(--forest)':'var(--border)';
+    btn.style.background  = c===code?'var(--forest)':'transparent';
+    btn.style.color       = c===code?'#fff':'var(--muted)';
+  });
+  // Update lang switcher in all lang pages
+  document.querySelectorAll('.lang-switcher-container').forEach(el=>{
+    el.innerHTML = buildLangSwitcher();
+  });
+  toast(`🌍 Language: ${LANG_DATA[code].name} ${LANG_DATA[code].flag}`);
+}
+
+function buildLanguagePage(){
+  return `
+  <div class="callout cl-gold"><span>🌍</span><p><b>Multi-Language Interface</b> — Switch the portal interface language. Supports 7 languages including Kinyarwanda, Swahili, French, English, Spanish, Chinese and Latin.</p></div>
+  <div class="card reveal">
+    <div class="card-head"><h3>🌍 Choose Interface Language</h3></div>
+    <div class="card-body">
+      <div class="lang-switcher-container">${buildLangSwitcher()}</div>
+      <div style="margin-top:1.25rem">
+        <div style="font-size:.82rem;font-weight:700;color:var(--forest);margin-bottom:.65rem">Available Languages:</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.6rem">
+          ${Object.entries(LANG_DATA).map(([code,lang])=>`
+            <div style="background:var(--cream2);border:${code===_currentLang?'2px solid var(--forest)':'1px solid var(--border)'};border-radius:var(--r2);padding:.75rem 1rem;cursor:pointer;transition:var(--ease)" onclick="setLanguage('${code}')">
+              <div style="font-size:1.5rem;margin-bottom:.25rem">${lang.flag}</div>
+              <div style="font-weight:700;font-size:.88rem;color:var(--forest)">${lang.name}</div>
+              <div style="font-size:.72rem;color:var(--muted)">${lang.portal}</div>
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ══════════════════════════════════════════════════════
+   🔔 NOTIFICATION SYSTEM
+══════════════════════════════════════════════════════ */
+const _notifications = [
+  { id:1, type:'info',    title:'Term 2 Exams — 15 April',   body:'All students must be present by 6:45 AM.', time:'2 hours ago', read:false, target:'all' },
+  { id:2, type:'success', title:'Quiz Results Available',     body:'Morning quiz results for P4B are ready.', time:'Yesterday', read:false, target:'P4B' },
+  { id:3, type:'warning', title:'Homework Due Tomorrow',      body:'Mathematics fractions worksheet due Friday.', time:'1 day ago', read:true,  target:'P4B' },
+  { id:4, type:'info',    title:'Virtual Class at 9AM',       body:'Your P5A online class starts at 9:00 AM today.', time:'3 hours ago', read:false, target:'P5A' },
+];
+
+let _notifBadge = 0;
+
+function countUnread(){ return _notifications.filter(n=>!n.read).length; }
+
+function renderNotifBadge(){
+  const count = countUnread();
+  const badge = document.getElementById('notif-badge');
+  if(badge){ badge.textContent=count; badge.style.display=count?'flex':'none'; }
+}
+
+function buildNotificationCenter(){
+  return `
+  <div class="card reveal">
+    <div class="card-head"><h3>🔔 Notifications</h3>
+      <div style="display:flex;gap:.5rem">
+        <button class="btn btn-ghost" style="font-size:.72rem" onclick="markAllRead()">Mark all read</button>
+        <button class="add-btn" onclick="openModal('sendNotif')">+ Send</button>
+      </div>
+    </div>
+    <div id="notif-list">
+      ${renderNotifList()}
+    </div>
+  </div>`;
+}
+
+function renderNotifList(){
+  const icons = { info:'ℹ️', success:'✅', warning:'⚠️', error:'🚨' };
+  const colors = { info:'var(--blue)', success:'var(--forest3)', warning:'var(--gold)', error:'var(--red)' };
+  return _notifications.map((n,i)=>`
+    <div style="display:flex;gap:.85rem;padding:.85rem 1.25rem;border-bottom:1px solid var(--border);background:${n.read?'transparent':'rgba(13,61,31,.03)'};cursor:pointer;transition:var(--ease)" onclick="markRead(${i})">
+      <div style="font-size:1.3rem;flex-shrink:0;margin-top:.1rem">${icons[n.type]||'🔔'}</div>
+      <div style="flex:1">
+        <div style="font-weight:${n.read?'600':'800'};font-size:.85rem;color:${n.read?'var(--muted)':'var(--text)'};">${n.title}</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:.15rem">${n.body}</div>
+        <div style="font-size:.68rem;color:var(--muted2);margin-top:.2rem">${n.time} · ${n.target}</div>
+      </div>
+      ${!n.read?`<div style="width:8px;height:8px;background:${colors[n.type]};border-radius:50%;flex-shrink:0;margin-top:.35rem"></div>`:''}
+    </div>`).join('') || '<div style="padding:2rem;text-align:center;color:var(--muted)">No notifications</div>';
+}
+
+function markRead(i){ _notifications[i].read=true; document.getElementById('notif-list').innerHTML=renderNotifList(); renderNotifBadge(); }
+function markAllRead(){ _notifications.forEach(n=>n.read=true); document.getElementById('notif-list').innerHTML=renderNotifList(); renderNotifBadge(); toast('All notifications marked as read ✓'); }
+
+function sendNotification(title, body, target, type){
+  _notifications.unshift({id:Date.now(),type:type||'info',title,body,time:'Just now',read:false,target:target||'All'});
+  renderNotifBadge();
+  const nl = document.getElementById('notif-list'); if(nl) nl.innerHTML=renderNotifList();
+  toast('🔔 Notification sent ✓');
+}
+
+/* ══════════════════════════════════════════════════════
+   👤 STUDENT PROFILE PAGE
+══════════════════════════════════════════════════════ */
+function buildStudentProfile(cls, name){
+  const pic = PROFILE_PICS[name] || null;
+  const subjects = (DB.subjects[cls]||['French','Mathematics','Science','Religion','History','English']).slice(0,6);
+  const scores = subjects.map(s=>({s,pct:Math.floor(60+Math.random()*38)}));
+  const avg = Math.round(scores.reduce((a,x)=>a+x.pct,0)/scores.length);
+  const materials = (DB.materials[cls]||[]);
+  const recentHW = materials.filter(m=>m.type==='hw').slice(0,3);
+  return `
+  <div class="g2" style="align-items:start">
+    <div>
+      <div class="card reveal">
+        <div class="card-body" style="text-align:center;padding:1.75rem">
+          <div style="position:relative;display:inline-block;margin-bottom:1rem">
+            ${pic?`<img src="${pic}" style="width:88px;height:88px;border-radius:50%;object-fit:cover;border:4px solid var(--forest);display:block"/>`
+                :`<div style="width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--forest),var(--gold));display:flex;align-items:center;justify-content:center;font-size:2.2rem;font-weight:800;color:#fff;margin:0 auto;border:4px solid var(--forest)">${(name||'S').charAt(0)}</div>`}
+            <button onclick="openProfilePicUpload()" style="position:absolute;bottom:0;right:0;background:var(--gold);border:none;border-radius:50%;width:26px;height:26px;font-size:.75rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2)">📷</button>
+          </div>
+          <div style="font-family:var(--font-serif);font-weight:800;font-size:1.1rem;color:var(--forest)">${name}</div>
+          <div style="font-size:.78rem;color:var(--muted);margin-top:.2rem">Class ${cls} · Student</div>
+          <div style="font-size:.78rem;color:var(--muted)">Saint François de Sales School</div>
+          <div style="margin-top:.85rem;display:flex;justify-content:center;gap:1.25rem">
+            <div style="text-align:center"><div style="font-size:1.4rem;font-weight:800;color:var(--forest)">${avg}%</div><div style="font-size:.65rem;color:var(--muted)">Average</div></div>
+            <div style="text-align:center"><div style="font-size:1.4rem;font-weight:800;color:var(--forest)">${(STUDENTS[cls]||[]).indexOf(name)+1||1}</div><div style="font-size:.65rem;color:var(--muted)">Rank in class</div></div>
+            <div style="text-align:center"><div style="font-size:1.4rem;font-weight:800;color:var(--forest)">93%</div><div style="font-size:.65rem;color:var(--muted)">Attendance</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card reveal" style="margin-top:.85rem">
+        <div class="card-head"><h3>📝 Recent Homework</h3></div>
+        ${recentHW.length?recentHW.map(hw=>`<div style="padding:.65rem 1.25rem;border-bottom:1px solid var(--border);font-size:.82rem"><b>${hw.title}</b><br/><span style="color:var(--muted);font-size:.72rem">${hw.subject||''}${hw.due?' · Due: '+hw.due:''}</span></div>`).join(''):'<div style="padding:1rem 1.25rem;color:var(--muted);font-size:.82rem">No homework assigned yet.</div>'}
+      </div>
+    </div>
+    <div>
+      <div class="card reveal">
+        <div class="card-head"><h3>📊 Subject Performance</h3></div>
+        <div class="card-body" style="padding:.75rem 1.25rem">
+          ${scores.map(({s,pct})=>{
+            const gc=pct>=80?'var(--forest3)':pct>=70?'var(--blue)':pct>=60?'var(--gold)':'var(--red)';
+            return `<div class="prog-item" style="margin-bottom:.5rem"><div class="prog-label" style="min-width:140px;font-size:.78rem">${s}</div><div class="prog-track" style="flex:1;height:8px;background:var(--border);border-radius:99px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${gc};border-radius:99px;transition:width .6s ease"></div></div><div style="font-weight:700;color:${gc};font-size:.78rem;min-width:36px;text-align:right">${pct}%</div></div>`;
+          }).join('')}
+        </div>
+      </div>
+      <div class="card reveal" style="margin-top:.85rem">
+        <div class="card-head"><h3>🏆 Recent Achievements</h3></div>
+        <div class="card-body" style="padding:.75rem 1.25rem">
+          ${(DB.proclamations[cls]||[]).filter(p=>p.name===name).length?
+            (DB.proclamations[cls]||[]).filter(p=>p.name===name).map(p=>`<div style="display:flex;align-items:center;gap:.6rem;padding:.45rem 0;border-bottom:1px solid var(--border)"><span style="font-size:1.2rem">🏆</span><div><div style="font-weight:700;font-size:.82rem">${p.award}</div><div style="font-size:.7rem;color:var(--muted)">${p.cls} · ${p.avg}</div></div></div>`).join(''):
+            '<div style="color:var(--muted);font-size:.82rem">No awards yet this term.</div>'}
+        </div>
+      </div>
+      <div class="card reveal" style="margin-top:.85rem">
+        <div class="card-head"><h3>🌍 Interface Language</h3></div>
+        <div class="card-body" style="padding:.75rem 1.25rem">
+          <div class="lang-switcher-container">${buildLangSwitcher()}</div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ══════════════════════════════════════════════════════
+   🔑 TEACHER PASSWORD MANAGEMENT (HT/Director Dashboard)
+══════════════════════════════════════════════════════ */
+function buildTeacherPasswordManager(){
+  return `
+  <div class="card reveal">
+    <div class="card-head"><h3>🔑 Teacher Account & Password Management</h3></div>
+    <div class="callout cl-tip" style="margin:.75rem 1.25rem 0"><span>🔒</span><p>Passwords are never displayed here. Use <b>Reset Password</b> to generate a new secure password for a teacher — they will be prompted to change it on first login.</p></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Teacher</th><th>Class</th><th>Username</th><th>Status</th><th>Last Login</th><th>Actions</th></tr></thead>
+      <tbody>
+        ${DB.teachers.map((t,i)=>`<tr>
+          <td><div style="display:flex;align-items:center;gap:.6rem">${t.photo?`<img src="${t.photo}" style="width:30px;height:30px;border-radius:50%;object-fit:cover"/>`:`<div class="user-av" style="width:30px;height:30px;font-size:.75rem">${t.name.charAt(0)}</div>`}<b>${t.name}</b></div></td>
+          <td><span class="badge bg-forest">${t.cls}</span></td>
+          <td><code style="background:var(--cream2);padding:.2rem .45rem;border-radius:4px;font-size:.78rem">${t.user}</code></td>
+          <td><span class="badge bg-green">Active</span></td>
+          <td style="font-size:.75rem;color:var(--muted)">Today</td>
+          <td>
+            <button class="btn btn-ghost" style="font-size:.68rem;padding:.25rem .6rem" onclick="adminResetTeacherPass('${t.user}')">🔑 Reset Password</button>
+            <button class="btn btn-ghost" style="font-size:.68rem;padding:.25rem .6rem" onclick="adminEditTeacher(${i})">✏️ Edit</button>
+          </td>
+        </tr>`).join('')}
+      </tbody>
+    </table></div>
+  </div>`;
+}
+
+function adminEditTeacher(idx){
+  const t = DB.teachers[idx];
+  if(!t) return;
+  const newName = prompt('Teacher name:', t.name);
+  if(!newName) return;
+  const newCls = prompt('Class assigned:', t.cls);
+  if(!newCls) return;
+  t.name = newName.trim();
+  t.cls  = newCls.trim().toUpperCase();
+  toast('Teacher record updated ✓');
+}
+
+function showNotifPanel(){
+  // Show notifications in a modal-like toast panel
+  const count = countUnread();
+  const recent = _notifications.slice(0,3);
+  const icons = {info:'ℹ️',success:'✅',warning:'⚠️',error:'🚨'};
+  const html = recent.map((n,i)=>`<div style="padding:.55rem .75rem;border-bottom:1px solid var(--border);display:flex;gap:.5rem;align-items:flex-start"><span style="font-size:1rem;flex-shrink:0">${icons[n.type]||'🔔'}</span><div><div style="font-size:.8rem;font-weight:700">${n.title}</div><div style="font-size:.7rem;color:var(--muted)">${n.time}</div></div></div>`).join('');
+  const panel = document.createElement('div');
+  panel.style.cssText='position:fixed;top:60px;right:1rem;z-index:9999;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);width:300px;box-shadow:var(--shadow-lg);overflow:hidden;animation:fadeIn .2s ease';
+  panel.innerHTML=`<div style="padding:.65rem 1rem;background:var(--forest);color:#fff;font-size:.82rem;font-weight:700;display:flex;justify-content:space-between;align-items:center">🔔 Notifications (${count} unread) <button onclick="this.closest('div[style*=position]').remove();markAllRead()" style="background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:4px;padding:.15rem .5rem;cursor:pointer;font-size:.72rem">Mark all read</button></div>${html}<div style="padding:.5rem 1rem"><button class="btn btn-ghost" style="width:100%;font-size:.75rem" onclick="this.closest('div[style*=position]').remove()">Close</button></div>`;
+  document.body.appendChild(panel);
+  setTimeout(()=>{ if(document.body.contains(panel)) panel.remove(); }, 5000);
+}
+
+function doSendNotif(){
+  const title  = document.getElementById('sn-title')?.value.trim();
+  const body   = document.getElementById('sn-body')?.value.trim();
+  const target = document.getElementById('sn-target')?.value || 'All School';
+  const type   = document.getElementById('sn-type')?.value   || 'info';
+  if(!title || !body){ toast('Please fill in title and message.'); return; }
+  sendNotification(title, body, target, type);
+  closeModal('sendNotif');
+  document.getElementById('sn-title').value='';
+  document.getElementById('sn-body').value='';
+}
+
+function showNotifPanel(){
+  const count = countUnread();
+  const recent = _notifications.slice(0,4);
+  const icons  = {info:'ℹ️',success:'✅',warning:'⚠️',error:'🚨'};
+  // Remove any existing panel
+  document.querySelectorAll('.notif-panel').forEach(el=>el.remove());
+  const panel = document.createElement('div');
+  panel.className = 'notif-panel';
+  panel.style.cssText = 'position:fixed;top:58px;right:.75rem;z-index:9999;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);width:320px;box-shadow:var(--shadow-lg);overflow:hidden';
+  panel.innerHTML = `
+    <div style="padding:.65rem 1rem;background:var(--forest);color:#fff;font-size:.82rem;font-weight:700;display:flex;justify-content:space-between;align-items:center">
+      🔔 Notifications ${count?`<span style="background:rgba(255,255,255,.25);border-radius:99px;padding:.1rem .5rem;font-size:.7rem">${count} unread</span>`:''}
+      <button onclick="this.closest('.notif-panel').remove()" style="background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:4px;padding:.2rem .5rem;cursor:pointer;font-size:.75rem">✕</button>
+    </div>
+    ${recent.map((n,i)=>`<div style="padding:.65rem 1rem;border-bottom:1px solid var(--border);display:flex;gap:.6rem;background:${n.read?'transparent':'rgba(13,61,31,.03)'};cursor:pointer" onclick="markRead(${i})">
+      <span style="font-size:1.1rem;flex-shrink:0;margin-top:.1rem">${icons[n.type]||'🔔'}</span>
+      <div style="flex:1"><div style="font-size:.8rem;font-weight:${n.read?600:800}">${n.title}</div><div style="font-size:.7rem;color:var(--muted)">${n.time}</div></div>
+      ${!n.read?'<div style="width:7px;height:7px;background:var(--forest3);border-radius:50%;flex-shrink:0;margin-top:.4rem"></div>':''}
+    </div>`).join('')}
+    <div style="padding:.5rem 1rem;display:flex;gap:.4rem">
+      <button class="btn btn-ghost" style="flex:1;font-size:.72rem" onclick="markAllRead();this.closest('.notif-panel').remove()">Mark all read</button>
+      <button class="btn btn-ghost" style="flex:1;font-size:.72rem" onclick="this.closest('.notif-panel').remove()">Close</button>
+    </div>`;
+  document.body.appendChild(panel);
+  // Auto-close after 6 seconds
+  setTimeout(()=>{ if(document.body.contains(panel)) panel.remove(); }, 6000);
+}
+
+/* ══════════════════════════════════════════════════════
+   INIT (enhanced)
 ══════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
   initReveal();
   updateClock();
-  // Init att pcts when attendance is rendered
+  startClock();
   setTimeout(initAttPcts, 500);
   // Smooth scroll for nav links
   document.querySelectorAll('.pub-nav-link').forEach(a=>{
@@ -3440,6 +5638,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown',e=>{
     if(e.key==='Escape') closeLoginOverlay();
   });
+  // Init notification badge
+  renderNotifBadge();
+  // Load dark mode
+  try{ if(localStorage.getItem('sfds_dark')) document.body.classList.add('dark-mode'); }catch(e){}
 });
 </script>
 </body>
