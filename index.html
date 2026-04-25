@@ -1277,35 +1277,6 @@ body.dark-mode .callout{ background:#2a2a2a; border-color:#444; }
   </div>
 </div>
 
-<!-- Send Notification Modal -->
-<div class="modal-overlay" id="modal-sendNotif">
-  <div class="modal">
-    <div class="modal-hd"><h3>🔔 Send Notification</h3><button class="modal-close" onclick="closeModal('sendNotif')">✕</button></div>
-    <div class="mfield"><label>Title</label><input type="text" id="sn-title" placeholder="e.g. Exam reminder, Homework due..."/></div>
-    <div class="mfield"><label>Message</label><textarea id="sn-body" rows="3" placeholder="Write your notification message here..."></textarea></div>
-    <div class="mfield"><label>Target Audience</label>
-      <select id="sn-target" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit">
-        <option value="All School">All School</option>
-        ${(typeof CLASSES!=='undefined'?CLASSES:[]).map(c=>`<option value="${c}">Class ${c} only</option>`).join('')}
-        <option value="Teachers">Teachers only</option>
-        <option value="Parents">Parents only</option>
-      </select>
-    </div>
-    <div class="mfield"><label>Type</label>
-      <select id="sn-type" style="width:100%;padding:.65rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit">
-        <option value="info">ℹ️ Information</option>
-        <option value="success">✅ Good News</option>
-        <option value="warning">⚠️ Warning / Reminder</option>
-        <option value="error">🚨 Urgent</option>
-      </select>
-    </div>
-    <div class="modal-foot">
-      <button class="btn btn-ghost" onclick="closeModal('sendNotif')">Cancel</button>
-      <button class="btn btn-primary" onclick="doSendNotif()">📢 Send Notification</button>
-    </div>
-  </div>
-</div>
-
 <!-- Change Password Modal -->
 <div class="modal-overlay" id="modal-changePassword">
   <div class="modal">
@@ -2484,8 +2455,6 @@ function buildTeacherDashboard(cls) {
   <div class="page" id="t-virtual"><div class="phd"><h2>🎥 Start Virtual Class — ${cls}</h2><p>Launch your live online classroom for ${cls}</p><div class="phd-line"></div></div>${buildVirtualClass(cls,'teacher')}</div>
   <div class="page" id="t-profile"><div class="phd"><h2>👤 My Profile</h2><div class="phd-line"></div></div>${buildTeacherProfile()}</div>
   <div class="page" id="t-languages"><div class="phd"><h2>🌍 Language / Langue / Lugha</h2><p>Switch your portal interface language</p><div class="phd-line"></div></div>${buildLanguagePage()}</div>
-  <div class="page" id="t-notifications"><div class="phd"><h2>🔔 Notifications</h2><div class="phd-line"></div></div>${buildNotificationCenter()}</div>
-  <div class="page" id="t-quiz-builder"><div class="phd"><h2>🛠️ Morning Quiz Builder</h2><p>Create quizzes with all question types: multiple choice, true/false, fill-in-blank, matching, ordering</p><div class="phd-line"></div></div>${buildQuizBuilder()}</div>
   `;
 }
 
@@ -4829,8 +4798,8 @@ function buildQuizBuilder(){
   </div>`;
 }
 function renderQBQuestion(q,idx){
-  const types=['multiple','truefalse','fillblank','matching','ordering','shortanswer'];
-  const tlabels={multiple:'Multiple Choice',truefalse:'True/False',fillblank:'Fill Blank',matching:'Matching',ordering:'Ordering',shortanswer:'Short Answer'};
+  const types=['multiple','truefalse','fillblank','matching','ordering'];
+  const tlabels={multiple:'Multiple Choice',truefalse:'True/False',fillblank:'Fill Blank',matching:'Matching',ordering:'Ordering'};
   const qType=q.type||'multiple';
   let optionsHtml='';
   if(qType==='multiple') optionsHtml=`<div class="g2">${['a','b','c','d'].map(k=>`<div class="mfield"><label>Option ${k.toUpperCase()}</label><div style="display:flex;gap:.4rem;align-items:center"><input type="radio" name="correct-${idx}" value="${k}" ${q.correct===k?'checked':''}/><input type="text" value="${q[k]||''}" style="flex:1;padding:.45rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit;font-size:.82rem"/></div></div>`).join('')}</div>`;
@@ -4838,7 +4807,6 @@ function renderQBQuestion(q,idx){
   if(qType==='fillblank') optionsHtml=`<div class="callout cl-tip" style="margin:.5rem 0"><span>✏️</span><p>Write the sentence using <b>___</b> to mark the blank. Set the correct answer below.</p></div><div class="mfield"><label>Correct Answer</label><input type="text" value="${q.answer||''}" placeholder="The correct word or phrase" style="width:100%;padding:.5rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/></div>`;
   if(qType==='matching') optionsHtml=`<div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">Enter matching pairs:</div>${(q.pairs||[['',''],['',''],['','']]).map(p=>`<div class="qb-match-pair"><input type="text" value="${p[0]||''}" placeholder="Left item" style="padding:.45rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit;font-size:.82rem"/><span style="color:var(--muted)">↔</span><input type="text" value="${p[1]||''}" placeholder="Right match" style="padding:.45rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit;font-size:.82rem"/></div>`).join('')}`;
   if(qType==='ordering') optionsHtml=`<div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">Enter items in correct order (students will see them shuffled):</div>${(q.items||['First step','Second step','Third step']).map((item,ii)=>`<div class="qb-order-item"><span style="background:var(--forest);color:#fff;border-radius:4px;padding:.1rem .4rem;font-size:.65rem;font-weight:700">${ii+1}</span><input type="text" value="${item}" style="flex:1;border:none;background:transparent;font-family:inherit;font-size:.82rem;outline:none;color:var(--text)"/></div>`).join('')}`;
-  if(qType==='shortanswer') optionsHtml=`<div class="callout cl-tip" style="margin:.5rem 0"><span>✍️</span><p><b>Short Answer</b> — Students type their own answer. You review and mark it manually.</p></div><div class="mfield"><label>Model Answer (teacher reference only)</label><textarea rows="2" style="width:100%;padding:.5rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit;resize:vertical" placeholder="Enter expected answer...">${q.modelAnswer||''}</textarea></div><div class="mfield"><label>Max Marks</label><input type="number" min="1" max="20" value="${q.maxMarks||5}" style="width:80px;padding:.45rem;border:2px solid var(--border);border-radius:var(--r2);font-family:inherit"/></div>`;
   return `<div class="qb-question" id="qbq-${idx}">
     <div class="qb-question-num">Q${idx+1} · ${q.subject||'General'}</div>
     <div class="qb-q-type">${types.map(t=>`<button class="qb-type-btn ${qType===t?'on':''}" onclick="setQType(${idx},'${t}')">${tlabels[t]}</button>`).join('')}</div>
@@ -4959,26 +4927,6 @@ function vcSendMsg(cls){
   const chat=document.getElementById('vc-chat-'+cls);
   if(chat){ chat.innerHTML+=`<div class="vc-chat-msg"><div class="vc-chat-msg-name" style="color:#86efac">${currentUser.name||'You'}</div>${text}</div>`; chat.scrollTop=9999; }
   inp.value='';
-}
-
-function startScreenShare(cls){
-  if(!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia){
-    toast('Screen sharing requires a modern browser. Please use Chrome or Edge.');
-    return;
-  }
-  navigator.mediaDevices.getDisplayMedia({video:true}).then(stream=>{
-    const screen = document.getElementById('vc-view-screen-'+cls);
-    if(screen){
-      screen.innerHTML = `<video autoplay style="width:100%;height:100%;object-fit:contain;border-radius:8px" id="vc-screen-video-${cls}"></video>`;
-      const video = document.getElementById('vc-screen-video-'+cls);
-      if(video){ video.srcObject = stream; }
-      stream.getVideoTracks()[0].onended = () => {
-        screen.innerHTML = `<div style="text-align:center;color:rgba(255,255,255,.5)"><div style="font-size:3rem">🖥️</div><div style="font-size:.85rem;margin-top:.5rem">Screen sharing ended.</div><button class="vc-btn vc-btn-green" style="margin-top:.75rem" onclick="startScreenShare('${cls}')">📡 Share Again</button></div>`;
-        toast('Screen sharing stopped.');
-      };
-    }
-    toast('🖥️ Screen sharing started ✓');
-  }).catch(e=>{ toast('Screen share cancelled or denied.'); });
 }
 
 /* ══════════════════════════════════════════════════════
@@ -5573,46 +5521,6 @@ function showNotifPanel(){
   panel.innerHTML=`<div style="padding:.65rem 1rem;background:var(--forest);color:#fff;font-size:.82rem;font-weight:700;display:flex;justify-content:space-between;align-items:center">🔔 Notifications (${count} unread) <button onclick="this.closest('div[style*=position]').remove();markAllRead()" style="background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:4px;padding:.15rem .5rem;cursor:pointer;font-size:.72rem">Mark all read</button></div>${html}<div style="padding:.5rem 1rem"><button class="btn btn-ghost" style="width:100%;font-size:.75rem" onclick="this.closest('div[style*=position]').remove()">Close</button></div>`;
   document.body.appendChild(panel);
   setTimeout(()=>{ if(document.body.contains(panel)) panel.remove(); }, 5000);
-}
-
-function doSendNotif(){
-  const title  = document.getElementById('sn-title')?.value.trim();
-  const body   = document.getElementById('sn-body')?.value.trim();
-  const target = document.getElementById('sn-target')?.value || 'All School';
-  const type   = document.getElementById('sn-type')?.value   || 'info';
-  if(!title || !body){ toast('Please fill in title and message.'); return; }
-  sendNotification(title, body, target, type);
-  closeModal('sendNotif');
-  document.getElementById('sn-title').value='';
-  document.getElementById('sn-body').value='';
-}
-
-function showNotifPanel(){
-  const count = countUnread();
-  const recent = _notifications.slice(0,4);
-  const icons  = {info:'ℹ️',success:'✅',warning:'⚠️',error:'🚨'};
-  // Remove any existing panel
-  document.querySelectorAll('.notif-panel').forEach(el=>el.remove());
-  const panel = document.createElement('div');
-  panel.className = 'notif-panel';
-  panel.style.cssText = 'position:fixed;top:58px;right:.75rem;z-index:9999;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);width:320px;box-shadow:var(--shadow-lg);overflow:hidden';
-  panel.innerHTML = `
-    <div style="padding:.65rem 1rem;background:var(--forest);color:#fff;font-size:.82rem;font-weight:700;display:flex;justify-content:space-between;align-items:center">
-      🔔 Notifications ${count?`<span style="background:rgba(255,255,255,.25);border-radius:99px;padding:.1rem .5rem;font-size:.7rem">${count} unread</span>`:''}
-      <button onclick="this.closest('.notif-panel').remove()" style="background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:4px;padding:.2rem .5rem;cursor:pointer;font-size:.75rem">✕</button>
-    </div>
-    ${recent.map((n,i)=>`<div style="padding:.65rem 1rem;border-bottom:1px solid var(--border);display:flex;gap:.6rem;background:${n.read?'transparent':'rgba(13,61,31,.03)'};cursor:pointer" onclick="markRead(${i})">
-      <span style="font-size:1.1rem;flex-shrink:0;margin-top:.1rem">${icons[n.type]||'🔔'}</span>
-      <div style="flex:1"><div style="font-size:.8rem;font-weight:${n.read?600:800}">${n.title}</div><div style="font-size:.7rem;color:var(--muted)">${n.time}</div></div>
-      ${!n.read?'<div style="width:7px;height:7px;background:var(--forest3);border-radius:50%;flex-shrink:0;margin-top:.4rem"></div>':''}
-    </div>`).join('')}
-    <div style="padding:.5rem 1rem;display:flex;gap:.4rem">
-      <button class="btn btn-ghost" style="flex:1;font-size:.72rem" onclick="markAllRead();this.closest('.notif-panel').remove()">Mark all read</button>
-      <button class="btn btn-ghost" style="flex:1;font-size:.72rem" onclick="this.closest('.notif-panel').remove()">Close</button>
-    </div>`;
-  document.body.appendChild(panel);
-  // Auto-close after 6 seconds
-  setTimeout(()=>{ if(document.body.contains(panel)) panel.remove(); }, 6000);
 }
 
 /* ══════════════════════════════════════════════════════
